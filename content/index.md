@@ -43,12 +43,14 @@ Deep dives into each major system and framework:
 - [Composio](approaches.md#composio-agent-orchestrator) — Best multi-agent parallelization
 - [Patchwork](approaches.md#patchwork) — Patchflows, closest to Stripe's blueprint pattern
 - [Goose](approaches.md#goose) — MCP-native, the ancestor Stripe forked for Minions
+- [OpenAI Symphony](approaches.md#openai-symphony) — 15K+ stars, 6-layer orchestration, work management over agent supervision
 - [Mastra](approaches.md#mastra) — TypeScript framework for building custom agent systems
 - [OpenClaw](approaches.md#openclaw) — 355K stars, self-hosted assistant with messaging integration
 - [Rivet Sandbox Agent](approaches.md#rivet-sandbox-agent) — Universal API for running agents in sandboxes
 
 ### [Patterns](patterns.md)
 Cross-cutting architectural patterns:
+- [Harness Engineering](patterns.md#0-harness-engineering) — The overarching discipline: code as context, spec-driven software, encoded engineering taste
 - [Isolation Strategies](patterns.md#1-isolation-strategies) — Devboxes vs Docker vs worktrees vs cloud sandboxes
 - [Orchestration Models](patterns.md#2-orchestration-models) — Blueprints, patchflows, LangGraph, multi-agent teams
 - [Context Management](patterns.md#3-context-management) — MCP, rule files, pre-hydration, hierarchical context

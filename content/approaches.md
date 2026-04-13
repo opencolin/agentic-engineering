@@ -318,6 +318,51 @@ A self-hosted personal AI assistant platform that connects LLMs to real software
 
 ---
 
+## OpenAI Symphony
+
+- **Type:** Open Source (Apache 2.0)
+- **Stars:** 15K+
+- **GitHub:** https://github.com/openai/symphony
+- **Origin:** OpenAI, released as engineering preview
+- **Reference:** https://www.latent.space/p/harness-eng
+
+Symphony transforms project work into isolated, autonomous implementation runs. Rather than supervising coding agents, teams manage work at a strategic level — agents autonomously complete tasks, collect proof of work, and manage PR lifecycles.
+
+### Architecture
+
+Symphony has a 6-layer architecture built on Elixir/BEAM:
+
+- **Policy layer** — Enforcement rules (e.g., "CI must pass before merge")
+- **Configuration layer** — Environment setup and agent provisioning
+- **Coordination layer** — Work distribution, task queuing, agent assignment
+- **Execution layer** — Agent runtime with isolated worktrees per task
+- **Integration layer** — External system connections (Linear, GitHub, Slack)
+- **Observability layer** — Tracing, metrics, logging across all agent activity
+
+### Key Properties
+
+- **Work queue monitoring** — Watches task boards (e.g., Linear) and spawns agents for new assignments
+- **Proof of work** — Agents produce CI status, PR feedback, complexity metrics, and walkthrough videos
+- **Rework state** — If a PR isn't mergeable, trash the worktree and restart from scratch
+- **Daily improvement loops** — Agents analyze session logs to identify areas for improvement
+- **Self-ticketing** — Agents cut their own follow-up tickets
+- **Spec-driven** — Distributed as a formal specification (SPEC.md) that teams implement in any language
+- **Elixir reference implementation** — BEAM runtime chosen for process supervision, gen servers, and resumability
+- **Human role shift** — From code review to 1-2x daily yes/no decisions on batched PRs
+
+### Harness Engineering Context
+
+Symphony assumes codebases have adopted "harness engineering" — robust test suites, CI/CD, and safety mechanisms that give agents the feedback loops they need. It represents the next evolution: from agent supervision to work-level management.
+
+### Results (from Latent Space interview)
+
+- 1M+ lines of code, 1,500+ PRs, zero manually written code over 5 months
+- Team of 3 managing output equivalent to much larger teams
+- Before GPT-5.2: 3.5 PRs/engineer/day; after: 5-10 PRs/engineer/day
+- 500 NPM packages in codebase (described as "10,000 engineer level architecture")
+
+---
+
 ## Rivet Sandbox Agent
 
 - **Type:** Open Source

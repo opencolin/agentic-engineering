@@ -18,6 +18,7 @@ Side-by-side feature comparison of all major agentic coding approaches.
 | **Composio** | 6.2K | Yes | Task decomp | Configurable | No | Yes | Yes (parallel) | Open Source |
 | **Patchwork** | 1.5K | Yes | Patchflows | No | No | Yes (CI/CD) | No | Open Source |
 | **Goose** | 41K | No (interactive) | No | No | Yes (70+ tools) | No | No | Apache 2.0 |
+| **Symphony** | 15K+ | Yes | 6-layer architecture | Worktrees | Via integrations | Yes (CI-gated) | Yes (orchestrated) | Apache 2.0 |
 | **Mastra** | 22.9K | Framework | Workflows | Configurable | Yes (MCP) | Via workflows | Via workflows | Apache 2.0 |
 | **OpenClaw** | 355K | Via skills | No | Via NemoClaw | No | No | Yes (sessions) | Open Source |
 | **Rivet Sandbox** | 1.3K | Infrastructure | No | Yes (multi-runtime) | No | No | API-level | Open Source |

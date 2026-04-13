@@ -5,6 +5,21 @@ function init() {
     return;
   }
 
+  // Generate heading IDs from text (like GitHub does)
+  const renderer = new marked.Renderer();
+  renderer.heading = function ({ text, depth }) {
+    // text might be a token array in newer marked versions
+    const raw = typeof text === 'string' ? text : (text.text || text.raw || String(text));
+    const slug = raw.toLowerCase()
+      .replace(/<[^>]+>/g, '')
+      .replace(/[^\w\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '');
+    return `<h${depth} id="${slug}">${raw}</h${depth}>`;
+  };
+  marked.setOptions({ renderer });
+
   const contentEl = document.getElementById('content');
   const pages = {};
 

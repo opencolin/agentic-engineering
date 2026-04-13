@@ -4,6 +4,58 @@ Cross-cutting patterns that appear across the different approaches to autonomous
 
 ---
 
+## 0. Harness Engineering
+
+The overarching discipline that ties all other patterns together. Coined in the context of OpenAI's Symphony project, harness engineering is the practice of building the infrastructure, feedback loops, and encoded knowledge that make autonomous agents productive.
+
+**Reference:** https://www.latent.space/p/harness-eng
+
+### Core Thesis
+
+The fundamental insight: the scarcest resource is synchronous human attention. Everything else — code, tests, PRs — can be parallelized across agents. Software must be written for agent legibility as much as human readability.
+
+### Key Principles
+
+- **Code is context, code is prompts** — Agent behavior improves with codebase consistency. Write code that agents can reliably parse and modify.
+- **Encode all requirements as text** — Non-functional requirements, coding standards, architectural decisions — everything must exist as context agents can consume (rule files, specs, tests, docs).
+- **When agents fail, ask what's missing** — Don't blame the model. Ask: what capability, context, or structure would have prevented this failure? Then build it.
+- **One-minute build loops** — Impose hard constraints on feedback speed. If the build takes longer than a minute, decompose further.
+- **Observability-first** — Spawn metrics, traces, and logging infrastructure before writing application code. Agents need to see what's happening.
+- **Code is disposable** — Treat code as ephemeral context, not permanent artifact. Worktrees are cheap, merge conflicts are trivial for agents, dependencies can be inlined in an afternoon.
+
+### Spec-Driven Software ("Ghost Libraries")
+
+Distribute software as detailed specifications rather than implementations:
+
+1. Create a high-fidelity spec
+2. Spawn disconnected agents to implement against the spec
+3. Review implementations against upstream
+4. Iterate
+
+This enables agents to reproduce complex systems locally without importing fragile dependency chains.
+
+### Skills as Encoded Engineering Taste
+
+Not traditional agent skills — domain-specific primitives that encode your team's engineering judgment:
+
+- **Tech Tracker** — Markdown table for business logic guardrails
+- **Quality Score** — Markdown-based assessment hooks
+- **Review Agents** — Check code against documented standards with priority frameworks (P0-P2)
+
+Each skill provides tracing and metrics automatically. Skills determine when to invoke themselves (agent discretion, not forced).
+
+### The Human Role Shift
+
+From: Individual contributor writing code.
+To: Systems thinker optimizing agent productivity.
+
+- Focus on "where are agents making mistakes?"
+- Build abstractions to unblock agents
+- Move higher up the stack as models improve
+- Review 1-2x daily (yes/no decisions on batched PRs), not line-by-line
+
+---
+
 ## 1. Isolation Strategies
 
 How agents are sandboxed from production and from each other.
