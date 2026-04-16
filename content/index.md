@@ -81,11 +81,14 @@ LLM inference solutions for agent workloads:
 - [Inference Strategy](inference.md#inference-strategy-for-agents) — Tiered model routing and cost optimization
 
 ### [Hosting & Execution](infrastructure.md)
-Where agents actually run — 50+ vendors across 6 tiers:
+Where agents actually run — 150+ vendors across 9 major categories:
 - [Hosting Decision Framework](infrastructure.md#the-hosting-decision-framework) — Turnkey, Agent-Optimized, Sandbox, Serverless, Cloud Mac, Self-Hosted
-- [Code Execution Sandboxes](infrastructure.md#code-execution-sandboxes) — E2B, Sprites.dev, Daytona, Modal, + 9 more
-- [Turnkey Managed Platforms](infrastructure.md#turnkey-managed-platforms) — ZenClaw, KlausAI, Coral, Lindy
-- [Agent Orchestration](infrastructure.md#agent-orchestration) — LangGraph Cloud, Temporal, Kagent
-- [Cloud Mac Hosting](infrastructure.md#cloud-mac-hosting) — MacStadium, AWS EC2 Mac, Scaleway, + 3 more
-- [Self-Hosted Infrastructure](infrastructure.md#self-hosted-infrastructure) — Nebius, AWS, Hetzner, Fly.io, + 10 more
+- [Code Execution Sandboxes](infrastructure.md#code-execution-sandboxes) — 13 purpose-built sandboxes + 10 CDEs (GitHub Codespaces, Gitpod, Coder, Vercel Sandbox) + 7 OSS isolation primitives
+- [Turnkey Managed Platforms](infrastructure.md#turnkey-managed-platforms) — OpenClaw-native + enterprise hubs (Copilot Studio, Agentspace, Bedrock) + no-code builders + autonomous coding agents (Devin, Factory, Cursor) + visual IDEs
+- [Agent-Optimized Hosting](infrastructure.md#agent-optimized-hosting) — ClawHost, Claw Cloud, Zo Computer
+- [Agent Orchestration](infrastructure.md#agent-orchestration) — Durable execution (Temporal, Inngest, Trigger.dev, Restate, DBOS, + 9 more) + cloud workflows + agent frameworks (LangGraph, CrewAI, AutoGen, Mastra) + data/ML orchestrators
+- [Cloud Mac Hosting](infrastructure.md#cloud-mac-hosting) — 13 dedicated Mac hosts + 7 Mac CI runners (Xcode Cloud, GitHub Actions, CircleCI, Bitrise)
+- [Self-Hosted Infrastructure](infrastructure.md#self-hosted-infrastructure) — Specialized GPU clouds (CoreWeave, Lambda, RunPod, Vast.ai, + 10 more) + general clouds (AWS, GCP, Azure, OCI, + 15 more) + VPS/bare metal
+- [Agent Memory & Context](infrastructure.md#agent-memory--context-infrastructure) — Purpose-built memory (Mem0, Letta, Zep) + 18 vector DBs + graph DBs for GraphRAG
+- [Agent Observability & Evaluation](infrastructure.md#agent-observability--evaluation) — Tracing (LangSmith, Langfuse, Arize, AgentOps, + 11 more) + eval (Braintrust, Patronus, Ragas, DeepEval) + guardrails
 - [Choosing Your Stack](infrastructure.md#choosing-your-stack) — Starter, growth, scale, and enterprise recommendations
