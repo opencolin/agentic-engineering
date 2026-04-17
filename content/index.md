@@ -83,7 +83,7 @@ LLM inference solutions for agent workloads:
 ### [Hosting & Execution](infrastructure.md)
 Where agents actually run — 150+ vendors across 9 major categories:
 - [Hosting Decision Framework](infrastructure.md#the-hosting-decision-framework) — Turnkey, Agent-Optimized, Sandbox, Serverless, Cloud Mac, Self-Hosted
-- [Code Execution Sandboxes](infrastructure.md#code-execution-sandboxes) — 13 purpose-built sandboxes + 10 CDEs (GitHub Codespaces, Gitpod, Coder, Vercel Sandbox) + 7 OSS isolation primitives
+- [Code Execution Sandboxes](infrastructure.md#code-execution-sandboxes) — 14 purpose-built sandboxes including [Contree](infrastructure.md#contree--git-native-sandbox-for-agents) (Git-like branching from Nebius), E2B, Sprites.dev, Modal + 10 CDEs (GitHub Codespaces, Gitpod, Coder, Vercel Sandbox) + 7 OSS isolation primitives
 - [Turnkey Managed Platforms](infrastructure.md#turnkey-managed-platforms) — OpenClaw-native + enterprise hubs (Copilot Studio, Agentspace, Bedrock) + no-code builders + autonomous coding agents (Devin, Factory, Cursor) + visual IDEs
 - [Agent-Optimized Hosting](infrastructure.md#agent-optimized-hosting) — ClawHost, Claw Cloud, Zo Computer
 - [Agent Orchestration](infrastructure.md#agent-orchestration) — Durable execution (Temporal, Inngest, Trigger.dev, Restate, DBOS, + 9 more) + cloud workflows + agent frameworks (LangGraph, CrewAI, AutoGen, Mastra) + data/ML orchestrators

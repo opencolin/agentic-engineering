@@ -29,6 +29,7 @@ Isolated environments where agents execute generated code safely. The most conse
 
 | Vendor | Isolation | Persistence | Cold Start | GPU | Price | Strength |
 |--------|----------|------------|-----------|-----|-------|----------|
+| **Contree** | microVM (Nebius) | Git-like branching + snapshots | Sub-sec | Yes | Usage | Git-style fork/rollback, MCP server + Python SDK, Nebius-backed |
 | **E2B** | Firecracker microVM | Ephemeral / pause (beta) | ~150ms | No | $100 credit | Dedicated kernel, SDK-first, SOC 2 |
 | **Sprites.dev** | Firecracker microVM | Indefinite + hibernate | Instant | No | Per-sec | Hibernate ~300ms, zero idle cost |
 | **Daytona** | Docker containers | Stateful, unlimited | ~90ms | Yes | $200 credit | GPU support, fastest creation |
@@ -44,6 +45,30 @@ Isolated environments where agents execute generated code safely. The most conse
 | **CodeSandbox SDK** | microVMs | Forking/snapshots | Sub-sec | No | Usage | SOC 2, owned by Together AI |
 
 **Isolation tiers matter:** Shared kernel containers (Docker, gVisor) provide process-level separation but share an OS kernel. Firecracker microVMs (E2B, Sprites.dev) provide dedicated kernels. Dedicated VMs (Coral, AgentComputer) provide the strongest isolation. Enterprises handling sensitive data should require dedicated kernel isolation at minimum.
+
+### Contree — Git-Native Sandbox for Agents
+
+[Contree](https://contree.dev) is a standout in the sandbox category: built by [Nebius](https://nebius.com), it combines VM-level isolation with a Git-inspired branching model that's uniquely suited to agent workloads. Rather than treating sandboxes as ephemeral containers, Contree treats them like a version-controlled filesystem — agents can checkpoint, branch, explore multiple solution paths in parallel, and instantly roll back without re-execution.
+
+**Why this matters for agents:**
+
+- **Branch-and-explore workflows** — An agent can fork from any checkpoint to try multiple approaches, evaluate outcomes, and continue down the best path. This maps directly to how reasoning agents should operate (explore, evaluate, commit) but is natively impossible in traditional sandbox platforms.
+- **VM-level isolation with container efficiency** — Hardware-level guarantees for untrusted code execution, without the overhead of spinning up full VMs for each run.
+- **OCI-compliant image support** — Bring any Docker Hub / GHCR image as a sandbox base. The mental model aligns with Git: images are commits, branches enable parallel work, tags are snapshots.
+- **MCP-native** — First-class MCP server (`contree-mcp`) with 17 tools (run, rsync, import_image, list_images, upload, download, registry_auth, operation management, etc.) — drops into any MCP-compatible agent like Claude Code without glue code.
+- **Python SDK** — Sync and async clients (`contree-sdk`) with image and session abstractions for programmatic use.
+- **Resource tracking** — Built-in monitoring of CPU time, memory, and I/O per execution.
+- **Async operations** — Long-running tasks with polling and cancellation — essential for agent workloads that may run for minutes or hours.
+
+**Unique agent patterns this enables:**
+
+- *Tree-of-thought sandboxing* — Fork the environment at each decision point, run parallel branches to evaluate, then merge the winner. This is the AgentField "branching and rollback" pattern made native.
+- *7,000 preloaded environments* — Use checkpoint-and-branch to instantiate thousands of pre-configured environments instantly, then fork for per-task work. Ideal for benchmarking, batch agent runs, or large-scale eval harnesses.
+- *Rollback-on-failure* — If an agent's code execution produces a bad state, roll back the entire sandbox in milliseconds rather than rebuilding from scratch.
+
+Contree is particularly well-suited to teams already using Nebius for inference (see [Inference](inference.md#nebius-ai-cloud--standout-platform)) — the combined stack gives you agent sandboxing, Token Factory serverless inference, and GPU clusters all on one provider with consistent pricing and operational tooling.
+
+**Resources:** [Docs](https://docs.contree.dev/) · [MCP Quickstart](https://docs.contree.dev/mcp/quickstart.html) · [Python SDK](https://docs.contree.dev/sdk/python_sdk/index.html) · [Contree Skill (Claude Code)](https://github.com/colygon/contree-skill/)
 
 ### Cloud Development Environments (CDEs)
 
@@ -490,9 +515,10 @@ A critical distinction often missed: code execution sandboxes (E2B, Sprites, Day
 
 - **Inference:** Nebius Token Factory for self-hosted open models + direct API for proprietary models
 - **Agent:** OpenHands or custom harness with multi-model routing
-- **Compute:** Nebius managed Kubernetes with GPU clusters for model serving + E2B for agent sandboxes
+- **Compute:** Nebius managed Kubernetes with GPU clusters for model serving + Contree or E2B for agent sandboxes
+- **Sandbox superpower:** Contree's Git-like branching enables tree-of-thought agent workflows — fork at each decision, evaluate in parallel, rollback on failure
 - **Orchestration:** AgentField or Symphony
-- **Advantage:** Best price-performance for teams running open-weight models at high volume. Nebius's serverless inference autoscales with agent demand, and the KV-aware routing keeps latency low during multi-turn agent loops.
+- **Advantage:** Best price-performance for teams running open-weight models at high volume. Nebius's serverless inference autoscales with agent demand, and the KV-aware routing keeps latency low during multi-turn agent loops. Single-provider stack (Contree sandboxes + Nebius inference + Nebius GPU clusters) simplifies operations.
 - **Cost:** Predictable token-level pricing, significantly lower than API providers at volume
 
 ### Enterprise Stack (High investment)

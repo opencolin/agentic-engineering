@@ -211,6 +211,8 @@ Outer Loop: Replanner restructures remaining work
 
 AgentField saves state at every level boundary. A build failing at invocation 140 resumes from that point rather than restarting from scratch.
 
+[Contree](https://contree.dev) takes this further with Git-like branching at the sandbox level — agents can checkpoint the entire environment, fork to try multiple approaches, and roll back to any prior state without re-execution. This enables *tree-of-thought sandboxing*: fork at each decision point, run parallel branches to evaluate, then continue with the winner. See [Infrastructure](infrastructure.md#contree--git-native-sandbox-for-agents) for details.
+
 ### Key Insight
 
 The sophistication of failure handling is often the biggest differentiator between toy agents and production systems. Stripe's 2-CI-round cap is deceptively simple but reflects a pragmatic insight: there are diminishing marginal returns for an LLM to run many rounds of a full CI loop.
