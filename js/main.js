@@ -5,18 +5,28 @@ function init() {
     return;
   }
 
-  // Generate heading IDs from text (like GitHub does)
+  // Generate heading IDs from text and render inline markdown (links, bold, etc.)
   const renderer = new marked.Renderer();
-  renderer.heading = function ({ text, depth }) {
-    // text might be a token array in newer marked versions
-    const raw = typeof text === 'string' ? text : (text.text || text.raw || String(text));
-    const slug = raw.toLowerCase()
-      .replace(/<[^>]+>/g, '')
+  renderer.heading = function (arg) {
+    const depth = arg.depth;
+    // Newer marked passes { tokens, text, depth }; older may pass raw text
+    let innerHTML;
+    let plainText;
+    if (arg.tokens && this.parser && typeof this.parser.parseInline === 'function') {
+      innerHTML = this.parser.parseInline(arg.tokens);
+      // Plain text: strip HTML tags from rendered output for slug
+      plainText = innerHTML.replace(/<[^>]+>/g, '');
+    } else {
+      const raw = typeof arg.text === 'string' ? arg.text : (arg.text && (arg.text.text || arg.text.raw)) || String(arg.text);
+      innerHTML = raw;
+      plainText = raw;
+    }
+    const slug = plainText.toLowerCase()
       .replace(/[^\w\s-]/g, '')
       .replace(/\s+/g, '-')
       .replace(/-+/g, '-')
       .replace(/^-|-$/g, '');
-    return `<h${depth} id="${slug}">${raw}</h${depth}>`;
+    return `<h${depth} id="${slug}">${innerHTML}</h${depth}>`;
   };
   marked.setOptions({ renderer });
 
