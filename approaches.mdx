@@ -1,4 +1,7 @@
-# Approaches to Agentic Coding
+---
+title: "Approaches to Agentic Coding"
+description: "Deep dives into the major systems and frameworks driving autonomous software engineering — from enterprise-internal platforms to open-source tools and model-provider managed agents."
+---
 
 A deep dive into the major systems and frameworks driving autonomous software engineering — from enterprise-internal platforms to open-source tools.
 
@@ -326,10 +329,10 @@ OpenClaw has spawned a family of derivative projects and an entire hosting marke
 | **NemoClaw** | Python/CUDA | N/A (NVIDIA) | Enterprise OpenShell, GPU guardrails, NVIDIA NIM |
 | **Hermes Agent** | Python | ~24.6K | Self-improving skill loop, RL fine-tuning via Atropos |
 | **IronClaw** | Rust | ~2.7K | 5-layer security, WASM sandbox, audit trails, 3.4MB binary |
-| **ZeroClaw** | Rust | 20K+ | Edge-first, 3.4-5MB binary, <50ms startup, container isolation |
+| **ZeroClaw** | Rust | 20K+ | Edge-first, 3.4-5MB binary, `<50ms` startup, container isolation |
 | **NanoClaw** | TypeScript | Growing | ~500 lines, auditable in 8 min, Agent Swarms, container-per-group |
 
-**Hosting ecosystem:** 30+ vendors now offer OpenClaw-compatible hosting across six tiers — from turnkey platforms (ZenClaw AI, KlausAI, Coral) to self-hosted infrastructure. See the [Infrastructure](infrastructure.md#agent-hosting--execution-platforms) page for the full vendor landscape.
+**Hosting ecosystem:** 30+ vendors now offer OpenClaw-compatible hosting across six tiers — from turnkey platforms (ZenClaw AI, KlausAI, Coral) to self-hosted infrastructure. See the [Infrastructure](/infrastructure#agent-hosting--execution-platforms) page for the full vendor landscape.
 
 ---
 
@@ -371,7 +374,7 @@ Claude Managed Agents is built around four concepts:
 
 ### Why This Is a New Category
 
-Claude Managed Agents represents a fundamentally new market layer (see [Sandboxes: Market Structure](sandboxes.md#the-sandbox-market-structure) for the four-layer model). Where previous agent platforms required you to assemble inference + sandbox + harness + memory separately, Claude Managed Agents bundles all four into a single API — with the model provider as the operator.
+Claude Managed Agents represents a fundamentally new market layer (see [Sandboxes: Market Structure](/sandboxes#the-sandbox-market-structure) for the four-layer model). Where previous agent platforms required you to assemble inference + sandbox + harness + memory separately, Claude Managed Agents bundles all four into a single API — with the model provider as the operator.
 
 This is disruptive to the Layer B agent-sandbox market: teams that would have used E2B + LangGraph + Pinecone + their own loop can now make one API call instead. The trade-off is vendor lock-in: moving off Claude Managed Agents to a self-built stack requires re-implementing session management, memory, tool execution, and sandbox lifecycle.
 
@@ -385,7 +388,7 @@ This is disruptive to the Layer B agent-sandbox market: teams that would have us
 
 ### When to Pick Something Else
 
-- You need specialized branching semantics → [Contree](sandboxes.md#contree--the-git-native-sandbox)
+- You need specialized branching semantics → [Contree](/sandboxes#contree--the-git-native-sandbox)
 - You need GPU in the sandbox → Modal, Daytona, Northflank
 - You need enterprise VPC → Northflank, Runloop, or self-hosted
 - You're building an agent infrastructure product → Layer B sandbox + custom harness

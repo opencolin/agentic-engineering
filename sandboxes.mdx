@@ -1,4 +1,7 @@
-# Sandboxes for Agentic Engineering
+---
+title: "Sandboxes"
+description: "Sandboxes are the single most important piece of infrastructure for autonomous coding agents. They answer the fundamental question: where does untrusted LLM-generated code actually run?"
+---
 
 Sandboxes are the single most important piece of infrastructure for autonomous coding agents. They answer the fundamental question: **where does untrusted LLM-generated code actually run?**
 
@@ -66,7 +69,7 @@ Layer D collapses what used to be a stack (Claude model + E2B sandbox + LangGrap
 The baseline. Agent writes code → sandbox runs it → agent sees stdout/stderr/exit code and iterates.
 
 - **Best for:** SWE-bench-style task completion, test-driven development loops, script execution
-- **Required:** Fast cold start (<1s), CLI/shell access, file I/O
+- **Required:** Fast cold start (`<1s`), CLI/shell access, file I/O
 - **Example vendors:** E2B, Daytona, Modal, AgentComputer, Contree
 
 ### 2. Parallel Exploration (Tree-of-Thought)
@@ -107,7 +110,7 @@ Agents that interact with iMessage, Xcode, iOS Simulator, or Apple's Neural Engi
 
 - **Best for:** Mobile app build/test agents, iOS automation, Apple ecosystem tooling
 - **Required:** macOS hardware, often Apple silicon (M1-M4)
-- **Example vendors:** MacStadium, AWS EC2 Mac, Scaleway Mac (see [Hosting](infrastructure.md#cloud-mac-hosting))
+- **Example vendors:** MacStadium, AWS EC2 Mac, Scaleway Mac (see [Hosting](/infrastructure#cloud-mac-hosting))
 
 ### 7. Coding Agent Dev Environments
 
@@ -296,7 +299,7 @@ The underlying technologies that higher-level sandboxes build on. Useful if you'
 
 | Tech | Maintainer | Isolation Level | Key Strength |
 |------|-----------|-----------------|-------------|
-| **Firecracker** | AWS (OSS) | microVM | Powers Lambda/Fargate, <125ms boot, <5MB memory overhead |
+| **Firecracker** | AWS (OSS) | microVM | Powers Lambda/Fargate, `<125ms` boot, `<5MB` memory overhead |
 | **Kata Containers** | OpenInfra Foundation | VM-isolated OCI | OCI-compatible containers with VM-level isolation |
 | **gVisor** | Google | User-space kernel | Syscall interception, smaller attack surface than containers |
 | **Nsjail** | Google | Namespaces + seccomp | Lightweight Linux process jail |
@@ -386,8 +389,8 @@ Use this to pick a sandbox for your agent workflow.
 | Want MCP-native integration? | **Contree**, AIO Sandbox | Others via custom wiring |
 | Building your own sandbox? | Firecracker / libkrun / gVisor | Managed vendor |
 | Need persistent dev environment (Minions-style)? | CDEs: Gitpod, Codespaces, Coder | Ephemeral sandboxes |
-| Mac-specific workflows? | [Cloud Mac](infrastructure.md#cloud-mac-hosting) | Linux sandboxes |
-| Want the fastest time-to-market? | [Claude Managed Agents](approaches.md#claude-managed-agents) (Layer D) | Layer B sandbox + custom harness |
+| Mac-specific workflows? | [Cloud Mac](/infrastructure#cloud-mac-hosting) | Linux sandboxes |
+| Want the fastest time-to-market? | [Claude Managed Agents](/approaches#claude-managed-agents) (Layer D) | Layer B sandbox + custom harness |
 | Need full control over harness? | Layer B sandbox + custom harness | Layer D managed agent |
 
 ---
@@ -453,7 +456,7 @@ This pattern is impractical without fast branching (Contree) or snapshots (Modal
 
 ## Further Reading
 
-- [Hosting & Execution](infrastructure.md) — Full hosting landscape including sandboxes in context
-- [Inference](inference.md) — LLM providers that produce the code your sandbox runs
-- [Patterns](patterns.md) — Broader agentic engineering patterns including failure recovery and multi-agent coordination
-- [Approaches](approaches.md) — Systems like Stripe Minions and OpenAI Symphony that depend on sandbox infrastructure
+- [Hosting & Execution](/infrastructure) — Full hosting landscape including sandboxes in context
+- [Inference](/inference) — LLM providers that produce the code your sandbox runs
+- [Patterns](/patterns) — Broader agentic engineering patterns including failure recovery and multi-agent coordination
+- [Approaches](/approaches) — Systems like Stripe Minions and OpenAI Symphony that depend on sandbox infrastructure

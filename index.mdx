@@ -1,0 +1,88 @@
+---
+title: "Agentic Engineering"
+description: "A comprehensive reference to autonomous coding agents, agentic organizations, and the emerging patterns of AI-native software engineering."
+mode: "wide"
+---
+
+<Note>
+This reference documents the rapidly evolving landscape of autonomous AI coding agents — from Stripe's internal Minions (1,300+ PRs/week) to Anthropic's Claude Managed Agents, plus 180+ infrastructure vendors that power the category.
+</Note>
+
+## What is Agentic Engineering?
+
+Agentic engineering is the practice of using autonomous AI agents to write, test, and ship production code with minimal human intervention. Unlike interactive AI assistants (copilots), agentic systems take a task description and produce a complete pull request — running tests, fixing linter errors, and iterating on CI failures along the way.
+
+The shift from "human writes code with AI help" to "AI writes code with human review" is fundamentally changing how engineering organizations operate, enabling parallelization of work that was previously bottlenecked on developer attention.
+
+## Core Concepts
+
+<CardGroup cols={3}>
+  <Card title="One-Shot Execution" icon="bolt">
+    Agents take a task and produce a PR end-to-end with no human interaction. Engineers spin up many agents in parallel.
+  </Card>
+  <Card title="Sandbox Isolation" icon="box">
+    Each agent runs in an isolated environment — devboxes, Docker containers, microVMs, or git worktrees.
+  </Card>
+  <Card title="Feedback Loops" icon="arrows-rotate">
+    Agents iterate against linters, tests, and CI. Local checks catch issues fast; CI is the validation gate.
+  </Card>
+  <Card title="Context via MCP" icon="plug">
+    Model Context Protocol provides agents with docs, tickets, code intelligence, and internal tools.
+  </Card>
+  <Card title="Orchestration" icon="diagram-project">
+    Blueprints, patchflows, and workflow graphs interleave deterministic steps with agentic creativity.
+  </Card>
+  <Card title="Failure Recovery" icon="shield">
+    Structured retry, split, escalate, and accept-with-debt strategies handle inevitable failures.
+  </Card>
+</CardGroup>
+
+## The Agentic Engineering Flow
+
+Most autonomous coding agents follow a similar high-level pipeline:
+
+```
+Task Input → Context Gathering → Planning → Implementation → Local Testing → CI Validation → Pull Request
+```
+
+The key differentiators between approaches lie in **how they handle failure** at each stage, **how they manage context** within the LLM's window, and **how they isolate** parallel agent runs.
+
+## Sections
+
+<CardGroup cols={2}>
+  <Card title="Approaches" icon="layer-group" href="/approaches">
+    Deep dives on 14+ coding agent systems — Stripe Minions, Claude Managed Agents, OpenAI Symphony, OpenHands, AgentField, Devin, and more
+  </Card>
+  <Card title="Patterns" icon="shapes" href="/patterns">
+    Cross-cutting architectural patterns — harness engineering, isolation, orchestration, context management, feedback loops, failure recovery
+  </Card>
+  <Card title="Compare" icon="table" href="/comparison">
+    Side-by-side feature matrix and capability rankings across all major systems
+  </Card>
+  <Card title="Organizations" icon="building" href="/organizations">
+    How companies organize around agents — Stripe model, open-source model, agent-first development
+  </Card>
+  <Card title="Inference" icon="microchip" href="/inference">
+    LLM inference solutions: API providers, platforms (Nebius, Together, Fireworks, Groq), routing gateways, self-hosted
+  </Card>
+  <Card title="Sandboxes" icon="cube" href="/sandboxes">
+    The sandbox layer in depth — market structure, 14 vendors, Contree deep dive, Claude Managed Agents (Layer D), agent patterns
+  </Card>
+  <Card title="Hosting" icon="server" href="/infrastructure">
+    150+ vendors across 9 categories — turnkey, agent-optimized, orchestration, Cloud Mac, GPU clouds, self-hosted, memory, observability
+  </Card>
+</CardGroup>
+
+## Quick Stats
+
+<CardGroup cols={3}>
+  <Card title="1,300+" icon="code-pull-request">
+    PRs/week merged by agents at Stripe
+  </Card>
+  <Card title="180+" icon="network-wired">
+    Infrastructure vendors documented
+  </Card>
+  <Card title="14+" icon="robot">
+    Agent systems profiled in depth
+  </Card>
+</CardGroup>

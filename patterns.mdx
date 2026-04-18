@@ -1,4 +1,7 @@
-# Architectural Patterns in Agentic Engineering
+---
+title: "Architectural Patterns"
+description: "Cross-cutting patterns that appear across approaches to autonomous coding agents. Understanding these helps you evaluate tools and design your own agentic systems."
+---
 
 Cross-cutting patterns that appear across the different approaches to autonomous coding agents. Understanding these patterns helps you evaluate tools and design your own agentic systems.
 
@@ -211,7 +214,7 @@ Outer Loop: Replanner restructures remaining work
 
 AgentField saves state at every level boundary. A build failing at invocation 140 resumes from that point rather than restarting from scratch.
 
-[Contree](https://contree.dev) takes this further with Git-like branching at the sandbox level — agents can checkpoint the entire environment, fork to try multiple approaches, and roll back to any prior state without re-execution. This enables *tree-of-thought sandboxing*: fork at each decision point, run parallel branches to evaluate, then continue with the winner. See [Infrastructure](infrastructure.md#contree--git-native-sandbox-for-agents) for details.
+[Contree](https://contree.dev) takes this further with Git-like branching at the sandbox level — agents can checkpoint the entire environment, fork to try multiple approaches, and roll back to any prior state without re-execution. This enables *tree-of-thought sandboxing*: fork at each decision point, run parallel branches to evaluate, then continue with the winner. See [Infrastructure](/infrastructure#contree--git-native-sandbox-for-agents) for details.
 
 ### Key Insight
 

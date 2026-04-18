@@ -1,0 +1,19 @@
+{
+  "name": "agentic-engineering-docs",
+  "version": "1.0.0",
+  "description": "Mintlify documentation portal for agentic engineering — autonomous coding agents, architectural patterns, and infrastructure.",
+  "private": true,
+  "scripts": {
+    "dev": "mint dev",
+    "broken-links": "mint broken-links",
+    "upgrade": "mint upgrade"
+  },
+  "devDependencies": {
+    "mint": "^4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/opencolin/minions.git"
+  },
+  "license": "MIT"
+}

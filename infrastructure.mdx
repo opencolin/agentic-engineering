@@ -1,8 +1,11 @@
-# Hosting & Execution Infrastructure
+---
+title: "Hosting & Execution"
+description: "Where agents actually run — 150+ vendors across 9 categories covering the full hosting and execution landscape."
+---
 
 Where agents actually run — the compute infrastructure for sandboxed, scalable agent execution. This page covers 50+ vendors across 6 tiers, sourced from ClawCamp Research market guides (April 2026).
 
-For LLM inference solutions, see [Inference](inference.md).
+For LLM inference solutions, see [Inference](/inference).
 
 ---
 
@@ -27,17 +30,17 @@ The agent hosting market has segmented into six distinct tiers, each with differ
 
 Isolated environments where agents execute generated code safely. This is the single most important layer for autonomous coding agents.
 
-**For in-depth coverage, see the dedicated [Sandboxes](sandboxes.md) page**, which covers:
+**For in-depth coverage, see the dedicated [Sandboxes](/sandboxes) page**, which covers:
 
-- [Why sandboxes matter for agents](sandboxes.md#why-sandboxes-matter-for-agents)
-- [Core use cases](sandboxes.md#core-use-cases) — code execution, tree-of-thought, rollback, persistent environments, multi-tenant fleets, Apple-native, CDEs
-- [Isolation tier ladder](sandboxes.md#isolation-tiers--the-security-ladder) — process → container → gVisor → microVM → VM → bare metal
-- [All 14 purpose-built agent sandbox vendors](sandboxes.md#purpose-built-agent-sandboxes)
-- [Contree deep dive](sandboxes.md#contree--the-git-native-sandbox) — Git-native sandboxing for tree-of-thought agent workflows
-- [Cloud Dev Environments (CDEs)](sandboxes.md#cloud-development-environments-cdes) — Codespaces, Gitpod, Coder, Vercel Sandbox, etc.
-- [Open-source isolation primitives](sandboxes.md#open-source-isolation-primitives) — Firecracker, Kata, gVisor, etc.
-- [Agent patterns](sandboxes.md#agent-patterns-enabled-by-modern-sandboxes) — checkpoint-explore-commit, golden pool, destructive safety, sandbox-as-context
-- [Integration examples](sandboxes.md#integration-examples) — MCP, Python SDK, custom harness code
+- [Why sandboxes matter for agents](/sandboxes#why-sandboxes-matter-for-agents)
+- [Core use cases](/sandboxes#core-use-cases) — code execution, tree-of-thought, rollback, persistent environments, multi-tenant fleets, Apple-native, CDEs
+- [Isolation tier ladder](/sandboxes#isolation-tiers--the-security-ladder) — process → container → gVisor → microVM → VM → bare metal
+- [All 14 purpose-built agent sandbox vendors](/sandboxes#purpose-built-agent-sandboxes)
+- [Contree deep dive](/sandboxes#contree--the-git-native-sandbox) — Git-native sandboxing for tree-of-thought agent workflows
+- [Cloud Dev Environments (CDEs)](/sandboxes#cloud-development-environments-cdes) — Codespaces, Gitpod, Coder, Vercel Sandbox, etc.
+- [Open-source isolation primitives](/sandboxes#open-source-isolation-primitives) — Firecracker, Kata, gVisor, etc.
+- [Agent patterns](/sandboxes#agent-patterns-enabled-by-modern-sandboxes) — checkpoint-explore-commit, golden pool, destructive safety, sandbox-as-context
+- [Integration examples](/sandboxes#integration-examples) — MCP, Python SDK, custom harness code
 
 ### Quick Reference Table
 
@@ -51,7 +54,7 @@ Isolated environments where agents execute generated code safely. This is the si
 | **Runloop** | Custom hypervisor | Snapshots | Sub-sec | No | 10K+ parallel, SWE-bench focus |
 | **Northflank** | microVM / gVisor | Stateful | Sub-sec | Yes (H100s) | Enterprise VPC, multi-cloud |
 | **AgentComputer** | Ubuntu VMs | 25 GB persistent | Sub-sec | No | Built for Claude/Codex agents |
-| **+ 6 OSS sandboxes** | Various | Various | Various | Limited | [See full table](sandboxes.md#purpose-built-agent-sandboxes) |
+| **+ 6 OSS sandboxes** | Various | Various | Various | Limited | [See full table](/sandboxes#purpose-built-agent-sandboxes) |
 
 ---
 
@@ -211,7 +214,7 @@ Dedicated macOS environments for agents needing Apple-native capabilities — iM
 
 | Vendor | Hardware | Isolation | Price | Key Strength |
 |--------|---------|----------|-------|-------------|
-| **MacStadium** | M1/M2/M4 Mac Mini + Max | Orka virtualization | Monthly | Largest Mac cloud, <1s VM launch |
+| **MacStadium** | M1/M2/M4 Mac Mini + Max | Orka virtualization | Monthly | Largest Mac cloud, `<1s` VM launch |
 | **AWS EC2 Mac** | M4/M4 Pro/Max (Nitro) | Bare metal | Hourly (24hr min dedicated) | Full AWS VPC/EBS integration |
 | **Scaleway Mac** | M4 Mac Mini | Bare metal | Hourly | EU sovereign hosting (Paris DC) |
 | **MacinCloud** | M1/M2 | Managed / dedicated | Monthly | Global presence, managed CI/CD |
@@ -440,7 +443,7 @@ A critical distinction often missed: code execution sandboxes (E2B, Sprites, Day
 ## Key Trends
 
 - **Security is the primary buying criterion** — The ClawJacked vulnerability (CVE-2026-25253) exposed credential isolation weaknesses across the ecosystem. Demand for dedicated VM/microVM isolation has surged. Only a minority of platforms offer hardware-level isolation guarantees.
-- **Cost optimization via model routing** — LLM API costs comprise 60-80% of agent operating expenses. See [Inference](inference.md#cost-optimization-through-model-routing) for details on intelligent routing strategies.
+- **Cost optimization via model routing** — LLM API costs comprise 60-80% of agent operating expenses. See [Inference](/inference#cost-optimization-through-model-routing) for details on intelligent routing strategies.
 - **Checkpoint/hibernate patterns** — Sprites.dev's ~300ms checkpoint/restore and auto-sleep after 30 seconds of idle time represents a shift from always-on to always-available agent infrastructure. Full state preservation with zero idle cost is expected to become standard.
 - **Multi-agent composition drives orchestration demand** — As deployments mature from single agents to multi-agent systems, demand for durable orchestration layers (Temporal, LangGraph) is accelerating.
 
@@ -450,7 +453,7 @@ A critical distinction often missed: code execution sandboxes (E2B, Sprites, Day
 
 ### Starter Stack (Low investment)
 
-- **Inference:** Direct API (Anthropic or OpenAI) — see [Inference](inference.md)
+- **Inference:** Direct API (Anthropic or OpenAI) — see [Inference](/inference)
 - **Agent:** Claude Code, OpenHands, or OpenCode
 - **Compute:** Local Docker or GitHub Actions
 - **Cost:** Pay-per-use API tokens only
@@ -496,4 +499,4 @@ A critical distinction often missed: code execution sandboxes (E2B, Sprites, Day
 | Long-running always-on agents? | Serverless agent-ready (Nebius, Lambda, Modal) | Ephemeral sandboxes |
 | Budget-constrained at scale? | Self-hosted (Hetzner, Contabo) with custom hardening | Managed platforms |
 
-See also: [Inference Solutions](inference.md) for choosing your LLM provider.
+See also: [Inference Solutions](/inference) for choosing your LLM provider.
