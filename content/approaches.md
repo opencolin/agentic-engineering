@@ -333,6 +333,71 @@ OpenClaw has spawned a family of derivative projects and an entire hosting marke
 
 ---
 
+## Claude Managed Agents
+
+- **Type:** Commercial / Managed Service (Public Beta)
+- **Launched:** April 8, 2026
+- **Vendor:** Anthropic
+- **Docs:** https://platform.claude.com/docs/en/managed-agents/overview
+- **Pricing:** Model tokens + $0.08 per agent runtime hour
+- **Early adopters:** Notion, Rakuten, Asana
+
+Anthropic's vertically integrated agent platform. Bundles the agent harness, sandboxed container, built-in tools, memory, and state persistence into a REST API — eliminating the need to build your own agent loop, tool execution layer, or runtime.
+
+### Architecture
+
+Claude Managed Agents is built around four concepts:
+
+- **Agent** — The model, system prompt, tools, MCP servers, and skills (created once, referenced by ID across sessions)
+- **Environment** — A configured container template with pre-installed packages (Python, Node.js, Go, etc.), network access rules, and mounted files
+- **Session** — A running agent instance within an environment, performing a specific task and generating outputs
+- **Events** — Messages exchanged between your app and the agent (user turns, tool results, status updates), streamed via Server-Sent Events
+
+### Built-In Tools
+
+- **Bash** — Run shell commands in the container
+- **File operations** — Read, write, edit, glob, grep
+- **Web search and fetch** — Search the web and retrieve content from URLs
+- **MCP servers** — Connect to external tool providers
+
+### Key Properties
+
+- **Long-running autonomy** — Agents can run for hours in the cloud without human interaction
+- **Stateful sessions** — Persistent file systems and conversation history across multiple interactions
+- **Built-in prompt caching and compaction** — Performance optimizations baked into the harness
+- **Steerable mid-execution** — Send additional user events to guide or interrupt the agent
+- **Research-preview features** — Outcomes, multi-agent, and memory capabilities (gated access)
+- **Rate limits** — 60 create requests/min and 600 read requests/min per organization
+
+### Why This Is a New Category
+
+Claude Managed Agents represents a fundamentally new market layer (see [Sandboxes: Market Structure](sandboxes.md#the-sandbox-market-structure) for the four-layer model). Where previous agent platforms required you to assemble inference + sandbox + harness + memory separately, Claude Managed Agents bundles all four into a single API — with the model provider as the operator.
+
+This is disruptive to the Layer B agent-sandbox market: teams that would have used E2B + LangGraph + Pinecone + their own loop can now make one API call instead. The trade-off is vendor lock-in: moving off Claude Managed Agents to a self-built stack requires re-implementing session management, memory, tool execution, and sandbox lifecycle.
+
+### When to Pick Claude Managed Agents
+
+- You want the fastest time-to-market for a coding or task agent
+- Your workflow is a good fit for the built-in tools (bash, file ops, web search, MCP)
+- You don't need GPU-heavy execution (not exposed)
+- You're OK with multi-tenant SaaS (not for heavily regulated data)
+- You don't need custom branching / tree-search / best-of-N semantics
+
+### When to Pick Something Else
+
+- You need specialized branching semantics → [Contree](sandboxes.md#contree--the-git-native-sandbox)
+- You need GPU in the sandbox → Modal, Daytona, Northflank
+- You need enterprise VPC → Northflank, Runloop, or self-hosted
+- You're building an agent infrastructure product → Layer B sandbox + custom harness
+
+### Related Offerings
+
+- **Messages API** — Direct model access for custom agent loops with full control
+- **Claude Code** — Anthropic's own coding agent using the harness internally
+- **Claude Cowork** — Enterprise collaboration tier with managed agents
+
+---
+
 ## OpenAI Symphony
 
 - **Type:** Open Source (Apache 2.0)

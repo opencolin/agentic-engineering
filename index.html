@@ -87,6 +87,7 @@ Deep dives into each major system and framework:
 - [Composio](approaches.md#composio-agent-orchestrator) — Best multi-agent parallelization
 - [Patchwork](approaches.md#patchwork) — Patchflows, closest to Stripe's blueprint pattern
 - [Goose](approaches.md#goose) — MCP-native, the ancestor Stripe forked for Minions
+- [Claude Managed Agents](approaches.md#claude-managed-agents) — Anthropic's vertically integrated harness + sandbox + tools, $0.08/agent-hour, Notion/Rakuten/Asana as early adopters
 - [OpenAI Symphony](approaches.md#openai-symphony) — 15K+ stars, 6-layer orchestration, work management over agent supervision
 - [Mastra](approaches.md#mastra) — TypeScript framework for building custom agent systems
 - [OpenClaw](approaches.md#openclaw) — 355K stars, self-hosted assistant with messaging integration
@@ -118,7 +119,7 @@ How companies organize around agents:
 ### [Sandboxes](sandboxes.md)
 Dedicated deep-dive on sandbox infrastructure — the single most important layer for autonomous agents:
 - [Why Sandboxes Matter](sandboxes.md#why-sandboxes-matter-for-agents) — Safe execution, reproducibility, state, observability
-- [Sandbox Market Structure](sandboxes.md#the-sandbox-market-structure) — Three-layer model: primitives, agent-sandbox platforms, embedded-in-agent-products
+- [Sandbox Market Structure](sandboxes.md#the-sandbox-market-structure) — Four-layer model: primitives, agent-sandbox platforms, embedded-in-agent-products, and model-provider managed agents (Claude Managed Agents)
 - [Core Use Cases](sandboxes.md#core-use-cases) — 10 use cases including tree-of-thought, SWE-bench eval, best-of-N sampling, training data generation, reproducibility
 - [Isolation Tiers](sandboxes.md#isolation-tiers--the-security-ladder) — Process → container → gVisor → microVM → VM → bare metal
 - [Purpose-Built Agent Sandboxes](sandboxes.md#purpose-built-agent-sandboxes) — 14 vendors with isolation, persistence, cold start, GPU data
@@ -485,6 +486,71 @@ OpenClaw has spawned a family of derivative projects and an entire hosting marke
 
 ---
 
+## Claude Managed Agents
+
+- **Type:** Commercial / Managed Service (Public Beta)
+- **Launched:** April 8, 2026
+- **Vendor:** Anthropic
+- **Docs:** https://platform.claude.com/docs/en/managed-agents/overview
+- **Pricing:** Model tokens + $0.08 per agent runtime hour
+- **Early adopters:** Notion, Rakuten, Asana
+
+Anthropic's vertically integrated agent platform. Bundles the agent harness, sandboxed container, built-in tools, memory, and state persistence into a REST API — eliminating the need to build your own agent loop, tool execution layer, or runtime.
+
+### Architecture
+
+Claude Managed Agents is built around four concepts:
+
+- **Agent** — The model, system prompt, tools, MCP servers, and skills (created once, referenced by ID across sessions)
+- **Environment** — A configured container template with pre-installed packages (Python, Node.js, Go, etc.), network access rules, and mounted files
+- **Session** — A running agent instance within an environment, performing a specific task and generating outputs
+- **Events** — Messages exchanged between your app and the agent (user turns, tool results, status updates), streamed via Server-Sent Events
+
+### Built-In Tools
+
+- **Bash** — Run shell commands in the container
+- **File operations** — Read, write, edit, glob, grep
+- **Web search and fetch** — Search the web and retrieve content from URLs
+- **MCP servers** — Connect to external tool providers
+
+### Key Properties
+
+- **Long-running autonomy** — Agents can run for hours in the cloud without human interaction
+- **Stateful sessions** — Persistent file systems and conversation history across multiple interactions
+- **Built-in prompt caching and compaction** — Performance optimizations baked into the harness
+- **Steerable mid-execution** — Send additional user events to guide or interrupt the agent
+- **Research-preview features** — Outcomes, multi-agent, and memory capabilities (gated access)
+- **Rate limits** — 60 create requests/min and 600 read requests/min per organization
+
+### Why This Is a New Category
+
+Claude Managed Agents represents a fundamentally new market layer (see [Sandboxes: Market Structure](sandboxes.md#the-sandbox-market-structure) for the four-layer model). Where previous agent platforms required you to assemble inference + sandbox + harness + memory separately, Claude Managed Agents bundles all four into a single API — with the model provider as the operator.
+
+This is disruptive to the Layer B agent-sandbox market: teams that would have used E2B + LangGraph + Pinecone + their own loop can now make one API call instead. The trade-off is vendor lock-in: moving off Claude Managed Agents to a self-built stack requires re-implementing session management, memory, tool execution, and sandbox lifecycle.
+
+### When to Pick Claude Managed Agents
+
+- You want the fastest time-to-market for a coding or task agent
+- Your workflow is a good fit for the built-in tools (bash, file ops, web search, MCP)
+- You don't need GPU-heavy execution (not exposed)
+- You're OK with multi-tenant SaaS (not for heavily regulated data)
+- You don't need custom branching / tree-search / best-of-N semantics
+
+### When to Pick Something Else
+
+- You need specialized branching semantics → [Contree](sandboxes.md#contree--the-git-native-sandbox)
+- You need GPU in the sandbox → Modal, Daytona, Northflank
+- You need enterprise VPC → Northflank, Runloop, or self-hosted
+- You're building an agent infrastructure product → Layer B sandbox + custom harness
+
+### Related Offerings
+
+- **Messages API** — Direct model access for custom agent loops with full control
+- **Claude Code** — Anthropic's own coding agent using the harness internally
+- **Claude Cowork** — Enterprise collaboration tier with managed agents
+
+---
+
 ## OpenAI Symphony
 
 - **Type:** Open Source (Apache 2.0)
@@ -808,6 +874,7 @@ Side-by-side feature comparison of all major agentic coding approaches.
 
 | Project | Stars | Unattended PR | Orchestration | Sandbox | MCP | CI Feedback | Multi-Agent | License |
 |---------|-------|--------------|---------------|---------|-----|-------------|-------------|---------|
+| **Claude Managed Agents** | N/A | Yes | Built-in harness | Managed container | Yes (MCP) | Yes | Research preview | Commercial |
 | **Stripe Minions** | N/A | Yes | Blueprints | EC2 Devboxes | Yes (~500 tools) | Yes (2 rounds) | Parallel runs | Proprietary |
 | **AgentField** | 1.4K | Yes | SWE-AF levels | Git Worktrees | Agent mesh | Yes (gated) | Yes (orchestrated) | Apache 2.0 |
 | **OpenHands** | 71K | Yes | Planning Mode | Docker | No | Yes | No | MIT |
@@ -1151,15 +1218,39 @@ The quality of these affordances — especially state management and isolation �
 
 ## The Sandbox Market Structure
 
-The sandbox layer divides into three tiers, and which tier you operate at determines your design tradeoffs.
+The sandbox layer divides into four tiers, and which tier you operate at determines your design tradeoffs.
 
 **Layer A — Primitives.** The underlying isolation technology: Firecracker, gVisor, Kata Containers, libkrun. Hyperscaler-dominated, stable, open source.
 
-**Layer B — Agent-Sandbox Platforms.** Managed services built on Layer A primitives: E2B, Contree, Daytona, Modal, Sprites.dev, Runloop, Northflank, Scrapybara, Steel.dev. This is where almost all buying decisions happen for agent teams.
+**Layer B — Agent-Sandbox Platforms.** Managed services built on Layer A primitives: E2B, Contree, Daytona, Modal, Sprites.dev, Runloop, Northflank, Scrapybara, Steel.dev. This is where almost all buying decisions happen for agent teams building their own harnesses.
 
 **Layer C — Embedded in Agent Products.** Sandboxes that ship inside a broader agent product: Cursor's background agents, Devin's workspaces, Copilot Workspace, Replit Agent. These are rarely bought standalone — they're a feature of the agent product.
 
-**The market dynamic:** Layer C is consolidating around a handful of agent products, which means Layer B's addressable market shifts toward fewer, larger customers. The sales motion moves from product-led growth to enterprise / infrastructure partnerships. For buyers, this means Layer B vendors are increasingly specializing on specific use cases rather than trying to serve every agent workflow.
+**Layer D — Model-Provider Managed Agents.** Vertically integrated offerings from the model provider itself that bundle harness, sandbox, tools, and state into one managed service. The newest tier and a significant market disruption:
+
+- **[Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)** (Anthropic, launched April 8, 2026) — REST APIs bundling agent loop + tool execution + sandbox container + state persistence. Pricing is model tokens + $0.08 per agent runtime hour. Runs for hours autonomously. Early adopters include Notion, Rakuten, and Asana.
+
+Layer D collapses what used to be a stack (Claude model + E2B sandbox + LangGraph harness + Pinecone memory) into a single API call. For many teams, this eliminates the Layer B buying decision entirely — you get sandbox, harness, and tools bundled with your inference.
+
+**The market dynamic:**
+
+- Layer C is consolidating around a handful of agent products, which means Layer B's addressable market shifts toward fewer, larger customers
+- Layer D's arrival accelerates this: teams that would have assembled their own stack increasingly pick the model provider's managed offering for speed
+- Layer B vendors are increasingly specializing on specific use cases (tree-search, SWE-bench, GPU-heavy workloads) that Layer D doesn't serve as well
+- Sales motion shifts from product-led growth to enterprise / infrastructure partnerships
+
+**When each layer makes sense:**
+
+| You are building... | Best layer | Why |
+|--------------------|-----------|-----|
+| A novel agent architecture (tree-search, RL, multi-agent) | Layer B | You need control over branching, state, orchestration |
+| A standard coding / task agent | Layer D | Fastest time-to-market, no infra to build |
+| An infra product for other agent builders | Layer B (sandbox) + custom harness | You're selling the harness — don't outsource it |
+| A GPU-heavy agent (vision, local models) | Layer B (Modal, Northflank) | Layer D typically doesn't expose GPU |
+| A regulated-data agent | Layer B (VPC) or self-hosted | Layer D is multi-tenant SaaS |
+| A tool inside your existing product | Layer D or Layer B | Depends on customization needs |
+
+**Vendor lock-in trade-off:** Layer D gives you speed at the cost of portability. Moving from Claude Managed Agents to a self-built harness is non-trivial once you've depended on its session model, memory, and tools. Layer B + custom harness gives you portability at the cost of weeks of integration work.
 
 ---
 
@@ -1491,6 +1582,8 @@ Use this to pick a sandbox for your agent workflow.
 | Building your own sandbox? | Firecracker / libkrun / gVisor | Managed vendor |
 | Need persistent dev environment (Minions-style)? | CDEs: Gitpod, Codespaces, Coder | Ephemeral sandboxes |
 | Mac-specific workflows? | [Cloud Mac](infrastructure.md#cloud-mac-hosting) | Linux sandboxes |
+| Want the fastest time-to-market? | [Claude Managed Agents](approaches.md#claude-managed-agents) (Layer D) | Layer B sandbox + custom harness |
+| Need full control over harness? | Layer B sandbox + custom harness | Layer D managed agent |
 
 ---
 

@@ -43,6 +43,7 @@ Deep dives into each major system and framework:
 - [Composio](approaches.md#composio-agent-orchestrator) — Best multi-agent parallelization
 - [Patchwork](approaches.md#patchwork) — Patchflows, closest to Stripe's blueprint pattern
 - [Goose](approaches.md#goose) — MCP-native, the ancestor Stripe forked for Minions
+- [Claude Managed Agents](approaches.md#claude-managed-agents) — Anthropic's vertically integrated harness + sandbox + tools, $0.08/agent-hour, Notion/Rakuten/Asana as early adopters
 - [OpenAI Symphony](approaches.md#openai-symphony) — 15K+ stars, 6-layer orchestration, work management over agent supervision
 - [Mastra](approaches.md#mastra) — TypeScript framework for building custom agent systems
 - [OpenClaw](approaches.md#openclaw) — 355K stars, self-hosted assistant with messaging integration
@@ -74,7 +75,7 @@ How companies organize around agents:
 ### [Sandboxes](sandboxes.md)
 Dedicated deep-dive on sandbox infrastructure — the single most important layer for autonomous agents:
 - [Why Sandboxes Matter](sandboxes.md#why-sandboxes-matter-for-agents) — Safe execution, reproducibility, state, observability
-- [Sandbox Market Structure](sandboxes.md#the-sandbox-market-structure) — Three-layer model: primitives, agent-sandbox platforms, embedded-in-agent-products
+- [Sandbox Market Structure](sandboxes.md#the-sandbox-market-structure) — Four-layer model: primitives, agent-sandbox platforms, embedded-in-agent-products, and model-provider managed agents (Claude Managed Agents)
 - [Core Use Cases](sandboxes.md#core-use-cases) — 10 use cases including tree-of-thought, SWE-bench eval, best-of-N sampling, training data generation, reproducibility
 - [Isolation Tiers](sandboxes.md#isolation-tiers--the-security-ladder) — Process → container → gVisor → microVM → VM → bare metal
 - [Purpose-Built Agent Sandboxes](sandboxes.md#purpose-built-agent-sandboxes) — 14 vendors with isolation, persistence, cold start, GPU data

@@ -23,15 +23,39 @@ The quality of these affordances — especially state management and isolation �
 
 ## The Sandbox Market Structure
 
-The sandbox layer divides into three tiers, and which tier you operate at determines your design tradeoffs.
+The sandbox layer divides into four tiers, and which tier you operate at determines your design tradeoffs.
 
 **Layer A — Primitives.** The underlying isolation technology: Firecracker, gVisor, Kata Containers, libkrun. Hyperscaler-dominated, stable, open source.
 
-**Layer B — Agent-Sandbox Platforms.** Managed services built on Layer A primitives: E2B, Contree, Daytona, Modal, Sprites.dev, Runloop, Northflank, Scrapybara, Steel.dev. This is where almost all buying decisions happen for agent teams.
+**Layer B — Agent-Sandbox Platforms.** Managed services built on Layer A primitives: E2B, Contree, Daytona, Modal, Sprites.dev, Runloop, Northflank, Scrapybara, Steel.dev. This is where almost all buying decisions happen for agent teams building their own harnesses.
 
 **Layer C — Embedded in Agent Products.** Sandboxes that ship inside a broader agent product: Cursor's background agents, Devin's workspaces, Copilot Workspace, Replit Agent. These are rarely bought standalone — they're a feature of the agent product.
 
-**The market dynamic:** Layer C is consolidating around a handful of agent products, which means Layer B's addressable market shifts toward fewer, larger customers. The sales motion moves from product-led growth to enterprise / infrastructure partnerships. For buyers, this means Layer B vendors are increasingly specializing on specific use cases rather than trying to serve every agent workflow.
+**Layer D — Model-Provider Managed Agents.** Vertically integrated offerings from the model provider itself that bundle harness, sandbox, tools, and state into one managed service. The newest tier and a significant market disruption:
+
+- **[Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)** (Anthropic, launched April 8, 2026) — REST APIs bundling agent loop + tool execution + sandbox container + state persistence. Pricing is model tokens + $0.08 per agent runtime hour. Runs for hours autonomously. Early adopters include Notion, Rakuten, and Asana.
+
+Layer D collapses what used to be a stack (Claude model + E2B sandbox + LangGraph harness + Pinecone memory) into a single API call. For many teams, this eliminates the Layer B buying decision entirely — you get sandbox, harness, and tools bundled with your inference.
+
+**The market dynamic:**
+
+- Layer C is consolidating around a handful of agent products, which means Layer B's addressable market shifts toward fewer, larger customers
+- Layer D's arrival accelerates this: teams that would have assembled their own stack increasingly pick the model provider's managed offering for speed
+- Layer B vendors are increasingly specializing on specific use cases (tree-search, SWE-bench, GPU-heavy workloads) that Layer D doesn't serve as well
+- Sales motion shifts from product-led growth to enterprise / infrastructure partnerships
+
+**When each layer makes sense:**
+
+| You are building... | Best layer | Why |
+|--------------------|-----------|-----|
+| A novel agent architecture (tree-search, RL, multi-agent) | Layer B | You need control over branching, state, orchestration |
+| A standard coding / task agent | Layer D | Fastest time-to-market, no infra to build |
+| An infra product for other agent builders | Layer B (sandbox) + custom harness | You're selling the harness — don't outsource it |
+| A GPU-heavy agent (vision, local models) | Layer B (Modal, Northflank) | Layer D typically doesn't expose GPU |
+| A regulated-data agent | Layer B (VPC) or self-hosted | Layer D is multi-tenant SaaS |
+| A tool inside your existing product | Layer D or Layer B | Depends on customization needs |
+
+**Vendor lock-in trade-off:** Layer D gives you speed at the cost of portability. Moving from Claude Managed Agents to a self-built harness is non-trivial once you've depended on its session model, memory, and tools. Layer B + custom harness gives you portability at the cost of weeks of integration work.
 
 ---
 
@@ -363,6 +387,8 @@ Use this to pick a sandbox for your agent workflow.
 | Building your own sandbox? | Firecracker / libkrun / gVisor | Managed vendor |
 | Need persistent dev environment (Minions-style)? | CDEs: Gitpod, Codespaces, Coder | Ephemeral sandboxes |
 | Mac-specific workflows? | [Cloud Mac](infrastructure.md#cloud-mac-hosting) | Linux sandboxes |
+| Want the fastest time-to-market? | [Claude Managed Agents](approaches.md#claude-managed-agents) (Layer D) | Layer B sandbox + custom harness |
+| Need full control over harness? | Layer B sandbox + custom harness | Layer D managed agent |
 
 ---
 

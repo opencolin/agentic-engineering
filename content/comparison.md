@@ -8,6 +8,7 @@ Side-by-side feature comparison of all major agentic coding approaches.
 
 | Project | Stars | Unattended PR | Orchestration | Sandbox | MCP | CI Feedback | Multi-Agent | License |
 |---------|-------|--------------|---------------|---------|-----|-------------|-------------|---------|
+| **Claude Managed Agents** | N/A | Yes | Built-in harness | Managed container | Yes (MCP) | Yes | Research preview | Commercial |
 | **Stripe Minions** | N/A | Yes | Blueprints | EC2 Devboxes | Yes (~500 tools) | Yes (2 rounds) | Parallel runs | Proprietary |
 | **AgentField** | 1.4K | Yes | SWE-AF levels | Git Worktrees | Agent mesh | Yes (gated) | Yes (orchestrated) | Apache 2.0 |
 | **OpenHands** | 71K | Yes | Planning Mode | Docker | No | Yes | No | MIT |
