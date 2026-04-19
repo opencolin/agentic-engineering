@@ -10,36 +10,57 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <nav>
-    <div class="container">
-      <a href="#" class="nav-brand" data-page="index"><span>&gt;_</span> Agentic Engineering</a>
-      <ul class="nav-links">
-        <li><a href="#" data-page="index">Home</a></li>
-        <li><a href="#" data-page="approaches">Approaches</a></li>
-        <li><a href="#" data-page="patterns">Patterns</a></li>
-        <li><a href="#" data-page="comparison">Compare</a></li>
-        <li><a href="#" data-page="organizations">Organizations</a></li>
-        <li><a href="#" data-page="inference">Inference</a></li>
-        <li><a href="#" data-page="sandboxes">Sandboxes</a></li>
-        <li><a href="#" data-page="infrastructure">Hosting</a></li>
-      </ul>
-      <button class="nav-toggle" aria-label="Toggle menu">&#9776;</button>
+  <header class="topbar">
+    <button class="sidebar-toggle" aria-label="Toggle navigation">&#9776;</button>
+    <a href="#" class="topbar-brand" data-page="index"><span>&gt;_</span> Agentic Engineering</a>
+    <div class="topbar-search">
+      <label class="search-field">
+        <span class="search-icon" aria-hidden="true">&#128269;</span>
+        <input type="search" id="search-input" placeholder="Search..." autocomplete="off" spellcheck="false" />
+        <kbd class="search-kbd">/</kbd>
+      </label>
+      <ul id="search-results" class="search-results" role="listbox" hidden></ul>
     </div>
-  </nav>
+  </header>
 
-  <main>
-    <div class="container">
+  <div class="layout">
+    <aside class="sidebar" aria-label="Navigation">
+      <div class="sidebar-inner">
+        <nav class="sidebar-nav" aria-label="Primary">
+          <div class="sidebar-group">
+            <div class="sidebar-group-title">Get Started</div>
+            <a href="#" class="sidebar-link" data-page="index">Overview</a>
+          </div>
+          <div class="sidebar-group">
+            <div class="sidebar-group-title">Landscape</div>
+            <a href="#" class="sidebar-link" data-page="approaches">Approaches</a>
+            <a href="#" class="sidebar-link" data-page="patterns">Patterns</a>
+            <a href="#" class="sidebar-link" data-page="comparison">Comparison</a>
+            <a href="#" class="sidebar-link" data-page="organizations">Organizations</a>
+          </div>
+          <div class="sidebar-group">
+            <div class="sidebar-group-title">Infrastructure</div>
+            <a href="#" class="sidebar-link" data-page="inference">Inference</a>
+            <a href="#" class="sidebar-link" data-page="sandboxes">Sandboxes</a>
+            <a href="#" class="sidebar-link" data-page="infrastructure">Hosting &amp; Execution</a>
+          </div>
+          <div class="sidebar-group">
+            <div class="sidebar-group-title">Project</div>
+            <a href="https://github.com/opencolin/agentic-engineering" class="sidebar-link sidebar-link-external" target="_blank" rel="noopener">GitHub &#8599;</a>
+          </div>
+        </nav>
+      </div>
+    </aside>
+
+    <main class="content">
       <article id="content" class="markdown-body">
         <p class="loading">Loading...</p>
       </article>
-    </div>
-  </main>
-
-  <footer>
-    <div class="container">
-      <p>Agentic Engineering Reference — Content stored as plain markdown for easy reading by humans and agents alike.</p>
-    </div>
-  </footer>
+      <footer class="content-footer">
+        <p>Agentic Engineering Reference &mdash; Content stored as plain markdown for easy reading by humans and agents alike.</p>
+      </footer>
+    </main>
+  </div>
 
   <script type="text/markdown" data-page="index">
 # Agentic Engineering

@@ -1,12 +1,13 @@
 ---
-title: "Agentic Engineering"
-description: "A comprehensive reference to autonomous coding agents, agentic organizations, and the emerging patterns of AI-native software engineering."
-mode: "wide"
+title: Agentic Engineering
+description: A comprehensive reference to autonomous coding agents, agentic organizations, and the emerging patterns of AI-native software engineering.
 ---
 
-<Note>
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+:::note
 This reference documents the rapidly evolving landscape of autonomous AI coding agents — from Stripe's internal Minions (1,300+ PRs/week) to Anthropic's Claude Managed Agents, plus 180+ infrastructure vendors that power the category.
-</Note>
+:::
 
 ## What is Agentic Engineering?
 
@@ -16,26 +17,26 @@ The shift from "human writes code with AI help" to "AI writes code with human re
 
 ## Core Concepts
 
-<CardGroup cols={3}>
-  <Card title="One-Shot Execution" icon="bolt">
+<CardGrid>
+  <Card title="One-Shot Execution" icon="rocket">
     Agents take a task and produce a PR end-to-end with no human interaction. Engineers spin up many agents in parallel.
   </Card>
-  <Card title="Sandbox Isolation" icon="box">
+  <Card title="Sandbox Isolation" icon="seti:docker">
     Each agent runs in an isolated environment — devboxes, Docker containers, microVMs, or git worktrees.
   </Card>
-  <Card title="Feedback Loops" icon="arrows-rotate">
+  <Card title="Feedback Loops" icon="random">
     Agents iterate against linters, tests, and CI. Local checks catch issues fast; CI is the validation gate.
   </Card>
-  <Card title="Context via MCP" icon="plug">
+  <Card title="Context via MCP" icon="puzzle">
     Model Context Protocol provides agents with docs, tickets, code intelligence, and internal tools.
   </Card>
-  <Card title="Orchestration" icon="diagram-project">
+  <Card title="Orchestration" icon="setting">
     Blueprints, patchflows, and workflow graphs interleave deterministic steps with agentic creativity.
   </Card>
-  <Card title="Failure Recovery" icon="shield">
+  <Card title="Failure Recovery" icon="warning">
     Structured retry, split, escalate, and accept-with-debt strategies handle inevitable failures.
   </Card>
-</CardGroup>
+</CardGrid>
 
 ## The Agentic Engineering Flow
 
@@ -49,40 +50,26 @@ The key differentiators between approaches lie in **how they handle failure** at
 
 ## Sections
 
-<CardGroup cols={2}>
-  <Card title="Approaches" icon="layer-group" href="/approaches">
-    Deep dives on 15+ coding agent systems — Stripe Minions, Claude Managed Agents, Vercel Open Agents, OpenAI Symphony, OpenHands, AgentField, Devin, and more
-  </Card>
-  <Card title="Patterns" icon="shapes" href="/patterns">
-    Cross-cutting architectural patterns — harness engineering, isolation, orchestration, context management, feedback loops, failure recovery
-  </Card>
-  <Card title="Compare" icon="table" href="/comparison">
-    Side-by-side feature matrix and capability rankings across all major systems
-  </Card>
-  <Card title="Organizations" icon="building" href="/organizations">
-    How companies organize around agents — Stripe model, open-source model, agent-first development
-  </Card>
-  <Card title="Inference" icon="microchip" href="/inference">
-    LLM inference solutions: API providers, platforms (Nebius, Together, Fireworks, Groq), routing gateways, self-hosted
-  </Card>
-  <Card title="Sandboxes" icon="cube" href="/sandboxes">
-    The sandbox layer in depth — market structure, 14 vendors, Contree deep dive, Claude Managed Agents (Layer D), agent patterns
-  </Card>
-  <Card title="Hosting" icon="server" href="/infrastructure">
-    150+ vendors across 9 categories — turnkey, agent-optimized, orchestration, Cloud Mac, GPU clouds, self-hosted, memory, observability
-  </Card>
-</CardGroup>
+<CardGrid>
+  <LinkCard title="Approaches" href="/approaches/" description="Deep dives on 15+ coding agent systems — Stripe Minions, Claude Managed Agents, Vercel Open Agents, OpenAI Symphony, OpenHands, AgentField, Devin, and more" />
+  <LinkCard title="Patterns" href="/patterns/" description="Cross-cutting architectural patterns — harness engineering, isolation, orchestration, context management, feedback loops, failure recovery" />
+  <LinkCard title="Compare" href="/comparison/" description="Side-by-side feature matrix and capability rankings across all major systems" />
+  <LinkCard title="Organizations" href="/organizations/" description="How companies organize around agents — Stripe model, open-source model, agent-first development" />
+  <LinkCard title="Inference" href="/inference/" description="LLM inference solutions: API providers, platforms (Nebius, Together, Fireworks, Groq), routing gateways, self-hosted" />
+  <LinkCard title="Sandboxes" href="/sandboxes/" description="The sandbox layer in depth — market structure, 14 vendors, Contree deep dive, Claude Managed Agents (Layer D), agent patterns" />
+  <LinkCard title="Hosting" href="/infrastructure/" description="150+ vendors across 9 categories — turnkey, agent-optimized, orchestration, Cloud Mac, GPU clouds, self-hosted, memory, observability" />
+</CardGrid>
 
 ## Quick Stats
 
-<CardGroup cols={3}>
-  <Card title="1,300+" icon="code-pull-request">
+<CardGrid>
+  <Card title="1,300+" icon="pencil">
     PRs/week merged by agents at Stripe
   </Card>
-  <Card title="180+" icon="network-wired">
+  <Card title="180+" icon="list-format">
     Infrastructure vendors documented
   </Card>
-  <Card title="14+" icon="robot">
+  <Card title="15+" icon="star">
     Agent systems profiled in depth
   </Card>
-</CardGroup>
+</CardGrid>

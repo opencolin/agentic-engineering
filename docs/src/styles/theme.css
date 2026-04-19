@@ -1,0 +1,17 @@
+/* Starlight theme overrides to match the agentic-engineering visual identity */
+:root {
+  --sl-color-accent-low: #2e235b;
+  --sl-color-accent: #6366f1;
+  --sl-color-accent-high: #c7d2fe;
+}
+
+:root[data-theme='light'] {
+  --sl-color-accent-low: #e0e7ff;
+  --sl-color-accent: #4f46e5;
+  --sl-color-accent-high: #1e1b4b;
+}
+
+/* Slightly wider content area for our dense tables */
+:root {
+  --sl-content-width: 56rem;
+}
