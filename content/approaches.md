@@ -10,6 +10,7 @@ A deep dive into the major systems and frameworks driving autonomous software en
 - [Claude Managed Agents](#claude-managed-agents) — Anthropic's vertically integrated harness, $0.08/agent-hour
 - [OpenAI Symphony](#openai-symphony) — 15K+ stars, 6-layer orchestration, work management over agent supervision
 - [Vercel Open Agents](#vercel-open-agents) — MIT reference template, durable workflows + Vercel Sandbox + GitHub App
+- [PostHog Code](#posthog-code) — Spring 2026, the first agent driven by production analytics, auto-instruments its own PRs
 
 ### Open-source agents
 
@@ -900,6 +901,38 @@ Symphony assumes codebases have adopted "harness engineering" — robust test su
 - Team of 3 managing output equivalent to much larger teams
 - Before GPT-5.2: 3.5 PRs/engineer/day; after: 5-10 PRs/engineer/day
 - 500 NPM packages in codebase (described as "10,000 engineer level architecture")
+
+---
+
+## PostHog Code
+
+- **Type:** Commercial (preview, Spring 2026)
+- **Vendor:** PostHog
+- **Page:** https://posthog.com/code
+- **Models:** OpenAI (GPT-5.x), Anthropic (Claude Sonnet / Opus / Haiku)
+- **Integrations:** GitHub, Linear, Slack, CRM/billing via MCP
+
+PostHog's bet is that the missing context for autonomous coding isn't more of the codebase — it's production. PostHog Code reads in-app events, error logs, [session recordings](infrastructure.md#agent-observability-evaluation), funnel analytics, experiment results, and support tickets from a running PostHog install, and turns those signals into triaged bugs and PRs. The pitch: "the only AI devtool that understands your **product**, not just your **codebase**."
+
+### Architecture
+
+- **Production-data ingestion** — Signals pulled directly from PostHog: events, errors, replays, funnels, experiments, support tickets
+- **Triage loop** — Identifies usage patterns and regressions, then auto-files PRs scoped to the offending code path
+- **Self-instrumenting PRs** — Generated diffs include PostHog event-capture, error boundaries, feature flags, and experiment scaffolding so the next iteration has even more signal
+- **Parallel agents** — Multiple coding agents run side-by-side with split-screen monitoring
+- **MCP-fronted integrations** — GitHub for PRs, Linear for tickets, Slack for routing, CRM/billing for revenue impact
+
+### Key Properties
+
+- **Product-first context** — First coding agent to treat product analytics, not just the repo, as primary context
+- **Closed feedback loop** — Each shipped PR adds instrumentation that feeds the next agent run
+- **Proactive vs. prompted** — Surfaces bugs from production telemetry rather than waiting for an engineer to file them
+- **Multi-provider** — Frontier models from OpenAI and Anthropic side-by-side
+- **Bring-your-own-PostHog** — Value proportional to how well-instrumented the existing product already is
+
+### Where it fits
+
+Within the [commercial coding agents](#commercial-proprietary) cohort, PostHog Code is the analytics-native counterpart to [Stripe Minions](#stripe-minions) (internal-tools-native via Toolshed MCP) and [OpenAI Symphony](#openai-symphony) (work-queue-native via Linear). [Claude Managed Agents](#claude-managed-agents) and [Vercel Open Agents](#vercel-open-agents) operate purely from the repo and CI; PostHog Code is the first entrant whose primary feedback signal is the deployed product itself.
 
 ---
 
