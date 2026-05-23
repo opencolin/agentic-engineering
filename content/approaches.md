@@ -10,7 +10,7 @@ A deep dive into the major systems and frameworks driving autonomous software en
 - [Claude Managed Agents](#claude-managed-agents) — Anthropic's vertically integrated harness, $0.08/agent-hour
 - [OpenAI Symphony](#openai-symphony) — 15K+ stars, 6-layer orchestration, work management over agent supervision
 - [Vercel Open Agents](#vercel-open-agents) — MIT reference template, durable workflows + Vercel Sandbox + GitHub App
-- [PostHog Code](#posthog-code) — Spring 2026, the first agent driven by production analytics, auto-instruments its own PRs
+- [PostHog Code](#posthog-code) — desktop app + open agent framework, swarm driven by production analytics, beta May 2026
 
 ### Open-source agents
 
@@ -906,33 +906,40 @@ Symphony assumes codebases have adopted "harness engineering" — robust test su
 
 ## PostHog Code
 
-- **Type:** Commercial (preview, Spring 2026)
+- **Type:** Commercial — beta May 2026, GA Spring 2026
+- **Form factor:** Desktop app + agent framework (public monorepo)
 - **Vendor:** PostHog
 - **Page:** https://posthog.com/code
+- **Docs:** https://posthog.com/docs/posthog-code
+- **GitHub:** https://github.com/PostHog/code
 - **Models:** OpenAI (GPT-5.x), Anthropic (Claude Sonnet / Opus / Haiku)
-- **Integrations:** GitHub, Linear, Slack, CRM/billing via MCP
+- **Integrations:** GitHub, Linear, Slack, CRM/billing — and PostHog itself via MCP
 
-PostHog's bet is that the missing context for autonomous coding isn't more of the codebase — it's production. PostHog Code reads in-app events, error logs, [session recordings](infrastructure.md#agent-observability-evaluation), funnel analytics, experiment results, and support tickets from a running PostHog install, and turns those signals into triaged bugs and PRs. The pitch: "the only AI devtool that understands your **product**, not just your **codebase**."
+PostHog's bet is that the missing context for autonomous coding isn't more of the codebase — it's production. PostHog Code is a local desktop app that connects to your repos and runs a swarm of coding agents reading in-app events, error logs, [session recordings](infrastructure.md#agent-observability-evaluation), funnel analytics, experiment results, and support tickets from a running PostHog install. "Obvious" fixes ship automatically; everything else lands on a prioritized to-do list so engineers steer the high-impact decisions. The pitch: "the only AI devtool that understands your **product**, not just your **codebase**." It's the explicit centerpiece of PostHog's ["self-driving products"](https://posthog.com/blog/posthogs-next-chapter) thesis — agents that ship while you sleep.
 
 ### Architecture
 
+- **Desktop app** — Runs locally, connects to repos; not a hosted SaaS agent
+- **Public monorepo** — `posthog/code` ships both the desktop apps and the underlying agent framework
 - **Production-data ingestion** — Signals pulled directly from PostHog: events, errors, replays, funnels, experiments, support tickets
-- **Triage loop** — Identifies usage patterns and regressions, then auto-files PRs scoped to the offending code path
+- **Swarm topology** — One agent writes code, another writes tests, another reviews PRs, another manages tickets (per PostHog leadership's "machine team" framing)
+- **Prioritized work queue** — Auto-ships fixes that meet a confidence threshold; surfaces the rest as a ranked to-do list
 - **Self-instrumenting PRs** — Generated diffs include PostHog event-capture, error boundaries, feature flags, and experiment scaffolding so the next iteration has even more signal
-- **Parallel agents** — Multiple coding agents run side-by-side with split-screen monitoring
-- **MCP-fronted integrations** — GitHub for PRs, Linear for tickets, Slack for routing, CRM/billing for revenue impact
+- **MCP-fronted integrations** — GitHub for PRs, Linear for tickets, Slack for routing, CRM/billing for revenue impact; PostHog also exposes itself via MCP so external agents (editor, chat) can query analytics and create experiments
 
 ### Key Properties
 
 - **Product-first context** — First coding agent to treat product analytics, not just the repo, as primary context
 - **Closed feedback loop** — Each shipped PR adds instrumentation that feeds the next agent run
 - **Proactive vs. prompted** — Surfaces bugs from production telemetry rather than waiting for an engineer to file them
+- **Auto-ship vs. queue split** — Confidence-gated automation, with humans kept in the loop for the non-obvious work
+- **Local-first** — Desktop form factor (vs. cloud-only agents); the framework is also runnable standalone
 - **Multi-provider** — Frontier models from OpenAI and Anthropic side-by-side
 - **Bring-your-own-PostHog** — Value proportional to how well-instrumented the existing product already is
 
 ### Where it fits
 
-Within the [commercial coding agents](#commercial-proprietary) cohort, PostHog Code is the analytics-native counterpart to [Stripe Minions](#stripe-minions) (internal-tools-native via Toolshed MCP) and [OpenAI Symphony](#openai-symphony) (work-queue-native via Linear). [Claude Managed Agents](#claude-managed-agents) and [Vercel Open Agents](#vercel-open-agents) operate purely from the repo and CI; PostHog Code is the first entrant whose primary feedback signal is the deployed product itself.
+Within the [commercial coding agents](#commercial-proprietary) cohort, PostHog Code is the analytics-native counterpart to [Stripe Minions](#stripe-minions) (internal-tools-native via Toolshed MCP) and [OpenAI Symphony](#openai-symphony) (work-queue-native via Linear). [Claude Managed Agents](#claude-managed-agents) and [Vercel Open Agents](#vercel-open-agents) operate purely from the repo and CI; PostHog Code is the first entrant whose primary feedback signal is the deployed product itself. Its swarm topology (code / tests / review / tickets) and confidence-gated auto-ship loop also put it close to [OpenAI Symphony](#openai-symphony)'s work-management posture, but with a desktop app rather than a BEAM-based hosted runtime.
 
 ---
 
