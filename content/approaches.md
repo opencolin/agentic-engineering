@@ -1326,7 +1326,7 @@ The short version: harness is the differentiator, not the model. Benchmark top-3
 | **Kilo CLI** (`kilo`) | Kilo | Keyboard-first, multi-provider model support | [kilo.ai/docs](https://kilo.ai/docs/code-with-ai/platforms/cli) |
 | **Plandex** (`plandex`) | Plandex | Multi-step task planner with diff management | [github.com/plandex-ai/plandex](https://github.com/plandex-ai/plandex) |
 | **Kiro CLI** (`kiro`) | AWS | Spec-driven agentic coding | [kiro.dev](https://kiro.dev) |
-| **Continue** (`cn`) | Continue | Source-controlled AI checks, CI-enforceable (32K+ stars) | [continue.dev](https://continue.dev) |
+| **Continue** (`cn`) | Continue | Source-controlled AI checks, CI-enforceable (33K stars) | [continue.dev](https://continue.dev) |
 | **Letta Code** (`letta`) | Letta AI | Memory-first agent | [github.com/letta-ai/letta-code](https://github.com/letta-ai/letta-code) |
 | **iFlow CLI** (`iflow`) | iFlow AI | Multi-model with free access to Kimi, Qwen, DeepSeek | [github.com/iflow-ai/iflow-cli](https://github.com/iflow-ai/iflow-cli) |
 | **Qoder CLI** (`qodercli`) | Qoder | Terminal AI assistant | [qoder.com](https://qoder.com) |
@@ -1398,9 +1398,9 @@ For agentic engineering teams, these matter as **tools an agent calls** — for 
 
 | Framework | License | Approach | Notable for |
 |-----------|---------|---------|-------------|
-| **Browser Use** ([browser-use/browser-use](https://github.com/browser-use/browser-use)) | MIT | DOM + accessibility tree, any LLM | 91K+ stars (one of the fastest-growing OSS AI projects), 89.1% on WebVoyager; YC-backed, hosted version $30/mo |
+| **Browser Use** ([browser-use/browser-use](https://github.com/browser-use/browser-use)) | MIT | DOM + accessibility tree, any LLM | 95K stars (one of the fastest-growing OSS AI projects), 89.1% on WebVoyager; YC-backed, hosted version $30/mo |
 | **Stagehand** ([browserbase/stagehand](https://github.com/browserbase/stagehand)) | MIT | Natural-language wrapper on Playwright | TypeScript + Python; built and maintained by Browserbase as the SDK for browser agents |
-| **Chrome DevTools MCP** ([ChromeDevTools/chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp)) | Apache-2.0 | Official Google MCP server exposing the full Chrome DevTools surface to agents | 41.5K stars, v1.0.1 (May 2026), TypeScript, stdio MCP. Tools: navigate / click / form-fill, screenshot + DOM snapshot, console + network capture, JS evaluation with source-mapped stack traces, performance traces + Lighthouse + CrUX field data, heap snapshots, extension management, device emulation. Drops into Claude Code, Cursor, Copilot, Cline, VS Code, Gemini CLI, JetBrains and 15+ others via `npx chrome-devtools-mcp@latest`. "Slim mode" for basic tasks; auto-waits on action results |
+| **Chrome DevTools MCP** ([ChromeDevTools/chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp)) | Apache-2.0 | Official Google MCP server exposing the full Chrome DevTools surface to agents | 42K stars, v1.0.1 (May 2026), TypeScript, stdio MCP. Tools: navigate / click / form-fill, screenshot + DOM snapshot, console + network capture, JS evaluation with source-mapped stack traces, performance traces + Lighthouse + CrUX field data, heap snapshots, extension management, device emulation. Drops into Claude Code, Cursor, Copilot, Cline, VS Code, Gemini CLI, JetBrains and 15+ others via `npx chrome-devtools-mcp@latest`. "Slim mode" for basic tasks; auto-waits on action results |
 | **Skyvern** ([Skyvern-AI/skyvern](https://github.com/Skyvern-AI/skyvern)) | AGPL-3.0 | LLM + computer-vision Playwright SDK | No-code workflow builder + SDK (Launch Week Jan 2026); embedded local + remote cloud modes |
 | **Magnitude** ([magnitudedev/browser-agent](https://github.com/magnitudedev/browser-agent)) | OSS | Vision-first; uses screenshots, not DOM | 94% on WebVoyager (state-of-the-art); built-in test runner with visual assertions; recommends Claude Sonnet or Qwen-2.5VL 72B |
 | **Open-CUAK** | OSS | "Kubernetes for Computer Use Agents" | Hire / teach / manage automation agents; explicitly framed as the OpenAI Operator alternative |
