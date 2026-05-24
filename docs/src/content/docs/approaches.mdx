@@ -954,7 +954,7 @@ Workflow-defining: `/office-hours` (YC-style forcing-question reframe + builder-
 - **YC-CEO-grade prompts** — each skill is a battle-tested SKILL.md with explicit verification standards. The intellectual content (not just the structure) is the differentiator.
 - **Persona-first** — every command is bound to a specialist role with permission boundaries and a definition-of-done.
 - **Pairs with Conductor** — Garry's reported workflow is gstack inside [Conductor](/infrastructure/#autonomous-coding-agents), running 10–15 parallel sprints across Claude Code worktrees on a single Mac. He reports 600K production LOC in 60 days using this combination.
-- **Browser policy** — `/browse` replaces direct Chrome MCP usage; the skill encodes how to use it correctly so the agent doesn't reinvent the wheel.
+- **Browser policy** — `/browse` replaces direct [Chrome DevTools MCP](#browser-use-computer-use-frameworks) usage; the skill encodes how to use it correctly so the agent doesn't reinvent the wheel.
 - **Skills standard** — uses the cross-agent SKILL.md format documented in [Skills, Plugins & Marketplaces](/approaches/#skills-plugins--marketplaces), so it also works in Codex, Cursor, OpenCode, etc. via `npx skills add`.
 
 ### When to Pick GStack
@@ -1312,6 +1312,7 @@ For agentic engineering teams, these matter as **tools an agent calls** — for 
 |-----------|---------|---------|-------------|
 | **Browser Use** ([browser-use/browser-use](https://github.com/browser-use/browser-use)) | MIT | DOM + accessibility tree, any LLM | 91K+ stars (one of the fastest-growing OSS AI projects), 89.1% on WebVoyager; YC-backed, hosted version $30/mo |
 | **Stagehand** ([browserbase/stagehand](https://github.com/browserbase/stagehand)) | MIT | Natural-language wrapper on Playwright | TypeScript + Python; built and maintained by Browserbase as the SDK for browser agents |
+| **Chrome DevTools MCP** ([ChromeDevTools/chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp)) | Apache-2.0 | Official Google MCP server exposing the full Chrome DevTools surface to agents | 41.5K stars, v1.0.1 (May 2026), TypeScript, stdio MCP. Tools: navigate / click / form-fill, screenshot + DOM snapshot, console + network capture, JS evaluation with source-mapped stack traces, performance traces + Lighthouse + CrUX field data, heap snapshots, extension management, device emulation. Drops into Claude Code, Cursor, Copilot, Cline, VS Code, Gemini CLI, JetBrains and 15+ others via `npx chrome-devtools-mcp@latest`. "Slim mode" for basic tasks; auto-waits on action results |
 | **Skyvern** ([Skyvern-AI/skyvern](https://github.com/Skyvern-AI/skyvern)) | AGPL-3.0 | LLM + computer-vision Playwright SDK | No-code workflow builder + SDK (Launch Week Jan 2026); embedded local + remote cloud modes |
 | **Magnitude** ([magnitudedev/browser-agent](https://github.com/magnitudedev/browser-agent)) | OSS | Vision-first; uses screenshots, not DOM | 94% on WebVoyager (state-of-the-art); built-in test runner with visual assertions; recommends Claude Sonnet or Qwen-2.5VL 72B |
 | **Open-CUAK** | OSS | "Kubernetes for Computer Use Agents" | Hire / teach / manage automation agents; explicitly framed as the OpenAI Operator alternative |
@@ -1323,6 +1324,7 @@ For agentic engineering teams, these matter as **tools an agent calls** — for 
 ### How to think about adoption
 
 - **Add browsing as a tool to a coding agent** → Stagehand (cleanest Playwright DX) or Browser Use (largest community, broad model support).
+- **DevTools-grade inspection for agentic QA/debug** (perf traces, Lighthouse, network capture, source-mapped stack traces) → Chrome DevTools MCP — first-party Google MCP surface, drops into any MCP-aware agent in one command.
 - **Vision-first apps where DOM scraping fails** (canvas, custom UIs, Flash-equivalents) → Magnitude.
 - **Self-host a full Operator alternative for end users** → Open-CUAK or Open Computer Agent.
 - **Already on Claude** → Anthropic Computer Use directly via the API; Claude Cowork if you want the productized desktop UX.
