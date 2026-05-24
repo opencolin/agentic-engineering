@@ -70,7 +70,12 @@ Deep dives into each major system and framework:
 - [Claude Managed Agents](approaches.md#claude-managed-agents) — Anthropic's vertically integrated harness + sandbox + tools, $0.08/agent-hour, Notion/Rakuten/Asana as early adopters
 - [Vercel Open Agents](approaches.md#vercel-open-agents) — 5.5K stars, MIT-licensed reference template, "agent outside the sandbox" architecture, durable workflows + Vercel Sandbox + GitHub App
 - [OpenAI Symphony](approaches.md#openai-symphony) — 25K stars, 6-layer orchestration, work management over agent supervision
-- [Mastra](approaches.md#mastra) — TypeScript framework for building custom agent systems
+- [Mastra](approaches.md#mastra) — 24K stars, TypeScript framework for building custom agent systems
+- [OpenAI Agents SDK](approaches.md#openai-agents-sdk) — 27K stars, first-party OpenAI framework; production successor to Swarm
+- [Google ADK](approaches.md#google-adk-agent-development-kit) — 20K stars, Google's first-party Gemini-native framework
+- [Strands Agents](approaches.md#strands-agents) — 5.9K stars, AWS-incubated SDK with first-class Lambda / Fargate / Bedrock AgentCore deployment
+- [Cline](approaches.md#cline) — 62K stars, plan-then-act with explicit user approval; Roo Code sister project at 24K
+- [Letta Code](approaches.md#letta-code) — 23K stars, memory-first coding agent built on the MemGPT lineage
 - [OpenClaw](approaches.md#openclaw) — 374K stars, self-hosted assistant with messaging integration
 - [Rivet Sandbox Agent](approaches.md#rivet-sandbox-agent) — Universal API for running agents in sandboxes
 - [DeerFlow](approaches.md#deerflow) — ByteDance's open-source long-horizon SuperAgent harness, LangGraph-based, 69K stars

@@ -265,6 +265,54 @@ The general-purpose AI agent framework from Block that Stripe forked in late 202
 
 ---
 
+## Cline
+
+- **Type:** Open Source (Apache 2.0)
+- **Stars:** 62K
+- **GitHub:** https://github.com/cline/cline [![stars](https://img.shields.io/github/stars/cline/cline?style=social)](https://github.com/cline/cline)
+
+Originally the most-installed autonomous coding extension in VS Code; in 2026 also ships as a standalone CLI (`cline-cli`). Cline's design center is *plan-then-act with explicit user approval at every step* — the inverse of Claude Managed Agents' one-shot autonomy. That makes it the right harness for teams that want the agent's velocity but aren't ready to trust unattended PRs.
+
+### Architecture
+
+- **Plan / Act modes** — explicit gate between proposing a change and applying it; every tool call surfaces for approval by default
+- **Multi-provider** — Claude, GPT, Gemini, local via Ollama; bring-your-own-key
+- **MCP-native** — Cline was an early adopter; ships with discoverable MCP server support
+- **Diff-based edits** — atomic patches with previews rather than free-form rewrites
+
+### Key Properties
+
+- **Roo Code** ([RooCodeInc/Roo-Code](https://github.com/RooCodeInc/Roo-Code), 24K stars) is a Cline fork with multi-mode orchestration and broader model support; teams pick one or the other, rarely both
+- Direct competition with **Aider** in the IDE-extension category; Cline wins on UI polish, Aider on terminal purity
+- **Gap:** by design, *not* an unattended autonomy harness — every action waits for human approval, which kills throughput for production agent fleets
+
+---
+
+## Letta Code
+
+- **Type:** Open Source (Apache 2.0)
+- **Stars:** 23K (Letta core)
+- **GitHub:** https://github.com/letta-ai/letta [![stars](https://img.shields.io/github/stars/letta-ai/letta?style=social)](https://github.com/letta-ai/letta)
+- **Origin:** Letta (formerly MemGPT), the lab behind the 2023 MemGPT paper
+
+The reference implementation of *memory-first* agentic coding. Where Claude Code / Codex / Aider treat the conversation as a buffer that ends at compaction, Letta agents are persistent entities with a typed memory hierarchy (core / archival / recall / message buffer) that the agent itself reads, writes, and consolidates between sessions. The same agent that fixed a bug yesterday remembers the fix today — without `CLAUDE.md` plumbing, without a GBrain-style markdown corpus, without manual context engineering.
+
+### Architecture
+
+- **Letta server** — REST API; every agent is a long-lived resource you address by ID
+- **Memory blocks** — labelled, agent-editable text regions (`human`, `persona`, project-specific); the agent calls `core_memory_replace` like any other tool
+- **Archival storage** — Postgres + pgvector; the agent decides what to evict from core to archival
+- **Letta Code CLI** — the coding-agent surface; sub-agents, skills, MCP
+
+### Key Properties
+
+- The MemGPT design is the canonical academic answer to context-window limits; Letta is what happens when you ship it as a server with a CLI on top
+- Pairs naturally with [Tavily](/infrastructure/#search-apis-for-agents) for live retrieval and [Inngest](/infrastructure/#durable-execution-platforms) for durable tool calls
+- Listed in [Agent Memory infrastructure](/infrastructure/#purpose-built-agent-memory) as the memory layer; this entry is the coding-agent surface
+- **Gap:** the memory abstraction is the whole product — for harnesses where you want the agent to be stateless on purpose (CI runners, ephemeral sandboxes), this is the wrong tool
+
+---
+
 ## Mastra
 
 - **Type:** Open Source (Apache 2.0 + Enterprise)
@@ -289,6 +337,79 @@ A TypeScript framework for building AI-powered applications and autonomous agent
 - Evaluations — Built-in eval framework for measuring agent quality
 - Production-ready — Observability, error handling, state persistence
 - **Role in agentic engineering:** Mastra is a framework for building custom agent systems, not a pre-built coding agent. Teams would use it to build their own Minions-like system in TypeScript, with the workflow engine serving a similar role to Stripe's blueprints.
+
+---
+
+## OpenAI Agents SDK
+
+- **Type:** Open Source (MIT)
+- **Stars:** 27K (Python) + 3.1K (JS)
+- **GitHub:** https://github.com/openai/openai-agents-python [![stars](https://img.shields.io/github/stars/openai/openai-agents-python?style=social)](https://github.com/openai/openai-agents-python)
+- **Origin:** OpenAI, March 2025; production successor to the educational [Swarm](https://github.com/openai/swarm) library
+
+OpenAI's official agent framework. Swarm was the napkin sketch; Agents SDK is the production article. The core abstractions are unchanged — `Agent` (instructions + tools + handoffs), `Runner` (the loop), `Handoff` (transfer control to another agent) — but tracing, guardrails, sessions, MCP, sandbox agents (v0.14+), and async-first execution are all first-class. Provider-neutral via the Responses API; works against any OpenAI-compatible endpoint (Anthropic via the LiteLLM shim, Gemini, local vLLM).
+
+### Architecture
+
+- **Agent** — instructions + tools + handoffs; the unit of behavior
+- **Runner** — the conversation loop; runs an agent until completion or handoff
+- **Handoff** — transfer control to another agent, optionally with a structured payload
+- **Sessions** — persistent thread state across runs
+- **Tracing** — every step logged to OpenAI's dashboard (or your own backend)
+
+### Key Properties
+
+- Three of the four major model labs now ship a first-party agent framework — Claude Managed Agents, Google ADK, and OpenAI Agents SDK. The convergence on the *handoff* primitive is striking: rather than rebuild LangGraph, the labs all settled on "agents that hand off to other agents, with the loop being unsurprising"
+- For teams not invested in the LangChain or Microsoft Agent Framework ecosystems, this is the de-facto OpenAI-shaped path
+- **Gap:** opinionated about the handoff model; teams that need a richer state-machine or graph topology will reach for LangGraph or Mastra instead
+
+---
+
+## Google ADK (Agent Development Kit)
+
+- **Type:** Open Source (Apache 2.0)
+- **Stars:** 20K (Python) + 9.4K (samples)
+- **GitHub:** https://github.com/google/adk-python [![stars](https://img.shields.io/github/stars/google/adk-python?style=social)](https://github.com/google/adk-python)
+- **Origin:** Google, 2025
+
+Google's official agent framework. Same `Agent` / `Tool` / `Session` shape as OpenAI Agents SDK and Strands, but with deep Gemini + Vertex AI integration and first-class Agent Engine / Cloud Run deployment templates.
+
+### Architecture
+
+- **Agent** — instructions, tools, sub-agents; same triad as the other first-party frameworks
+- **Session / State** — persistent context across turns and runs
+- **Tools** — first-party Vertex AI Search, BigQuery, Gemini code execution; user-defined Python tools; MCP support
+- **Deployment templates** — one-command deploy to Agent Engine, Cloud Run, or GKE
+
+### Key Properties
+
+- Samples repo ([adk-samples](https://github.com/google/adk-samples), 9.4K stars) is unusually polished — production-grade reference agents for customer-service, RAG, code-review, and multi-agent decomposition
+- The right pick if you're already on GCP, paying for Gemini 3.x, or want Vertex AI Vector Search as the memory backend
+- **Gap:** Gemini-centered; provider-agnostic use is possible but the deployment ergonomics are the actual selling point and they're GCP-shaped
+
+---
+
+## Strands Agents
+
+- **Type:** Open Source (Apache 2.0)
+- **Stars:** 5.9K
+- **GitHub:** https://github.com/strands-agents/sdk-python [![stars](https://img.shields.io/github/stars/strands-agents/sdk-python?style=social)](https://github.com/strands-agents/sdk-python)
+- **Origin:** AWS-incubated; model-driven agent SDK released 2025
+
+AWS's answer to OpenAI Agents SDK and Google ADK. Strands ships 13+ model providers, native MCP, multi-agent composition, and an experimental bidirectional voice-streaming mode.
+
+### Architecture
+
+- **Agent** + **tools** + **sessions** — same model-driven shape as the other first-party SDKs
+- **Multi-agent composition** — agents-as-tools, agent graphs, supervisor patterns
+- **Bidirectional voice streaming** — early-access full-duplex audio path
+- **Deployment templates** — Lambda, Fargate, Bedrock AgentCore, EC2 with sane IAM defaults
+
+### Key Properties
+
+- The differentiator vs the OpenAI / Google SDKs is the deployment side — Strands templates deploy cleanly across the AWS surface with IAM wired by default
+- The natural choice for teams committed to AWS that would otherwise build on Bedrock Agents but want to avoid the lock-in
+- **Gap:** smaller community than OpenAI Agents SDK or ADK (5.9K vs 27K / 20K); third-party ecosystem (samples, blog posts, troubleshooting threads) is still catching up
 
 ---
 

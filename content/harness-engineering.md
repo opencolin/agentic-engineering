@@ -89,6 +89,8 @@ The fix is **progressive disclosure**:
 
 Every instruction should have a source ("why was this added?"), an applicability condition, and an expiry condition. Audit regularly. Manage instructions like you manage code dependencies.
 
+The canonical public corpus of skill examples is **[anthropics/skills](https://github.com/anthropics/skills)** (140K stars) — the `SKILL.md` format spec, ~50 reference skills (docx / pdf / pptx / xlsx, MCP server generation, brand-asset workflows), and the template the [Skills, Plugins & Marketplaces](approaches.md#skills-plugins-marketplaces) ecosystem builds against. The DOCX / PDF / PPTX skills are worth reading end-to-end as examples of *progressive disclosure done well* — each skill is 50–200 lines, declares its triggers in YAML frontmatter, and defers deep references to topic files the agent loads on demand.
+
 ### Initialization as a dedicated phase
 
 Initialization and implementation optimize for different things — mixing them drags both down. The implementation phase optimizes for verified features; initialization optimizes for the reliability and efficiency of *all subsequent* implementation. Pour the foundation, let it cure, then build the walls.

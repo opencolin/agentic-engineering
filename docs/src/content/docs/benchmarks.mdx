@@ -106,6 +106,48 @@ For teams building internal coding agents — especially in the [Stripe Minions]
 
 ---
 
+## Inspect AI
+
+**Home:** [inspect.aisi.org.uk](https://inspect.aisi.org.uk/) · **Source:** [github.com/UKGovernmentBEIS/inspect_ai](https://github.com/UKGovernmentBEIS/inspect_ai) · **License:** MIT
+
+The UK AI Security Institute's evaluation framework, jointly maintained with Meridian Labs. Inspect is *not* a benchmark — it's the **framework other benchmarks ship on**. Frontier labs use it for pre-release capability and safety evals; SWE-bench, Cybench, GAIA, and ~200 other public evals are published as Inspect tasks via the companion [`inspect_evals`](https://github.com/UKGovernmentBEIS/inspect_evals) repo.
+
+### How it works
+
+An Inspect eval is a Python file with three slots: a **dataset** (samples to grade), one or more **solvers** (the agent loop — including bring-your-own-harness via `bridge()`), and **scorers** (model-graded, rule-based, or both). The framework provides built-in solvers for tool-use, multi-turn dialogue, ReAct, and human-in-the-loop; a web-based log viewer for trace inspection; and VS Code integration for live debugging.
+
+### Why it matters for agentic engineering
+
+- **Safety + capability in one tool** — the same harness used for "does it pass SWE-bench" is used for "does it produce CBRN uplift." Cross-cutting agent risks (prompt injection, sandbox escape, deceptive behavior) get evaluated alongside task accuracy.
+- **Lingua franca for government evals** — UK AISI, US AISI, and Anthropic / OpenAI / Google DeepMind pre-deployment testing all run on Inspect. If your agent is going to be evaluated by a regulator post-EU-AI-Act, it'll likely be inside an Inspect task.
+- **Reproducible and shareable** — every run produces a structured log reviewable in the [Inspect View](https://inspect.aisi.org.uk/view) UI; researchers can publish the full trajectory, not just the score.
+
+For teams building production agents, Inspect is the right place to run your internal regression suite — a strict superset of what `pytest`-style eval libraries ([DeepEval](/infrastructure/#evaluation--testing), [Ragas](/infrastructure/#evaluation--testing)) offer, with a UI built for human review.
+
+---
+
+## τ-Bench (Sierra)
+
+**Source:** [github.com/sierra-research/tau2-bench](https://github.com/sierra-research/tau2-bench) (ships τ³-bench 1.0.0) · **License:** MIT · **Origin:** [Sierra](https://sierra.ai) (Bret Taylor's customer-experience AI company)
+
+Where SWE-bench measures *can the agent ship a PR* and Terminal Bench measures *can the agent operate a machine*, τ-bench measures the third thing production agents have to do: **hold a multi-turn conversation with a customer while obeying a written policy and calling tool APIs correctly.** The agent talks to a user simulated by an LLM; behind the scenes it must call domain APIs (read a booking, modify it, refund the difference) without violating policy.
+
+### Versions
+
+| Version | Released | Domains | Notable additions |
+|---------|----------|---------|-------------------|
+| τ-bench | 2024 | Airline, Retail | Original — pioneered the dual-control evaluation |
+| τ²-bench | 2025 | + Telecom | Both agent *and* user have tools / state |
+| **τ³-bench 1.0.0** | March 18, 2026 | + Banking Knowledge, Mock | Voice (full-duplex), knowledge retrieval, 75+ task fixes |
+
+### Why it matters
+
+SWE-bench / Terminal Bench score on pass-rate against a deterministic harness. τ-bench scores on **Pass^k** — the probability the agent succeeds on *k* independent attempts. That metric matters because customer-service agents fail differently each run; a 70% pass@1 with 30% Pass^4 is a different product than 70% pass@1 with 65% Pass^4. Sierra publishes the leaderboard and uses it as the basis for their own product claims.
+
+For coding agents, τ-bench is the closest public proxy for "can the agent be left alone with a real user without supervision" — a question SWE-bench-style benchmarks structurally can't answer.
+
+---
+
 ## Choosing a benchmark
 
 | If you care about… | Look at… |
@@ -115,6 +157,8 @@ For teams building internal coding agents — especially in the [Stripe Minions]
 | Multimodal issue resolution (UI bugs, chart fixes) | SWE-bench Multimodal |
 | Non-Python coverage | SWE-bench Multilingual |
 | Long-horizon SWE work (Verified saturating) | SWE-bench Pro |
+| Customer-facing reliability (Pass^k, policy adherence) | τ³-bench |
+| Safety + capability under one harness | Inspect AI + `inspect_evals` |
 | Commercial harness quality | Both leaderboards — harness is the differentiator |
 
 Neither benchmark is sufficient on its own. A team shipping autonomous PRs internally should track:
