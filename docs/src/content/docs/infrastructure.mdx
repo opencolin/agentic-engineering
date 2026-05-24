@@ -172,6 +172,14 @@ General-purpose workflow engines that handle failure, retries, and state across 
 | **Upstash Workflow** | Serverless durable workflows | No | Free + usage | QStash-backed, serverless-first |
 | **Vercel Workflow SDK** | Durable workflow execution for AI agents | No | Usage-based | Streaming + cancellation + reconnectable streams, powers Vercel Open Agents, integrates with AI SDK |
 
+#### Inngest AgentKit
+
+Inngest's primary differentiator vs. Temporal / Restate / DBOS is the dedicated agent SDK layered on top of the durable-execution core. **[AgentKit](https://github.com/inngest/agent-kit)** (TS, MIT) ships `Agent` / `Network` / `Router` / `State` primitives directly — every tool call, every model inference, every network hop is a durable step under the hood, so retries, observability, human-in-the-loop pauses, and replay come for free. `step.ai.wrap` and `step.ai.infer` let any AI SDK call inherit that durability without rewriting it. The TS-native ergonomics, Vercel/Cloudflare-friendly deployment story, and "agents as graphs of durable functions" framing make it the obvious bridge between the [Agent-Specific Orchestration Frameworks](#agent-specific-orchestration-frameworks) row below and the Durable Execution Platforms row above.
+
+#### Temporal for agents
+
+[Temporal](https://temporal.io) ([temporalio/temporal](https://github.com/temporalio/temporal), MIT, 20K stars) is the *language-native* end of this market — workflows are ordinary Python / TS / Go / Java functions, and Temporal makes them survive crashes, restarts, and 30-day sleeps. For agents that's exactly the shape of the problem: a tool call is an activity (auto-retried, idempotent), an LLM turn is an activity (with timeouts), the conversation is a workflow (event-history-replayable). Teams running [Stripe Minions](/approaches/#stripe-minions)-style fleets at scale increasingly land on Temporal because the same engine that orchestrates the agent loop also orchestrates the payments pipeline next door. Battle-tested at Uber / Snap / Coinbase / Datadog scale — the trade-off vs Inngest is operational weight (worker cluster + history service) in exchange for polyglot SDKs and a 7+ year production track record.
+
 ### Cloud Provider Workflow Engines
 
 Managed state-machine services from the major clouds.
@@ -193,7 +201,9 @@ Open-source and managed frameworks purpose-built for multi-agent systems.
 | **Microsoft Agent Framework** | Unified successor to AutoGen + Semantic Kernel | OSS (MIT, 1.0 RC Feb 2026) | Merged AutoGen + Semantic Kernel into one framework with workflow + actor model; Python and .NET; Azure-aligned but cloud-neutral |
 | **Microsoft AutoGen** | Multi-agent conversation framework | OSS (maintenance — superseded by Agent Framework) | Conversational multi-agent patterns |
 | **Paperclip** | Hierarchical multi-agent OSS framework — CEO / manager / worker org chart | OSS (44.9K stars in 3 weeks, March 2026) | Doesn't build agents — orchestrates existing ones (Claude Code, OpenClaw, Codex, scripts, webhooks) into "AI companies" with budgets, reporting lines, audit trails |
-| **OpenAI Swarm / Agents SDK** | Lightweight handoff orchestration | OSS | Minimal handoff-style agent routing |
+| **[OpenAI Agents SDK](/approaches/#openai-agents-sdk)** | Handoff-based agent orchestration (production successor to the deprecated [Swarm](https://github.com/openai/swarm) educational library) | OSS (MIT, 27K Python / 3.1K JS) | First-party OpenAI framework — agent / runner / handoff primitives, tracing, guardrails, sessions, MCP, sandbox agents (v0.14+); provider-neutral via the Responses API. See [Approaches: OpenAI Agents SDK](/approaches/#openai-agents-sdk) |
+| **[Google ADK](/approaches/#google-adk-agent-development-kit)** | Model-driven agent framework | OSS (Apache 2.0, 20K stars) | Google's first-party framework — same agent/tool/session shape as OpenAI Agents SDK + Strands, deep Gemini + Vertex AI integration, Agent Engine / Cloud Run deployment templates; unusually polished samples repo |
+| **[Strands Agents](/approaches/#strands-agents)** | Model-driven agent SDK | OSS (Apache 2.0, 5.9K stars) | AWS-incubated answer to OpenAI Agents SDK / ADK — 13+ model providers, native MCP, multi-agent composition, experimental bidirectional voice streaming; first-class Lambda / Fargate / Bedrock AgentCore deployment |
 | **LlamaIndex Workflows** | Event-driven agent workflows | OSS + cloud | Event-driven steps tied to LlamaIndex RAG |
 | **Pydantic AI** | Type-safe agent framework | OSS | Pydantic-grade type safety for agents |
 | **Burr** | State-machine agent framework | OSS | Explicit state machine + telemetry for agents |
@@ -410,7 +420,7 @@ Memory layers designed specifically for AI agents, with multi-level scoping (use
 | Vendor | Type | Price | Key Strength |
 |--------|------|-------|-------------|
 | **Mem0** | Agent memory layer | OSS + cloud | Self-improving memory, 26% accuracy gain over OpenAI Memory |
-| **Letta (MemGPT)** | Stateful agent server | OSS + cloud | MemGPT research lineage, memory hierarchy |
+| **[Letta](https://github.com/letta-ai/letta)** (formerly MemGPT) | Stateful agent server | OSS (Apache 2.0, 23K stars) + cloud | Reference memory-first agent framework. Runs as a server; agents are durable, REST-addressable resources with a four-block memory hierarchy (core / archival / recall / message buffer) — the MemGPT paper's design productized. Ships [Letta Code CLI](/approaches/#letta-code), model-agnostic. The default pick when you want OS-level memory without [GBrain](/approaches/#gbrain)'s repo-as-source-of-truth opinion |
 | **Zep** | Long-term memory + knowledge graph | OSS + cloud | Temporal knowledge graph for agents |
 | **Cognee** | AI memory engine | OSS + cloud | Knowledge graph + vector hybrid memory |
 | **Graphlit** | Knowledge API for agents | Usage-based | RAG + knowledge graph as a service |
@@ -452,6 +462,16 @@ For agents reasoning over structured knowledge rather than flat key-value pairs.
 |--------|-------|-------------|
 | **Neo4j + GraphRAG** | OSS + cloud | Industry-standard graph DB, GraphRAG-native |
 | **Mem0g (Graph Memory)** | OSS + cloud | Mem0's graph feature mapping entity relationships |
+
+### Search APIs for Agents
+
+Memory is what an agent remembers; *search APIs* are what it can find out fresh. The market has converged on a small number of LLM-tuned search/extract endpoints that return clean markdown rather than raw HTML.
+
+| Vendor | Endpoints | Price | Key Strength |
+|--------|-----------|-------|-------------|
+| **[Tavily](https://tavily.com)** | Search · Extract · Crawl · Map · Research | Free tier + usage | LLM-native search built for agents. The five-endpoint surface (released through 2025–26) covers ad-hoc lookup (Search), URL → markdown (Extract), domain crawl (Crawl), sitemap-style enumeration (Map), and multi-step deep-research with structured output (Research). MCP server is a default install in Claude Code, OpenCode, and the Anthropic Marketplace. Pairs cleanly with [Mem0](#purpose-built-agent-memory) / [Letta](#purpose-built-agent-memory) — Tavily fetches, Mem0 / Letta remember |
+| **[Firecrawl](https://github.com/firecrawl/firecrawl)** | Scrape · Crawl · Map · Extract · Deep Research | OSS (AGPL) + cloud | 124K-star OSS alternative; same shape, self-hostable, JS/TS-native |
+| **[Exa](https://exa.ai)** | Neural search · Contents · Find Similar · Answer | Usage-based | Neural-embedding search, strong on niche / academic queries where keyword search degrades |
 
 ---
 
