@@ -59,25 +59,25 @@ The key differentiators between approaches lie in **how they handle failure** at
 Deep dives into each major system and framework:
 - [Stripe Minions](approaches.md#stripe-minions) — 1,300+ PRs/week, blueprints, devboxes, Toolshed MCP
 - [AgentField](approaches.md#agentfield) — Open-source control plane with three nested failure loops
-- [OpenHands](approaches.md#openhands) — 71K stars, most mature open-source autonomous engineer
+- [OpenHands](approaches.md#openhands) — 75K stars, most mature open-source autonomous engineer
 - [Open SWE](approaches.md#open-swe-langchain) — LangChain's multi-agent async coding agent
-- [OhMyOpenAgent](approaches.md#ohmyopenagent) — 50.6K stars, named specialist agents, hash-anchored edits
-- [OpenCode](approaches.md#opencode) — 142K stars, provider-agnostic with GitHub agent mode
+- [OhMyOpenAgent](approaches.md#ohmyopenagent) — 59K stars, named specialist agents, hash-anchored edits
+- [OpenCode](approaches.md#opencode) — 165K stars, provider-agnostic with GitHub agent mode
 - [SWE-agent](approaches.md#swe-agent) — Princeton/Stanford, pioneered issue-to-PR paradigm
 - [Composio](approaches.md#composio-agent-orchestrator) — Best multi-agent parallelization
 - [Patchwork](approaches.md#patchwork) — Patchflows, closest to Stripe's blueprint pattern
 - [Goose](approaches.md#goose) — MCP-native, the ancestor Stripe forked for Minions
 - [Claude Managed Agents](approaches.md#claude-managed-agents) — Anthropic's vertically integrated harness + sandbox + tools, $0.08/agent-hour, Notion/Rakuten/Asana as early adopters
-- [Vercel Open Agents](approaches.md#vercel-open-agents) — 3.7K stars, MIT-licensed reference template, "agent outside the sandbox" architecture, durable workflows + Vercel Sandbox + GitHub App
-- [OpenAI Symphony](approaches.md#openai-symphony) — 15K+ stars, 6-layer orchestration, work management over agent supervision
+- [Vercel Open Agents](approaches.md#vercel-open-agents) — 5.5K stars, MIT-licensed reference template, "agent outside the sandbox" architecture, durable workflows + Vercel Sandbox + GitHub App
+- [OpenAI Symphony](approaches.md#openai-symphony) — 25K stars, 6-layer orchestration, work management over agent supervision
 - [Mastra](approaches.md#mastra) — TypeScript framework for building custom agent systems
-- [OpenClaw](approaches.md#openclaw) — 355K stars, self-hosted assistant with messaging integration
+- [OpenClaw](approaches.md#openclaw) — 374K stars, self-hosted assistant with messaging integration
 - [Rivet Sandbox Agent](approaches.md#rivet-sandbox-agent) — Universal API for running agents in sandboxes
-- [DeerFlow](approaches.md#deerflow) — ByteDance's open-source long-horizon SuperAgent harness, LangGraph-based, 32K+ stars
-- [GStack](approaches.md#gstack) — Garry Tan's 23-skill Claude Code setup, MIT, 82.7K stars; CEO / Designer / Eng Manager / QA personas, paired with Conductor for 10–15 parallel sprints
-- [GBrain](approaches.md#gbrain) — Garry Tan's persistent-memory companion to GStack, MIT, 11.1K stars; self-wiring typed knowledge graph + 29 skills + Postgres-native "Minions" job queue; *"the engine is GStack; GBrain is the mod"*
-- [Superpowers](approaches.md#superpowers) — Jesse Vincent's agentic skills framework + software-development methodology, 93K+ stars; design-then-implement gates, TDD enforcement
-- [Everything Claude Code](approaches.md#everything-claude-code) — Affaan M.'s security-auditing harness pack, ~171K stars; scans CLAUDE.md / settings.json / MCP configs / hooks / agents with red-team/blue-team/auditor pipeline
+- [DeerFlow](approaches.md#deerflow) — ByteDance's open-source long-horizon SuperAgent harness, LangGraph-based, 69K stars
+- [GStack](approaches.md#gstack) — Garry Tan's 23-skill Claude Code setup, MIT, 102K stars; CEO / Designer / Eng Manager / QA personas, paired with Conductor for 10–15 parallel sprints
+- [GBrain](approaches.md#gbrain) — Garry Tan's persistent-memory companion to GStack, MIT, 19K stars; self-wiring typed knowledge graph + 29 skills + Postgres-native "Minions" job queue; *"the engine is GStack; GBrain is the mod"*
+- [Superpowers](approaches.md#superpowers) — Jesse Vincent's agentic skills framework + software-development methodology, 205K stars; design-then-implement gates, TDD enforcement
+- [Everything Claude Code](approaches.md#everything-claude-code) — Affaan M.'s security-auditing harness pack, 190K stars; scans CLAUDE.md / settings.json / MCP configs / hooks / agents with red-team/blue-team/auditor pipeline
 - [Hermes Agent](approaches.md#hermes-agent) — Nous Research's self-improving personal agent, MIT, 165K stars; autonomous skill curation on a 7-day cycle, three-layer memory, 6 terminal backends
 - [AgentHub](approaches.md#agenthub) — Electron harness-engineering control plane (Skills + Hooks + FileWatcher + 7-gate pipeline) on top of Claude Code CLI, 46-agent org chart
 - [The Steinberger School](approaches.md#the-steinberger-school) — Peter Steinberger's AI Software Factory pattern: ~100 Codex agents + Crabbox / Clawpatch / ClawSweeper running OpenClaw on a $1.3M/month budget with ~3 engineers

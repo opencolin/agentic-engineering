@@ -54,7 +54,7 @@ The author of *[LLM Powered Autonomous Agents](https://lilianweng.github.io/post
 
 > 🔨 Operator · OpenClaw / crabbox / clawpatch / clawsweeper · [x.com/steipete](https://twitter.com/steipete) · [GitHub](https://github.com/steipete)
 
-The most aggressive public experimenter in token-unbounded agentic engineering. Steinberger runs OpenClaw (355K stars, the dominant personal-AI-agent platform) and a sprawling ecosystem of supporting tools — [Crabbox](approaches.md#crabbox), [Clawpatch](approaches.md#clawpatch), [ClawSweeper](approaches.md#clawsweeper), Discrawl, CodexBar, [fs-safe](https://github.com/openclaw/fs-safe), [peekaboo](https://peekaboo.sh). The whole stack is a working answer to *"how would we build software if tokens didn't matter?"* — reportedly ~$1.3M/month in inference spend across ~100 Codex instances, operated by a team of ~3. We treat this pattern as its own [school of thought](approaches.md#the-steinberger-school) on the Approaches page.
+The most aggressive public experimenter in token-unbounded agentic engineering. Steinberger runs OpenClaw (374K stars, the dominant personal-AI-agent platform) and a sprawling ecosystem of supporting tools — [Crabbox](approaches.md#crabbox), [Clawpatch](approaches.md#clawpatch), [ClawSweeper](approaches.md#clawsweeper), Discrawl, CodexBar, [fs-safe](https://github.com/openclaw/fs-safe), [peekaboo](https://peekaboo.sh). The whole stack is a working answer to *"how would we build software if tokens didn't matter?"* — reportedly ~$1.3M/month in inference spend across ~100 Codex instances, operated by a team of ~3. We treat this pattern as its own [school of thought](approaches.md#the-steinberger-school) on the Approaches page.
 
 Background: Austrian iOS developer, founded PSPDFKit (sold), then turned the same operational rigor on agents. The interesting thing about Steinberger is that he's not a model researcher — he's an *operator* willing to run the experiment at production cost and document the results in public.
 
@@ -74,8 +74,8 @@ Career: founder of Posterous (acq. Twitter), then Initialized Capital (early Coi
 
 **Key works to know:**
 
-- [GStack](https://github.com/garrytan/gstack) — the skill pack, 82.7K stars
-- [GBrain](https://github.com/garrytan/gbrain) — the brain, 11.1K stars; [gbrain-evals](https://github.com/garrytan/gbrain-evals) for BrainBench
+- [GStack](https://github.com/garrytan/gstack) — the skill pack, 102K stars
+- [GBrain](https://github.com/garrytan/gbrain) — the brain, 19K stars; [gbrain-evals](https://github.com/garrytan/gbrain-evals) for BrainBench
 - *"Skill files are code"* — [his X post](https://x.com/garrytan/status/2042925773300908103) that the GBrain README leans on heavily
 - [garrytan.com](https://garrytan.com) + [YC YouTube](https://www.youtube.com/@ycombinator) for the broader founder-mode commentary
 
@@ -142,7 +142,7 @@ Background: ex-Chrome lead at Google, prolific OSS author (TodoMVC, Yeoman, Mate
 
 > 🔨 Operator · [Superpowers](approaches.md#superpowers) · Prime Radiant · [@obra](https://twitter.com/obra) · [obra.com](https://obra.com/)
 
-The agentic-engineering newcomer with the longest software-engineering pedigree. Vincent created **[Request Tracker](https://bestpractical.com/request-tracker)** (the ticketing system used across the open-source world for ~25 years), was a release manager for **Perl 5**, and co-founded **[Keyboardio](https://shop.keyboard.io/)** (the mechanical keyboard company). When he turned his attention to Claude Code in October 2025 — the same week Anthropic launched the plugin system — he shipped **[Superpowers](approaches.md#superpowers)** within days. It hit 93K+ stars on the strength of a different design center than GStack: instead of "ship products faster," Superpowers enforces *the engineering discipline humans took decades to develop* — design-doc-first, TDD-mandatory, bite-sized tasks (2–5 minutes), autonomous subagents.
+The agentic-engineering newcomer with the longest software-engineering pedigree. Vincent created **[Request Tracker](https://bestpractical.com/request-tracker)** (the ticketing system used across the open-source world for ~25 years), was a release manager for **Perl 5**, and co-founded **[Keyboardio](https://shop.keyboard.io/)** (the mechanical keyboard company). When he turned his attention to Claude Code in October 2025 — the same week Anthropic launched the plugin system — he shipped **[Superpowers](approaches.md#superpowers)** within days. It hit 205K stars on the strength of a different design center than GStack: instead of "ship products faster," Superpowers enforces *the engineering discipline humans took decades to develop* — design-doc-first, TDD-mandatory, bite-sized tasks (2–5 minutes), autonomous subagents.
 
 Vincent's relevance: he brings the long view. The discipline he's encoding into skills isn't theoretical — it's how he ran RT and Perl 5 for two decades.
 
