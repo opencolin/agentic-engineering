@@ -8,7 +8,7 @@ A deep dive into the major systems and frameworks driving autonomous software en
 
 - [Stripe Minions](#stripe-minions) — 1,300+ PRs/week, blueprints, devboxes, Toolshed MCP
 - [Claude Managed Agents](#claude-managed-agents) — Anthropic's vertically integrated harness, $0.08/agent-hour
-- [OpenAI Symphony](#openai-symphony) — 15K+ stars, 6-layer orchestration, work management over agent supervision
+- [OpenAI Symphony](#openai-symphony) — 25K stars, 6-layer orchestration, work management over agent supervision
 - [Vercel Open Agents](#vercel-open-agents) — MIT reference template, durable workflows + Vercel Sandbox + GitHub App
 - [PostHog Code](#posthog-code) — desktop app + open agent framework, swarm driven by production analytics, beta May 2026
 
@@ -16,18 +16,18 @@ A deep dive into the major systems and frameworks driving autonomous software en
 
 Ordered by GitHub stars (descending).
 
-- [OpenClaw](#openclaw) — 355K stars, self-hosted assistant with messaging integration
+- [OpenClaw](#openclaw) — 374K stars, self-hosted assistant with messaging integration
+- [OpenCode](#opencode) — 165K stars, provider-agnostic with GitHub agent mode
 - [Hermes Agent](#hermes-agent) — 165K stars, Nous Research's self-improving personal agent
-- [OpenCode](#opencode) — 142K stars, provider-agnostic with GitHub agent mode
-- [OpenHands](#openhands) — 71K stars, most mature open-source autonomous engineer
-- [OhMyOpenAgent](#ohmyopenagent) — 50.6K stars, named specialist agents, hash-anchored edits
-- [Goose](#goose) — 41K stars, MCP-native, the ancestor Stripe forked for Minions
-- [DeerFlow](#deerflow) — 32K stars, ByteDance's long-horizon SuperAgent harness, LangGraph-based
+- [OpenHands](#openhands) — 75K stars, most mature open-source autonomous engineer
+- [DeerFlow](#deerflow) — 69K stars, ByteDance's long-horizon SuperAgent harness, LangGraph-based
+- [OhMyOpenAgent](#ohmyopenagent) — 59K stars, named specialist agents, hash-anchored edits
+- [Goose](#goose) — 46K stars, MCP-native, the ancestor Stripe forked for Minions
 - [SWE-agent](#swe-agent) — 19K stars, Princeton/Stanford, pioneered issue-to-PR paradigm
-- [Open SWE (LangChain)](#open-swe-langchain) — 9.5K stars, multi-agent async coding agent
-- [Composio Agent Orchestrator](#composio-agent-orchestrator) — 6.2K stars, best multi-agent parallelization
-- [Patchwork](#patchwork) — 1.5K stars, patchflows, closest open-source analog to Stripe's blueprints
-- [AgentField](#agentfield) — open-source control plane with three nested failure loops
+- [Open SWE (LangChain)](#open-swe-langchain) — 9.8K stars, multi-agent async coding agent
+- [Composio Agent Orchestrator](#composio-agent-orchestrator) — 7.2K stars, best multi-agent parallelization
+- [AgentField](#agentfield) — 2K stars, open-source control plane with three nested failure loops
+- [Patchwork](#patchwork) — 1.6K stars, patchflows, closest open-source analog to Stripe's blueprints
 
 ### Frameworks & SDKs
 
@@ -94,7 +94,7 @@ Slack / CLI → Devbox → Pre-hydrate Context → Blueprint Loop → Local Lint
 
 - **Type:** Open Source (Apache 2.0)
 - **Role:** Control Plane + Orchestration Framework
-- **GitHub:** https://github.com/Agent-Field/agentfield
+- **GitHub:** https://github.com/Agent-Field/agentfield [![stars](https://img.shields.io/github/stars/Agent-Field/agentfield?style=social)](https://github.com/Agent-Field/agentfield)
 - **Blog:** https://agentfield.ai/blog/beyond-vibe-coding
 
 AgentField is both a control plane for managing AI agents as production services and an orchestration framework (SWE-AF) for multi-agent coding workflows. It addresses the infrastructure gap that [Stripe](#stripe-minions) solved internally.
@@ -127,8 +127,8 @@ AgentField is both a control plane for managing AI agents as production services
 ## OpenHands
 
 - **Type:** Open Source (MIT)
-- **Stars:** 71K
-- **GitHub:** https://github.com/OpenHands/OpenHands
+- **Stars:** 75K
+- **GitHub:** https://github.com/OpenHands/OpenHands [![stars](https://img.shields.io/github/stars/OpenHands/OpenHands?style=social)](https://github.com/OpenHands/OpenHands)
 
 Formerly OpenDevin, OpenHands is the most mature open-source autonomous software engineer. It clones repos, runs terminal commands, executes tests, debugs errors, and produces PRs — all inside a sandboxed Docker container.
 
@@ -152,8 +152,8 @@ Formerly OpenDevin, OpenHands is the most mature open-source autonomous software
 ## Open SWE (LangChain)
 
 - **Type:** Open Source
-- **Stars:** 9.5K
-- **GitHub:** https://github.com/langchain-ai/open-swe
+- **Stars:** 9.8K
+- **GitHub:** https://github.com/langchain-ai/open-swe [![stars](https://img.shields.io/github/stars/langchain-ai/open-swe?style=social)](https://github.com/langchain-ai/open-swe)
 
 [LangChain](who-is-who.md#harrison-chase)'s cloud-native async coding agent, explicitly modeled on patterns from companies like Stripe, Ramp, and Coinbase. Uses a [multi-agent architecture](patterns.md#6-multi-agent-coordination) built on LangGraph.
 
@@ -176,8 +176,8 @@ Formerly OpenDevin, OpenHands is the most mature open-source autonomous software
 ## OhMyOpenAgent
 
 - **Type:** Open Source
-- **Stars:** 50.6K
-- **GitHub:** https://github.com/code-yeongyu/oh-my-openagent
+- **Stars:** 59K
+- **GitHub:** https://github.com/code-yeongyu/oh-my-openagent [![stars](https://img.shields.io/github/stars/code-yeongyu/oh-my-openagent?style=social)](https://github.com/code-yeongyu/oh-my-openagent)
 
 A multi-agent orchestration harness with named specialist agents, hash-anchored edits for reliability, and automatic multi-model routing. Focuses on solving the practical failure modes that generic agent frameworks overlook.
 
@@ -202,8 +202,8 @@ A multi-agent orchestration harness with named specialist agents, hash-anchored 
 ## OpenCode
 
 - **Type:** Open Source
-- **Stars:** 142K
-- **GitHub:** https://github.com/anomalyco/opencode
+- **Stars:** 165K
+- **GitHub:** https://github.com/anomalyco/opencode [![stars](https://img.shields.io/github/stars/anomalyco/opencode?style=social)](https://github.com/anomalyco/opencode)
 
 The most-starred open-source coding agent, featuring a TUI, client/server architecture, and a GitHub agent mode for unattended repository automation via GitHub Actions.
 
@@ -216,7 +216,7 @@ The most-starred open-source coding agent, featuring a TUI, client/server archit
 
 ### Key Properties
 
-- Massive adoption — 142K stars, largest coding agent community
+- Massive adoption — 165K stars, largest coding agent community
 - Event-driven — GitHub agent mode mirrors Minions' event-driven model
 - Extensible — Plugin architecture for custom tools
 - **Gap:** Primarily interactive; GitHub agent mode is newer
@@ -228,7 +228,7 @@ The most-starred open-source coding agent, featuring a TUI, client/server archit
 - **Type:** Open Source (MIT)
 - **Stars:** 19K
 - **Origin:** Princeton / Stanford
-- **GitHub:** https://github.com/SWE-agent/SWE-agent
+- **GitHub:** https://github.com/SWE-agent/SWE-agent [![stars](https://img.shields.io/github/stars/SWE-agent/SWE-agent?style=social)](https://github.com/SWE-agent/SWE-agent)
 
 Pioneered the "GitHub issue in, pull request out" paradigm. Published at NeurIPS 2024 by [John Yang](who-is-who.md#john-yang) and collaborators including [Shunyu Yao](who-is-who.md#shunyu-yao). Also produced mini-swe-agent, a 100-line agent scoring 74%+ on [SWE-bench](benchmarks.md#swe-bench).
 
@@ -249,8 +249,8 @@ Pioneered the "GitHub issue in, pull request out" paradigm. Published at NeurIPS
 ## Composio Agent Orchestrator
 
 - **Type:** Open Source
-- **Stars:** 6.2K
-- **GitHub:** https://github.com/ComposioHQ/agent-orchestrator
+- **Stars:** 7.2K
+- **GitHub:** https://github.com/ComposioHQ/agent-orchestrator [![stars](https://img.shields.io/github/stars/ComposioHQ/agent-orchestrator?style=social)](https://github.com/ComposioHQ/agent-orchestrator)
 
 The best open-source match for [Stripe](#stripe-minions)'s [multi-agent parallelization pattern](patterns.md#6-multi-agent-coordination). Decomposes tasks, spawns parallel agents, and autonomously handles CI fixes and merge conflicts.
 
@@ -272,8 +272,8 @@ The best open-source match for [Stripe](#stripe-minions)'s [multi-agent parallel
 ## Patchwork
 
 - **Type:** Open Source
-- **Stars:** 1.5K
-- **GitHub:** https://github.com/patched-codes/patchwork
+- **Stars:** 1.6K
+- **GitHub:** https://github.com/patched-codes/patchwork [![stars](https://img.shields.io/github/stars/patched-codes/patchwork?style=social)](https://github.com/patched-codes/patchwork)
 
 Framework for patching code repos using LLMs. Its "patchflows" — reusable workflows combining atomic actions with LLM prompts — are the closest open-source analog to [Stripe's blueprint pattern](patterns.md#2-orchestration-models).
 
@@ -294,8 +294,8 @@ Framework for patching code repos using LLMs. Its "patchflows" — reusable work
 ## Goose
 
 - **Type:** Open Source (Apache 2.0)
-- **Stars:** 41K
-- **GitHub:** https://github.com/block/goose (also https://github.com/aaif-goose/goose)
+- **Stars:** 46K
+- **GitHub:** https://github.com/block/goose (also https://github.com/aaif-goose/goose) [![stars](https://img.shields.io/github/stars/block/goose?style=social)](https://github.com/block/goose) [![stars](https://img.shields.io/github/stars/aaif-goose/goose?style=social)](https://github.com/aaif-goose/goose)
 
 The general-purpose AI agent framework from Block that Stripe forked in late 2024 to build [Minions](#stripe-minions). Now maintained by the Agentic AI Foundation (AAIF) under the Linux Foundation.
 
@@ -317,8 +317,8 @@ The general-purpose AI agent framework from Block that Stripe forked in late 202
 ## Mastra
 
 - **Type:** Open Source (Apache 2.0 + Enterprise)
-- **Stars:** 22.9K
-- **GitHub:** https://github.com/mastra-ai/mastra
+- **Stars:** 24K
+- **GitHub:** https://github.com/mastra-ai/mastra [![stars](https://img.shields.io/github/stars/mastra-ai/mastra?style=social)](https://github.com/mastra-ai/mastra)
 - **Origin:** YC W25, from the team behind Gatsby
 
 A TypeScript framework for building AI-powered applications and autonomous agents. Mastra provides the building blocks for production agent systems — model routing, workflow orchestration, memory, and MCP support — in a developer-friendly package.
@@ -344,8 +344,8 @@ A TypeScript framework for building AI-powered applications and autonomous agent
 ## OpenClaw
 
 - **Type:** Open Source
-- **Stars:** 355K (fastest-growing open-source project on GitHub)
-- **GitHub:** https://github.com/openclaw/openclaw
+- **Stars:** 374K (fastest-growing open-source project on GitHub)
+- **GitHub:** https://github.com/openclaw/openclaw [![stars](https://img.shields.io/github/stars/openclaw/openclaw?style=social)](https://github.com/openclaw/openclaw)
 - **Origin:** Created by [Peter Steinberger](who-is-who.md#peter-steinberger-steipete) (Austria), originally named Clawdbot (Nov 2025)
 
 A self-hosted personal AI assistant platform that connects LLMs to real software via messaging platforms. Not a coding agent per se, but a general-purpose agent framework that can execute coding tasks among many other capabilities.
@@ -422,7 +422,7 @@ The lesson isn't *"spend $1.3M/month"* — it's that **a small team with a compr
 ## Crabbox
 
 - **Type:** Open Source
-- **GitHub:** https://github.com/openclaw/crabbox · **Docs:** https://crabbox.sh
+- **GitHub:** https://github.com/openclaw/crabbox · **Docs:** https://crabbox.sh [![stars](https://img.shields.io/github/stars/openclaw/crabbox?style=social)](https://github.com/openclaw/crabbox)
 - **Origin:** [OpenClaw](#openclaw) org, [Peter Steinberger](who-is-who.md#peter-steinberger-steipete) maintains
 - **Tagline:** *"Crabbox: warm a box, sync the diff, run the suite."*
 
@@ -462,7 +462,7 @@ An agent workspace control plane for maintainers and AI agents. Crabbox sits bet
 ## Clawpatch
 
 - **Type:** Open Source
-- **GitHub:** https://github.com/openclaw/clawpatch · **Site:** https://clawpatch.ai
+- **GitHub:** https://github.com/openclaw/clawpatch · **Site:** https://clawpatch.ai [![stars](https://img.shields.io/github/stars/openclaw/clawpatch?style=social)](https://github.com/openclaw/clawpatch)
 - **Origin:** OpenClaw org, Peter Steinberger
 - **Tagline:** *"Review code. Patch bugs. Land PRs."*
 
@@ -510,7 +510,7 @@ The fix loop is **one finding at a time, with validation** — that's a [WIP=1](
 ## ClawSweeper
 
 - **Type:** Open Source
-- **GitHub:** https://github.com/openclaw/clawsweeper · **Site:** https://clawsweeper.bot
+- **GitHub:** https://github.com/openclaw/clawsweeper · **Site:** https://clawsweeper.bot [![stars](https://img.shields.io/github/stars/openclaw/clawsweeper?style=social)](https://github.com/openclaw/clawsweeper)
 - **Origin:** OpenClaw org, Peter Steinberger
 - **Tagline:** *"Conservative maintenance bot for OpenClaw repositories."*
 
@@ -560,7 +560,7 @@ The **apply lane** runs every 15 minutes. Before commenting or closing, it re-fe
 
 - **Type:** Open Source (MIT)
 - **Stars:** 165K (released February 25, 2026; crossed 95K in seven weeks, 165K by mid-May — the fastest-growing OSS agent framework of 2026)
-- **GitHub:** https://github.com/NousResearch/hermes-agent
+- **GitHub:** https://github.com/NousResearch/hermes-agent [![stars](https://img.shields.io/github/stars/NousResearch/hermes-agent?style=social)](https://github.com/NousResearch/hermes-agent)
 - **Docs:** https://hermes-agent.nousresearch.com/docs/
 - **Origin:** [Nous Research](https://nousresearch.com/) — the lab behind the Hermes language-model series, Atropos, Nomos, and Psyche
 - **Tagline:** *"The agent that grows with you."*
@@ -658,7 +658,7 @@ Both are personal AI agent platforms with messaging-native interfaces, multi-mod
 | **Memory** | Skill marketplace ([ClawHub](#openclaw)) + per-workspace storage | Three-layer memory baked in (SOUL/MEMORY/USER + skills + SQLite session search) |
 | **Self-improvement** | Plugin-based (e.g., [NemoClaw](#the-openclaw-ecosystem)) | First-party Curator running on a 7-day cycle, with rubric and audit log |
 | **Model loop** | Bring-your-own-model | Hermes 3/4 + Atropos RL training built in (any model still works) |
-| **Communities** | 355K stars, sprawling skill marketplace, 30+ hosting vendors | 165K stars, tight model-lab-driven release cadence, [awesome-hermes-agent](https://github.com/0xNyk/awesome-hermes-agent) tracks the ecosystem |
+| **Communities** | 374K stars, sprawling skill marketplace, 30+ hosting vendors | 165K stars, tight model-lab-driven release cadence, [awesome-hermes-agent](https://github.com/0xNyk/awesome-hermes-agent) tracks the ecosystem |
 | **Best fit** | Maximum extensibility, multi-device companion apps | Vertically-integrated stack, RL-curious operators, model-training-as-feedback |
 
 They're complements as often as alternatives — Steinberger's own setup runs Hermes Agent as one of the underlying engines for OpenClaw work.
@@ -756,8 +756,8 @@ This is disruptive to the Layer B agent-sandbox market: teams that would have us
 ## Vercel Open Agents
 
 - **Type:** Open Source Template (MIT)
-- **Stars:** 3.7K (396 forks)
-- **GitHub:** https://github.com/vercel-labs/open-agents
+- **Stars:** 5.5K
+- **GitHub:** https://github.com/vercel-labs/open-agents [![stars](https://img.shields.io/github/stars/vercel-labs/open-agents?style=social)](https://github.com/vercel-labs/open-agents)
 - **Demo:** https://open-agents.dev
 - **Template:** https://vercel.com/templates/template/open-agents
 
@@ -864,8 +864,8 @@ Open Agents stitches these together into a reference application — it's both a
 ## OpenAI Symphony
 
 - **Type:** Open Source (Apache 2.0)
-- **Stars:** 15K+
-- **GitHub:** https://github.com/openai/symphony
+- **Stars:** 25K
+- **GitHub:** https://github.com/openai/symphony [![stars](https://img.shields.io/github/stars/openai/symphony?style=social)](https://github.com/openai/symphony)
 - **Origin:** OpenAI, released as engineering preview
 - **Reference:** https://www.latent.space/p/harness-eng
 
@@ -913,7 +913,7 @@ Symphony assumes codebases have adopted "harness engineering" — robust test su
 - **Vendor:** PostHog
 - **Page:** https://posthog.com/code
 - **Docs:** https://posthog.com/docs/posthog-code
-- **GitHub:** https://github.com/PostHog/code
+- **GitHub:** https://github.com/PostHog/code [![stars](https://img.shields.io/github/stars/PostHog/code?style=social)](https://github.com/PostHog/code)
 - **Models:** OpenAI (GPT-5.x), Anthropic (Claude Sonnet / Opus / Haiku)
 - **Integrations:** GitHub, Linear, Slack, CRM/billing — and PostHog itself via MCP
 
@@ -948,8 +948,8 @@ Within the [commercial coding agents](#commercial-proprietary) cohort, PostHog C
 ## Rivet Sandbox Agent
 
 - **Type:** Open Source
-- **Stars:** 1.3K
-- **GitHub:** https://github.com/rivet-dev/sandbox-agent
+- **Stars:** 1.4K
+- **GitHub:** https://github.com/rivet-dev/sandbox-agent [![stars](https://img.shields.io/github/stars/rivet-dev/sandbox-agent?style=social)](https://github.com/rivet-dev/sandbox-agent)
 
 Universal HTTP API to run any coding agent (Claude Code, Codex, OpenCode, Amp) in isolated sandboxes. The infrastructure layer for building a Minions-like system.
 
@@ -971,8 +971,8 @@ Universal HTTP API to run any coding agent (Claude Code, Codex, OpenCode, Amp) i
 ## DeerFlow
 
 - **Type:** Open Source
-- **Stars:** 32K+
-- **GitHub:** https://github.com/bytedance/deer-flow
+- **Stars:** 69K
+- **GitHub:** https://github.com/bytedance/deer-flow [![stars](https://img.shields.io/github/stars/bytedance/deer-flow?style=social)](https://github.com/bytedance/deer-flow)
 - **Origin:** ByteDance; DeerFlow 1.0 in 2025, DeerFlow 2.0 launched March 2026
 - **Description:** *"An open-source long-horizon SuperAgent harness that researches, codes, and creates."*
 
@@ -1013,8 +1013,8 @@ ByteDance's bet on the SuperAgent pattern: a lead agent decomposes a request, sp
 ## GStack
 
 - **Type:** Open Source (MIT)
-- **Stars:** 82.7K (12K forks)
-- **GitHub:** https://github.com/garrytan/gstack
+- **Stars:** 102K
+- **GitHub:** https://github.com/garrytan/gstack [![stars](https://img.shields.io/github/stars/garrytan/gstack?style=social)](https://github.com/garrytan/gstack)
 - **Origin:** Garry Tan (President & CEO, Y Combinator), released March 2026
 - **Companion site:** https://gstacks.org/
 
@@ -1063,8 +1063,8 @@ Workflow-defining: `/office-hours` (YC-style forcing-question reframe + builder-
 ## Superpowers
 
 - **Type:** Open Source (skills framework)
-- **Stars:** 93K+ (one of the fastest-growing OSS AI projects of 2026)
-- **GitHub:** https://github.com/obra/superpowers
+- **Stars:** 205K (one of the fastest-growing OSS AI projects of 2026)
+- **GitHub:** https://github.com/obra/superpowers [![stars](https://img.shields.io/github/stars/obra/superpowers?style=social)](https://github.com/obra/superpowers)
 - **Origin:** [Jesse Vincent](https://obra.com/) (creator of Request Tracker, ex-Perl-5 release manager, co-founder Keyboardio) and Prime Radiant. Built the first version in October 2025, the same week Anthropic shipped the Claude Code plugin system.
 
 A *software-development-methodology* shipped as a skills framework. Where [GStack](approaches.md#gstack) is "Garry's exact setup" optimized for product/web work, Superpowers is the opposite framing: *"Instead of making the agent smarter, enforce the discipline that human developers spent decades building."*
@@ -1094,8 +1094,8 @@ A *software-development-methodology* shipped as a skills framework. Where [GStac
 ## Everything Claude Code
 
 - **Type:** Open Source
-- **Stars:** ~171K (rank ~#36 globally)
-- **GitHub:** https://github.com/affaan-m/everything-claude-code
+- **Stars:** 190K
+- **GitHub:** https://github.com/affaan-m/everything-claude-code [![stars](https://img.shields.io/github/stars/affaan-m/everything-claude-code?style=social)](https://github.com/affaan-m/everything-claude-code)
 - **Origin:** Affaan M., shipped at the Cerebral Valley × Anthropic Claude Code Hackathon (Feb 2026)
 
 A harness pack focused on a category none of the others target directly: **security auditing of the Claude Code harness itself**. Where GStack / Superpowers / GBrain / AgentHub assume your harness is the answer, `everything-claude-code` treats your harness as an attack surface and audits it.
@@ -1133,8 +1133,8 @@ It also bundles skills, instincts (lightweight always-on rules), memory, and a "
 ## GBrain
 
 - **Type:** Open Source (MIT)
-- **Stars:** 11.1K (1.3K forks)
-- **GitHub:** https://github.com/garrytan/gbrain
+- **Stars:** 19K
+- **GitHub:** https://github.com/garrytan/gbrain [![stars](https://img.shields.io/github/stars/garrytan/gbrain?style=social)](https://github.com/garrytan/gbrain)
 - **Origin:** Garry Tan, 2026; the persistent-memory companion to [GStack](approaches.md#gstack)
 - **Tagline:** *"Your AI agent is smart but forgetful. GBrain gives it a brain."*
 
@@ -1254,7 +1254,7 @@ Ngrok tunnel, Credential Gateway, Voice-to-Brain (Twilio + OpenAI Realtime), Ema
 ## AgentHub
 
 - **Type:** Open Source (MIT)
-- **GitHub:** https://github.com/Stanshy/AgentHub
+- **GitHub:** https://github.com/Stanshy/AgentHub [![stars](https://img.shields.io/github/stars/Stanshy/AgentHub?style=social)](https://github.com/Stanshy/AgentHub)
 - **Origin:** Stanshy, 2026; companion to the [Claude Code Mastery](https://github.com/Stanshy/Claude-code-mastery) course (the same intellectual lineage as the [Walking Labs *Learn Harness Engineering*](https://walkinglabs.github.io/learn-harness-engineering/en/) course referenced in [Harness Engineering](harness-engineering.md))
 - **Stack:** Electron 35, Vue 3, TailwindCSS 4, Pinia, sql.js (WASM SQLite), xterm.js + node-pty, chokidar
 
@@ -1318,7 +1318,7 @@ The short version: harness is the differentiator, not the model. Benchmark top-3
 | **Crush** (`crush`) | Charmbracelet | Polished TUI coding agent | [github.com/charmbracelet/crush](https://github.com/charmbracelet/crush) |
 | **Amp** (`amp`) | Sourcegraph | Multi-repo agentic coding (formerly Cody) | [ampcode.com](https://ampcode.com) |
 | **Junie CLI** (`junie`) | JetBrains | JetBrains' terminal agent | [junie.jetbrains.com](https://junie.jetbrains.com) |
-| **OpenCode** (`opencode`) | Community | Multi-model TUI assistant (142K stars) | [opencode.ai](https://opencode.ai/docs) |
+| **OpenCode** (`opencode`) | Community | Multi-model TUI assistant (165K stars) | [opencode.ai](https://opencode.ai/docs) |
 | **Qwen Code** (`qwen`) | Alibaba | Qwen-backed coding assistant | [github.com/QwenLM/qwen-code](https://github.com/QwenLM/qwen-code) |
 | **Amazon Q CLI** (`q`) | AWS | AWS-integrated coding + cloud agent | [aws.amazon.com/q](https://aws.amazon.com/q) |
 | **Grok CLI** (`grok`) | Community | Open-source Grok terminal assistant | [github.com/superagent-ai/grok-cli](https://github.com/superagent-ai/grok-cli) |
