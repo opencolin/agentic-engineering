@@ -8,6 +8,24 @@ For a shorter, pattern-oriented treatment, see [Patterns § Harness Engineering]
 
 ---
 
+## First Principles
+
+Everything on this page (and most of this reference) reduces to five claims. If you reject any of them, the recommendations downstream stop making sense — so it's worth naming them up front and defending them once.
+
+1. **The model is the cooking method; the harness is the kitchen.** Same model + different harness produces fundamentally different output, and the gap is wider than the gap between adjacent models. Anthropic's controlled bare-vs-three-agent experiment on Opus 4.5 (next section) is the proof; OpenAI's million-line internal build is the corollary. When something fails, *check the harness first, then the model* — swapping models is the most expensive option, and the failure is usually not at that layer. See [Why Harness Beats Model Upgrade](#why-harness-beats-model-upgrade).
+
+2. **The repo is the system of record.** Information the agent can't see in the repo, for all practical purposes, doesn't exist. Slack history, Confluence pages, decisions discussed over coffee — invisible. The diagnostic is the cold-start test: a fresh agent session, given only repo contents, can answer "what is this," "how do I run it," "how do I verify it," "what conventions must I follow," "what's blocked." Every blank is a place the agent will guess. See [The repo is the system of record](#the-repo-is-the-system-of-record).
+
+3. **Feedback is the highest-leverage subsystem.** Of the [five subsystems](#the-five-subsystem-model) (instructions / tools / environment / state / feedback), feedback has the lowest investment-to-impact ratio. A short `make check` target that runs lint + types + tests, exposed via `AGENTS.md`, frequently moves a project from "agent unreliable" to "agent reliable" in a single afternoon. If you only invest in one subsystem, invest here.
+
+4. **Context is a budget, not a buffer.** Every token loaded crowds out a token of work. The "one giant `AGENTS.md`" pattern is a trap — 600 lines is 10–20K tokens before the agent reads a source file, and [lost-in-the-middle](https://arxiv.org/abs/2307.03172) means a hard constraint at line 300 gets ignored anyway. The fix is [progressive disclosure](#progressive-disclosure-for-instructions): a 50–200-line router plus topic docs the agent loads on demand.
+
+5. **Verification beats trust.** The agent's "I'm done" is not evidence the task is done. Verification predicates — tests pass, types check, lint clean, dev server boots, integration smoke green — are. Production agentic engineering is the discipline of *building the verification surface first*, then accepting the agent's claims only when the surface signs them. See [The verification gap](#the-verification-gap) and [Unit tests are not verification](#unit-tests-are-not-verification).
+
+Use this list as a diagnostic when an agent setup feels wrong: which of these five is the setup violating? Almost every "the model isn't smart enough" complaint resolves to a violation of one of them.
+
+---
+
 ## Why Harness Beats Model Upgrade
 
 When an agent fails, the first instinct is "the model isn't good enough — upgrade." Hold off. The empirical record says the model is usually fine; the harness is the bottleneck.
