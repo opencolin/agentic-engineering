@@ -107,6 +107,7 @@ Platforms built for enterprise deployments with deep integration into existing e
 | **AgentGPT** | Freemium | Simplest "give goal, watch it work" UX |
 | **MultiOn** | Freemium + API | Consumer-grade autonomous web agent |
 | **SuperAGI** | Free OSS + cloud | GUI + marketplace for agent templates and tools |
+| **Kimi Agent Swarm** ([kimi.com/agent-swarm](https://www.kimi.com/agent-swarm)) | Consumer + dev platform | Moonshot AI's parallel-task swarm — pre-built verticals for Slides, Websites, Docs, Deep Research, Spreadsheets, and code (Kimi Code) coordinated under one swarm orchestrator. "Scale AI Tasks in Parallel"; developer access via [platform.kimi.ai](https://platform.kimi.ai/) |
 
 ### Autonomous Coding Agents
 
@@ -597,6 +598,16 @@ Once agents start hitting real APIs and SaaS systems, "what credentials does the
 - **Credential brokering pattern** — The agent never sees raw API keys. It requests a scoped, short-lived token from a vault (Agent Vault, Bedrock AgentCore Identity, AWS STS-style flow) tied to its workload identity. The vault enforces what the agent is allowed to ask for.
 - **Multi-agent trust** — DIDs (decentralized identifiers, Ed25519) per agent, signed inter-agent messages, and trust scoring (e.g. AgentField's 0–1000 trust score with five behavioral tiers).
 - **Runtime governance** — A policy engine (Microsoft Agent Governance Toolkit, Kagenti) wraps the harness and audits / blocks specific actions. Pairs with [Guardrails](#guardrails-safety) for content policy.
+
+### Endpoint inventory & supply-chain response
+
+The runtime-identity tooling above answers "as whom is the agent running?" — but a parallel question has gotten louder since [ClawJacked (CVE-2026-25253)](#key-trends) and the wave of malicious MCP servers: *which developer machines, right now, have the compromised package or extension installed?* SBOMs say what shipped to prod; EDR says what ran; neither captures messy local dev state.
+
+| Project | License | Layer | Notes |
+|---------|---------|-------|-------|
+| **Bumblebee** ([perplexityai/bumblebee](https://github.com/perplexityai/bumblebee)) | OSS (Apache 2.0) | Endpoint inventory | Perplexity's read-only supply-chain inventory scanner for developer endpoints. Single static Go binary (Go 1.25+, zero non-stdlib deps), zero package-manager execution. Scans lockfiles, package-manager metadata, extension manifests, and **MCP configurations** across npm / PyPI / Go / RubyGems / Composer / etc., emits NDJSON, and matches against bundled threat-intel catalogs. Three scan profiles: baseline (globals), project (targeted), deep (broad). 2K+ stars |
+
+The IR workflow: when an advisory drops, run Bumblebee across the fleet, get an exact-match list of compromised machines, then escalate from there. Complements rather than replaces the runtime tools above — it's the *between SBOM and EDR* layer.
 
 ### Why this is its own category
 
