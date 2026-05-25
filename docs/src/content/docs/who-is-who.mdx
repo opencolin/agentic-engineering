@@ -1,10 +1,10 @@
 ---
 title: "Who's Who"
-description: "Twenty names worth knowing in agentic engineering — researchers, operators, and chroniclers. Who they are, what they shaped, and the single thing of theirs to read or watch first."
+description: "The names worth knowing in agentic engineering — researchers, operators, and chroniclers. Who they are, what they shaped, and the single thing of theirs to read or watch first."
 ---
 
 
-The shortest way to get oriented in agentic engineering is to figure out *whose work to follow*. This is the people page — twenty names worth knowing, why they matter, and the single thing of theirs to read or watch first.
+The shortest way to get oriented in agentic engineering is to figure out *whose work to follow*. This is the people page — the names worth knowing, why they matter, and the single thing of theirs to read or watch first.
 
 Three rough archetypes:
 
@@ -390,11 +390,104 @@ Founder of [LlamaIndex](https://github.com/run-llama/llama_index), which began l
 
 ---
 
+## Hamel Husain
+
+> ✍️ Chronicler / synthesizer · Independent ML consultant · [hamel.dev](https://hamel.dev) · [@HamelHusain](https://twitter.com/HamelHusain) · [GitHub](https://github.com/hamelsmu)
+
+If you build agents and you don't have evals, you've read Hamel — or you're about to. His *[Your AI Product Needs Evals](https://hamel.dev/blog/posts/evals/)* (April 2024) is the most-cited essay in production-LLM engineering: the framing of evals as a development tool (not dashboard wallpaper), the error-analysis-first methodology, and the LLM-as-judge calibration ritual all trace back to it. Husain runs an independent practice teaching teams to ship evals; the [Mastering LLMs](https://parlance-labs.com/education/) course (with Dan Becker) put concrete error-analysis workflows in the hands of thousands of working engineers. Roadmap-relevant: his [Inspect AI annotated notes](https://hamel.dev/notes/llm/evals/inspect.html) are the canonical practitioner write-up for the eval framework now standard at UK AISI and the frontier labs.
+
+Career: Airbnb (machine learning infra), GitHub (built the original Code Search ML), Outerbounds; now independent. ~20 years of practitioner experience predating the LLM era — which is why his eval framing is unusually calibrated against actual systems work.
+
+**Key works to know:**
+
+- *[Your AI Product Needs Evals](https://hamel.dev/blog/posts/evals/)* (2024) — the foundational post
+- *[Field Notes from Shipping Real Code with Claude](https://hamel.dev/blog/posts/field-notes/)* — operator perspective on agentic coding
+- *[Inspect AI notes](https://hamel.dev/notes/llm/evals/inspect.html)* — practitioner walkthrough of the UK AISI framework
+- [Parlance Labs / Mastering LLMs course](https://parlance-labs.com/) — the hands-on eval curriculum
+
+**Start here:** *Your AI Product Needs Evals*. If you haven't read it, every later argument about evals will sound like jargon. Once you've read it, the whole eval ecosystem on the [Benchmarks](/benchmarks/) page reads as variations on a theme.
+
+---
+
+## Eugene Yan
+
+> ✍️ Chronicler / synthesizer · Applied Scientist (Amazon, prior) → independent · [eugeneyan.com](https://eugeneyan.com) · [@eugeneyan](https://twitter.com/eugeneyan)
+
+The patterns guy. Yan's *[Patterns for Building LLM-based Systems & Products](https://eugeneyan.com/writing/llm-patterns/)* (2023, updated through 2025) is the practitioner index everyone references — evals, retrieval, caching, guardrails, defensive UX, collecting feedback. His follow-ups on [task decomposition](https://eugeneyan.com/writing/llm-task-decomposition/) and [evaluating long-form output](https://eugeneyan.com/writing/abstractive/) supply the granular vocabulary the harness-engineering literature builds on. Calibrated against real shipping experience at Amazon; opinionated without being doctrinaire.
+
+Career: Senior Applied Scientist at Amazon for several years (recommendations, search), now writing and consulting independently. The blog is the body of work; pair it with his [LLM systems reading list](https://eugeneyan.com/writing/llm-reading-list/) as a curated path through the literature.
+
+**Key works to know:**
+
+- *[Patterns for Building LLM-based Systems & Products](https://eugeneyan.com/writing/llm-patterns/)* — the practitioner index
+- *[Task Decomposition](https://eugeneyan.com/writing/llm-task-decomposition/)* — how to split work between calls / agents
+- *[More AI, Less Intelligence](https://eugeneyan.com/writing/more-ai-less-intelligence/)* — when an LLM is the wrong tool
+- *[Evaluation & Hallucination Detection for Abstractive Summaries](https://eugeneyan.com/writing/abstractive/)*
+
+**Start here:** *Patterns for Building LLM-based Systems & Products*. Bookmark it. You'll come back every quarter as new sections appear.
+
+---
+
+## Lance Martin
+
+> ✍️ Chronicler / 🔨 Operator · LangChain · [@RLanceMartin](https://twitter.com/RLanceMartin) · [rlancemartin.github.io](https://rlancemartin.github.io)
+
+LangChain's most prolific writer on the *context* side of the stack. Martin formalized the **Write / Select / Compress / Isolate** framework in [*Context Engineering for Agents*](https://blog.langchain.com/context-engineering-for-agents/) (2025) — the four primitives every harness has to implement, and the conceptual scaffolding the rest of this reference uses on the [Harness Engineering](/harness-engineering/) page. The follow-up [*Context Management for Deep Agents*](https://blog.langchain.com/context-management-for-deepagents/) is where the 20K-token tool-response offload pattern and the 85%-of-window compaction triggers are spelled out concretely. If Anthropic's *Effective context engineering* is the *what*, Martin's pieces are the *how* — same ideas, runnable in LangGraph.
+
+Career: ex-Robust Intelligence; LangChain since ~2023. The body of work to follow is the [LangChain blog](https://blog.langchain.com) (his pieces are the ones tagged "Context" and "Deep Agents").
+
+**Key works to know:**
+
+- *[Context Engineering for Agents](https://blog.langchain.com/context-engineering-for-agents/)* — Write/Select/Compress/Isolate
+- *[Context Management for Deep Agents](https://blog.langchain.com/context-management-for-deepagents/)* — offload thresholds, summarization triggers
+- *[Doubling down on Deep Agents](https://blog.langchain.com/doubling-down-on-deepagents/)* — the harness-vs-framework-vs-runtime distinction
+- *[Evaluating Deep Agents](https://blog.langchain.com/evaluating-deep-agents-our-learnings/)* — single-step / full-turn / multi-turn trajectory eval patterns
+
+**Start here:** *Context Engineering for Agents*. The framework is short, the diagrams are clear, and you'll find yourself reaching for the vocabulary every time you design a harness.
+
+---
+
+## Vivek Trivedy
+
+> 🔨 Operator + chronicler · LangChain · [Deep Agents](/approaches/#deep-agents-langchain) harness lead
+
+The harness-engineering empiricist. Trivedy's [*Improving Deep Agents with harness engineering*](https://blog.langchain.com/improving-deep-agents-with-harness-engineering/) (Feb 2026) is the headline existence proof that harness changes alone — model held fixed at GPT-5.2-codex — moved [Deep Agents](/approaches/#deep-agents-langchain) from rank 30 to rank 5 on Terminal-Bench 2.0. The sequel [*Better Harness: A Recipe for Harness Hill-Climbing with Evals*](https://blog.langchain.com/better-harness-a-recipe-for-harness-hill-climbing-with-evals/) (Apr 2026) operationalized that result: self-verification + trace inspection + small atomic harness changes as a recipe an agent can run on itself. Read together, the two posts are the most concrete published example of *engineering as iterating on the harness, not the model* — the thesis [Harness Engineering](/harness-engineering/) builds the whole page around.
+
+**Key works to know:**
+
+- *[Improving Deep Agents with harness engineering](https://blog.langchain.com/improving-deep-agents-with-harness-engineering/)* (Feb 2026) — the rank 30 → 5 case study
+- *[Better Harness: A Recipe for Harness Hill-Climbing with Evals](https://blog.langchain.com/better-harness-a-recipe-for-harness-hill-climbing-with-evals/)* (Apr 2026) — the iteration recipe
+- The Deep Agents source ([langchain-ai/deepagents](https://github.com/langchain-ai/deepagents)) — read the middleware files alongside the posts; the code is the artifact
+
+**Start here:** The Feb 2026 post. Then go read the diff between Deep Agents v0.4 and v0.5 in the repo — the recipe is the post, the evidence is the commits.
+
+---
+
+## Erik Schluntz
+
+> 🔨 Operator + researcher · Anthropic · [@ErikSchluntz](https://twitter.com/ErikSchluntz)
+
+Co-author (with Barry Zhang) of [*Building Effective Agents*](https://www.anthropic.com/research/building-effective-agents) (Dec 2024) — the post that gave the field its shared workflow vocabulary: prompt chaining, routing, parallelization, orchestrator-worker, evaluator-optimizer. Every later "agent vs workflow" framing on this site (and most others) cites Schluntz and Zhang's five-pattern taxonomy. Schluntz has continued to be a clear public voice from inside Anthropic — his AI Engineer Summit talks on [building agents at scale](https://www.youtube.com/@aiDotEngineer) and his contributions to the [Anthropic Cookbook](https://github.com/anthropics/anthropic-cookbook) `patterns/agents/` directory are the canonical reference implementations of those five patterns.
+
+Career: SpaceX → Cobalt Robotics → Anthropic. Trained as a mechanical engineer; brings a systems-design lens to harness work that shows up in how cleanly the workflow patterns decompose.
+
+**Key works to know:**
+
+- *[Building Effective Agents](https://www.anthropic.com/research/building-effective-agents)* (Dec 2024, with Barry Zhang) — the five workflow patterns
+- *[Anthropic Cookbook: patterns/agents](https://github.com/anthropics/anthropic-cookbook/tree/main/patterns/agents)* — runnable reference implementations
+- Talks at [AI Engineer Summit](https://www.youtube.com/@aiDotEngineer) on agents at scale
+
+**Start here:** *Building Effective Agents*. It's a 25-minute read and remains the most-linked introduction to the discipline. Re-read it after every phase of building your own agent — the failure modes Schluntz and Zhang flag at the end are the ones you'll hit in order.
+
+---
+
 ## Appendix: people, projects, and writers we considered but didn't profile
 
 This page caps at 12 to stay useful. Strong candidates we deliberately didn't write up — each of them is worth following:
 
 - **Anthropic Applied AI team** (Eli Bixby, Hannah Erlich, et al.) — authors of [*Effective Harnesses for Long-Running Agents*](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) and [*Harness Design for Long-Running Application Development*](https://www.anthropic.com/engineering/harness-design-long-running-apps), referenced extensively in [Harness Engineering](/harness-engineering/). Collective authorship.
+- **Barry Zhang** (Anthropic) — co-author of [*Building Effective Agents*](https://www.anthropic.com/research/building-effective-agents) with Erik Schluntz; presents the same five-pattern material at AI Engineer Summit talks. Often referenced as a pair with Schluntz.
+- **Dwarkesh Patel** ([Dwarkesh Podcast](https://dwarkeshpatel.com)) — long-form interviews with researchers and lab leads (Sutton, Sutskever, Amodei, Suleyman). Less of a "build agents" voice than an "understand the strategic ground" voice. Closest thing to the canonical AI-strategy podcast as of 2026.
 - **OpenAI harness engineering authors** — the team behind [*Harness Engineering: Leveraging Codex in an Agent-First World*](https://openai.com/index/harness-engineering/) and the million-LOC Codex experiment. Also collective.
 - **Stripe Minions team** — kept anonymous in [the Stripe blog post](https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents), but the patterns are now the [Stripe School](/approaches/#stripe-minions).
 - **Stanshy** (AgentHub + Claude Code Mastery course) — intentionally pseudonymous. The [course material](https://github.com/Stanshy/Claude-code-mastery) is excellent.
