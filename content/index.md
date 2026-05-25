@@ -70,9 +70,13 @@ Deep dives into each major system and framework:
 - [Claude Managed Agents](approaches.md#claude-managed-agents) — Anthropic's vertically integrated harness + sandbox + tools, $0.08/agent-hour, Notion/Rakuten/Asana as early adopters
 - [Vercel Open Agents](approaches.md#vercel-open-agents) — 5.5K stars, MIT-licensed reference template, "agent outside the sandbox" architecture, durable workflows + Vercel Sandbox + GitHub App
 - [OpenAI Symphony](approaches.md#openai-symphony) — 25K stars, 6-layer orchestration, work management over agent supervision
-- [Mastra](approaches.md#mastra) — 24K stars, TypeScript framework for building custom agent systems
+- [DSPy + GEPA](approaches.md#dspy--gepa) — 34.6K stars, Stanford NLP's programmatic LLM framework + Pareto-genetic prompt/topology optimizer (ICLR 2026 oral)
+- [Smolagents](approaches.md#smolagents) — 27.5K stars, HuggingFace's ~1K-LOC hackable code-agent reference (the harness floor in Anthropic's 42% Opus 4.5 study)
 - [OpenAI Agents SDK](approaches.md#openai-agents-sdk) — 27K stars, first-party OpenAI framework; production successor to Swarm
+- [Mastra](approaches.md#mastra) — 24K stars, TypeScript framework for building custom agent systems
+- [Deep Agents (LangChain)](approaches.md#deep-agents-langchain) — 23.3K stars, batteries-included open harness on LangGraph; planning + virtual FS + sub-agents as middleware
 - [Google ADK](approaches.md#google-adk-agent-development-kit) — 20K stars, Google's first-party Gemini-native framework
+- [Claude Agent SDK](approaches.md#claude-agent-sdk) — 7K (Python) + 1.5K (TS), Anthropic's first-party SDK — the same harness inside Claude Code
 - [Strands Agents](approaches.md#strands-agents) — 5.9K stars, AWS-incubated SDK with first-class Lambda / Fargate / Bedrock AgentCore deployment
 - [Cline](approaches.md#cline) — 62K stars, plan-then-act with explicit user approval; Roo Code sister project at 24K
 - [Letta Code](approaches.md#letta-code) — 23K stars, memory-first coding agent built on the MemGPT lineage

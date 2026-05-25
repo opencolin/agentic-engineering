@@ -413,6 +413,110 @@ AWS's answer to OpenAI Agents SDK and Google ADK. Strands ships 13+ model provid
 
 ---
 
+## Claude Agent SDK
+
+- **Type:** Open Source (MIT, Python) + Anthropic Commercial Terms (TypeScript)
+- **Stars:** 7K (Python) + 1.5K (TS)
+- **GitHub:** [anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) [![stars](https://img.shields.io/github/stars/anthropics/claude-agent-sdk-python?style=social)](https://github.com/anthropics/claude-agent-sdk-python) · [anthropics/claude-agent-sdk-typescript](https://github.com/anthropics/claude-agent-sdk-typescript) [![stars](https://img.shields.io/github/stars/anthropics/claude-agent-sdk-typescript?style=social)](https://github.com/anthropics/claude-agent-sdk-typescript)
+- **Origin:** Anthropic, 2025 (formerly Claude Code SDK); renamed Sep 2025 once it was clear teams wanted the same harness without the coding-product framing
+
+Anthropic's first-party agent SDK — **the exact same harness that ships inside Claude Code**, exposed as a library you can import into your own apps. Where OpenAI Agents SDK, Google ADK, and Strands Agents converge on the *handoff* primitive, Claude Agent SDK converges on the *Claude Code primitives*: a `CLAUDE.md` system-prompt loader, Skills (SKILL.md progressive disclosure), PreToolUse / PostToolUse / Stop / SessionStart hooks, the Task tool for sub-agent spawning, and built-in permission prompts for irreversible actions. The framing Anthropic uses internally: model = CPU, context = RAM, harness = OS, your app = the userspace program. Same model in two harnesses produces wildly different scores — Opus 4.5 hit 78% on CORE inside Claude Code and 42% inside Smolagents.
+
+### Architecture
+
+- **CLAUDE.md** — system-prompt assembly with path-glob matching and progressive loading
+- **Skills** — SKILL.md folders with metadata frontmatter; loaded on demand, ~50 tokens of metadata in context until invoked
+- **Hooks** — PreToolUse / PostToolUse / PreCompact / Stop / SessionStart for guardrails, formatters, telemetry
+- **Sub-agents** — Task tool spawns isolated-context children; only compressed summaries return to the parent
+- **Permission prompts** — first-class HITL gate on destructive actions; programmable via hooks for autonomous mode
+- **MCP-native** — every Skill or tool can be backed by an MCP server
+
+### Key Properties
+
+- The reference harness in 2026. Every other harness in this section is either explicitly modeled after these primitives (Deep Agents, Superpowers, GStack) or reimplements the same set under different names
+- The right pick if you're staying on Anthropic models and want Anthropic-shaped ergonomics. The CLAUDE.md / SKILL.md / hooks pattern is the most-copied design in agentic engineering
+- See [Harness Engineering](/harness-engineering/) for the conceptual layer underneath this SDK — what a harness decomposes into and why Claude Code's harness wins on CORE
+- **Gap:** Anthropic-locked. The SKILL.md format itself is portable (Vercel Skills installs the same format into 51+ agents), but the SDK assumes Anthropic API conventions. Provider-neutral teams reach for Deep Agents instead
+
+---
+
+## Deep Agents (LangChain)
+
+- **Type:** Open Source (MIT)
+- **Stars:** 23.3K
+- **GitHub:** [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) [![stars](https://img.shields.io/github/stars/langchain-ai/deepagents?style=social)](https://github.com/langchain-ai/deepagents)
+- **Origin:** LangChain, August 2025; v0.5 alpha April 2026 (async sub-agents, expanded multi-modal filesystem)
+
+The closest open-source analog to Claude Code's harness, but model-agnostic and built on the LangGraph runtime. Where Claude Agent SDK is *the* Anthropic-shaped harness, Deep Agents is the *batteries-included* harness anyone can adopt on top of LangGraph 1.0: planning, virtual filesystem, sub-agents, summarization, and skills, all as composable middleware. The thesis is that **harness engineering, not model selection, is the lever in 2026** — Vivek Trivedy's [Feb 2026 post](https://blog.langchain.com/improving-deep-agents-with-harness-engineering/) reports going from rank 30 to rank 5 on Terminal-Bench 2.0 holding GPT-5.2-codex fixed and only changing the harness.
+
+### Architecture
+
+- **LangGraph runtime** — state graph of nodes and edges; PostgresSaver checkpointer for durability, time-travel debugging, rewind/fork
+- **Middleware** — `before_agent`, `wrap_model_call`, `before_tools`, `after_tools` hooks compose like Express middleware. SummarizationMiddleware and FilesystemMiddleware are the headline ones
+- **Sub-agents** — isolated-context children spawned via the planning loop; compressed summaries returned to the parent
+- **Virtual filesystem** — tool results over ~20K tokens get offloaded to file paths, leaving a path + 10-line preview in context
+- **Skills** — SKILL.md format, same as Claude Code; loaded by description match
+
+### Key Properties
+
+- Pair with `create_agent` (LangChain 1.0 default factory, Oct 2025; supersedes the deprecated `create_react_agent`) to compose agent + middleware in idiomatic LangGraph
+- The right pick if you want Claude-Code-shaped ergonomics but need model neutrality, durable checkpointing, time-travel debugging, or first-class observability via [LangSmith](/infrastructure/#agent-observability--evaluation)
+- The reference work for harness engineering as a discipline — read alongside [The Anatomy of an Agent Harness](https://blog.langchain.com/the-anatomy-of-an-agent-harness/) (LangChain) and Trivedy's [Better Harness](https://blog.langchain.com/better-harness-a-recipe-for-harness-hill-climbing-with-evals/) hill-climbing recipe
+- **Gap:** LangGraph weight. You get durability, time-travel, and middleware for free, but the conceptual surface area is larger than Claude Agent SDK or Smolagents. Teams that just want "claude.messages.create with hooks" should start lighter
+
+---
+
+## DSPy + GEPA
+
+- **Type:** Open Source (MIT, both)
+- **Stars:** 34.6K (DSPy) + 1.6K (GEPA)
+- **GitHub:** [stanfordnlp/dspy](https://github.com/stanfordnlp/dspy) [![stars](https://img.shields.io/github/stars/stanfordnlp/dspy?style=social)](https://github.com/stanfordnlp/dspy) · [gepa-ai/gepa](https://github.com/gepa-ai/gepa) [![stars](https://img.shields.io/github/stars/gepa-ai/gepa?style=social)](https://github.com/gepa-ai/gepa)
+- **Origin:** Stanford NLP (Omar Khattab et al.), 2023; DSPy 3.0 in 2025; GEPA paper at ICLR 2026 (oral)
+
+The "programming, not prompting" framework. DSPy treats LLM systems as **programs with signatures, modules, and optimizable parameters** (instructions, demos, weights), then uses an optimizer to compile them against your metric. GEPA — **Genetic-Pareto** — is the 2026 optimizer that put this approach back on the map: integrated as `dspy.GEPA`, it uses reflective evolutionary search over text parameters and beats RL-based optimization by 6 points with 35× fewer rollouts. The pitch is straightforward: if you have a metric (eval score, downstream accuracy, latency cost), you can *programmatically* improve the prompts and the agent topology that produced it. No vibes.
+
+### Architecture
+
+- **Signature** — typed input/output spec (`question -> answer: str`); the program's contract
+- **Module** — `ChainOfThought`, `ReAct`, custom — composed into programs like layers
+- **Optimizer** — compiles a program against your metric. `BootstrapFewShot`, `MIPROv2`, and now `GEPA` are the canonical ones
+- **GEPA loop** — reflect on rollouts → mutate text parameters → keep the Pareto frontier → repeat. Optimizes whole-program text, not just a single prompt
+- **DSPy 3.0** — adds streaming, async, type-safe outputs, MCP, and the `dspy.GEPA` integration
+
+### Key Properties
+
+- The most rigorous answer to "how do I know my prompt is good?" — write a metric, compile against it, ship the artifact
+- GEPA's reflective-evolution approach is general: it optimizes whole programs (multiple prompts, control flow, sub-agent topologies) — not just a single prompt template
+- See [Inspect AI](/benchmarks/#inspect-ai) for the eval-side counterpart; DSPy needs a metric, and Inspect is one place to get one with rigor
+- **Gap:** Activation energy. The mental model (programs + signatures + optimizers) is foreign to engineers used to writing prompts directly. The teams that benefit most are the ones already doing rigorous eval work — and most teams aren't there yet
+
+---
+
+## Smolagents
+
+- **Type:** Open Source (Apache 2.0)
+- **Stars:** 27.5K
+- **GitHub:** [huggingface/smolagents](https://github.com/huggingface/smolagents) [![stars](https://img.shields.io/github/stars/huggingface/smolagents?style=social)](https://github.com/huggingface/smolagents)
+- **Origin:** HuggingFace, December 2024
+
+A *deliberately small* code-agent framework. The whole library is ~1,000 lines of Python — designed to be **hackable, readable, and used as a teaching tool** for how a code-execution agent actually works. The differentiator vs JSON-tool-calling frameworks: smolagents agents write their actions as Python code snippets and execute them, which is closer to how frontier code agents (Claude Code, Codex) actually behave under the hood. Multi-modal, MCP-native, and works with any LLM that supports tool calling — but production-weak compared to Claude Agent SDK or Deep Agents.
+
+### Architecture
+
+- **CodeAgent** — the headline agent; writes Python code, executes it in a sandbox, observes results
+- **ToolCallingAgent** — fallback for JSON-mode-only models
+- **Sandboxing** — local Python execution by default; integrations for [E2B](/sandboxes/#purpose-built-agent-sandboxes), Docker, and HuggingFace Spaces
+- **Model neutrality** — any HuggingFace model, OpenAI, Anthropic, local via Ollama / vLLM
+
+### Key Properties
+
+- The fastest way to *understand* what a code-execution agent does — the codebase is short enough to read end-to-end in an afternoon
+- The Anthropic harness-comparison study used Smolagents as the floor (42% on CORE vs Claude Code's 78%, same Opus 4.5) — a useful reference for what "minimal harness" means in numbers
+- Bundled course: [HuggingFace Agents Course](https://huggingface.co/learn/agents-course) walks through smolagents, MCP, and evals end-to-end with a free certificate
+- **Gap:** intentionally production-weak. No durable execution, no checkpointing, no observability beyond logs, minimal sub-agent orchestration. Treat it as a learning tool, then graduate to a real harness
+
+---
+
 ## OpenClaw
 
 - **Type:** Open Source
