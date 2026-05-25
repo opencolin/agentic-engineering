@@ -1,3 +1,5 @@
+<!-- description: A curated reference of the models worth knowing for agentic engineering as of May 2026 — closed-source frontier, open-weights frontier, and agent/coding specialists, each with prices, context windows, positioning, and the benchmark that matters. -->
+
 # Models
 
 A curated reference of the models worth knowing for agentic engineering as of **May 2026**. Three tables — closed-source frontier, open-weights frontier, and agent / coding specialists — each annotated with prices, context windows, positioning, and the benchmark that matters for picking it.

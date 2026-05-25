@@ -1,3 +1,5 @@
+<!-- description: How companies and teams organize around autonomous coding agents. The shift from 'developers who use AI tools' to 'organizations designed for human-agent collaboration.' -->
+
 # Agentic Organizations
 
 How companies and teams organize around autonomous coding agents. The shift from "developers who use AI tools" to "organizations designed for human-agent collaboration."

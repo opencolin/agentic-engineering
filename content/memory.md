@@ -1,3 +1,5 @@
+<!-- description: How agents remember across turns and sessions — three-axis taxonomy (lifetime / type / update mechanism), the vendors (Letta, Mem0, LangMem, LangGraph Store, Anthropic memory tool), filesystem-as-memory pattern, three-layer continual learning model, and production anti-patterns. -->
+
 # Memory
 
 How agents remember things across turns and across sessions. Distinct from [Context Engineering](context-engineering.md) — context engineering is about what's in the window *right now*; memory is about what survives when the window resets.

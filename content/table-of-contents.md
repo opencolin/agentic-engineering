@@ -1,3 +1,5 @@
+<!-- description: Full sitemap of this reference — every chapter and major section, with deep links. -->
+
 # Table of Contents
 
 A full sitemap of this reference. Use this page when you know roughly what you want but don't remember which chapter it lives in.

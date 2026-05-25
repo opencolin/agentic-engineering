@@ -1,3 +1,5 @@
+<!-- description: Curated entry points to follow the field — daily firehose (Simon Willison, TLDR AI, The Batch), weekly substantive (Import AI, Latent Space, Hamel.dev), deep long-form (Lil'Log, Cameron Wolfe, Chip Huyen), podcasts, courses, communities, conferences, reference repos. A practical weekly cadence at the bottom. -->
+
 # Reading List
 
 Curated entry points to follow the field. Organized by depth of commitment — start at the top, add lower-frequency sources as you have bandwidth. Everything here is referenced from primary sources in the [Research Notes](research-notes.md) bibliography.

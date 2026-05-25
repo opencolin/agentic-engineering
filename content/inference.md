@@ -1,3 +1,5 @@
+<!-- description: Agents need fast, reliable access to capable LLMs. The choice of inference provider affects cost, latency, model selection, and reliability. -->
+
 # Inference Solutions for Agentic Engineering
 
 Agents need fast, reliable access to capable LLMs. The choice of inference provider affects cost, latency, model selection, and reliability — and because LLM API costs typically comprise 60-80% of agent operating expenses, inference strategy is often the single most consequential infrastructure decision.

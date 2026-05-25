@@ -93,6 +93,8 @@
   </div>
 
   <script type="text/markdown" data-page="index">
+<!-- description: A comprehensive reference to autonomous coding agents, agentic organizations, and the emerging patterns of AI-native software engineering. -->
+
 # Agentic Engineering
 
 <p class="sponsor-banner">Sponsored by <a href="https://nebius.com/" target="_blank" rel="noopener" aria-label="Nebius"><img src="img/nebius-logo.svg" alt="Nebius" class="sponsor-logo" /></a></p>
@@ -268,6 +270,8 @@ Where agents actually run — 150+ vendors across 9 major categories:
 - [Choosing Your Stack](infrastructure.md#choosing-your-stack) — Starter, growth, scale, and enterprise recommendations
   </script>
   <script type="text/markdown" data-page="table-of-contents">
+<!-- description: Full sitemap of this reference — every chapter and major section, with deep links. -->
+
 # Table of Contents
 
 A full sitemap of this reference. Use this page when you know roughly what you want but don't remember which chapter it lives in.
@@ -587,6 +591,8 @@ These don't fit the numbered chapter sequence but are linked from the sidebar Ge
 - **Reading order for newcomers**: [Who's Who § Reading order](who-is-who.md#reading-order-if-youre-new) for the one-week onboarding path; [Reading List](reading-list.md) for the broader source map
   </script>
   <script type="text/markdown" data-page="reading-list">
+<!-- description: Curated entry points to follow the field — daily firehose (Simon Willison, TLDR AI, The Batch), weekly substantive (Import AI, Latent Space, Hamel.dev), deep long-form (Lil'Log, Cameron Wolfe, Chip Huyen), podcasts, courses, communities, conferences, reference repos. A practical weekly cadence at the bottom. -->
+
 # Reading List
 
 Curated entry points to follow the field. Organized by depth of commitment — start at the top, add lower-frequency sources as you have bandwidth. Everything here is referenced from primary sources in the [Research Notes](research-notes.md) bibliography.
@@ -751,6 +757,8 @@ A reasonable weekly cadence for someone shipping agents in production:
 - [Research Notes](research-notes.md) — primary-source bibliography with key claims pulled per URL
   </script>
   <script type="text/markdown" data-page="changelog">
+<!-- description: What's been added to the site, newest first. Content additions only — bug fixes, refactors, UX passes, and star refreshes are in git history but not tracked here. -->
+
 # Changelog
 
 What's been added to this site, newest first. Bug fixes, refactors, accessibility passes, sidebar restructures, and star-count refreshes happen in git history but aren't tracked here — this page is for **content additions** so you can see what's new to read.
@@ -878,6 +886,8 @@ Skip entries for:
 These all live in `git log` if anyone needs them.
   </script>
   <script type="text/markdown" data-page="approaches">
+<!-- description: Deep dives into the major systems and frameworks driving autonomous software engineering — from enterprise-internal platforms to open-source tools and model-provider managed agents. -->
+
 # Approaches to Agentic Coding
 
 A deep dive into the major systems and frameworks driving autonomous software engineering — from enterprise-internal platforms to open-source tools.
@@ -2533,8 +2543,82 @@ For agentic engineering teams, these matter as **tools an agent calls** — for 
 - **Self-host a full Operator alternative for end users** → Open-CUAK or Open Computer Agent.
 - **Already on Claude** → Anthropic Computer Use directly via the API; Claude Cowork if you want the productized desktop UX.
 - **Visual testing / regression** → Magnitude (visual assertions), Skyvern (workflow builder), or Stagehand on top of Playwright's existing assertions.
+
+---
+
+## Feature Matrix
+
+| Project | Stars | Unattended PR | Orchestration | Sandbox | MCP | CI Feedback | Multi-Agent | License |
+|---------|-------|--------------|---------------|---------|-----|-------------|-------------|---------|
+| **Claude Managed Agents** | N/A | Yes | Built-in harness | Managed container | Yes (MCP) | Yes | Research preview | Commercial |
+| **Stripe Minions** | N/A | Yes | Blueprints | EC2 Devboxes | Yes (~500 tools) | Yes (2 rounds) | Parallel runs | Proprietary |
+| **AgentField** | 1.4K | Yes | SWE-AF levels | Git Worktrees | Agent mesh | Yes (gated) | Yes (orchestrated) | Apache 2.0 |
+| **OpenHands** | 71K | Yes | Planning Mode | Docker | No | Yes | No | MIT |
+| **Open SWE** | 9.5K | Yes | LangGraph | Cloud sandbox | No | Yes | Yes (4 agents) | Open Source |
+| **OhMyOpenAgent** | 50.6K | Partial | Named agents | No | Yes (built-in) | Partial | Yes (team) | Open Source |
+| **OpenCode** | 142K | Partial (GH mode) | No | No | No | No | No | Open Source |
+| **SWE-agent** | 19K | Yes | No | Docker | No | Partial | No | MIT |
+| **Composio** | 6.2K | Yes | Task decomp | Configurable | No | Yes | Yes (parallel) | Open Source |
+| **Patchwork** | 1.5K | Yes | Patchflows | No | No | Yes (CI/CD) | No | Open Source |
+| **Goose** | 41K | No (interactive) | No | No | Yes (70+ tools) | No | No | Apache 2.0 |
+| **Symphony** | 15K+ | Yes | 6-layer architecture | Worktrees | Via integrations | Yes (CI-gated) | Yes (orchestrated) | Apache 2.0 |
+| **Vercel Open Agents** | 3.7K | Yes | Vercel Workflow SDK (durable) | Vercel Sandbox (microVM) | Yes (MCP) | Via tools | Subagents built-in | MIT |
+| **Mastra** | 22.9K | Framework | Workflows | Configurable | Yes (MCP) | Via workflows | Via workflows | Apache 2.0 |
+| **OpenClaw** | 355K | Via skills | No | Via NemoClaw | No | No | Yes (sessions) | Open Source |
+| **Rivet Sandbox** | 1.3K | Infrastructure | No | Yes (multi-runtime) | No | No | API-level | Open Source |
+
+---
+
+## Capability Breakdown
+
+### Best for Unattended PR Production
+1. **Stripe Minions** — Gold standard, 1,300+ PRs/week in production
+2. **OpenHands** — Most mature open-source option, 50%+ SWE-bench
+3. **Open SWE** — Best multi-agent architecture for PR production
+
+### Best for Orchestration / Workflow
+1. **Stripe Minions** — Blueprints (hybrid deterministic + agentic)
+2. **Patchwork** — Patchflows (closest open-source blueprint analog)
+3. **Open SWE** — LangGraph (graph-based multi-agent)
+
+### Best for Sandbox Isolation
+1. **Stripe Minions** — EC2 devboxes, pre-warmed in 10s
+2. **Rivet Sandbox Agent** — Universal API for any agent in any sandbox
+3. **OpenHands** — Docker-based, Kubernetes-ready
+
+### Best for Multi-Agent Parallelization
+1. **Composio Orchestrator** — Purpose-built for parallel agent coordination
+2. **AgentField** — Full orchestration with failure recovery
+3. **OhMyOpenAgent** — Named specialist team with model routing
+
+### Best for Context Management
+1. **Stripe Minions** — Toolshed MCP (~500 tools), conditional rules, pre-hydration
+2. **OhMyOpenAgent** — Hierarchical AGENTS.md, built-in MCPs, multi-model routing
+3. **Goose** — MCP-native with 70+ extensions
+
+### Best for Failure Recovery
+1. **AgentField** — Three nested loops, typed recovery, checkpoint-based
+2. **Stripe Minions** — Pragmatic 2-round CI cap with auto-fixes
+3. **OhMyOpenAgent** — Ralph Loop for persistent iteration
+
+---
+
+## Composability
+
+No single open-source project replicates the full Stripe Minions architecture. To build an equivalent, you would likely combine:
+
+| Layer | Option A | Option B |
+|-------|----------|----------|
+| **Core Agent** | OpenHands | Open SWE |
+| **Sandbox** | Rivet Sandbox Agent | E2B / Docker |
+| **Orchestration** | Patchwork patchflows | LangGraph |
+| **Parallelization** | Composio Orchestrator | AgentField |
+| **Context** | MCP servers | OhMyOpenAgent MCPs |
+| **Control Plane** | AgentField | Custom |
   </script>
   <script type="text/markdown" data-page="patterns">
+<!-- description: Cross-cutting patterns that appear across approaches to autonomous coding agents. Understanding these helps you evaluate tools and design your own agentic systems. -->
+
 # Architectural Patterns in Agentic Engineering
 
 Cross-cutting patterns that appear across the different approaches to autonomous coding agents. Understanding these patterns helps you evaluate tools and design your own agentic systems.
@@ -2797,6 +2881,8 @@ Each minion gets its own full development environment. No shared filesystem, no 
 Stripe chose to avoid merge conflicts entirely by isolating at the VM level and letting humans handle PR-level conflicts. AgentField chose to embrace parallelism and build automated merge resolution. The right choice depends on how independent your tasks are.
   </script>
   <script type="text/markdown" data-page="harness-engineering">
+<!-- description: How to make AI coding agents reliable — the five-subsystem model, repo-as-system-of-record, WIP=1, three-layer verification, sprint contracts, and clean-state exits. -->
+
 # Harness Engineering
 
 Most teams think a "harness" is a prompt file. It isn't. A harness is **everything in the engineering infrastructure outside the model weights** — the instructions, tools, environment, state, and feedback machinery that determines how much of a model's capability actually shows up at runtime. Same model, different harness, fundamentally different output.
@@ -3174,6 +3260,8 @@ Adjacent reading:
 - [Skills, Plugins & Marketplaces](approaches.md#skills-plugins-marketplaces) — how harness-builder skills get distributed
   </script>
   <script type="text/markdown" data-page="context-engineering">
+<!-- description: The named discipline of curating what's inside an LLM's context window — write/select/compress/isolate strategies, attention-budget framing, concrete thresholds (95%/85% compaction, 20K-token spill, ~12-skill ceiling), and the four context failure modes. -->
+
 # Context Engineering
 
 The named discipline of curating what's inside an LLM's context window so it can actually do the task. Coined by Anthropic in [Effective Context Engineering for AI Agents](https://anthropic.com/engineering/effective-context-engineering-for-ai-agents) (Sept 2025) and codified by LangChain in [Context Engineering for Agents](https://blog.langchain.com/context-engineering-for-agents/) (July 2025).
@@ -3272,6 +3360,8 @@ If your agent is failing in production, identify which of these is happening bef
 - [Research Notes](research-notes.md) — primary-source bibliography for every claim on this page
   </script>
   <script type="text/markdown" data-page="tool-design">
+<!-- description: How to write tools that agents actually use well — consolidate vs CRUD plumbing, ResponseFormat compression (206→72 tokens), lazy loading via Tool Search Tool (-85% tokens), code-as-tool via sandboxes (150K→2K tokens), Tool Use Examples (+18pp accuracy), MCP protocol, and what to measure per tool. -->
+
 # Tool Design
 
 How to write tools that agents actually use well. The most-overlooked layer in agent quality — most production teams tune prompts and pick models; the tool layer is where the biggest wins quietly live.
@@ -3417,6 +3507,8 @@ Worth reading: [Code Execution with MCP](https://anthropic.com/engineering/code-
 - [Research Notes](research-notes.md) — primary sources for every number on this page
   </script>
   <script type="text/markdown" data-page="skills">
+<!-- description: Cross-vendor primitive (Anthropic open standard, Dec 2025) for giving an agent a capability without bloating its context window — SKILL.md format, three-level progressive disclosure, empirical bounds (82% vs 9% lift, ~12-skill ceiling, 70% invocation reliability), and security model. -->
+
 # Skills
 
 The cross-vendor primitive for giving an agent a capability without bloating its context window. Defined by Anthropic as an [open standard in December 2025](https://anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills) and now portable across Claude.ai, Claude Code, the Claude Agent SDK, and the Claude Developer Platform.
@@ -3544,6 +3636,8 @@ The model autonomously executes bundled scripts when the skill is invoked. A mal
 - [Research Notes](research-notes.md) — primary sources for every claim on this page
   </script>
   <script type="text/markdown" data-page="memory">
+<!-- description: How agents remember across turns and sessions — three-axis taxonomy (lifetime / type / update mechanism), the vendors (Letta, Mem0, LangMem, LangGraph Store, Anthropic memory tool), filesystem-as-memory pattern, three-layer continual learning model, and production anti-patterns. -->
+
 # Memory
 
 How agents remember things across turns and across sessions. Distinct from [Context Engineering](context-engineering.md) — context engineering is about what's in the window *right now*; memory is about what survives when the window resets.
@@ -3686,6 +3780,8 @@ Memory is the *context* layer. It's the cheapest and fastest of the three to cha
 - [Research Notes](research-notes.md) — primary sources for the vendors and patterns on this page
   </script>
   <script type="text/markdown" data-page="evals">
+<!-- description: How to measure whether an agent actually works — pass@k vs pass^k, the three-layer test mental model, three things that silently invalidate your numbers (grading bugs, infra noise, eval awareness), and the tooling landscape (Inspect AI, LangSmith, Braintrust, Langfuse, Phoenix). -->
+
 # Evals
 
 How you measure whether an agent actually works. Distinct from [Benchmarks](benchmarks.md) — benchmarks are the public leaderboards (SWE-bench, GAIA, Terminal-Bench); evals are *your* tests against *your* failure modes.
@@ -3826,6 +3922,8 @@ Multi-turn breaks naive eval harnesses. Two patterns that work:
 - [Research Notes](research-notes.md) — primary sources for every claim and number on this page
   </script>
   <script type="text/markdown" data-page="benchmarks">
+<!-- description: SWE-bench and Terminal Bench — the two benchmarks that matter most for autonomous coding agents, how they work, and who's on top. -->
+
 # Benchmarks
 
 How agentic coding systems are evaluated. The two benchmarks that matter most for coding agents today are **SWE-bench** (resolve real GitHub issues) and **Terminal Bench** (complete terminal-based engineering tasks). Together they cover two different shapes of the same question: *can the agent actually get the job done end-to-end?*
@@ -4036,6 +4134,8 @@ Neither benchmark is sufficient on its own. A team shipping autonomous PRs inter
 - [Organizations](organizations.md) — How teams measure agent value beyond benchmarks
   </script>
   <script type="text/markdown" data-page="models">
+<!-- description: A curated reference of the models worth knowing for agentic engineering as of May 2026 — closed-source frontier, open-weights frontier, and agent/coding specialists, each with prices, context windows, positioning, and the benchmark that matters. -->
+
 # Models
 
 A curated reference of the models worth knowing for agentic engineering as of **May 2026**. Three tables — closed-source frontier, open-weights frontier, and agent / coding specialists — each annotated with prices, context windows, positioning, and the benchmark that matters for picking it.
@@ -4167,6 +4267,8 @@ For broader context across the whole field:
 - [Benchmarks](benchmarks.md) — what the scores in this table mean
   </script>
   <script type="text/markdown" data-page="schools">
+<!-- description: The three philosophical schools (Polosukhin / Chase / Ng) and the four operational schools (Stripe / Tan / Walking Labs / Steinberger) — where does trust live in an agentic system? -->
+
 # Schools of Agentic Engineering
 
 There's no single way to build agents. By 2026 a handful of distinct *schools* have emerged — each with its own answer to the question *where does trust live?* and its own set of tools, idioms, and operational assumptions. This page maps them.
@@ -4379,6 +4481,8 @@ For the operational schools, see the per-school links inline above. For the unde
 > *Some numerical claims in the philosophical-school sections are drawn from public talks and interviews and have not been independently verified — particularly LangChain's monthly-download figures, NEAR's marketplace agent counts, and AI Fund's reported portfolio metrics. Treat them as directional rather than precise.*
   </script>
   <script type="text/markdown" data-page="who-is-who">
+<!-- description: The names worth knowing in agentic engineering — researchers, operators, and chroniclers. Who they are, what they shaped, and the single thing of theirs to read or watch first. -->
+
 # Who's Who in Agentic Engineering
 
 The shortest way to get oriented in agentic engineering is to figure out *whose work to follow*. This is the people page — the names worth knowing, why they matter, and the single thing of theirs to read or watch first.
@@ -4907,6 +5011,8 @@ If the list looks overwhelming, here's a one-week onboarding path:
 That's enough background to read [Harness Engineering](harness-engineering.md) and the rest of this reference with full context.
   </script>
   <script type="text/markdown" data-page="organizations">
+<!-- description: How companies and teams organize around autonomous coding agents. The shift from 'developers who use AI tools' to 'organizations designed for human-agent collaboration.' -->
+
 # Agentic Organizations
 
 How companies and teams organize around autonomous coding agents. The shift from "developers who use AI tools" to "organizations designed for human-agent collaboration."
@@ -5040,6 +5146,8 @@ The industry is converging on a model where:
 The key insight from both Stripe and the open-source community: **the hard part isn't the LLM — it's the infrastructure around it.** Isolation, feedback loops, failure recovery, context management, and CI integration are what separate toy demos from production systems.
   </script>
   <script type="text/markdown" data-page="inference">
+<!-- description: Agents need fast, reliable access to capable LLMs. The choice of inference provider affects cost, latency, model selection, and reliability. -->
+
 # Inference Solutions for Agentic Engineering
 
 Agents need fast, reliable access to capable LLMs. The choice of inference provider affects cost, latency, model selection, and reliability — and because LLM API costs typically comprise 60-80% of agent operating expenses, inference strategy is often the single most consequential infrastructure decision.
@@ -5162,6 +5270,8 @@ Expect automatic model routing to become table stakes for managed platforms with
 See also: [Hosting & Execution](infrastructure.md) for where to actually run your agents.
   </script>
   <script type="text/markdown" data-page="sandboxes">
+<!-- description: Sandboxes are the single most important piece of infrastructure for autonomous coding agents. They answer the fundamental question: where does untrusted LLM-generated code actually run? -->
+
 # Sandboxes for Agentic Engineering
 
 Sandboxes are the single most important piece of infrastructure for autonomous coding agents. They answer the fundamental question: **where does untrusted LLM-generated code actually run?**
@@ -5706,6 +5816,8 @@ This pattern is impractical without fast branching (Contree) or snapshots (Modal
 - [Approaches](approaches.md) — Systems like Stripe Minions and OpenAI Symphony that depend on sandbox infrastructure
   </script>
   <script type="text/markdown" data-page="infrastructure">
+<!-- description: Where agents actually run — 150+ vendors across 9 categories covering the full hosting and execution landscape. -->
+
 # Hosting & Execution Infrastructure
 
 Where agents actually run — the compute infrastructure for sandboxed, scalable agent execution. This page covers 50+ vendors across 6 tiers, sourced from ClawCamp Research market guides (April 2026).
@@ -6423,6 +6535,8 @@ A critical distinction often missed: code execution sandboxes (E2B, Sprites, Day
 See also: [Inference Solutions](inference.md) for choosing your LLM provider.
   </script>
   <script type="text/markdown" data-page="generative-ui">
+<!-- description: How agent frameworks ship interfaces — Static, Declarative (A2UI), and Open-ended patterns. CopilotKit, AG-UI, Vercel AI SDK, MCP-UI. Trade-offs between consistency and flexibility. -->
+
 # Generative UI
 
 Generative UI (GenUI) is UI that an AI system assembles or changes at runtime based on the user's intent, context, or task — rather than relying only on fixed screens authored in advance.
@@ -6768,6 +6882,8 @@ Widgets common in early adoption: forms, charts (pie, bar, line), data tables, a
 - [Who's Who § Lee Robinson](who-is-who.md#lee-robinson) — popularized Vercel's `streamUI` pattern
   </script>
   <script type="text/markdown" data-page="research-notes">
+<!-- description: Source-of-truth bibliography: structured digest of 112 primary sources ingested in May 2026 — key claims, specific numbers, frameworks named, and one-line slot in the reference. Cmd-F to find every source that discusses a framework, benchmark, or technique. -->
+
 # Research Notes — Primary Source Ingestion
 
 Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2026 across six parallel research passes. This file is the source-of-truth bibliography behind the polished pages in this repo — when a page cites "the LangChain harness post" or "Anthropic's auto-mode classifier," the underlying notes live here.

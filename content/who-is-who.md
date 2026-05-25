@@ -1,3 +1,5 @@
+<!-- description: The names worth knowing in agentic engineering — researchers, operators, and chroniclers. Who they are, what they shaped, and the single thing of theirs to read or watch first. -->
+
 # Who's Who in Agentic Engineering
 
 The shortest way to get oriented in agentic engineering is to figure out *whose work to follow*. This is the people page — the names worth knowing, why they matter, and the single thing of theirs to read or watch first.

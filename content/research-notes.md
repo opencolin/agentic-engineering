@@ -1,3 +1,5 @@
+<!-- description: Source-of-truth bibliography: structured digest of 112 primary sources ingested in May 2026 — key claims, specific numbers, frameworks named, and one-line slot in the reference. Cmd-F to find every source that discusses a framework, benchmark, or technique. -->
+
 # Research Notes — Primary Source Ingestion
 
 Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2026 across six parallel research passes. This file is the source-of-truth bibliography behind the polished pages in this repo — when a page cites "the LangChain harness post" or "Anthropic's auto-mode classifier," the underlying notes live here.

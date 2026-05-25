@@ -1,3 +1,5 @@
+<!-- description: Cross-vendor primitive (Anthropic open standard, Dec 2025) for giving an agent a capability without bloating its context window — SKILL.md format, three-level progressive disclosure, empirical bounds (82% vs 9% lift, ~12-skill ceiling, 70% invocation reliability), and security model. -->
+
 # Skills
 
 The cross-vendor primitive for giving an agent a capability without bloating its context window. Defined by Anthropic as an [open standard in December 2025](https://anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills) and now portable across Claude.ai, Claude Code, the Claude Agent SDK, and the Claude Developer Platform.

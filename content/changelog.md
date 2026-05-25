@@ -1,3 +1,5 @@
+<!-- description: What's been added to the site, newest first. Content additions only — bug fixes, refactors, UX passes, and star refreshes are in git history but not tracked here. -->
+
 # Changelog
 
 What's been added to this site, newest first. Bug fixes, refactors, accessibility passes, sidebar restructures, and star-count refreshes happen in git history but aren't tracked here — this page is for **content additions** so you can see what's new to read.

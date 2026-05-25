@@ -1,3 +1,5 @@
+<!-- description: How to write tools that agents actually use well — consolidate vs CRUD plumbing, ResponseFormat compression (206→72 tokens), lazy loading via Tool Search Tool (-85% tokens), code-as-tool via sandboxes (150K→2K tokens), Tool Use Examples (+18pp accuracy), MCP protocol, and what to measure per tool. -->
+
 # Tool Design
 
 How to write tools that agents actually use well. The most-overlooked layer in agent quality — most production teams tune prompts and pick models; the tool layer is where the biggest wins quietly live.

@@ -1,3 +1,5 @@
+<!-- description: How to measure whether an agent actually works — pass@k vs pass^k, the three-layer test mental model, three things that silently invalidate your numbers (grading bugs, infra noise, eval awareness), and the tooling landscape (Inspect AI, LangSmith, Braintrust, Langfuse, Phoenix). -->
+
 # Evals
 
 How you measure whether an agent actually works. Distinct from [Benchmarks](benchmarks.md) — benchmarks are the public leaderboards (SWE-bench, GAIA, Terminal-Bench); evals are *your* tests against *your* failure modes.

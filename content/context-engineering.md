@@ -1,3 +1,5 @@
+<!-- description: The named discipline of curating what's inside an LLM's context window — write/select/compress/isolate strategies, attention-budget framing, concrete thresholds (95%/85% compaction, 20K-token spill, ~12-skill ceiling), and the four context failure modes. -->
+
 # Context Engineering
 
 The named discipline of curating what's inside an LLM's context window so it can actually do the task. Coined by Anthropic in [Effective Context Engineering for AI Agents](https://anthropic.com/engineering/effective-context-engineering-for-ai-agents) (Sept 2025) and codified by LangChain in [Context Engineering for Agents](https://blog.langchain.com/context-engineering-for-agents/) (July 2025).
