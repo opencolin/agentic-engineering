@@ -124,6 +124,9 @@ Publication dates of the primary sources that informed the polished pages. Compi
 
 ## 2026-05-25 (later)
 
+### Who's Who: Cameron R. Wolfe profile added — [#26](https://github.com/opencolin/agentic-engineering/pull/26)
+**[Cameron R. Wolfe](who-is-who.md#cameron-r-wolfe)** (PhD, ML) was in `reading-list.md` and `research-notes.md` but missing from Who's Who. His *Deep (Learning) Focus* Substack (68K+ subscribers) is the research-paper-translator voice the site was missing — the canonical explainer source for MoE architectures, reasoning LLMs, test-time-compute scaling, and similar concepts cited across [Models](models.md) and elsewhere. Total Who's Who profiles: 27 → 28.
+
 ### Who's Who: 2 new profiles (Huyen, Schmid) — [#26](https://github.com/opencolin/agentic-engineering/pull/26)
 Coverage audit surfaced two real gaps in Who's Who: **[Chip Huyen](who-is-who.md#chip-huyen)** was mentioned only in the appendix ("considered but didn't profile") despite *AI Engineering* being the standard production-ML reference; **[Philipp Schmid](who-is-who.md#philipp-schmid)** (Google DeepMind, formerly Hugging Face) was missing entirely despite being one of the highest-cadence recipe-author voices in the field. Both promoted to full chronicler profiles with key works + "start here" entries. Total profiles: 25 → 27.
 

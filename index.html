@@ -118,7 +118,7 @@ A comprehensive reference to autonomous coding agents, agentic organizations, an
 | 9 | [Evals](evals.md) | How to measure agent quality (distinct from benchmarks) — pass@k vs pass^k, three silent invalidators (grading bugs, infra noise, eval awareness), tooling map (Inspect AI, LangSmith, Braintrust, Langfuse, Phoenix) |
 | 10 | [Benchmarks](benchmarks.md) | SWE-bench, SWE-bench Verified / Pro / Multimodal / Multilingual, Terminal Bench 2.0, τ-Bench, plus a 9-row "other benchmarks worth knowing" roundup; how to read the leaderboards and what they actually mean |
 | 11 | [Schools](schools.md) | Where does trust live? The three philosophical schools (Polosukhin / Chase / Ng) and the four operational schools (Stripe / Tan / Walking Labs / Steinberger) |
-| 12 | [Who's Who](who-is-who.md) | 27 named profiles of the people shaping the field — researchers, operators, chroniclers — with the single thing of theirs to read or watch first |
+| 12 | [Who's Who](who-is-who.md) | 28 named profiles of the people shaping the field — researchers, operators, chroniclers — with the single thing of theirs to read or watch first |
 | 13 | [Organizations](organizations.md) | How companies organize around agents — Stripe model, open-source model, agent-first development, infrastructure tiers |
 | 14 | [Inference](inference.md) | LLM inference solutions: direct API providers, platforms (Nebius, Together, Fireworks, Groq), routing gateways, self-hosted inference |
 | 15 | [Sandboxes](sandboxes.md) | The execution-environment layer — purpose-built agent sandboxes, Contree deep dive, CDEs, isolation tiers, integration patterns |
@@ -470,11 +470,11 @@ Where does trust live? Three philosophical schools + four operational schools.
 
 ## 12. [Who's Who](who-is-who.md)
 
-27 named profiles of the people shaping the field.
+28 named profiles of the people shaping the field.
 
 - 🧠 Researchers / educators: [Karpathy](who-is-who.md#andrej-karpathy) · [Weng](who-is-who.md#lilian-weng) · [Yao](who-is-who.md#shunyu-yao) · [Brown](who-is-who.md#noam-brown) · [Yang](who-is-who.md#john-yang) · [Kiela](who-is-who.md#douwe-kiela) · [Teknium](who-is-who.md#teknium-karan-malhotra) · [Polosukhin](who-is-who.md#illia-polosukhin)
 - 🔨 Operators / founders: [Steinberger](who-is-who.md#peter-steinberger-steipete) · [Tan](who-is-who.md#garry-tan) · [Cherny](who-is-who.md#boris-cherny) · [Chase](who-is-who.md#harrison-chase) · [Vincent](who-is-who.md#jesse-vincent-obra) · [Robinson](who-is-who.md#lee-robinson) · [Liu (Beyang)](who-is-who.md#beyang-liu) · [Liu (Jerry)](who-is-who.md#jerry-liu) · [Schluntz](who-is-who.md#erik-schluntz) · [Trivedy](who-is-who.md#vivek-trivedy) · [Martin](who-is-who.md#lance-martin)
-- ✍️ Chroniclers / synthesizers: [Willison](who-is-who.md#simon-willison) · [Osmani](who-is-who.md#addy-osmani) · [Mollick](who-is-who.md#ethan-mollick) · [swyx + Fanelli](who-is-who.md#swyx-shawn-wang-alessio-fanelli) · [Husain](who-is-who.md#hamel-husain) · [Yan](who-is-who.md#eugene-yan) · [Huyen](who-is-who.md#chip-huyen) · [Schmid](who-is-who.md#philipp-schmid)
+- ✍️ Chroniclers / synthesizers: [Willison](who-is-who.md#simon-willison) · [Osmani](who-is-who.md#addy-osmani) · [Mollick](who-is-who.md#ethan-mollick) · [swyx + Fanelli](who-is-who.md#swyx-shawn-wang-alessio-fanelli) · [Husain](who-is-who.md#hamel-husain) · [Yan](who-is-who.md#eugene-yan) · [Huyen](who-is-who.md#chip-huyen) · [Schmid](who-is-who.md#philipp-schmid) · [Wolfe](who-is-who.md#cameron-r-wolfe)
 - [Appendix](who-is-who.md#appendix-people-projects-and-writers-we-considered-but-didnt-profile) — additional candidates
 - [Reading order if you're new](who-is-who.md#reading-order-if-youre-new) — one-week onboarding path
 
@@ -882,6 +882,9 @@ Publication dates of the primary sources that informed the polished pages. Compi
 ## Site additions
 
 ## 2026-05-25 (later)
+
+### Who's Who: Cameron R. Wolfe profile added — [#26](https://github.com/opencolin/agentic-engineering/pull/26)
+**[Cameron R. Wolfe](who-is-who.md#cameron-r-wolfe)** (PhD, ML) was in `reading-list.md` and `research-notes.md` but missing from Who's Who. His *Deep (Learning) Focus* Substack (68K+ subscribers) is the research-paper-translator voice the site was missing — the canonical explainer source for MoE architectures, reasoning LLMs, test-time-compute scaling, and similar concepts cited across [Models](models.md) and elsewhere. Total Who's Who profiles: 27 → 28.
 
 ### Who's Who: 2 new profiles (Huyen, Schmid) — [#26](https://github.com/opencolin/agentic-engineering/pull/26)
 Coverage audit surfaced two real gaps in Who's Who: **[Chip Huyen](who-is-who.md#chip-huyen)** was mentioned only in the appendix ("considered but didn't profile") despite *AI Engineering* being the standard production-ML reference; **[Philipp Schmid](who-is-who.md#philipp-schmid)** (Google DeepMind, formerly Hugging Face) was missing entirely despite being one of the highest-cadence recipe-author voices in the field. Both promoted to full chronicler profiles with key works + "start here" entries. Total profiles: 25 → 27.
@@ -5105,6 +5108,25 @@ Career: Hugging Face DevRel from the early days (the [HF Transformers SageMaker 
 - His [tutorial archive](https://philschmid.de/posts) generally — high-frequency, code-heavy, opinionated
 
 **Start here:** *How Agents Manage Other Agents* if you're designing a multi-agent system. Otherwise pick the tutorial that matches whatever API you're integrating right now — odds are he's posted about it.
+
+---
+
+## Cameron R. Wolfe
+
+> ✍️ Chronicler / synthesizer · Deep (Learning) Focus · [cameronrwolfe.substack.com](https://cameronrwolfe.substack.com) · [@cwolferesearch](https://twitter.com/cwolferesearch)
+
+The research-paper translator. Wolfe (PhD, ML) writes the *Deep (Learning) Focus* Substack — 68K+ subscribers, monthly long-form pieces that take a hot research paper and unpack it into engineering intuition the rest of us can use. The pieces are unusually careful: equation walkthroughs where they matter, ablations summarized faithfully, opinions reserved for the conclusion. Endorsed by Sebastian Raschka as accessible-but-technically-rigorous. Roadmap-relevant: when a new paper drops on something like *test-time compute scaling*, *speculative decoding*, *DPO vs PPO*, *Mixture-of-Experts routing*, or *long-context attention*, Wolfe's writeup is usually the version you can actually finish reading and remember.
+
+Career: PhD in deep learning; runs Deep (Learning) Focus as a parallel writing practice alongside applied research work. The newsletter back-catalogue is the body of work — there isn't a single signature post the way Hamel has *Your AI Product Needs Evals*; instead it's a steady accumulation of canonical 1,500–3,000-word explainers across the LLM stack.
+
+**Key works to know:**
+
+- The [Deep (Learning) Focus archive](https://cameronrwolfe.substack.com/archive) — month-by-month explainers, browse by topic
+- His [primers on LLM training](https://cameronrwolfe.substack.com/p/the-basics-of-llms) — the structured foundational set
+- *[Mixture-of-Experts (MoE) LLMs](https://cameronrwolfe.substack.com/p/mixture-of-experts-llms)* — the canonical explainer for the MoE architectures used by DeepSeek / Qwen / Kimi / GLM (relevant to [Models](models.md))
+- *[Reasoning LLMs](https://cameronrwolfe.substack.com/p/reasoning-llms)* — survey of test-time-compute reasoning models
+
+**Start here:** Pick the most recent post matching whatever you're trying to understand at the model layer. If you want a foundational entry point, *The Basics of LLMs* is the place.
 
 ---
 

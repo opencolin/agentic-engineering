@@ -464,6 +464,25 @@ Career: Hugging Face DevRel from the early days (the [HF Transformers SageMaker 
 
 ---
 
+## Cameron R. Wolfe
+
+> ✍️ Chronicler / synthesizer · Deep (Learning) Focus · [cameronrwolfe.substack.com](https://cameronrwolfe.substack.com) · [@cwolferesearch](https://twitter.com/cwolferesearch)
+
+The research-paper translator. Wolfe (PhD, ML) writes the *Deep (Learning) Focus* Substack — 68K+ subscribers, monthly long-form pieces that take a hot research paper and unpack it into engineering intuition the rest of us can use. The pieces are unusually careful: equation walkthroughs where they matter, ablations summarized faithfully, opinions reserved for the conclusion. Endorsed by Sebastian Raschka as accessible-but-technically-rigorous. Roadmap-relevant: when a new paper drops on something like *test-time compute scaling*, *speculative decoding*, *DPO vs PPO*, *Mixture-of-Experts routing*, or *long-context attention*, Wolfe's writeup is usually the version you can actually finish reading and remember.
+
+Career: PhD in deep learning; runs Deep (Learning) Focus as a parallel writing practice alongside applied research work. The newsletter back-catalogue is the body of work — there isn't a single signature post the way Hamel has *Your AI Product Needs Evals*; instead it's a steady accumulation of canonical 1,500–3,000-word explainers across the LLM stack.
+
+**Key works to know:**
+
+- The [Deep (Learning) Focus archive](https://cameronrwolfe.substack.com/archive) — month-by-month explainers, browse by topic
+- His [primers on LLM training](https://cameronrwolfe.substack.com/p/the-basics-of-llms) — the structured foundational set
+- *[Mixture-of-Experts (MoE) LLMs](https://cameronrwolfe.substack.com/p/mixture-of-experts-llms)* — the canonical explainer for the MoE architectures used by DeepSeek / Qwen / Kimi / GLM (relevant to [Models](models.md))
+- *[Reasoning LLMs](https://cameronrwolfe.substack.com/p/reasoning-llms)* — survey of test-time-compute reasoning models
+
+**Start here:** Pick the most recent post matching whatever you're trying to understand at the model layer. If you want a foundational entry point, *The Basics of LLMs* is the place.
+
+---
+
 ## Lance Martin
 
 > ✍️ Chronicler / 🔨 Operator · LangChain · [@RLanceMartin](https://twitter.com/RLanceMartin) · [rlancemartin.github.io](https://rlancemartin.github.io)
