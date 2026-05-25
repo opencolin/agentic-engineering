@@ -201,7 +201,7 @@ Open-source and managed frameworks purpose-built for multi-agent systems.
 
 | Vendor | Type | Price | Key Strength |
 |--------|------|-------|-------------|
-| **LangGraph / LangGraph Platform** | Stateful graph agents | OSS + Cloud ($39/user) | Graph-based agent state machines, LangSmith integration |
+| **LangGraph / LangGraph Platform** | Stateful graph agents | OSS + Cloud ($39/user) | Graph-based agent state machines + `create_agent` factory (LangChain 1.0 default since Oct 2025; supersedes deprecated `create_react_agent`), LangSmith integration. Reference open harness: [Deep Agents](approaches.md#deep-agents-langchain) |
 | **CrewAI** | Multi-agent role orchestration | OSS + enterprise | Role/task/crew abstraction |
 | **Microsoft Agent Framework** | Unified successor to AutoGen + Semantic Kernel | OSS (MIT, 1.0 RC Feb 2026) | Merged AutoGen + Semantic Kernel into one framework with workflow + actor model; Python and .NET; Azure-aligned but cloud-neutral |
 | **Microsoft AutoGen** | Multi-agent conversation framework | OSS (maintenance — superseded by Agent Framework) | Conversational multi-agent patterns |
