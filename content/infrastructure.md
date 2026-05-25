@@ -1,3 +1,5 @@
+<!-- description: Where agents actually run — 150+ vendors across 9 categories covering the full hosting and execution landscape. -->
+
 # Hosting & Execution Infrastructure
 
 Where agents actually run — the compute infrastructure for sandboxed, scalable agent execution. This page covers 50+ vendors across 6 tiers, sourced from ClawCamp Research market guides (April 2026).

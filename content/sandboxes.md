@@ -1,3 +1,5 @@
+<!-- description: Sandboxes are the single most important piece of infrastructure for autonomous coding agents. They answer the fundamental question: where does untrusted LLM-generated code actually run? -->
+
 # Sandboxes for Agentic Engineering
 
 Sandboxes are the single most important piece of infrastructure for autonomous coding agents. They answer the fundamental question: **where does untrusted LLM-generated code actually run?**

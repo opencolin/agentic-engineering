@@ -1,3 +1,5 @@
+<!-- description: The three philosophical schools (Polosukhin / Chase / Ng) and the four operational schools (Stripe / Tan / Walking Labs / Steinberger) — where does trust live in an agentic system? -->
+
 # Schools of Agentic Engineering
 
 There's no single way to build agents. By 2026 a handful of distinct *schools* have emerged — each with its own answer to the question *where does trust live?* and its own set of tools, idioms, and operational assumptions. This page maps them.

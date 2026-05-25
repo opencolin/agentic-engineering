@@ -1,3 +1,5 @@
+<!-- description: Source-of-truth bibliography: structured digest of 112 primary sources ingested in May 2026 — key claims, specific numbers, frameworks named, and one-line slot in the reference. Cmd-F to find every source that discusses a framework, benchmark, or technique. -->
+
 # Research Notes — Primary Source Ingestion
 
 Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2026 across six parallel research passes. This file is the source-of-truth bibliography behind the polished pages in this repo — when a page cites "the LangChain harness post" or "Anthropic's auto-mode classifier," the underlying notes live here.
@@ -316,7 +318,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Defines the menu of LangChain primitives a reference site should map (harness, observability, data layer, sandboxes).
 
 ### Agent Evaluation Readiness Checklist
-**URL:** `https://blog.langchain.com/agent-evaluation-readiness-checklist/`
+**URL:** `https://www.langchain.com/blog/agent-evaluation-readiness-checklist`
 **Fetch:** OK
 **Date:** March 27, 2026
 **Key claims:**
@@ -331,7 +333,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Slot: eval lesson — readiness gate before automating eval infra; pairs with the "harness hill-climbing" post.
 
 ### Better Harness — Hill-Climbing with Evals
-**URL:** `https://blog.langchain.com/better-harness-a-recipe-for-harness-hill-climbing-with-evals/`
+**URL:** `https://www.langchain.com/blog/better-harness-a-recipe-for-harness-hill-climbing-with-evals`
 **Fetch:** OK
 **Date:** April 8, 2026
 **Key claims:**
@@ -346,7 +348,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Slot: harness pattern — concrete recipe for moving harness changes through eval gates rather than vibes.
 
 ### Context Engineering for Agents
-**URL:** `https://blog.langchain.com/context-engineering-for-agents/`
+**URL:** `https://www.langchain.com/blog/context-engineering-for-agents`
 **Fetch:** OK
 **Date:** July 2, 2025
 **Key claims:**
@@ -361,7 +363,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Foundational vocabulary — the write/select/compress/isolate taxonomy is the canonical framing referenced by later posts.
 
 ### Context Management for Deep Agents
-**URL:** `https://blog.langchain.com/context-management-for-deepagents/`
+**URL:** `https://www.langchain.com/blog/context-management-for-deepagents`
 **Fetch:** OK
 **Date:** January 28, 2026
 **Key claims:**
@@ -376,7 +378,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Deep-agents lesson — concrete numbers (20k tokens, 85% threshold, 10-line preview) for implementing the "compress" + "isolate" parts of context engineering.
 
 ### Continual Learning for AI Agents
-**URL:** `https://blog.langchain.com/continual-learning-for-ai-agents/`
+**URL:** `https://www.langchain.com/blog/continual-learning-for-ai-agents`
 **Fetch:** OK
 **Date:** April 5, 2026
 **Key claims:**
@@ -391,7 +393,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Mental model — the three-layer separation is a clean way to organize "how agents improve" sections of a reference site.
 
 ### Deep Agents v0.5
-**URL:** `https://blog.langchain.com/deep-agents-v0-5/`
+**URL:** `https://www.langchain.com/blog/deep-agents-v0-5`
 **Fetch:** OK
 **Date:** April 7, 2026
 **Key claims:**
@@ -406,7 +408,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Version milestone — async-subagent primitive is the v0.5-specific feature worth pinning.
 
 ### Doubling Down on Deep Agents
-**URL:** `https://blog.langchain.com/doubling-down-on-deepagents/`
+**URL:** `https://www.langchain.com/blog/doubling-down-on-deepagents`
 **Fetch:** OK
 **Date:** October 28, 2025
 **Key claims:**
@@ -421,7 +423,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Origin of the "harness" framing — establishes Deep Agents as a harness, not a framework competitor.
 
 ### Evaluating Deep Agents — Our Learnings
-**URL:** `https://blog.langchain.com/evaluating-deep-agents-our-learnings/`
+**URL:** `https://www.langchain.com/blog/evaluating-deep-agents-our-learnings`
 **Fetch:** OK
 **Date:** December 3, 2025
 **Key claims:**
@@ -436,7 +438,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Eval lesson — concrete proof that single-step decision evals are the high-leverage entry point.
 
 ### Evaluating Skills
-**URL:** `https://blog.langchain.com/evaluating-skills/`
+**URL:** `https://www.langchain.com/blog/evaluating-skills`
 **Fetch:** OK
 **Date:** March 5, 2026
 **Key claims:**
@@ -451,7 +453,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Skills design — the ~12-skill ceiling and 70% invocation reliability are useful empirical bounds for skill catalog design.
 
 ### How Middleware Lets You Customize Your Agent Harness
-**URL:** `https://blog.langchain.com/how-middleware-lets-you-customize-your-agent-harness/`
+**URL:** `https://www.langchain.com/blog/how-middleware-lets-you-customize-your-agent-harness`
 **Fetch:** OK
 **Date:** March 26, 2026
 **Key claims:**
@@ -466,7 +468,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Harness pattern — the six-hook taxonomy is the canonical reference for "where do I put this customization?"
 
 ### How to Build an Agent
-**URL:** `https://blog.langchain.com/how-to-build-an-agent/`
+**URL:** `https://www.langchain.com/blog/how-to-build-an-agent`
 **Fetch:** OK
 **Date:** July 9, 2025
 **Key claims:**
@@ -481,7 +483,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Onboarding — canonical "how do I start" sequence; useful as a default reading-list entry.
 
 ### How to Think About Agent Frameworks
-**URL:** `https://blog.langchain.com/how-to-think-about-agent-frameworks/`
+**URL:** `https://www.langchain.com/blog/how-to-think-about-agent-frameworks`
 **Fetch:** OK
 **Date:** April 20, 2025
 **Key claims:**
@@ -496,7 +498,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Framework taxonomy — clarifies "orchestration vs abstraction" axis when picking tools.
 
 ### How We Build Evals for Deep Agents
-**URL:** `https://blog.langchain.com/how-we-build-evals-for-deep-agents/`
+**URL:** `https://www.langchain.com/blog/how-we-build-evals-for-deep-agents`
 **Fetch:** OK
 **Date:** March 26, 2026
 **Key claims:**
@@ -511,7 +513,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Eval architecture — concrete category and metric scheme to copy when designing a project's eval taxonomy.
 
 ### Improving Deep Agents with Harness Engineering
-**URL:** `https://blog.langchain.com/improving-deep-agents-with-harness-engineering/`
+**URL:** `https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering`
 **Fetch:** OK
 **Date:** February 17, 2026
 **Key claims:**
@@ -526,7 +528,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Harness pattern — flagship case study showing harness changes alone can deliver double-digit benchmark gains.
 
 ### Introducing Ambient Agents
-**URL:** `https://blog.langchain.com/introducing-ambient-agents/`
+**URL:** `https://www.langchain.com/blog/introducing-ambient-agents`
 **Fetch:** OK
 **Date:** January 14, 2025
 **Key claims:**
@@ -541,7 +543,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** UX/architecture pattern — provides the canonical "non-chat" agent interaction model and HITL vocabulary.
 
 ### On Agent Frameworks and Agent Observability
-**URL:** `https://blog.langchain.com/on-agent-frameworks-and-agent-observability/`
+**URL:** `https://www.langchain.com/blog/on-agent-frameworks-and-agent-observability`
 **Fetch:** OK
 **Date:** February 12, 2026
 **Key claims:**
@@ -556,7 +558,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Observability framing — the "logic lives in traces" line is the strongest one-liner for why observability is first-class.
 
 ### Open Models Have Crossed a Threshold
-**URL:** `https://blog.langchain.com/open-models-have-crossed-a-threshold/`
+**URL:** `https://www.langchain.com/blog/open-models-have-crossed-a-threshold`
 **Fetch:** OK
 **Date:** April 2, 2026
 **Key claims:**
@@ -571,7 +573,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Model behavior — concrete cost/perf table for the "should I use open models?" decision.
 
 ### Production Agents Self-Heal
-**URL:** `https://blog.langchain.com/production-agents-self-heal/`
+**URL:** `https://www.langchain.com/blog/how-my-agents-self-heal-in-production`
 **Fetch:** OK
 **Date:** April 3, 2026
 **Key claims:**
@@ -586,7 +588,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Ops pattern — concrete recipe for an auto-remediation loop using a coding agent as the fixer.
 
 ### The Anatomy of an Agent Harness
-**URL:** `https://blog.langchain.com/the-anatomy-of-an-agent-harness/`
+**URL:** `https://www.langchain.com/blog/the-anatomy-of-an-agent-harness`
 **Fetch:** OK
 **Date:** March 10, 2026
 **Key claims:**
@@ -787,7 +789,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Canonical eval library you plug your agent into to compare against published benchmarks.
 
 ### everything-claude-code (ECC)
-**URL:** `https://github.com/affaan-m/everything-claude-code`
+**URL:** `https://github.com/affaan-m/ECC`
 **Fetch:** OK
 **Stars / freshness:** ~191k stars, 29.5k forks, "Anthropic Hackathon Winner"
 **What it is:** A harness-native operator system providing 60 subagents, 232 skills, hooks, rules, and MCP configs that work across Claude Code, Cursor, Codex, OpenCode, Zed, and Copilot.

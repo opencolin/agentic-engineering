@@ -1,3 +1,5 @@
+<!-- description: Cross-cutting patterns that appear across approaches to autonomous coding agents. Understanding these helps you evaluate tools and design your own agentic systems. -->
+
 # Architectural Patterns in Agentic Engineering
 
 Cross-cutting patterns that appear across the different approaches to autonomous coding agents. Understanding these patterns helps you evaluate tools and design your own agentic systems.

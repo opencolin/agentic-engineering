@@ -1,3 +1,5 @@
+<!-- description: Curated entry points to follow the field — daily firehose (Simon Willison, TLDR AI, The Batch), weekly substantive (Import AI, Latent Space, Hamel.dev), deep long-form (Lil'Log, Cameron Wolfe, Chip Huyen), podcasts, courses, communities, conferences, reference repos. A practical weekly cadence at the bottom. -->
+
 # Reading List
 
 Curated entry points to follow the field. Organized by depth of commitment — start at the top, add lower-frequency sources as you have bandwidth. Everything here is referenced from primary sources in the [Research Notes](research-notes.md) bibliography.
@@ -43,7 +45,7 @@ If you only follow one of these, follow Simon Willison.
 Required reading if you're serious about the field:
 
 - **[Anthropic Engineering](https://anthropic.com/engineering)** — the most consistently high-signal lab blog. Start with [Building Effective Agents](https://anthropic.com/research/building-effective-agents) (Dec 2024) → [Effective Context Engineering](https://anthropic.com/engineering/effective-context-engineering-for-ai-agents) (Sept 2025) → [Multi-Agent Research System](https://anthropic.com/engineering/multi-agent-research-system) (June 2025) → [Managed Agents](https://anthropic.com/engineering/managed-agents) (Apr 2026)
-- **[LangChain Blog](https://blog.langchain.com)** — practitioner perspective on agent harnesses, evals, deep agents. Don't miss [The Anatomy of an Agent Harness](https://blog.langchain.com/the-anatomy-of-an-agent-harness/) and [Open Models Have Crossed a Threshold](https://blog.langchain.com/open-models-have-crossed-a-threshold/)
+- **[LangChain Blog](https://www.langchain.com/blog)** — practitioner perspective on agent harnesses, evals, deep agents. Don't miss [The Anatomy of an Agent Harness](https://www.langchain.com/blog/the-anatomy-of-an-agent-harness) and [Open Models Have Crossed a Threshold](https://www.langchain.com/blog/open-models-have-crossed-a-threshold)
 - **[OpenAI Cookbook](https://cookbook.openai.com)** — first-party patterns; the cross-vendor counterpart to Anthropic Cookbook
 - **[State of Agent Engineering 2025 (LangChain)](https://langchain.com/state-of-agent-engineering)** — industry baseline: 57% have prod agents; 89% have observability; 62% have detailed tracing
 
@@ -117,7 +119,7 @@ The YouTube talk archive is the deliverable — even if you never attend, watch 
 | [langchain-ai/langgraph](https://langchain-ai.github.io/langgraph/) — examples dir | Pattern catalog: ReAct, ReWOO, LATS, Reflexion, plan-execute |
 | [UKGovernmentBEIS/inspect_evals](https://github.com/UKGovernmentBEIS/inspect_evals) | 200+ pre-built evals on Inspect AI |
 | [shanraisshan/claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice) | Most-starred Claude Code reference repo (54.7K stars); 83 categorized tips |
-| [affaan-m/everything-claude-code](https://github.com/affaan-m/everything-claude-code) | 60 subagents + 232 skills, cross-harness (191K stars, hackathon winner) |
+| [affaan-m/ECC](https://github.com/affaan-m/ECC) | 60 subagents + 232 skills, cross-harness (191K stars, hackathon winner) |
 | [sierra-research/tau2-bench](https://github.com/sierra-research/tau2-bench) | Standard customer-service agent benchmark |
 | [EthicalML/awesome-agentic-engineering-resources](https://github.com/EthicalML/awesome-agentic-engineering-resources) | Curated index of 21 topics — courses, papers, benchmarks, implementations |
 

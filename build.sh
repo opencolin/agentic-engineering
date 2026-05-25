@@ -37,13 +37,21 @@ cat > index.html << 'HTMLHEAD'
             <div class="sidebar-group-title">Get Started</div>
             <a href="#" class="sidebar-link" data-page="index">Overview</a>
             <a href="#" class="sidebar-link" data-page="table-of-contents">Table of Contents</a>
+            <a href="#" class="sidebar-link" data-page="reading-list">Reading List</a>
+            <a href="#" class="sidebar-link" data-page="changelog">Changelog</a>
           </div>
           <div class="sidebar-group">
             <div class="sidebar-group-title">Foundations</div>
             <a href="#" class="sidebar-link" data-page="approaches">Approaches</a>
             <a href="#" class="sidebar-link" data-page="patterns">Patterns</a>
             <a href="#" class="sidebar-link" data-page="harness-engineering">Harness Engineering</a>
+            <a href="#" class="sidebar-link" data-page="context-engineering">Context Engineering</a>
+            <a href="#" class="sidebar-link" data-page="tool-design">Tool Design</a>
+            <a href="#" class="sidebar-link" data-page="skills">Skills</a>
+            <a href="#" class="sidebar-link" data-page="memory">Memory</a>
+            <a href="#" class="sidebar-link" data-page="evals">Evals</a>
             <a href="#" class="sidebar-link" data-page="benchmarks">Benchmarks</a>
+            <a href="#" class="sidebar-link" data-page="models">Models</a>
           </div>
           <div class="sidebar-group">
             <div class="sidebar-group-title">People &amp; Orgs</div>
@@ -60,6 +68,10 @@ cat > index.html << 'HTMLHEAD'
           <div class="sidebar-group">
             <div class="sidebar-group-title">Interfaces</div>
             <a href="#" class="sidebar-link" data-page="generative-ui">Generative UI</a>
+          </div>
+          <div class="sidebar-group">
+            <div class="sidebar-group-title">Reference</div>
+            <a href="#" class="sidebar-link" data-page="research-notes">Research Notes</a>
           </div>
           <div class="sidebar-group">
             <div class="sidebar-group-title">Community</div>
@@ -88,7 +100,7 @@ cat > index.html << 'HTMLHEAD'
 HTMLHEAD
 
 # Inline each markdown file as a script tag
-for page in index table-of-contents approaches patterns harness-engineering schools benchmarks organizations who-is-who inference sandboxes infrastructure generative-ui; do
+for page in index table-of-contents reading-list changelog approaches patterns harness-engineering context-engineering tool-design skills memory evals benchmarks models schools who-is-who organizations inference sandboxes infrastructure generative-ui research-notes; do
   echo "  <script type=\"text/markdown\" data-page=\"${page}\">" >> index.html
   # Escape </script> in content just in case
   sed 's|</script>|<\\/script>|g' "content/${page}.md" >> index.html

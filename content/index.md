@@ -1,3 +1,5 @@
+<!-- description: A comprehensive reference to autonomous coding agents, agentic organizations, and the emerging patterns of AI-native software engineering. -->
+
 # Agentic Engineering
 
 <p class="sponsor-banner">Sponsored by <a href="https://nebius.com/" target="_blank" rel="noopener" aria-label="Nebius"><img src="img/nebius-logo.svg" alt="Nebius" class="sponsor-logo" /></a></p>
@@ -10,21 +12,30 @@ A comprehensive reference to autonomous coding agents, agentic organizations, an
 
 | # | Chapter | What's in it |
 |---|---------|--------------|
-| 1 | [Approaches](approaches.md) | Deep dives on 25+ coding-agent systems — Stripe Minions, Claude Managed Agents, Vercel Open Agents, OpenAI Symphony, OpenHands, Hermes Agent, GStack, GBrain, AgentHub, the Steinberger ecosystem, and the 25-CLI harness comparison |
-| 2 | [Patterns](patterns.md) | Cross-cutting architectural patterns — harness engineering, isolation strategies, orchestration models, context management, feedback loops, failure recovery, multi-agent coordination |
-| 3 | [Harness Engineering](harness-engineering.md) | The deep-dive page on what makes agents reliable — five-subsystem model, repo-as-system-of-record, WIP=1, three-layer verification, sprint contracts, clean-state exits |
-| 4 | [Benchmarks](benchmarks.md) | SWE-bench, SWE-bench Verified / Pro / Multimodal / Multilingual, Terminal Bench 2.0; how to read the leaderboards and what they actually mean |
-| 5 | [Schools](schools.md) | Where does trust live? The three philosophical schools (Polosukhin / Chase / Ng) and the four operational schools (Stripe / Tan / Walking Labs / Steinberger) |
-| 6 | [Who's Who](who-is-who.md) | Twenty named profiles of the people shaping the field — researchers, operators, chroniclers — with the single thing of theirs to read or watch first |
-| 7 | [Organizations](organizations.md) | How companies organize around agents — Stripe model, open-source model, agent-first development, infrastructure tiers |
-| 8 | [Inference](inference.md) | LLM inference solutions: direct API providers, platforms (Nebius, Together, Fireworks, Groq), routing gateways, self-hosted inference |
-| 9 | [Sandboxes](sandboxes.md) | The execution-environment layer — purpose-built agent sandboxes, Contree deep dive, CDEs, isolation tiers, integration patterns |
-| 10 | [Hosting & Execution](infrastructure.md) | 150+ infrastructure vendors across 9 categories — turnkey platforms, agent-optimized hosting, orchestration, Cloud Mac, GPU clouds, VPS for agents, memory, observability, MCP, identity/auth |
-| 11 | [Generative UI](generative-ui.md) | The agent's front-end story — Static, Declarative (A2UI), Open-ended patterns; CopilotKit, AG-UI, A2UI, MCP-UI; Vercel AI SDK; trade-offs between consistency and flexibility |
+| 1 | [Approaches](approaches.md) | Deep dives on 30+ coding-agent systems — Stripe Minions, Claude Managed Agents, Vercel Open Agents, OpenAI Symphony, OpenHands, Hermes Agent, GStack, GBrain, AgentHub, the Steinberger ecosystem, and the 28-CLI harness comparison |
+| 2 | [Models](models.md) | The model layer underneath — closed-source frontier (Anthropic / Google / OpenAI / xAI), open-weights (DeepSeek / Qwen / Llama / Kimi / GLM / MiniMax / Mistral), and agent / coding specialists; with pricing and decision shortcuts |
+| 3 | [Patterns](patterns.md) | Cross-cutting architectural patterns — harness engineering, isolation strategies, orchestration models, context management, feedback loops, failure recovery, multi-agent coordination |
+| 4 | [Harness Engineering](harness-engineering.md) | The deep-dive page on what makes agents reliable — five-subsystem model, repo-as-system-of-record, WIP=1, three-layer verification, sprint contracts, clean-state exits |
+| 5 | [Context Engineering](context-engineering.md) | The named discipline of curating what's in the window — write / select / compress / isolate; attention budget; 95% / 85% compaction thresholds; the four context failure modes |
+| 6 | [Tool Design](tool-design.md) | How to write tools agents use well — consolidated actions, ResponseFormat compression, Tool Search Tool (-85% tokens), code-as-tool sandbox pattern (150K → 2K), Tool Use Examples (+18pp) |
+| 7 | [Skills](skills.md) | The cross-vendor primitive (Anthropic open standard, Dec 2025) for capability packaging — SKILL.md format, progressive disclosure, the 82% vs 9% lift, the ~12-skill ceiling |
+| 8 | [Memory](memory.md) | Persistent state across turns and sessions — three-axis taxonomy, episodic / procedural / semantic split, vendor map (Letta, Mem0, LangMem, LangGraph Store, Anthropic memory tool), filesystem-as-memory |
+| 9 | [Evals](evals.md) | How to measure agent quality (distinct from benchmarks) — pass@k vs pass^k, three silent invalidators (grading bugs, infra noise, eval awareness), tooling map (Inspect AI, LangSmith, Braintrust, Langfuse, Phoenix) |
+| 10 | [Benchmarks](benchmarks.md) | SWE-bench, SWE-bench Verified / Pro / Multimodal / Multilingual, Terminal Bench 2.0, τ-Bench, plus a 9-row "other benchmarks worth knowing" roundup; how to read the leaderboards and what they actually mean |
+| 11 | [Schools](schools.md) | Where does trust live? The three philosophical schools (Polosukhin / Chase / Ng) and the four operational schools (Stripe / Tan / Walking Labs / Steinberger) |
+| 12 | [Who's Who](who-is-who.md) | 29 named profiles of the people shaping the field — researchers, operators, chroniclers — with the single thing of theirs to read or watch first |
+| 13 | [Organizations](organizations.md) | How companies organize around agents — Stripe model, open-source model, agent-first development, infrastructure tiers |
+| 14 | [Inference](inference.md) | LLM inference solutions: direct API providers, platforms (Nebius, Together, Fireworks, Groq), routing gateways, self-hosted inference |
+| 15 | [Sandboxes](sandboxes.md) | The execution-environment layer — purpose-built agent sandboxes, Contree deep dive, CDEs, isolation tiers, integration patterns |
+| 16 | [Hosting & Execution](infrastructure.md) | 150+ infrastructure vendors across 9 categories — turnkey platforms, agent-optimized hosting, orchestration, Cloud Mac, GPU clouds, VPS for agents, memory, observability, MCP, identity/auth |
+| 17 | [Generative UI](generative-ui.md) | The agent's front-end story — Static, Declarative (A2UI), Open-ended patterns; CopilotKit, AG-UI, A2UI, MCP-UI; Vercel AI SDK; trade-offs between consistency and flexibility |
+| 18 | [Research Notes](research-notes.md) | Source-of-truth bibliography: structured digest of 100+ primary sources behind everything above — key claims, specific numbers, frameworks named, "which slot it fills" |
+
+**Also worth knowing:** [Reading List](reading-list.md) — curated newsletters, blogs, podcasts, courses, communities, and reference repos · [Changelog](changelog.md) — what's been added to this site, newest first.
 
 The [Approaches](approaches.md) chapter surveys 30+ agentic systems, organized by category in its Index — commercial vs. open-source vs. harness packs.
 
-If you're new to the field, the suggested reading order is Chapter 1 → Chapter 3 → Chapter 5 → then any others by interest. Chapter 6 (Who's Who) doubles as a "what to read next" map keyed to specific authors.
+If you're new to the field, the suggested reading order is Chapter 1 (Approaches) → Chapter 4 (Harness Engineering) → Chapter 5 (Context Engineering) → Chapter 11 (Schools) → then any others by interest. Chapter 12 (Who's Who) doubles as a "what to read next" map keyed to specific authors; [Reading List](reading-list.md) is the broader source map.
 
 ---
 

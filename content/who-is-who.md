@@ -1,3 +1,5 @@
+<!-- description: The names worth knowing in agentic engineering — researchers, operators, and chroniclers. Who they are, what they shaped, and the single thing of theirs to read or watch first. -->
+
 # Who's Who in Agentic Engineering
 
 The shortest way to get oriented in agentic engineering is to figure out *whose work to follow*. This is the people page — the names worth knowing, why they matter, and the single thing of theirs to read or watch first.
@@ -18,7 +20,7 @@ Most of these people fit cleanly into one of those three; the most interesting o
 
 The person who named both halves of this field. Karpathy coined **["vibe coding"](https://x.com/karpathy/status/1886192184808149383)** in early 2025 to describe pure-AI-autopilot prototyping, and **["agentic engineering"](https://x.com/karpathy/status/2019137879310836075)** in early 2026 to describe its disciplined, human-in-the-loop counterpart. The IBM, Anthropic, and OpenAI write-ups on agentic engineering all trace their terminology back to those two posts. Before that, his **["Software 2.0"](https://karpathy.medium.com/software-2-0-a64152b37c35)** essay (Nov 2017) was the first widely-read framing of "models as the new code"; his **"LLM OS"** framing (State of GPT, 2023) is the conceptual scaffold most agent architects work inside.
 
-Career: BSc Toronto under Hinton, PhD Stanford under Fei-Fei Li (designed CS231n, the first deep-learning course at Stanford), founding member at OpenAI, Director of AI at Tesla running Autopilot vision + briefly Optimus, back at OpenAI 2023–2024 on midtraining + synthetic data, now running Eureka Labs (AI education) and the **[Zero to Hero](https://www.youtube.com/@AndrejKarpathy)** lecture series.
+Career: BSc Toronto under Hinton, PhD Stanford under Fei-Fei Li (designed CS231n, the first deep-learning course at Stanford), founding member at OpenAI, Director of AI at Tesla running Autopilot vision + briefly Optimus, back at OpenAI 2023–2024 on midtraining + synthetic data, ran Eureka Labs (AI education) through early 2026, then **[joined Anthropic in May 2026](https://x.com/karpathy/status/2056753169888334312)** to "get back to R&D" at the frontier of LLMs. The **[Zero to Hero](https://www.youtube.com/@AndrejKarpathy)** lecture series remains his ongoing education work.
 
 **Key works to know:**
 
@@ -424,20 +426,96 @@ Career: Senior Applied Scientist at Amazon for several years (recommendations, s
 
 ---
 
+## Chip Huyen
+
+> ✍️ Chronicler / synthesizer · Author of *AI Engineering* · [huyenchip.com](https://huyenchip.com) · [@chipro](https://twitter.com/chipro)
+
+The systems voice. Huyen's *[AI Engineering](https://www.oreilly.com/library/view/ai-engineering/9781098166298/)* (O'Reilly, 2025) is — per the publisher — the most-read book on the O'Reilly platform since launch, and the standard reference for the production layer that wraps any agent: building blocks, deployment, monitoring, RAG, fine-tuning, evals, cost/latency engineering. Her prior *Designing Machine Learning Systems* (O'Reilly, 2022) is the systems-design textbook everyone in production ML cut their teeth on (Amazon #1 AI bestseller, 10+ translations). Roadmap-relevant: she's the person who treats LLMs as a *systems* discipline rather than a modeling one, which is exactly the lens agentic engineering needs.
+
+Career: NVIDIA NeMo (LLM platform), Snorkel AI, Netflix; taught ML Systems at Stanford; founded and sold an AI infra startup before her current writing/teaching arc. Her [blog post archive](https://huyenchip.com/blog/) is a parallel curriculum to the books — see especially "[Building LLM applications for production](https://huyenchip.com/2023/04/11/llm-engineering.html)" (Apr 2023, still the canonical structured walkthrough of the LLM-app stack).
+
+**Key works to know:**
+
+- *[AI Engineering](https://www.oreilly.com/library/view/ai-engineering/9781098166298/)* (2025) — the standard reference for the production layer
+- *[Designing Machine Learning Systems](https://www.amazon.com/Designing-Machine-Learning-Systems-Production-Ready/dp/1098107969)* (2022) — the systems-design predecessor
+- *[Building LLM applications for production](https://huyenchip.com/2023/04/11/llm-engineering.html)* (2023) — the post that became Chapter 1 of *AI Engineering*
+- *[Open challenges in LLM research](https://huyenchip.com/2023/08/16/llm-research-open-challenges.html)* — research-roadmap framing
+
+**Start here:** Read *AI Engineering* if you're shipping an agent in production. If you're just orienting, the *Building LLM applications for production* post is the free 30-minute version of Chapter 1.
+
+---
+
+## Philipp Schmid
+
+> ✍️ Chronicler / 🔨 Operator · Senior AI Developer Relations Engineer, Google DeepMind (formerly Hugging Face) · [philschmid.de](https://philschmid.de) · [@_philschmid](https://twitter.com/_philschmid)
+
+The recipe author. Schmid posts working-code-first walkthroughs of whatever's frontier *that week* — function calling, MCP servers, Deep Research integrations, subagent patterns, RAG pipelines — and his posts ship faster than the official docs they end up replacing in practitioners' bookmarks. Recent landmark: "*[How Agents Manage Other Agents: Four Subagents Patterns in 2026](https://www.philschmid.de/agents-manage-agents)*", which catalogues the supervisor / parallel-workers / orchestrator / hierarchical decompositions in a single canonical reference. Roadmap-relevant: when you need to actually wire up the *thing*, his page is the most reliable starting point for the API-level glue code.
+
+Career: Hugging Face DevRel from the early days (the [HF Transformers SageMaker integration](https://huggingface.co/blog/sagemaker-distributed-training-seq2seq) work was his), moved to Google DeepMind in 2025 to do the same for the Gemini API. High cadence (multiple posts/month), all with reproducible code.
+
+**Key works to know:**
+
+- *[How Agents Manage Other Agents](https://www.philschmid.de/agents-manage-agents)* — the four-pattern reference for subagent design
+- *[How to use Deep Research with the Gemini API](https://www.philschmid.de/gemini-deep-research)* — practitioner walkthrough
+- *[How to correctly use MCP servers with your AI Agents](https://www.philschmid.de/mcp-introduction)* — MCP integration recipe
+- His [tutorial archive](https://philschmid.de/posts) generally — high-frequency, code-heavy, opinionated
+
+**Start here:** *How Agents Manage Other Agents* if you're designing a multi-agent system. Otherwise pick the tutorial that matches whatever API you're integrating right now — odds are he's posted about it.
+
+---
+
+## Cameron R. Wolfe
+
+> ✍️ Chronicler / synthesizer · Deep (Learning) Focus · [cameronrwolfe.substack.com](https://cameronrwolfe.substack.com) · [@cwolferesearch](https://twitter.com/cwolferesearch)
+
+The research-paper translator. Wolfe (PhD, ML) writes the *Deep (Learning) Focus* Substack — 68K+ subscribers, monthly long-form pieces that take a hot research paper and unpack it into engineering intuition the rest of us can use. The pieces are unusually careful: equation walkthroughs where they matter, ablations summarized faithfully, opinions reserved for the conclusion. Endorsed by Sebastian Raschka as accessible-but-technically-rigorous. Roadmap-relevant: when a new paper drops on something like *test-time compute scaling*, *speculative decoding*, *DPO vs PPO*, *Mixture-of-Experts routing*, or *long-context attention*, Wolfe's writeup is usually the version you can actually finish reading and remember.
+
+Career: PhD in deep learning; runs Deep (Learning) Focus as a parallel writing practice alongside applied research work. The newsletter back-catalogue is the body of work — there isn't a single signature post the way Hamel has *Your AI Product Needs Evals*; instead it's a steady accumulation of canonical 1,500–3,000-word explainers across the LLM stack.
+
+**Key works to know:**
+
+- The [Deep (Learning) Focus archive](https://cameronrwolfe.substack.com/archive) — month-by-month explainers, browse by topic
+- His [primers on LLM training](https://cameronrwolfe.substack.com/p/the-basics-of-llms) — the structured foundational set
+- *[Mixture-of-Experts (MoE) LLMs](https://cameronrwolfe.substack.com/p/mixture-of-experts-llms)* — the canonical explainer for the MoE architectures used by DeepSeek / Qwen / Kimi / GLM (relevant to [Models](models.md))
+- *[Reasoning LLMs](https://cameronrwolfe.substack.com/p/reasoning-llms)* — survey of test-time-compute reasoning models
+
+**Start here:** Pick the most recent post matching whatever you're trying to understand at the model layer. If you want a foundational entry point, *The Basics of LLMs* is the place.
+
+---
+
+## Sander Schulhoff
+
+> 🧠 Researcher + ✍️ Chronicler · Founder, LearnPrompting · CEO, InventoryQuant (YC W26) · [sanderschulhoff.com](https://sanderschulhoff.com) · [Substack](https://substack.com/@sanderschulhoff)
+
+The OG prompt engineer. Two months before ChatGPT's launch, Schulhoff started **[LearnPrompting.org](https://learnprompting.org)** — the first prompt-engineering guide on the internet, now serving 3M+ users with structured curriculum across every major model family. Two years later, he co-authored **[The Prompt Report](https://arxiv.org/abs/2406.06608)** with researchers from OpenAI, Microsoft, Google, Princeton, Stanford, and CMU — the most comprehensive academic survey of prompt engineering ever conducted, cataloguing 200+ techniques across 1,500+ analyzed papers. The Prompt Report is the citation everyone uses when they say "X technique works" — the textual fingerprint of the entire prompt-engineering subfield up to mid-2024.
+
+Schulhoff also ran **[HackAPrompt](https://hackaprompt.com)**, the first global prompt-injection study (Best Theme Paper, EMNLP 2023) — the empirical case for why prompt injection is a real and patternable attack surface, not just folklore. Now CEO of InventoryQuant (YC W26), building AI for the insurance vertical. Background: University of Maryland.
+
+**Key works to know:**
+
+- *[LearnPrompting.org](https://learnprompting.org)* (2022–) — the foundational free guide; structured curriculum on prompting, chains, RAG, agents
+- *[The Prompt Report](https://arxiv.org/abs/2406.06608)* (2024) — 1,500+ papers, 200+ techniques; the field's reference survey
+- *[HackAPrompt](https://hackaprompt.com)* — global prompt-injection study, EMNLP 2023 Best Theme Paper
+- *[Lenny's Newsletter interview](https://www.lennysnewsletter.com/p/ai-prompt-engineering-in-2025-sander-schulhoff)* — accessible long-form explainer of where prompt engineering went in 2025
+
+**Start here:** Skim *The Prompt Report* introduction + technique taxonomy. If you've ever wondered whether some specific prompting trick has been formally studied, the answer is in there.
+
+---
+
 ## Lance Martin
 
 > ✍️ Chronicler / 🔨 Operator · LangChain · [@RLanceMartin](https://twitter.com/RLanceMartin) · [rlancemartin.github.io](https://rlancemartin.github.io)
 
-LangChain's most prolific writer on the *context* side of the stack. Martin formalized the **Write / Select / Compress / Isolate** framework in [*Context Engineering for Agents*](https://blog.langchain.com/context-engineering-for-agents/) (2025) — the four primitives every harness has to implement, and the conceptual scaffolding the rest of this reference uses on the [Harness Engineering](harness-engineering.md) page. The follow-up [*Context Management for Deep Agents*](https://blog.langchain.com/context-management-for-deepagents/) is where the 20K-token tool-response offload pattern and the 85%-of-window compaction triggers are spelled out concretely. If Anthropic's *Effective context engineering* is the *what*, Martin's pieces are the *how* — same ideas, runnable in LangGraph.
+LangChain's most prolific writer on the *context* side of the stack. Martin formalized the **Write / Select / Compress / Isolate** framework in [*Context Engineering for Agents*](https://www.langchain.com/blog/context-engineering-for-agents) (2025) — the four primitives every harness has to implement, and the conceptual scaffolding the rest of this reference uses on the [Harness Engineering](harness-engineering.md) page. The follow-up [*Context Management for Deep Agents*](https://www.langchain.com/blog/context-management-for-deepagents) is where the 20K-token tool-response offload pattern and the 85%-of-window compaction triggers are spelled out concretely. If Anthropic's *Effective context engineering* is the *what*, Martin's pieces are the *how* — same ideas, runnable in LangGraph.
 
-Career: ex-Robust Intelligence; LangChain since ~2023. The body of work to follow is the [LangChain blog](https://blog.langchain.com) (his pieces are the ones tagged "Context" and "Deep Agents").
+Career: ex-Robust Intelligence; LangChain since ~2023. The body of work to follow is the [LangChain blog](https://www.langchain.com/blog) (his pieces are the ones tagged "Context" and "Deep Agents").
 
 **Key works to know:**
 
-- *[Context Engineering for Agents](https://blog.langchain.com/context-engineering-for-agents/)* — Write/Select/Compress/Isolate
-- *[Context Management for Deep Agents](https://blog.langchain.com/context-management-for-deepagents/)* — offload thresholds, summarization triggers
-- *[Doubling down on Deep Agents](https://blog.langchain.com/doubling-down-on-deepagents/)* — the harness-vs-framework-vs-runtime distinction
-- *[Evaluating Deep Agents](https://blog.langchain.com/evaluating-deep-agents-our-learnings/)* — single-step / full-turn / multi-turn trajectory eval patterns
+- *[Context Engineering for Agents](https://www.langchain.com/blog/context-engineering-for-agents)* — Write/Select/Compress/Isolate
+- *[Context Management for Deep Agents](https://www.langchain.com/blog/context-management-for-deepagents)* — offload thresholds, summarization triggers
+- *[Doubling down on Deep Agents](https://www.langchain.com/blog/doubling-down-on-deepagents)* — the harness-vs-framework-vs-runtime distinction
+- *[Evaluating Deep Agents](https://www.langchain.com/blog/evaluating-deep-agents-our-learnings)* — single-step / full-turn / multi-turn trajectory eval patterns
 
 **Start here:** *Context Engineering for Agents*. The framework is short, the diagrams are clear, and you'll find yourself reaching for the vocabulary every time you design a harness.
 
@@ -447,12 +525,12 @@ Career: ex-Robust Intelligence; LangChain since ~2023. The body of work to follo
 
 > 🔨 Operator + chronicler · LangChain · [Deep Agents](approaches.md#deep-agents-langchain) harness lead
 
-The harness-engineering empiricist. Trivedy's [*Improving Deep Agents with harness engineering*](https://blog.langchain.com/improving-deep-agents-with-harness-engineering/) (Feb 2026) is the headline existence proof that harness changes alone — model held fixed at GPT-5.2-codex — moved [Deep Agents](approaches.md#deep-agents-langchain) from rank 30 to rank 5 on Terminal-Bench 2.0. The sequel [*Better Harness: A Recipe for Harness Hill-Climbing with Evals*](https://blog.langchain.com/better-harness-a-recipe-for-harness-hill-climbing-with-evals/) (Apr 2026) operationalized that result: self-verification + trace inspection + small atomic harness changes as a recipe an agent can run on itself. Read together, the two posts are the most concrete published example of *engineering as iterating on the harness, not the model* — the thesis [Harness Engineering](harness-engineering.md) builds the whole page around.
+The harness-engineering empiricist. Trivedy's [*Improving Deep Agents with harness engineering*](https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering) (Feb 2026) is the headline existence proof that harness changes alone — model held fixed at GPT-5.2-codex — moved [Deep Agents](approaches.md#deep-agents-langchain) from rank 30 to rank 5 on Terminal-Bench 2.0. The sequel [*Better Harness: A Recipe for Harness Hill-Climbing with Evals*](https://www.langchain.com/blog/better-harness-a-recipe-for-harness-hill-climbing-with-evals) (Apr 2026) operationalized that result: self-verification + trace inspection + small atomic harness changes as a recipe an agent can run on itself. Read together, the two posts are the most concrete published example of *engineering as iterating on the harness, not the model* — the thesis [Harness Engineering](harness-engineering.md) builds the whole page around.
 
 **Key works to know:**
 
-- *[Improving Deep Agents with harness engineering](https://blog.langchain.com/improving-deep-agents-with-harness-engineering/)* (Feb 2026) — the rank 30 → 5 case study
-- *[Better Harness: A Recipe for Harness Hill-Climbing with Evals](https://blog.langchain.com/better-harness-a-recipe-for-harness-hill-climbing-with-evals/)* (Apr 2026) — the iteration recipe
+- *[Improving Deep Agents with harness engineering](https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering)* (Feb 2026) — the rank 30 → 5 case study
+- *[Better Harness: A Recipe for Harness Hill-Climbing with Evals](https://www.langchain.com/blog/better-harness-a-recipe-for-harness-hill-climbing-with-evals)* (Apr 2026) — the iteration recipe
 - The Deep Agents source ([langchain-ai/deepagents](https://github.com/langchain-ai/deepagents)) — read the middleware files alongside the posts; the code is the artifact
 
 **Start here:** The Feb 2026 post. Then go read the diff between Deep Agents v0.4 and v0.5 in the repo — the recipe is the post, the evidence is the commits.
@@ -500,7 +578,6 @@ This page caps at 12 to stay useful. Strong candidates we deliberately didn't wr
 - **Robert Nishihara** (Anyscale / Ray) — distributed compute substrate that increasingly underpins agentic RL workloads.
 - **Bret Taylor** (Sierra, OpenAI Chairman) — enterprise CX agents; not coding-agent-shaped but a major voice on enterprise agent deployment.
 - **Mustafa Suleyman** (Microsoft AI) — DeepMind co-founder, Inflection co-founder, now leads MAI Superintelligence team; the "humanist superintelligence" framing.
-- **Chip Huyen** — *AI Engineering* (O'Reilly 2025) and *Designing Machine Learning Systems* (2022); the production-ML engineering discipline upstream of agentic engineering.
 - **Yohei Nakajima** (BabyAGI) — the 2023 task-loop architecture that kicked off the modern autonomous-agent boom; now invests via Untapped Capital and Agent Fund.
 - **Joon Sung Park** (Simile, ex-Stanford) — *Generative Agents: Interactive Simulacra of Human Behavior* (2023) — the Smallville paper that defined memory-stream / reflection / retrieval agent architecture.
 - **Sholto Douglas** (Anthropic) — RL scaling, verifiable rewards, computer-use; deep agent-infrastructure work.

@@ -1,3 +1,5 @@
+<!-- description: How to make AI coding agents reliable — the five-subsystem model, repo-as-system-of-record, WIP=1, three-layer verification, sprint contracts, and clean-state exits. -->
+
 # Harness Engineering
 
 Most teams think a "harness" is a prompt file. It isn't. A harness is **everything in the engineering infrastructure outside the model weights** — the instructions, tools, environment, state, and feedback machinery that determines how much of a model's capability actually shows up at runtime. Same model, different harness, fundamentally different output.

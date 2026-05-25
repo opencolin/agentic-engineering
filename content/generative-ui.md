@@ -1,3 +1,5 @@
+<!-- description: How agent frameworks ship interfaces — Static, Declarative (A2UI), and Open-ended patterns. CopilotKit, AG-UI, Vercel AI SDK, MCP-UI. Trade-offs between consistency and flexibility. -->
+
 # Generative UI
 
 Generative UI (GenUI) is UI that an AI system assembles or changes at runtime based on the user's intent, context, or task — rather than relying only on fixed screens authored in advance.

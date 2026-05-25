@@ -1,8 +1,12 @@
+<!-- description: SWE-bench and Terminal Bench — the two benchmarks that matter most for autonomous coding agents, how they work, and who's on top. -->
+
 # Benchmarks
 
 How agentic coding systems are evaluated. The two benchmarks that matter most for coding agents today are **SWE-bench** (resolve real GitHub issues) and **Terminal Bench** (complete terminal-based engineering tasks). Together they cover two different shapes of the same question: *can the agent actually get the job done end-to-end?*
 
 Benchmarks aren't the whole story — Stripe's internal signal is 1,300+ real PRs/week, not a leaderboard number — but they're the shared yardstick the category agrees on.
+
+This page covers the **public leaderboards**. For the methodology of building eval programs against *your own* failure modes — pass@k vs pass^k, the three silent invalidators (grading bugs / infrastructure noise / eval awareness), and the eval-tooling landscape — see [Evals](evals.md). For the models being scored, see [Models](models.md).
 
 ---
 

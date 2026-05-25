@@ -1,3 +1,5 @@
+<!-- description: Conferences, meetups, livestreams, and other in-person and virtual events relevant to agentic engineering. -->
+
 # Events
 
 [← Back to home](index.md)

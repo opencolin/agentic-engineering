@@ -1,6 +1,10 @@
+<!-- description: Deep dives into the major systems and frameworks driving autonomous software engineering — from enterprise-internal platforms to open-source tools and model-provider managed agents. -->
+
 # Approaches to Agentic Coding
 
 A deep dive into the major systems and frameworks driving autonomous software engineering — from enterprise-internal platforms to open-source tools.
+
+For the model layer powering these systems (which Anthropic / Google / OpenAI / xAI models to pick, plus the open-weights options like DeepSeek, Qwen, Llama, Kimi, GLM, MiniMax, and Mistral), see [Models](models.md). For the surrounding disciplines that make any of these approaches reliable, see [Harness Engineering](harness-engineering.md), [Context Engineering](context-engineering.md), [Tool Design](tool-design.md), and [Skills](skills.md).
 
 ## Index
 
@@ -505,7 +509,7 @@ Anthropic's first-party agent SDK — **the exact same harness that ships inside
 - **GitHub:** [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) [![stars](https://img.shields.io/github/stars/langchain-ai/deepagents?style=social)](https://github.com/langchain-ai/deepagents)
 - **Origin:** LangChain, August 2025; v0.5 alpha April 2026 (async sub-agents, expanded multi-modal filesystem)
 
-The closest open-source analog to [Claude Code's](#terminal-coding-clis) harness, but model-agnostic and built on the LangGraph runtime. Where Claude Agent SDK is *the* Anthropic-shaped harness, Deep Agents is the *batteries-included* harness anyone can adopt on top of LangGraph 1.0: planning, virtual filesystem, sub-agents, summarization, and skills, all as composable middleware. The thesis is that **harness engineering, not model selection, is the lever in 2026** — Vivek Trivedy's [Feb 2026 post](https://blog.langchain.com/improving-deep-agents-with-harness-engineering/) reports going from rank 30 to rank 5 on Terminal-Bench 2.0 holding GPT-5.2-codex fixed and only changing the harness.
+The closest open-source analog to [Claude Code's](#terminal-coding-clis) harness, but model-agnostic and built on the LangGraph runtime. Where Claude Agent SDK is *the* Anthropic-shaped harness, Deep Agents is the *batteries-included* harness anyone can adopt on top of LangGraph 1.0: planning, virtual filesystem, sub-agents, summarization, and skills, all as composable middleware. The thesis is that **harness engineering, not model selection, is the lever in 2026** — Vivek Trivedy's [Feb 2026 post](https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering) reports going from rank 30 to rank 5 on Terminal-Bench 2.0 holding GPT-5.2-codex fixed and only changing the harness.
 
 ### Architecture
 
@@ -519,7 +523,7 @@ The closest open-source analog to [Claude Code's](#terminal-coding-clis) harness
 
 - Pair with `create_agent` (LangChain 1.0 default factory, Oct 2025; supersedes the deprecated `create_react_agent`) to compose agent + middleware in idiomatic LangGraph
 - The right pick if you want Claude-Code-shaped ergonomics but need model neutrality, durable checkpointing, time-travel debugging, or first-class observability via [LangSmith](infrastructure.md#agent-observability--evaluation)
-- The reference work for harness engineering as a discipline — read alongside [The Anatomy of an Agent Harness](https://blog.langchain.com/the-anatomy-of-an-agent-harness/) (LangChain) and Trivedy's [Better Harness](https://blog.langchain.com/better-harness-a-recipe-for-harness-hill-climbing-with-evals/) hill-climbing recipe
+- The reference work for harness engineering as a discipline — read alongside [The Anatomy of an Agent Harness](https://www.langchain.com/blog/the-anatomy-of-an-agent-harness) (LangChain) and Trivedy's [Better Harness](https://www.langchain.com/blog/better-harness-a-recipe-for-harness-hill-climbing-with-evals) hill-climbing recipe
 - **Gap:** LangGraph weight. You get durability, time-travel, and middleware for free, but the conceptual surface area is larger than [Claude Agent SDK](#claude-agent-sdk) or [Smolagents](#smolagents). Teams that just want "claude.messages.create with hooks" should start lighter
 
 ---
@@ -1329,10 +1333,11 @@ A *software-development-methodology* shipped as a skills framework. Where [GStac
 
 - **Type:** Open Source
 - **Stars:** 190K
-- **GitHub:** https://github.com/affaan-m/everything-claude-code [![stars](https://img.shields.io/github/stars/affaan-m/everything-claude-code?style=social)](https://github.com/affaan-m/everything-claude-code)
+- **GitHub:** https://github.com/affaan-m/ECC [![stars](https://img.shields.io/github/stars/affaan-m/ECC?style=social)](https://github.com/affaan-m/ECC)
 - **Origin:** Affaan M., shipped at the Cerebral Valley × Anthropic Claude Code Hackathon (Feb 2026)
+- **Also known as:** ECC (the repo was renamed from `everything-claude-code` to `ECC` in 2026)
 
-A harness pack focused on a category none of the others target directly: **security auditing of the Claude Code harness itself**. Where GStack / Superpowers / GBrain / AgentHub assume your harness is the answer, `everything-claude-code` treats your harness as an attack surface and audits it.
+A harness pack focused on a category none of the others target directly: **security auditing of the Claude Code harness itself**. Where GStack / Superpowers / GBrain / AgentHub assume your harness is the answer, ECC treats your harness as an attack surface and audits it.
 
 ### Differentiator: security as a first-class subsystem
 
@@ -1651,3 +1656,75 @@ For agentic engineering teams, these matter as **tools an agent calls** — for 
 - **Self-host a full Operator alternative for end users** → Open-CUAK or Open Computer Agent.
 - **Already on Claude** → Anthropic Computer Use directly via the API; Claude Cowork if you want the productized desktop UX.
 - **Visual testing / regression** → Magnitude (visual assertions), Skyvern (workflow builder), or Stagehand on top of Playwright's existing assertions.
+
+---
+
+## Feature Matrix
+
+| Project | Stars | Unattended PR | Orchestration | Sandbox | MCP | CI Feedback | Multi-Agent | License |
+|---------|-------|--------------|---------------|---------|-----|-------------|-------------|---------|
+| **Claude Managed Agents** | N/A | Yes | Built-in harness | Managed container | Yes (MCP) | Yes | Research preview | Commercial |
+| **Stripe Minions** | N/A | Yes | Blueprints | EC2 Devboxes | Yes (~500 tools) | Yes (2 rounds) | Parallel runs | Proprietary |
+| **AgentField** | 1.4K | Yes | SWE-AF levels | Git Worktrees | Agent mesh | Yes (gated) | Yes (orchestrated) | Apache 2.0 |
+| **OpenHands** | 71K | Yes | Planning Mode | Docker | No | Yes | No | MIT |
+| **Open SWE** | 9.5K | Yes | LangGraph | Cloud sandbox | No | Yes | Yes (4 agents) | Open Source |
+| **OhMyOpenAgent** | 50.6K | Partial | Named agents | No | Yes (built-in) | Partial | Yes (team) | Open Source |
+| **OpenCode** | 142K | Partial (GH mode) | No | No | No | No | No | Open Source |
+| **SWE-agent** | 19K | Yes | No | Docker | No | Partial | No | MIT |
+| **Composio** | 6.2K | Yes | Task decomp | Configurable | No | Yes | Yes (parallel) | Open Source |
+| **Patchwork** | 1.5K | Yes | Patchflows | No | No | Yes (CI/CD) | No | Open Source |
+| **Goose** | 41K | No (interactive) | No | No | Yes (70+ tools) | No | No | Apache 2.0 |
+| **Symphony** | 15K+ | Yes | 6-layer architecture | Worktrees | Via integrations | Yes (CI-gated) | Yes (orchestrated) | Apache 2.0 |
+| **Vercel Open Agents** | 3.7K | Yes | Vercel Workflow SDK (durable) | Vercel Sandbox (microVM) | Yes (MCP) | Via tools | Subagents built-in | MIT |
+| **Mastra** | 22.9K | Framework | Workflows | Configurable | Yes (MCP) | Via workflows | Via workflows | Apache 2.0 |
+| **OpenClaw** | 355K | Via skills | No | Via NemoClaw | No | No | Yes (sessions) | Open Source |
+| **Rivet Sandbox** | 1.3K | Infrastructure | No | Yes (multi-runtime) | No | No | API-level | Open Source |
+
+---
+
+## Capability Breakdown
+
+### Best for Unattended PR Production
+1. **Stripe Minions** — Gold standard, 1,300+ PRs/week in production
+2. **OpenHands** — Most mature open-source option, 50%+ SWE-bench
+3. **Open SWE** — Best multi-agent architecture for PR production
+
+### Best for Orchestration / Workflow
+1. **Stripe Minions** — Blueprints (hybrid deterministic + agentic)
+2. **Patchwork** — Patchflows (closest open-source blueprint analog)
+3. **Open SWE** — LangGraph (graph-based multi-agent)
+
+### Best for Sandbox Isolation
+1. **Stripe Minions** — EC2 devboxes, pre-warmed in 10s
+2. **Rivet Sandbox Agent** — Universal API for any agent in any sandbox
+3. **OpenHands** — Docker-based, Kubernetes-ready
+
+### Best for Multi-Agent Parallelization
+1. **Composio Orchestrator** — Purpose-built for parallel agent coordination
+2. **AgentField** — Full orchestration with failure recovery
+3. **OhMyOpenAgent** — Named specialist team with model routing
+
+### Best for Context Management
+1. **Stripe Minions** — Toolshed MCP (~500 tools), conditional rules, pre-hydration
+2. **OhMyOpenAgent** — Hierarchical AGENTS.md, built-in MCPs, multi-model routing
+3. **Goose** — MCP-native with 70+ extensions
+
+### Best for Failure Recovery
+1. **AgentField** — Three nested loops, typed recovery, checkpoint-based
+2. **Stripe Minions** — Pragmatic 2-round CI cap with auto-fixes
+3. **OhMyOpenAgent** — Ralph Loop for persistent iteration
+
+---
+
+## Composability
+
+No single open-source project replicates the full Stripe Minions architecture. To build an equivalent, you would likely combine:
+
+| Layer | Option A | Option B |
+|-------|----------|----------|
+| **Core Agent** | OpenHands | Open SWE |
+| **Sandbox** | Rivet Sandbox Agent | E2B / Docker |
+| **Orchestration** | Patchwork patchflows | LangGraph |
+| **Parallelization** | Composio Orchestrator | AgentField |
+| **Context** | MCP servers | OhMyOpenAgent MCPs |
+| **Control Plane** | AgentField | Custom |

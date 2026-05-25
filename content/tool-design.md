@@ -1,3 +1,5 @@
+<!-- description: How to write tools that agents actually use well — MCP as the assumed wire format, consolidate vs CRUD plumbing, ResponseFormat compression (206→72 tokens), lazy loading via Tool Search Tool (-85% tokens), code-as-tool via sandboxes (150K→2K tokens), Tool Use Examples (+18pp accuracy), and what to measure per tool. -->
+
 # Tool Design
 
 How to write tools that agents actually use well. The most-overlooked layer in agent quality — most production teams tune prompts and pick models; the tool layer is where the biggest wins quietly live.
@@ -5,6 +7,48 @@ How to write tools that agents actually use well. The most-overlooked layer in a
 > "Tools are a new kind of software which reflects a contract between deterministic systems and non-deterministic agents." — [Anthropic, Writing Effective Tools for Agents](https://anthropic.com/engineering/writing-tools-for-agents)
 
 The empirical case from the same post: Claude-optimized tools beat human-written ones on held-out Slack-MCP evals after iterative agent-led refinement. And during the SWE-bench work, [Anthropic spent more time tuning tools than tuning prompts](https://anthropic.com/research/building-effective-agents) — using absolute file paths instead of relative eliminated a whole class of mistakes.
+
+---
+
+## MCP — the wire format you're writing tools in
+
+Read this first. Everything else on this page is *content*; this is the *protocol*.
+
+[Model Context Protocol](https://modelcontextprotocol.io) was launched by Anthropic in November 2024 as an open spec for how agents discover and call tools. By late 2025 it had become the **de-facto industry standard** — Claude, GPT, Gemini, Grok, and most open-weights model loops all speak MCP either natively or via adapters. As of mid-2026 there are **thousands of MCP servers** in public registries plus countless private ones inside companies.
+
+What this means practically:
+
+- **Your tool definitions are MCP.** Even if you don't think you're writing MCP — if you're exposing a tool to Claude Code, the Claude Agent SDK, ChatGPT, or any modern agent harness, the over-the-wire format is MCP. Stop thinking of MCP as "a thing Claude uses" and start thinking of it as "the format every agent reads."
+- **The ecosystem already solved discovery.** You no longer need to invent how an agent finds a tool — MCP servers expose tool catalogs that any client can list and call. Focus your design energy on *what makes your specific tools good*, not on plumbing.
+- **The cross-vendor portability is real.** A well-designed MCP server you ship today works inside Claude Code tomorrow and a Vercel AI SDK agent the day after. This is the biggest reason MCP won the protocol war.
+
+**Anatomy of an MCP tool** (the part that matters for tool design):
+
+```json
+{
+  "name": "schedule_event",
+  "description": "Create a calendar event with the given participants...",
+  "inputSchema": { "type": "object", "properties": { ... } }
+}
+```
+
+The `description` field is where most of the win is — this is what the model reads to decide whether to invoke. [Tool Use Examples](#tool-use-examples--the-input_examples-pattern) (Anthropic's `input_examples` extension) bolts onto this same schema and adds another ~18 percentage points of accuracy on complex parameters.
+
+**The governance layer.** Real production agents need per-user OAuth, audit trails, sandboxing, and rate-limiting around MCP tool execution. Two runtimes sit between the agent and your raw MCP tools to provide this:
+
+- **[Arcade](https://arcade.dev)** — MCP runtime with per-user (not service-account) auth, OAuth handling, deploy modes (cloud / VPC / on-prem / air-gapped), Arcade Registry marketplace
+- **[Composio](https://composio.dev)** — 1,000+ pre-built integrations with managed OAuth, intent-based tool resolution, sandboxed remote execution
+
+For the broader infrastructure layer (MCP servers, registries, gateways), see [Infrastructure § MCP Servers, Registries & Gateways](infrastructure.md#mcp-servers-registries-gateways). For the patterns that emerged from MCP's adoption — [Skills](skills.md), code-as-tool, progressive disclosure — see the relevant sections below.
+
+**Reading list:**
+
+- [Code Execution with MCP](https://anthropic.com/engineering/code-execution-with-mcp) (Anthropic, Nov 4 2025) — the canonical "code-as-tool" pattern; 98.7% token reduction in the Google-Drive-to-Salesforce example
+- [Advanced Tool Use](https://anthropic.com/engineering/advanced-tool-use) (Anthropic, Nov 24 2025) — Tool Search Tool against MCP servers (-85% tokens)
+- [Anthropic tool-use docs](https://docs.anthropic.com/en/docs/build-with-claude/tool-use) — the wire-level protocol every Claude-based agent loop uses
+- [MCP spec](https://modelcontextprotocol.io) — the protocol itself
+
+Now, with MCP as the assumed substrate, the rest of this page is about *what makes the tools you ship over it actually good*.
 
 ---
 
@@ -109,18 +153,6 @@ This is essentially few-shot at the tool layer. Cheaper than retraining, cheaper
 | Error rate | The single biggest quality lever — error spirals compound |
 
 Track these per-tool over time. When a model upgrade or harness change moves these numbers, you know which tool to revisit.
-
----
-
-## MCP — the protocol layer
-
-[Model Context Protocol](https://modelcontextprotocol.io) is now the de-facto industry standard for tool exposure across model providers. As of late 2025, thousands of MCP servers exist. Key implications:
-
-- A tool definition you ship as MCP works across Claude, GPT, Gemini agents
-- The ecosystem has solved the "where do tools come from" problem; you should be solving "what makes *my* tools good"
-- For governance (per-user OAuth, audit trails, sandboxing), runtimes like [Arcade](https://arcade.dev) and [Composio](https://composio.dev) sit between the agent and MCP execution
-
-Worth reading: [Code Execution with MCP](https://anthropic.com/engineering/code-execution-with-mcp) on the progressive-disclosure pattern, and the [Claude tool-use docs](https://docs.anthropic.com/en/docs/build-with-claude/tool-use) for the wire protocol.
 
 ---
 

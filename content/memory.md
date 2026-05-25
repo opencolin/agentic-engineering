@@ -1,3 +1,5 @@
+<!-- description: How agents remember across turns and sessions — three-axis taxonomy (lifetime / type / update mechanism), the vendors (Letta, Mem0, LangMem, LangGraph Store, Anthropic memory tool), filesystem-as-memory pattern, three-layer continual learning model, and production anti-patterns. -->
+
 # Memory
 
 How agents remember things across turns and across sessions. Distinct from [Context Engineering](context-engineering.md) — context engineering is about what's in the window *right now*; memory is about what survives when the window resets.
@@ -22,7 +24,7 @@ Three orthogonal axes — every memory system picks a position on each:
 | **Long-term** | Across sessions, same user | Persistent store (vector DB, KV, filesystem) |
 | **Cross-user** | Org-wide knowledge | Shared knowledge base, RAG over docs |
 
-### Axis 2: Type (from [LangChain Context Engineering](https://blog.langchain.com/context-engineering-for-agents/))
+### Axis 2: Type (from [LangChain Context Engineering](https://www.langchain.com/blog/context-engineering-for-agents))
 
 | Type | What it stores | Example |
 |---|---|---|
@@ -38,7 +40,7 @@ Three orthogonal axes — every memory system picks a position on each:
 | **Background consolidation** | Async, between sessions | Cleaner memories; delay before "learning" lands |
 | **Manual / human-curated** | On explicit signal | Highest quality; doesn't scale |
 
-[Deep Agents](https://blog.langchain.com/continual-learning-for-ai-agents/) ships user-level memory with background consolidation as the default — a pragmatic balance.
+[Deep Agents](https://www.langchain.com/blog/continual-learning-for-ai-agents) ships user-level memory with background consolidation as the default — a pragmatic balance.
 
 ---
 
@@ -94,13 +96,13 @@ Concrete shapes:
 - `.claude/memory/episodes/<date>.md` — episodic logs
 - JSON feature lists where each item has `passes: false` until proven otherwise ([Effective Harnesses example](https://anthropic.com/engineering/effective-harnesses-for-long-running-agents) — 200+ features for a claude.ai clone)
 
-The [Anatomy of an Agent Harness](https://blog.langchain.com/the-anatomy-of-an-agent-harness/) calls filesystems "foundational: durable storage, context management, multi-agent collaboration."
+The [Anatomy of an Agent Harness](https://www.langchain.com/blog/the-anatomy-of-an-agent-harness) calls filesystems "foundational: durable storage, context management, multi-agent collaboration."
 
 ---
 
 ## How agents actually learn over time
 
-[LangChain's continual-learning post](https://blog.langchain.com/continual-learning-for-ai-agents/) decomposes "learning" into three orthogonal layers:
+[LangChain's continual-learning post](https://www.langchain.com/blog/continual-learning-for-ai-agents) decomposes "learning" into three orthogonal layers:
 
 | Layer | What changes | Mechanism |
 |---|---|---|
