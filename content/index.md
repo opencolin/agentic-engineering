@@ -23,7 +23,7 @@ A comprehensive reference to autonomous coding agents, agentic organizations, an
 | 9 | [Evals](evals.md) | How to measure agent quality (distinct from benchmarks) — pass@k vs pass^k, three silent invalidators (grading bugs, infra noise, eval awareness), tooling map (Inspect AI, LangSmith, Braintrust, Langfuse, Phoenix) |
 | 10 | [Benchmarks](benchmarks.md) | SWE-bench, SWE-bench Verified / Pro / Multimodal / Multilingual, Terminal Bench 2.0, τ-Bench, plus a 9-row "other benchmarks worth knowing" roundup; how to read the leaderboards and what they actually mean |
 | 11 | [Schools](schools.md) | Where does trust live? The three philosophical schools (Polosukhin / Chase / Ng) and the four operational schools (Stripe / Tan / Walking Labs / Steinberger) |
-| 12 | [Who's Who](who-is-who.md) | 28 named profiles of the people shaping the field — researchers, operators, chroniclers — with the single thing of theirs to read or watch first |
+| 12 | [Who's Who](who-is-who.md) | 29 named profiles of the people shaping the field — researchers, operators, chroniclers — with the single thing of theirs to read or watch first |
 | 13 | [Organizations](organizations.md) | How companies organize around agents — Stripe model, open-source model, agent-first development, infrastructure tiers |
 | 14 | [Inference](inference.md) | LLM inference solutions: direct API providers, platforms (Nebius, Together, Fireworks, Groq), routing gateways, self-hosted inference |
 | 15 | [Sandboxes](sandboxes.md) | The execution-environment layer — purpose-built agent sandboxes, Contree deep dive, CDEs, isolation tiers, integration patterns |

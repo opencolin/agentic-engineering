@@ -198,11 +198,11 @@ Where does trust live? Three philosophical schools + four operational schools.
 
 ## 12. [Who's Who](who-is-who.md)
 
-28 named profiles of the people shaping the field.
+29 named profiles of the people shaping the field.
 
 - 🧠 Researchers / educators: [Karpathy](who-is-who.md#andrej-karpathy) · [Weng](who-is-who.md#lilian-weng) · [Yao](who-is-who.md#shunyu-yao) · [Brown](who-is-who.md#noam-brown) · [Yang](who-is-who.md#john-yang) · [Kiela](who-is-who.md#douwe-kiela) · [Teknium](who-is-who.md#teknium-karan-malhotra) · [Polosukhin](who-is-who.md#illia-polosukhin)
 - 🔨 Operators / founders: [Steinberger](who-is-who.md#peter-steinberger-steipete) · [Tan](who-is-who.md#garry-tan) · [Cherny](who-is-who.md#boris-cherny) · [Chase](who-is-who.md#harrison-chase) · [Vincent](who-is-who.md#jesse-vincent-obra) · [Robinson](who-is-who.md#lee-robinson) · [Liu (Beyang)](who-is-who.md#beyang-liu) · [Liu (Jerry)](who-is-who.md#jerry-liu) · [Schluntz](who-is-who.md#erik-schluntz) · [Trivedy](who-is-who.md#vivek-trivedy) · [Martin](who-is-who.md#lance-martin)
-- ✍️ Chroniclers / synthesizers: [Willison](who-is-who.md#simon-willison) · [Osmani](who-is-who.md#addy-osmani) · [Mollick](who-is-who.md#ethan-mollick) · [swyx + Fanelli](who-is-who.md#swyx-shawn-wang-alessio-fanelli) · [Husain](who-is-who.md#hamel-husain) · [Yan](who-is-who.md#eugene-yan) · [Huyen](who-is-who.md#chip-huyen) · [Schmid](who-is-who.md#philipp-schmid) · [Wolfe](who-is-who.md#cameron-r-wolfe)
+- ✍️ Chroniclers / synthesizers: [Willison](who-is-who.md#simon-willison) · [Osmani](who-is-who.md#addy-osmani) · [Mollick](who-is-who.md#ethan-mollick) · [swyx + Fanelli](who-is-who.md#swyx-shawn-wang-alessio-fanelli) · [Husain](who-is-who.md#hamel-husain) · [Yan](who-is-who.md#eugene-yan) · [Huyen](who-is-who.md#chip-huyen) · [Schmid](who-is-who.md#philipp-schmid) · [Wolfe](who-is-who.md#cameron-r-wolfe) · [Schulhoff](who-is-who.md#sander-schulhoff)
 - [Appendix](who-is-who.md#appendix-people-projects-and-writers-we-considered-but-didnt-profile) — additional candidates
 - [Reading order if you're new](who-is-who.md#reading-order-if-youre-new) — one-week onboarding path
 

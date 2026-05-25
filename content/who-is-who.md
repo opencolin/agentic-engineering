@@ -483,6 +483,25 @@ Career: PhD in deep learning; runs Deep (Learning) Focus as a parallel writing p
 
 ---
 
+## Sander Schulhoff
+
+> 🧠 Researcher + ✍️ Chronicler · Founder, LearnPrompting · CEO, InventoryQuant (YC W26) · [sanderschulhoff.com](https://sanderschulhoff.com) · [Substack](https://substack.com/@sanderschulhoff)
+
+The OG prompt engineer. Two months before ChatGPT's launch, Schulhoff started **[LearnPrompting.org](https://learnprompting.org)** — the first prompt-engineering guide on the internet, now serving 3M+ users with structured curriculum across every major model family. Two years later, he co-authored **[The Prompt Report](https://arxiv.org/abs/2406.06608)** with researchers from OpenAI, Microsoft, Google, Princeton, Stanford, and CMU — the most comprehensive academic survey of prompt engineering ever conducted, cataloguing 200+ techniques across 1,500+ analyzed papers. The Prompt Report is the citation everyone uses when they say "X technique works" — the textual fingerprint of the entire prompt-engineering subfield up to mid-2024.
+
+Schulhoff also ran **[HackAPrompt](https://hackaprompt.com)**, the first global prompt-injection study (Best Theme Paper, EMNLP 2023) — the empirical case for why prompt injection is a real and patternable attack surface, not just folklore. Now CEO of InventoryQuant (YC W26), building AI for the insurance vertical. Background: University of Maryland.
+
+**Key works to know:**
+
+- *[LearnPrompting.org](https://learnprompting.org)* (2022–) — the foundational free guide; structured curriculum on prompting, chains, RAG, agents
+- *[The Prompt Report](https://arxiv.org/abs/2406.06608)* (2024) — 1,500+ papers, 200+ techniques; the field's reference survey
+- *[HackAPrompt](https://hackaprompt.com)* — global prompt-injection study, EMNLP 2023 Best Theme Paper
+- *[Lenny's Newsletter interview](https://www.lennysnewsletter.com/p/ai-prompt-engineering-in-2025-sander-schulhoff)* — accessible long-form explainer of where prompt engineering went in 2025
+
+**Start here:** Skim *The Prompt Report* introduction + technique taxonomy. If you've ever wondered whether some specific prompting trick has been formally studied, the answer is in there.
+
+---
+
 ## Lance Martin
 
 > ✍️ Chronicler / 🔨 Operator · LangChain · [@RLanceMartin](https://twitter.com/RLanceMartin) · [rlancemartin.github.io](https://rlancemartin.github.io)

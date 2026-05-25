@@ -19,6 +19,8 @@ Publication dates of the primary sources that informed the polished pages. Compi
 
 ### 2024
 
+- `2024-06-06` — **★** [The Prompt Report: A Systematic Survey of Prompting Techniques](https://arxiv.org/abs/2406.06608)
+  *The field's reference survey — 1,500+ papers, 200+ techniques, co-authored with OpenAI/Microsoft/Google/Princeton/Stanford; the canonical citation when claiming "X prompting trick works"*
 - `2024-12-19` — **★** [Building Effective Agents](https://anthropic.com/research/building-effective-agents)
   *Foundational pattern taxonomy — the entry point article for the whole site*
 - `2024-12-20` — [Building effective agents (Simon Willison's commentary)](https://simonwillison.net/2024/Dec/20/building-effective-agents/)
@@ -114,7 +116,7 @@ Publication dates of the primary sources that informed the polished pages. Compi
 - `2026-05-25` — [Andrej Karpathy joins Anthropic](https://x.com/karpathy/status/2056753169888334312)
   *Industry-signal post: the person who coined "vibe coding" and "agentic engineering" returns to R&D inside the lab that publishes most of the primary sources on this page*
 
-**Total: 44 dated primary sources.** See [Research Notes](research-notes.md) for the full structured digest per source (key claims, frameworks named, quotable lines, frameworks/concepts cataloged).
+**Total: 45 dated primary sources.** See [Research Notes](research-notes.md) for the full structured digest per source (key claims, frameworks named, quotable lines, frameworks/concepts cataloged).
 
 **Sources not in this timeline:** vendor / framework docs pages (no single publish date — continuously updated); GitHub repo READMEs (use last-commit date if needed); blog/newsletter homepages (use most-recent-post date); YouTube channels and podcast index pages. All catalogued in [Research Notes](research-notes.md) regardless.
 
@@ -123,6 +125,9 @@ Publication dates of the primary sources that informed the polished pages. Compi
 ## Site additions
 
 ## 2026-05-25 (later)
+
+### Who's Who: Sander Schulhoff profile added — [#26](https://github.com/opencolin/agentic-engineering/pull/26)
+**[Sander Schulhoff](who-is-who.md#sander-schulhoff)** — the OG prompt engineer. Created [LearnPrompting.org](https://learnprompting.org) two months before ChatGPT's release (now 3M+ users); co-authored [*The Prompt Report*](https://arxiv.org/abs/2406.06608) with OpenAI / Microsoft / Google / Princeton / Stanford / CMU researchers (1,500+ papers, 200+ techniques surveyed). Also ran HackAPrompt (EMNLP 2023 Best Theme Paper on prompt injection). Now CEO of InventoryQuant (YC W26). Profile added under the chronicler+researcher hybrid archetype. *The Prompt Report* also added to the Primary Source Timeline as a 2024-06-06 ★ entry. Total profiles: 28 → 29. Total dated sources: 44 → 45.
 
 ### URL canonicalization — [#26](https://github.com/opencolin/agentic-engineering/pull/26)
 Migrated stale URLs to current canonical forms across all content:
