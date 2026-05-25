@@ -118,7 +118,7 @@ A comprehensive reference to autonomous coding agents, agentic organizations, an
 | 9 | [Evals](evals.md) | How to measure agent quality (distinct from benchmarks) — pass@k vs pass^k, three silent invalidators (grading bugs, infra noise, eval awareness), tooling map (Inspect AI, LangSmith, Braintrust, Langfuse, Phoenix) |
 | 10 | [Benchmarks](benchmarks.md) | SWE-bench, SWE-bench Verified / Pro / Multimodal / Multilingual, Terminal Bench 2.0, τ-Bench, plus a 9-row "other benchmarks worth knowing" roundup; how to read the leaderboards and what they actually mean |
 | 11 | [Schools](schools.md) | Where does trust live? The three philosophical schools (Polosukhin / Chase / Ng) and the four operational schools (Stripe / Tan / Walking Labs / Steinberger) |
-| 12 | [Who's Who](who-is-who.md) | 25 named profiles of the people shaping the field — researchers, operators, chroniclers — with the single thing of theirs to read or watch first |
+| 12 | [Who's Who](who-is-who.md) | 27 named profiles of the people shaping the field — researchers, operators, chroniclers — with the single thing of theirs to read or watch first |
 | 13 | [Organizations](organizations.md) | How companies organize around agents — Stripe model, open-source model, agent-first development, infrastructure tiers |
 | 14 | [Inference](inference.md) | LLM inference solutions: direct API providers, platforms (Nebius, Together, Fireworks, Groq), routing gateways, self-hosted inference |
 | 15 | [Sandboxes](sandboxes.md) | The execution-environment layer — purpose-built agent sandboxes, Contree deep dive, CDEs, isolation tiers, integration patterns |
@@ -470,11 +470,11 @@ Where does trust live? Three philosophical schools + four operational schools.
 
 ## 12. [Who's Who](who-is-who.md)
 
-25 named profiles of the people shaping the field.
+27 named profiles of the people shaping the field.
 
 - 🧠 Researchers / educators: [Karpathy](who-is-who.md#andrej-karpathy) · [Weng](who-is-who.md#lilian-weng) · [Yao](who-is-who.md#shunyu-yao) · [Brown](who-is-who.md#noam-brown) · [Yang](who-is-who.md#john-yang) · [Kiela](who-is-who.md#douwe-kiela) · [Teknium](who-is-who.md#teknium-karan-malhotra) · [Polosukhin](who-is-who.md#illia-polosukhin)
 - 🔨 Operators / founders: [Steinberger](who-is-who.md#peter-steinberger-steipete) · [Tan](who-is-who.md#garry-tan) · [Cherny](who-is-who.md#boris-cherny) · [Chase](who-is-who.md#harrison-chase) · [Vincent](who-is-who.md#jesse-vincent-obra) · [Robinson](who-is-who.md#lee-robinson) · [Liu (Beyang)](who-is-who.md#beyang-liu) · [Liu (Jerry)](who-is-who.md#jerry-liu) · [Schluntz](who-is-who.md#erik-schluntz) · [Trivedy](who-is-who.md#vivek-trivedy) · [Martin](who-is-who.md#lance-martin)
-- ✍️ Chroniclers / synthesizers: [Willison](who-is-who.md#simon-willison) · [Osmani](who-is-who.md#addy-osmani) · [Mollick](who-is-who.md#ethan-mollick) · [swyx + Fanelli](who-is-who.md#swyx-shawn-wang-alessio-fanelli) · [Husain](who-is-who.md#hamel-husain) · [Yan](who-is-who.md#eugene-yan)
+- ✍️ Chroniclers / synthesizers: [Willison](who-is-who.md#simon-willison) · [Osmani](who-is-who.md#addy-osmani) · [Mollick](who-is-who.md#ethan-mollick) · [swyx + Fanelli](who-is-who.md#swyx-shawn-wang-alessio-fanelli) · [Husain](who-is-who.md#hamel-husain) · [Yan](who-is-who.md#eugene-yan) · [Huyen](who-is-who.md#chip-huyen) · [Schmid](who-is-who.md#philipp-schmid)
 - [Appendix](who-is-who.md#appendix-people-projects-and-writers-we-considered-but-didnt-profile) — additional candidates
 - [Reading order if you're new](who-is-who.md#reading-order-if-youre-new) — one-week onboarding path
 
@@ -882,6 +882,9 @@ Publication dates of the primary sources that informed the polished pages. Compi
 ## Site additions
 
 ## 2026-05-25 (later)
+
+### Who's Who: 2 new profiles (Huyen, Schmid) — [#26](https://github.com/opencolin/agentic-engineering/pull/26)
+Coverage audit surfaced two real gaps in Who's Who: **[Chip Huyen](who-is-who.md#chip-huyen)** was mentioned only in the appendix ("considered but didn't profile") despite *AI Engineering* being the standard production-ML reference; **[Philipp Schmid](who-is-who.md#philipp-schmid)** (Google DeepMind, formerly Hugging Face) was missing entirely despite being one of the highest-cadence recipe-author voices in the field. Both promoted to full chronicler profiles with key works + "start here" entries. Total profiles: 25 → 27.
 
 ### Who's Who: Karpathy joins Anthropic — [#26](https://github.com/opencolin/agentic-engineering/pull/26)
 Updated [Andrej Karpathy](who-is-who.md#andrej-karpathy)'s career line to reflect his [May 2026 announcement](https://x.com/karpathy/status/2056753169888334312) that he's joined Anthropic to "get back to R&D" at the frontier of LLMs. Eureka Labs era ends; Zero-to-Hero lecture series continues as his ongoing education work. Notable industry signal — the person who coined both "vibe coding" and "agentic engineering" is now inside the lab that publishes most of the primary sources cited across this reference.
@@ -5067,6 +5070,44 @@ Career: Senior Applied Scientist at Amazon for several years (recommendations, s
 
 ---
 
+## Chip Huyen
+
+> ✍️ Chronicler / synthesizer · Author of *AI Engineering* · [huyenchip.com](https://huyenchip.com) · [@chipro](https://twitter.com/chipro)
+
+The systems voice. Huyen's *[AI Engineering](https://www.oreilly.com/library/view/ai-engineering/9781098166298/)* (O'Reilly, 2025) is — per the publisher — the most-read book on the O'Reilly platform since launch, and the standard reference for the production layer that wraps any agent: building blocks, deployment, monitoring, RAG, fine-tuning, evals, cost/latency engineering. Her prior *Designing Machine Learning Systems* (O'Reilly, 2022) is the systems-design textbook everyone in production ML cut their teeth on (Amazon #1 AI bestseller, 10+ translations). Roadmap-relevant: she's the person who treats LLMs as a *systems* discipline rather than a modeling one, which is exactly the lens agentic engineering needs.
+
+Career: NVIDIA NeMo (LLM platform), Snorkel AI, Netflix; taught ML Systems at Stanford; founded and sold an AI infra startup before her current writing/teaching arc. Her [blog post archive](https://huyenchip.com/blog/) is a parallel curriculum to the books — see especially "[Building LLM applications for production](https://huyenchip.com/2023/04/11/llm-engineering.html)" (Apr 2023, still the canonical structured walkthrough of the LLM-app stack).
+
+**Key works to know:**
+
+- *[AI Engineering](https://www.oreilly.com/library/view/ai-engineering/9781098166298/)* (2025) — the standard reference for the production layer
+- *[Designing Machine Learning Systems](https://www.amazon.com/Designing-Machine-Learning-Systems-Production-Ready/dp/1098107969)* (2022) — the systems-design predecessor
+- *[Building LLM applications for production](https://huyenchip.com/2023/04/11/llm-engineering.html)* (2023) — the post that became Chapter 1 of *AI Engineering*
+- *[Open challenges in LLM research](https://huyenchip.com/2023/08/16/llm-research-open-challenges.html)* — research-roadmap framing
+
+**Start here:** Read *AI Engineering* if you're shipping an agent in production. If you're just orienting, the *Building LLM applications for production* post is the free 30-minute version of Chapter 1.
+
+---
+
+## Philipp Schmid
+
+> ✍️ Chronicler / 🔨 Operator · Senior AI Developer Relations Engineer, Google DeepMind (formerly Hugging Face) · [philschmid.de](https://philschmid.de) · [@_philschmid](https://twitter.com/_philschmid)
+
+The recipe author. Schmid posts working-code-first walkthroughs of whatever's frontier *that week* — function calling, MCP servers, Deep Research integrations, subagent patterns, RAG pipelines — and his posts ship faster than the official docs they end up replacing in practitioners' bookmarks. Recent landmark: "*[How Agents Manage Other Agents: Four Subagents Patterns in 2026](https://www.philschmid.de/agents-manage-agents)*", which catalogues the supervisor / parallel-workers / orchestrator / hierarchical decompositions in a single canonical reference. Roadmap-relevant: when you need to actually wire up the *thing*, his page is the most reliable starting point for the API-level glue code.
+
+Career: Hugging Face DevRel from the early days (the [HF Transformers SageMaker integration](https://huggingface.co/blog/sagemaker-distributed-training-seq2seq) work was his), moved to Google DeepMind in 2025 to do the same for the Gemini API. High cadence (multiple posts/month), all with reproducible code.
+
+**Key works to know:**
+
+- *[How Agents Manage Other Agents](https://www.philschmid.de/agents-manage-agents)* — the four-pattern reference for subagent design
+- *[How to use Deep Research with the Gemini API](https://www.philschmid.de/gemini-deep-research)* — practitioner walkthrough
+- *[How to correctly use MCP servers with your AI Agents](https://www.philschmid.de/mcp-introduction)* — MCP integration recipe
+- His [tutorial archive](https://philschmid.de/posts) generally — high-frequency, code-heavy, opinionated
+
+**Start here:** *How Agents Manage Other Agents* if you're designing a multi-agent system. Otherwise pick the tutorial that matches whatever API you're integrating right now — odds are he's posted about it.
+
+---
+
 ## Lance Martin
 
 > ✍️ Chronicler / 🔨 Operator · LangChain · [@RLanceMartin](https://twitter.com/RLanceMartin) · [rlancemartin.github.io](https://rlancemartin.github.io)
@@ -5143,7 +5184,6 @@ This page caps at 12 to stay useful. Strong candidates we deliberately didn't wr
 - **Robert Nishihara** (Anyscale / Ray) — distributed compute substrate that increasingly underpins agentic RL workloads.
 - **Bret Taylor** (Sierra, OpenAI Chairman) — enterprise CX agents; not coding-agent-shaped but a major voice on enterprise agent deployment.
 - **Mustafa Suleyman** (Microsoft AI) — DeepMind co-founder, Inflection co-founder, now leads MAI Superintelligence team; the "humanist superintelligence" framing.
-- **Chip Huyen** — *AI Engineering* (O'Reilly 2025) and *Designing Machine Learning Systems* (2022); the production-ML engineering discipline upstream of agentic engineering.
 - **Yohei Nakajima** (BabyAGI) — the 2023 task-loop architecture that kicked off the modern autonomous-agent boom; now invests via Untapped Capital and Agent Fund.
 - **Joon Sung Park** (Simile, ex-Stanford) — *Generative Agents: Interactive Simulacra of Human Behavior* (2023) — the Smallville paper that defined memory-stream / reflection / retrieval agent architecture.
 - **Sholto Douglas** (Anthropic) — RL scaling, verifiable rewards, computer-use; deep agent-infrastructure work.

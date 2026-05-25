@@ -426,6 +426,44 @@ Career: Senior Applied Scientist at Amazon for several years (recommendations, s
 
 ---
 
+## Chip Huyen
+
+> ✍️ Chronicler / synthesizer · Author of *AI Engineering* · [huyenchip.com](https://huyenchip.com) · [@chipro](https://twitter.com/chipro)
+
+The systems voice. Huyen's *[AI Engineering](https://www.oreilly.com/library/view/ai-engineering/9781098166298/)* (O'Reilly, 2025) is — per the publisher — the most-read book on the O'Reilly platform since launch, and the standard reference for the production layer that wraps any agent: building blocks, deployment, monitoring, RAG, fine-tuning, evals, cost/latency engineering. Her prior *Designing Machine Learning Systems* (O'Reilly, 2022) is the systems-design textbook everyone in production ML cut their teeth on (Amazon #1 AI bestseller, 10+ translations). Roadmap-relevant: she's the person who treats LLMs as a *systems* discipline rather than a modeling one, which is exactly the lens agentic engineering needs.
+
+Career: NVIDIA NeMo (LLM platform), Snorkel AI, Netflix; taught ML Systems at Stanford; founded and sold an AI infra startup before her current writing/teaching arc. Her [blog post archive](https://huyenchip.com/blog/) is a parallel curriculum to the books — see especially "[Building LLM applications for production](https://huyenchip.com/2023/04/11/llm-engineering.html)" (Apr 2023, still the canonical structured walkthrough of the LLM-app stack).
+
+**Key works to know:**
+
+- *[AI Engineering](https://www.oreilly.com/library/view/ai-engineering/9781098166298/)* (2025) — the standard reference for the production layer
+- *[Designing Machine Learning Systems](https://www.amazon.com/Designing-Machine-Learning-Systems-Production-Ready/dp/1098107969)* (2022) — the systems-design predecessor
+- *[Building LLM applications for production](https://huyenchip.com/2023/04/11/llm-engineering.html)* (2023) — the post that became Chapter 1 of *AI Engineering*
+- *[Open challenges in LLM research](https://huyenchip.com/2023/08/16/llm-research-open-challenges.html)* — research-roadmap framing
+
+**Start here:** Read *AI Engineering* if you're shipping an agent in production. If you're just orienting, the *Building LLM applications for production* post is the free 30-minute version of Chapter 1.
+
+---
+
+## Philipp Schmid
+
+> ✍️ Chronicler / 🔨 Operator · Senior AI Developer Relations Engineer, Google DeepMind (formerly Hugging Face) · [philschmid.de](https://philschmid.de) · [@_philschmid](https://twitter.com/_philschmid)
+
+The recipe author. Schmid posts working-code-first walkthroughs of whatever's frontier *that week* — function calling, MCP servers, Deep Research integrations, subagent patterns, RAG pipelines — and his posts ship faster than the official docs they end up replacing in practitioners' bookmarks. Recent landmark: "*[How Agents Manage Other Agents: Four Subagents Patterns in 2026](https://www.philschmid.de/agents-manage-agents)*", which catalogues the supervisor / parallel-workers / orchestrator / hierarchical decompositions in a single canonical reference. Roadmap-relevant: when you need to actually wire up the *thing*, his page is the most reliable starting point for the API-level glue code.
+
+Career: Hugging Face DevRel from the early days (the [HF Transformers SageMaker integration](https://huggingface.co/blog/sagemaker-distributed-training-seq2seq) work was his), moved to Google DeepMind in 2025 to do the same for the Gemini API. High cadence (multiple posts/month), all with reproducible code.
+
+**Key works to know:**
+
+- *[How Agents Manage Other Agents](https://www.philschmid.de/agents-manage-agents)* — the four-pattern reference for subagent design
+- *[How to use Deep Research with the Gemini API](https://www.philschmid.de/gemini-deep-research)* — practitioner walkthrough
+- *[How to correctly use MCP servers with your AI Agents](https://www.philschmid.de/mcp-introduction)* — MCP integration recipe
+- His [tutorial archive](https://philschmid.de/posts) generally — high-frequency, code-heavy, opinionated
+
+**Start here:** *How Agents Manage Other Agents* if you're designing a multi-agent system. Otherwise pick the tutorial that matches whatever API you're integrating right now — odds are he's posted about it.
+
+---
+
 ## Lance Martin
 
 > ✍️ Chronicler / 🔨 Operator · LangChain · [@RLanceMartin](https://twitter.com/RLanceMartin) · [rlancemartin.github.io](https://rlancemartin.github.io)
@@ -502,7 +540,6 @@ This page caps at 12 to stay useful. Strong candidates we deliberately didn't wr
 - **Robert Nishihara** (Anyscale / Ray) — distributed compute substrate that increasingly underpins agentic RL workloads.
 - **Bret Taylor** (Sierra, OpenAI Chairman) — enterprise CX agents; not coding-agent-shaped but a major voice on enterprise agent deployment.
 - **Mustafa Suleyman** (Microsoft AI) — DeepMind co-founder, Inflection co-founder, now leads MAI Superintelligence team; the "humanist superintelligence" framing.
-- **Chip Huyen** — *AI Engineering* (O'Reilly 2025) and *Designing Machine Learning Systems* (2022); the production-ML engineering discipline upstream of agentic engineering.
 - **Yohei Nakajima** (BabyAGI) — the 2023 task-loop architecture that kicked off the modern autonomous-agent boom; now invests via Untapped Capital and Agent Fund.
 - **Joon Sung Park** (Simile, ex-Stanford) — *Generative Agents: Interactive Simulacra of Human Behavior* (2023) — the Smallville paper that defined memory-stream / reflection / retrieval agent architecture.
 - **Sholto Douglas** (Anthropic) — RL scaling, verifiable rewards, computer-use; deep agent-infrastructure work.

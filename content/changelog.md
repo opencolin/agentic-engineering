@@ -124,6 +124,9 @@ Publication dates of the primary sources that informed the polished pages. Compi
 
 ## 2026-05-25 (later)
 
+### Who's Who: 2 new profiles (Huyen, Schmid) — [#26](https://github.com/opencolin/agentic-engineering/pull/26)
+Coverage audit surfaced two real gaps in Who's Who: **[Chip Huyen](who-is-who.md#chip-huyen)** was mentioned only in the appendix ("considered but didn't profile") despite *AI Engineering* being the standard production-ML reference; **[Philipp Schmid](who-is-who.md#philipp-schmid)** (Google DeepMind, formerly Hugging Face) was missing entirely despite being one of the highest-cadence recipe-author voices in the field. Both promoted to full chronicler profiles with key works + "start here" entries. Total profiles: 25 → 27.
+
 ### Who's Who: Karpathy joins Anthropic — [#26](https://github.com/opencolin/agentic-engineering/pull/26)
 Updated [Andrej Karpathy](who-is-who.md#andrej-karpathy)'s career line to reflect his [May 2026 announcement](https://x.com/karpathy/status/2056753169888334312) that he's joined Anthropic to "get back to R&D" at the frontier of LLMs. Eureka Labs era ends; Zero-to-Hero lecture series continues as his ongoing education work. Notable industry signal — the person who coined both "vibe coding" and "agentic engineering" is now inside the lab that publishes most of the primary sources cited across this reference.
 
