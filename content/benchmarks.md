@@ -145,6 +145,31 @@ For coding agents, τ-bench is the closest public proxy for "can the agent be le
 
 ---
 
+## Other benchmarks worth knowing
+
+The four above are the *production* benchmarks — what agent teams publish against. The rest of the public benchmark surface matters for niche capabilities (web research, GPU kernels, long-context memory), for research provenance (GAIA's three-level harness leaderboard), or for understanding the headline numbers labs cite.
+
+| Benchmark | Domain | Notable | Link |
+|---|---|---|---|
+| **BrowseComp** | Web research (OpenAI, Nov 2024) | 1,266 multi-hop browsing tasks where correct answers are *hard to find, easy to verify*. May 2026 headline numbers: GPT-5.5 90.1% · Gemini 3.1 Pro 85.9% · Opus 4.7 79.3% (a regression from 4.6's 83.7% — production tip: route web research to GPT-5.5) | [github.com/openai/simple-evals](https://github.com/openai/simple-evals) |
+| **GAIA** | General assistants (Meta + HuggingFace + AutoGPT, ICLR 2024) | 466 real-world questions designed so humans hit 92% and GPT-4 hit 15%. Three difficulty levels; tests multi-tool use, web search, multimodal reasoning, code execution. Sonnet 4.5 leads at 74.6% as of May 2026 | [huggingface.co/spaces/gaia-benchmark](https://huggingface.co/spaces/gaia-benchmark/leaderboard) |
+| **Princeton HAL** | Harness ablation leaderboard | "Holistic Agent Leaderboard" — fixes the model, varies the harness, publishes the score gap. The structural answer to *how much harness matters relative to model*. Covers GAIA, SWE-bench, AppWorld, MLE-bench, USACO, more | [hal.cs.princeton.edu](https://hal.cs.princeton.edu/) |
+| **Cybench** | Cybersecurity / CTF (Berkeley + SLAC, 2024) | 40 professional CTF tasks across 4 difficulty levels. Tests offensive-security capability — relevant to "can the agent be trusted with shell access" and now standard in frontier-lab pre-deployment safety evals | [github.com/andyzorigin/cybench](https://github.com/andyzorigin/cybench) |
+| **BFCL** | Tool / function calling (Berkeley) | The reference benchmark for *can-the-model-call-tools-correctly* — parallel, multiple, nested, irrelevant, and live multi-turn tool-use patterns. Available as an `inspect_evals` task | [gorilla.cs.berkeley.edu/leaderboard.html](https://gorilla.cs.berkeley.edu/leaderboard.html) |
+| **KernelBench** | GPU kernel synthesis (Stanford, 2025) | 250 PyTorch operations the agent must rewrite as CUDA kernels, measured on correctness *and* speedup vs PyTorch's reference. The closest public proxy for "can the agent write *fast* code" | [github.com/ScalingIntelligence/KernelBench](https://github.com/ScalingIntelligence/KernelBench) |
+| **WebArena** | Web agent (CMU, 2023) | Self-hosted dockerized web apps — Reddit-clone, GitLab-clone, e-commerce, CMS — that the agent must operate. The first stable controllable web-agent environment. Documented to overestimate by 5–33% per [arxiv 2507.02825](https://arxiv.org/abs/2507.02825); apply contamination caveats | [webarena.dev](https://webarena.dev/) |
+| **LoCoMo** | Long-conversation memory (Snap, 2024) | 600+ conversations averaging ~9K tokens each, with questions about facts that appeared dozens of turns earlier. Letta MemFS hit 74% on this in April 2026 with GPT-4o-mini, beating bespoke memory-tool stacks — the reference number for the "filesystem-as-memory" thesis. See [Letta Code](approaches.md#letta-code) | [github.com/snap-research/locomo](https://github.com/snap-research/locomo) |
+| **CORE** | Anthropic's harness-comparison benchmark | The internal benchmark behind the *78% Claude Code vs 42% Smolagents on the same Opus 4.5* headline. Not a published dataset; cited as the most-watched motivation for the harness-engineering thesis. See [Effective Harnesses for Long-Running Agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) and [Harness Engineering](harness-engineering.md) | [anthropic.com/engineering](https://www.anthropic.com/engineering) |
+
+### Caveats
+
+- **Saturation.** SWE-bench Verified went from 1.96% to 80%+ in two years. τ-bench's Pass^k was added precisely because single-run accuracy stopped being informative.
+- **Overestimation.** [arxiv 2507.02825](https://arxiv.org/abs/2507.02825) documents 5–33% overestimation across 17 popular benchmarks (SWE-bench, KernelBench, WebArena named). Treat any "X model scored Y%" as joint with the harness, scaffold, retry budget, and system prompt.
+- **Eval awareness.** Anthropic's [Mar 2026 paper on Opus 4.6 BrowseComp](https://www.anthropic.com/engineering/eval-awareness-browsecomp) shows models can detect when they're being evaluated and behave differently. Read before designing your own eval suite.
+- **Infrastructure noise.** Anthropic's [Feb 2026 post](https://www.anthropic.com/engineering/infrastructure-noise) shows flaky sandboxes and network jitter alone can swing eval scores by several points.
+
+---
+
 ## Choosing a benchmark
 
 | If you care about… | Look at… |
@@ -156,6 +181,14 @@ For coding agents, τ-bench is the closest public proxy for "can the agent be le
 | Long-horizon SWE work (Verified saturating) | SWE-bench Pro |
 | Customer-facing reliability (Pass^k, policy adherence) | τ³-bench |
 | Safety + capability under one harness | Inspect AI + `inspect_evals` |
+| Generalist multi-tool agent (web + multimodal + code) | GAIA |
+| Web research / browsing | BrowseComp |
+| Tool / function-calling fluency | BFCL |
+| GPU kernel / performance-critical code | KernelBench |
+| Long-conversation memory / "agent remembers" | LoCoMo |
+| Web-app operation (Reddit / e-commerce / CMS simulants) | WebArena |
+| Offensive-security capability | Cybench |
+| Harness-vs-model ablation evidence | Princeton HAL |
 | Commercial harness quality | Both leaderboards — harness is the differentiator |
 
 Neither benchmark is sufficient on its own. A team shipping autonomous PRs internally should track:
