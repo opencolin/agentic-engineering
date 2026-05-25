@@ -111,8 +111,10 @@ Publication dates of the primary sources that informed the polished pages. Compi
   *Defines a reference architecture (session/harness/sandbox) for production agent systems*
 - `2026-04-16` — [The Complete Guide to Harness Engineering (claudecode-lab)](https://claudecode-lab.com/en/blog/claude-code-harness-engineering/)
   *Most concrete public reverse-engineering of Claude Code's harness — transferable blueprint*
+- `2026-05-25` — [Andrej Karpathy joins Anthropic](https://x.com/karpathy/status/2056753169888334312)
+  *Industry-signal post: the person who coined "vibe coding" and "agentic engineering" returns to R&D inside the lab that publishes most of the primary sources on this page*
 
-**Total: 43 dated primary sources.** See [Research Notes](research-notes.md) for the full structured digest per source (key claims, frameworks named, quotable lines, frameworks/concepts cataloged).
+**Total: 44 dated primary sources.** See [Research Notes](research-notes.md) for the full structured digest per source (key claims, frameworks named, quotable lines, frameworks/concepts cataloged).
 
 **Sources not in this timeline:** vendor / framework docs pages (no single publish date — continuously updated); GitHub repo READMEs (use last-commit date if needed); blog/newsletter homepages (use most-recent-post date); YouTube channels and podcast index pages. All catalogued in [Research Notes](research-notes.md) regardless.
 
@@ -121,6 +123,9 @@ Publication dates of the primary sources that informed the polished pages. Compi
 ## Site additions
 
 ## 2026-05-25 (later)
+
+### Who's Who: Karpathy joins Anthropic — [#26](https://github.com/opencolin/agentic-engineering/pull/26)
+Updated [Andrej Karpathy](who-is-who.md#andrej-karpathy)'s career line to reflect his [May 2026 announcement](https://x.com/karpathy/status/2056753169888334312) that he's joined Anthropic to "get back to R&D" at the frontier of LLMs. Eureka Labs era ends; Zero-to-Hero lecture series continues as his ongoing education work. Notable industry signal — the person who coined both "vibe coding" and "agentic engineering" is now inside the lab that publishes most of the primary sources cited across this reference.
 
 ### Tool Design: MCP elevated to lead section — [#26](https://github.com/opencolin/agentic-engineering/pull/26)
 MCP was buried at section 9 of 10. Promoted to the first major section after the intro ("MCP — the wire format you're writing tools in") and substantially expanded with: the Nov 2024 Anthropic launch + late-2025 adoption inflection, the "you're writing MCP whether you know it or not" framing, an anatomy-of-an-MCP-tool example, the Arcade / Composio governance runtime layer, and a curated reading list. Table of Contents reordered to match.
