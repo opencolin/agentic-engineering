@@ -66,6 +66,12 @@ export default defineConfig({
             { label: 'Generative UI', slug: 'generative-ui' },
           ],
         },
+        {
+          label: 'Reference',
+          items: [
+            { label: 'Research Notes', slug: 'research-notes' },
+          ],
+        },
       ],
       editLink: {
         baseUrl:
