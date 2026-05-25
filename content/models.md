@@ -49,7 +49,7 @@ Verified at primary source May 2026. **Anthropic** and **Google** numbers pulled
 
 ## Open-weights frontier
 
-The 2026 open-weights landscape closed most of the gap to frontier closed-source. The post worth reading first: [Open Models have crossed a threshold](https://blog.langchain.com/open-models-have-crossed-a-threshold/) (LangChain). Pricing varies by host — direct API from the lab, [Together AI](https://together.ai), [Fireworks](https://fireworks.ai), [Groq](https://groq.com), or self-hosted on your own GPU. Each row links to the primary source.
+The 2026 open-weights landscape closed most of the gap to frontier closed-source. The post worth reading first: [Open Models have crossed a threshold](https://www.langchain.com/blog/open-models-have-crossed-a-threshold) (LangChain). Pricing varies by host — direct API from the lab, [Together AI](https://together.ai), [Fireworks](https://fireworks.ai), [Groq](https://groq.com), or self-hosted on your own GPU. Each row links to the primary source.
 
 | Model | Provider | Context | Strong for | Source |
 |---|---|---|---|---|
@@ -126,6 +126,6 @@ For broader context across the whole field:
 - [Artificial Analysis](https://artificialanalysis.ai/models) — independent benchmarks + pricing across 500+ models
 - [LM Arena](https://lmarena.ai) — human-preference leaderboard
 - [Aider Polyglot Leaderboard](https://aider.chat/docs/leaderboards/) — coding-specific
-- [Open Models have crossed a threshold](https://blog.langchain.com/open-models-have-crossed-a-threshold/) — the LangChain post on the 2026 open-weights shift
+- [Open Models have crossed a threshold](https://www.langchain.com/blog/open-models-have-crossed-a-threshold) — the LangChain post on the 2026 open-weights shift
 - [Inference](inference.md) — providers, routers, and how to actually serve any of these models
 - [Benchmarks](benchmarks.md) — what the scores in this table mean

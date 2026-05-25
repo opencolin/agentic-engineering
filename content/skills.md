@@ -6,7 +6,7 @@ The cross-vendor primitive for giving an agent a capability without bloating its
 
 > "Instead of building fragmented, custom-designed agents for each use case, anyone can now specialize their agents with composable capabilities." — Anthropic
 
-The empirical case: Claude Code on its eval set scored **82% with skills vs 9% without** — a ~9× lift. ([LangChain, Evaluating Skills](https://blog.langchain.com/evaluating-skills/))
+The empirical case: Claude Code on its eval set scored **82% with skills vs 9% without** — a ~9× lift. ([LangChain, Evaluating Skills](https://www.langchain.com/blog/evaluating-skills))
 
 ---
 
@@ -61,7 +61,7 @@ This is why complexity isn't bounded by context size. The PDF-skill example: it 
 
 | Bound | Source | Implication |
 |---|---|---|
-| 82% vs 9% success | [LangChain, Evaluating Skills](https://blog.langchain.com/evaluating-skills/) | Skills are a real lever, not a packaging trick |
+| 82% vs 9% success | [LangChain, Evaluating Skills](https://www.langchain.com/blog/evaluating-skills) | Skills are a real lever, not a packaging trick |
 | ~12 similar skills max | LangChain | Loading 20 similar LangGraph skills caused mis-invocation; ~12 stabilized |
 | 70% invocation reliability | LangChain | Even with explicit invocation prompts, Claude Code only invoked some skills 70% of the time |
 | Limited markdown vs XML impact | LangChain | For 300-500-line skills, formatting choices barely moved the needle — content matters more |
@@ -92,7 +92,7 @@ Anything that's:
 
 Real-world examples worth studying:
 
-- [everything-claude-code](https://github.com/affaan-m/everything-claude-code) — 232 skills + 60 subagents, cross-harness (Cursor, Codex, OpenCode, Zed, Copilot, Claude Code)
+- [everything-claude-code](https://github.com/affaan-m/ECC) — 232 skills + 60 subagents, cross-harness (Cursor, Codex, OpenCode, Zed, Copilot, Claude Code)
 - [shanraisshan/claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice) — most-starred Claude Code reference repo (54.7K stars); see its skills catalog
 - Anthropic's bundled skills (PDF, presentations, web research) in the [Claude Agent SDK docs](https://code.claude.com/docs/en/agent-sdk)
 
@@ -115,7 +115,7 @@ The model autonomously executes bundled scripts when the skill is invoked. A mal
 - **Skill catalog as documentation dump.** A "skills" directory with 50 entries that are mostly notes is just more context noise. Skills are *invocable capabilities*, not READMEs.
 - **Overlapping descriptions.** Two skills with similar descriptions cause invocation collapse — the model picks neither, or picks wrong.
 - **Skills that just re-prompt.** If a skill is "system prompt + instruction text" with no bundled code, it's a slash command, not a skill. Slash commands are simpler and more predictable for that case.
-- **Skipping the dry-run.** [LangChain's evaluation methodology](https://blog.langchain.com/evaluating-skills/) — test invocation rate before testing success rate. A perfect skill that's never invoked is worthless.
+- **Skipping the dry-run.** [LangChain's evaluation methodology](https://www.langchain.com/blog/evaluating-skills) — test invocation rate before testing success rate. A perfect skill that's never invoked is worthless.
 
 ---
 

@@ -487,16 +487,16 @@ Career: PhD in deep learning; runs Deep (Learning) Focus as a parallel writing p
 
 > ✍️ Chronicler / 🔨 Operator · LangChain · [@RLanceMartin](https://twitter.com/RLanceMartin) · [rlancemartin.github.io](https://rlancemartin.github.io)
 
-LangChain's most prolific writer on the *context* side of the stack. Martin formalized the **Write / Select / Compress / Isolate** framework in [*Context Engineering for Agents*](https://blog.langchain.com/context-engineering-for-agents/) (2025) — the four primitives every harness has to implement, and the conceptual scaffolding the rest of this reference uses on the [Harness Engineering](harness-engineering.md) page. The follow-up [*Context Management for Deep Agents*](https://blog.langchain.com/context-management-for-deepagents/) is where the 20K-token tool-response offload pattern and the 85%-of-window compaction triggers are spelled out concretely. If Anthropic's *Effective context engineering* is the *what*, Martin's pieces are the *how* — same ideas, runnable in LangGraph.
+LangChain's most prolific writer on the *context* side of the stack. Martin formalized the **Write / Select / Compress / Isolate** framework in [*Context Engineering for Agents*](https://www.langchain.com/blog/context-engineering-for-agents) (2025) — the four primitives every harness has to implement, and the conceptual scaffolding the rest of this reference uses on the [Harness Engineering](harness-engineering.md) page. The follow-up [*Context Management for Deep Agents*](https://www.langchain.com/blog/context-management-for-deepagents) is where the 20K-token tool-response offload pattern and the 85%-of-window compaction triggers are spelled out concretely. If Anthropic's *Effective context engineering* is the *what*, Martin's pieces are the *how* — same ideas, runnable in LangGraph.
 
-Career: ex-Robust Intelligence; LangChain since ~2023. The body of work to follow is the [LangChain blog](https://blog.langchain.com) (his pieces are the ones tagged "Context" and "Deep Agents").
+Career: ex-Robust Intelligence; LangChain since ~2023. The body of work to follow is the [LangChain blog](https://www.langchain.com/blog) (his pieces are the ones tagged "Context" and "Deep Agents").
 
 **Key works to know:**
 
-- *[Context Engineering for Agents](https://blog.langchain.com/context-engineering-for-agents/)* — Write/Select/Compress/Isolate
-- *[Context Management for Deep Agents](https://blog.langchain.com/context-management-for-deepagents/)* — offload thresholds, summarization triggers
-- *[Doubling down on Deep Agents](https://blog.langchain.com/doubling-down-on-deepagents/)* — the harness-vs-framework-vs-runtime distinction
-- *[Evaluating Deep Agents](https://blog.langchain.com/evaluating-deep-agents-our-learnings/)* — single-step / full-turn / multi-turn trajectory eval patterns
+- *[Context Engineering for Agents](https://www.langchain.com/blog/context-engineering-for-agents)* — Write/Select/Compress/Isolate
+- *[Context Management for Deep Agents](https://www.langchain.com/blog/context-management-for-deepagents)* — offload thresholds, summarization triggers
+- *[Doubling down on Deep Agents](https://www.langchain.com/blog/doubling-down-on-deepagents)* — the harness-vs-framework-vs-runtime distinction
+- *[Evaluating Deep Agents](https://www.langchain.com/blog/evaluating-deep-agents-our-learnings)* — single-step / full-turn / multi-turn trajectory eval patterns
 
 **Start here:** *Context Engineering for Agents*. The framework is short, the diagrams are clear, and you'll find yourself reaching for the vocabulary every time you design a harness.
 
@@ -506,12 +506,12 @@ Career: ex-Robust Intelligence; LangChain since ~2023. The body of work to follo
 
 > 🔨 Operator + chronicler · LangChain · [Deep Agents](approaches.md#deep-agents-langchain) harness lead
 
-The harness-engineering empiricist. Trivedy's [*Improving Deep Agents with harness engineering*](https://blog.langchain.com/improving-deep-agents-with-harness-engineering/) (Feb 2026) is the headline existence proof that harness changes alone — model held fixed at GPT-5.2-codex — moved [Deep Agents](approaches.md#deep-agents-langchain) from rank 30 to rank 5 on Terminal-Bench 2.0. The sequel [*Better Harness: A Recipe for Harness Hill-Climbing with Evals*](https://blog.langchain.com/better-harness-a-recipe-for-harness-hill-climbing-with-evals/) (Apr 2026) operationalized that result: self-verification + trace inspection + small atomic harness changes as a recipe an agent can run on itself. Read together, the two posts are the most concrete published example of *engineering as iterating on the harness, not the model* — the thesis [Harness Engineering](harness-engineering.md) builds the whole page around.
+The harness-engineering empiricist. Trivedy's [*Improving Deep Agents with harness engineering*](https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering) (Feb 2026) is the headline existence proof that harness changes alone — model held fixed at GPT-5.2-codex — moved [Deep Agents](approaches.md#deep-agents-langchain) from rank 30 to rank 5 on Terminal-Bench 2.0. The sequel [*Better Harness: A Recipe for Harness Hill-Climbing with Evals*](https://www.langchain.com/blog/better-harness-a-recipe-for-harness-hill-climbing-with-evals) (Apr 2026) operationalized that result: self-verification + trace inspection + small atomic harness changes as a recipe an agent can run on itself. Read together, the two posts are the most concrete published example of *engineering as iterating on the harness, not the model* — the thesis [Harness Engineering](harness-engineering.md) builds the whole page around.
 
 **Key works to know:**
 
-- *[Improving Deep Agents with harness engineering](https://blog.langchain.com/improving-deep-agents-with-harness-engineering/)* (Feb 2026) — the rank 30 → 5 case study
-- *[Better Harness: A Recipe for Harness Hill-Climbing with Evals](https://blog.langchain.com/better-harness-a-recipe-for-harness-hill-climbing-with-evals/)* (Apr 2026) — the iteration recipe
+- *[Improving Deep Agents with harness engineering](https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering)* (Feb 2026) — the rank 30 → 5 case study
+- *[Better Harness: A Recipe for Harness Hill-Climbing with Evals](https://www.langchain.com/blog/better-harness-a-recipe-for-harness-hill-climbing-with-evals)* (Apr 2026) — the iteration recipe
 - The Deep Agents source ([langchain-ai/deepagents](https://github.com/langchain-ai/deepagents)) — read the middleware files alongside the posts; the code is the artifact
 
 **Start here:** The Feb 2026 post. Then go read the diff between Deep Agents v0.4 and v0.5 in the repo — the recipe is the post, the evidence is the commits.

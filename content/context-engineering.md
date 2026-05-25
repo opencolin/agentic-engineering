@@ -2,7 +2,7 @@
 
 # Context Engineering
 
-The named discipline of curating what's inside an LLM's context window so it can actually do the task. Coined by Anthropic in [Effective Context Engineering for AI Agents](https://anthropic.com/engineering/effective-context-engineering-for-ai-agents) (Sept 2025) and codified by LangChain in [Context Engineering for Agents](https://blog.langchain.com/context-engineering-for-agents/) (July 2025).
+The named discipline of curating what's inside an LLM's context window so it can actually do the task. Coined by Anthropic in [Effective Context Engineering for AI Agents](https://anthropic.com/engineering/effective-context-engineering-for-ai-agents) (Sept 2025) and codified by LangChain in [Context Engineering for Agents](https://www.langchain.com/blog/context-engineering-for-agents) (July 2025).
 
 > "Context engineering is effectively the #1 job of engineers building AI agents." — Cognition (via LangChain)
 
@@ -13,7 +13,7 @@ The named discipline of curating what's inside an LLM's context window so it can
 Two reasons context engineering is the dominant lever for agent quality:
 
 1. **Context rot.** Anthropic's framing: every token in the window depletes an "attention budget." Accuracy decreases as the window fills, even though the model technically supports the context length. Root causes are n² transformer attention and training data skewed to shorter sequences.
-2. **Long-running agents fill windows fast.** A 200K-token window sounds infinite until an agent has done 200 tool calls. [Claude Code triggers auto-compact at 95% utilization](https://blog.langchain.com/context-engineering-for-agents/); [Deep Agents defaults to 85%](https://blog.langchain.com/context-management-for-deepagents/); tool responses over 20K tokens get offloaded to a virtual filesystem with a 10-line preview kept inline.
+2. **Long-running agents fill windows fast.** A 200K-token window sounds infinite until an agent has done 200 tool calls. [Claude Code triggers auto-compact at 95% utilization](https://www.langchain.com/blog/context-engineering-for-agents); [Deep Agents defaults to 85%](https://www.langchain.com/blog/context-management-for-deepagents); tool responses over 20K tokens get offloaded to a virtual filesystem with a 10-line preview kept inline.
 
 If the model has to reason over noise, it can't reason over signal. The job is to keep the signal-to-noise ratio high.
 
@@ -53,7 +53,7 @@ Move durable state out of the conversation and into a place the agent can re-rea
 
 ## Failure modes (name them so you can spot them)
 
-[LangChain](https://blog.langchain.com/context-engineering-for-agents/) catalogs four context failure modes:
+[LangChain](https://www.langchain.com/blog/context-engineering-for-agents) catalogs four context failure modes:
 
 | Mode | What it looks like |
 |---|---|

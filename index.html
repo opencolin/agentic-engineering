@@ -638,7 +638,7 @@ If you only follow one of these, follow Simon Willison.
 Required reading if you're serious about the field:
 
 - **[Anthropic Engineering](https://anthropic.com/engineering)** — the most consistently high-signal lab blog. Start with [Building Effective Agents](https://anthropic.com/research/building-effective-agents) (Dec 2024) → [Effective Context Engineering](https://anthropic.com/engineering/effective-context-engineering-for-ai-agents) (Sept 2025) → [Multi-Agent Research System](https://anthropic.com/engineering/multi-agent-research-system) (June 2025) → [Managed Agents](https://anthropic.com/engineering/managed-agents) (Apr 2026)
-- **[LangChain Blog](https://blog.langchain.com)** — practitioner perspective on agent harnesses, evals, deep agents. Don't miss [The Anatomy of an Agent Harness](https://blog.langchain.com/the-anatomy-of-an-agent-harness/) and [Open Models Have Crossed a Threshold](https://blog.langchain.com/open-models-have-crossed-a-threshold/)
+- **[LangChain Blog](https://www.langchain.com/blog)** — practitioner perspective on agent harnesses, evals, deep agents. Don't miss [The Anatomy of an Agent Harness](https://www.langchain.com/blog/the-anatomy-of-an-agent-harness) and [Open Models Have Crossed a Threshold](https://www.langchain.com/blog/open-models-have-crossed-a-threshold)
 - **[OpenAI Cookbook](https://cookbook.openai.com)** — first-party patterns; the cross-vendor counterpart to Anthropic Cookbook
 - **[State of Agent Engineering 2025 (LangChain)](https://langchain.com/state-of-agent-engineering)** — industry baseline: 57% have prod agents; 89% have observability; 62% have detailed tracing
 
@@ -712,7 +712,7 @@ The YouTube talk archive is the deliverable — even if you never attend, watch 
 | [langchain-ai/langgraph](https://langchain-ai.github.io/langgraph/) — examples dir | Pattern catalog: ReAct, ReWOO, LATS, Reflexion, plan-execute |
 | [UKGovernmentBEIS/inspect_evals](https://github.com/UKGovernmentBEIS/inspect_evals) | 200+ pre-built evals on Inspect AI |
 | [shanraisshan/claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice) | Most-starred Claude Code reference repo (54.7K stars); 83 categorized tips |
-| [affaan-m/everything-claude-code](https://github.com/affaan-m/everything-claude-code) | 60 subagents + 232 skills, cross-harness (191K stars, hackathon winner) |
+| [affaan-m/ECC](https://github.com/affaan-m/ECC) | 60 subagents + 232 skills, cross-harness (191K stars, hackathon winner) |
 | [sierra-research/tau2-bench](https://github.com/sierra-research/tau2-bench) | Standard customer-service agent benchmark |
 | [EthicalML/awesome-agentic-engineering-resources](https://github.com/EthicalML/awesome-agentic-engineering-resources) | Curated index of 21 topics — courses, papers, benchmarks, implementations |
 
@@ -785,9 +785,9 @@ Publication dates of the primary sources that informed the polished pages. Compi
 
 ### 2025
 
-- `2025-01-14` — [Introducing Ambient Agents](https://blog.langchain.com/introducing-ambient-agents/)
+- `2025-01-14` — [Introducing Ambient Agents](https://www.langchain.com/blog/introducing-ambient-agents)
   *UX/architecture pattern — provides the canonical "non-chat" agent interaction model and HITL vocabulary*
-- `2025-04-20` — [How to Think About Agent Frameworks](https://blog.langchain.com/how-to-think-about-agent-frameworks/)
+- `2025-04-20` — [How to Think About Agent Frameworks](https://www.langchain.com/blog/how-to-think-about-agent-frameworks)
   *Framework taxonomy — clarifies "orchestration vs abstraction" axis when picking tools*
 - `2025-06-13` — **★** [How We Built Our Multi-Agent Research System](https://anthropic.com/engineering/multi-agent-research-system)
   *The canonical orchestrator-worker case study with token-economics numbers*
@@ -795,11 +795,11 @@ Publication dates of the primary sources that informed the polished pages. Compi
   *Single best public case study on production multi-agent research — concrete numbers (15× tokens, 90.2% lift, 90% time cut)*
 - `2025-06-23` — [Inspect AI, An OSS Python Library For LLM Evals](https://hamel.dev/notes/llm/evals/inspect.html)
   *Concrete recommendation for the eval layer of an agent stack — production-grade, framework-agnostic*
-- `2025-07-02` — **★** [Context Engineering for Agents](https://blog.langchain.com/context-engineering-for-agents/)
+- `2025-07-02` — **★** [Context Engineering for Agents](https://www.langchain.com/blog/context-engineering-for-agents)
   *Foundational vocabulary — the write/select/compress/isolate taxonomy is the canonical framing*
 - `2025-07-03` — **★** [Establishing Best Practices for Building Rigorous Agentic Benchmarks (ABC paper)](https://arxiv.org/abs/2507.02825)
   *Provides a vetted checklist for trustworthy agent evals — addresses the "looks great on benchmark, fails in prod" gap*
-- `2025-07-09` — [How to Build an Agent](https://blog.langchain.com/how-to-build-an-agent/)
+- `2025-07-09` — [How to Build an Agent](https://www.langchain.com/blog/how-to-build-an-agent)
   *Onboarding — canonical "how do I start" sequence; useful as a default reading-list entry*
 - `2025-09-11` — **★** [Writing Effective Tools for Agents — with Agents](https://anthropic.com/engineering/writing-tools-for-agents)
   *Reference for the tool-design chapter — "tools are software for agents" with measurement framework*
@@ -811,7 +811,7 @@ Publication dates of the primary sources that informed the polished pages. Compi
   *Canonical reference for the Skills mechanism — paired with code-execution-with-mcp*
 - `2025-10-20` — [Beyond Permission Prompts: Sandboxing Claude Code](https://anthropic.com/engineering/claude-code-sandboxing)
   *Reference architecture for the security/isolation slot — paired with auto-mode for the autonomy story*
-- `2025-10-28` — [Doubling Down on Deep Agents](https://blog.langchain.com/doubling-down-on-deepagents/)
+- `2025-10-28` — [Doubling Down on Deep Agents](https://www.langchain.com/blog/doubling-down-on-deepagents)
   *Origin of the "harness" framing — establishes Deep Agents as a harness, not a framework competitor*
 - `2025-11-04` — **★** [Code Execution with MCP](https://anthropic.com/engineering/code-execution-with-mcp)
   *Argument and numbers for replacing direct tool calls with code-as-tool — central to context-engineering chapter*
@@ -821,7 +821,7 @@ Publication dates of the primary sources that informed the polished pages. Compi
   *Concrete recipe for cross-session continuity in long-running coding agents*
 - `2025-12-02` — [State of Agent Engineering (LangChain survey, fielded Nov 18 – Dec 2)](https://langchain.com/state-of-agent-engineering)
   *Hard 2025 industry baseline — production %, observability %, model-mix, and use-case mix you can quote*
-- `2025-12-03` — [Evaluating Deep Agents — Our Learnings](https://blog.langchain.com/evaluating-deep-agents-our-learnings/)
+- `2025-12-03` — [Evaluating Deep Agents — Our Learnings](https://www.langchain.com/blog/evaluating-deep-agents-our-learnings)
   *Eval lesson — concrete proof that single-step decision evals are the high-leverage entry point*
 
 ### 2026
@@ -830,41 +830,41 @@ Publication dates of the primary sources that informed the polished pages. Compi
   *Canonical eval-design primer — paired with the BrowseComp and infrastructure-noise posts*
 - `2026-01-21` — [Designing AI-Resistant Technical Evaluations](https://anthropic.com/engineering/AI-resistant-technical-evaluations)
   *Eval-design lesson — how to write tasks that still discriminate humans from frontier models*
-- `2026-01-28` — [Context Management for Deep Agents](https://blog.langchain.com/context-management-for-deepagents/)
+- `2026-01-28` — [Context Management for Deep Agents](https://www.langchain.com/blog/context-management-for-deepagents)
   *Deep-agents lesson — concrete numbers (20K tokens, 85% threshold, 10-line preview) for compress + isolate*
 - `2026-02-05` — [Building a C Compiler with a Team of Parallel Claudes](https://anthropic.com/engineering/building-c-compiler)
   *Reference example of multi-agent autonomous large-codebase work with cost/scale numbers*
 - `2026-02-05` — [Quantifying Infrastructure Noise in Agentic Coding Evals](https://anthropic.com/engineering/infrastructure-noise)
   *Critical eval-hygiene caveat — required reading before citing leaderboard deltas*
-- `2026-02-12` — [On Agent Frameworks and Agent Observability](https://blog.langchain.com/on-agent-frameworks-and-agent-observability/)
+- `2026-02-12` — [On Agent Frameworks and Agent Observability](https://www.langchain.com/blog/on-agent-frameworks-and-agent-observability)
   *Observability framing — the "logic lives in traces" line is the strongest one-liner for why observability is first-class*
-- `2026-02-17` — [Improving Deep Agents with Harness Engineering](https://blog.langchain.com/improving-deep-agents-with-harness-engineering/)
+- `2026-02-17` — [Improving Deep Agents with Harness Engineering](https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering)
   *Harness pattern — flagship case study showing harness changes alone can deliver double-digit benchmark gains*
-- `2026-03-05` — [Evaluating Skills](https://blog.langchain.com/evaluating-skills/)
+- `2026-03-05` — [Evaluating Skills](https://www.langchain.com/blog/evaluating-skills)
   *Skills design — the ~12-skill ceiling and 70% invocation reliability are useful empirical bounds*
 - `2026-03-06` — [Eval Awareness in Claude Opus 4.6's BrowseComp Performance](https://anthropic.com/engineering/eval-awareness-browsecomp)
   *Eye-opening eval-integrity case study — model behavior + how benchmarks leak*
-- `2026-03-10` — **★** [The Anatomy of an Agent Harness](https://blog.langchain.com/the-anatomy-of-an-agent-harness/)
+- `2026-03-10` — **★** [The Anatomy of an Agent Harness](https://www.langchain.com/blog/the-anatomy-of-an-agent-harness)
   *Definitional — the canonical "what is a harness" reference; sets the vocabulary the other harness-engineering posts build on*
 - `2026-03-24` — [Harness Design for Long-Running Application Development](https://anthropic.com/engineering/harness-design-long-running-apps)
   *Reference for multi-agent harness design with real cost/time numbers — pairs with effective-harnesses post*
 - `2026-03-25` — [Claude Code Auto Mode: a Safer Way to Skip Permissions](https://anthropic.com/engineering/claude-code-auto-mode)
   *Concrete pattern for replacing permission prompts with classifier-mediated autonomy*
-- `2026-03-26` — [How Middleware Lets You Customize Your Agent Harness](https://blog.langchain.com/how-middleware-lets-you-customize-your-agent-harness/)
+- `2026-03-26` — [How Middleware Lets You Customize Your Agent Harness](https://www.langchain.com/blog/how-middleware-lets-you-customize-your-agent-harness)
   *Harness pattern — the six-hook taxonomy is the canonical reference for "where do I put this customization?"*
-- `2026-03-26` — [How We Build Evals for Deep Agents](https://blog.langchain.com/how-we-build-evals-for-deep-agents/)
+- `2026-03-26` — [How We Build Evals for Deep Agents](https://www.langchain.com/blog/how-we-build-evals-for-deep-agents)
   *Eval architecture — concrete category and metric scheme to copy when designing a project's eval taxonomy*
-- `2026-03-27` — [Agent Evaluation Readiness Checklist](https://blog.langchain.com/agent-evaluation-readiness-checklist/)
+- `2026-03-27` — [Agent Evaluation Readiness Checklist](https://www.langchain.com/blog/agent-evaluation-readiness-checklist)
   *Eval lesson — readiness gate before automating eval infra; pairs with the "harness hill-climbing" post*
-- `2026-04-02` — **★** [Open Models Have Crossed a Threshold](https://blog.langchain.com/open-models-have-crossed-a-threshold/)
+- `2026-04-02` — **★** [Open Models Have Crossed a Threshold](https://www.langchain.com/blog/open-models-have-crossed-a-threshold)
   *Model behavior — concrete cost/perf table for the "should I use open models?" decision*
-- `2026-04-03` — [Production Agents Self-Heal](https://blog.langchain.com/production-agents-self-heal/)
+- `2026-04-03` — [Production Agents Self-Heal](https://www.langchain.com/blog/how-my-agents-self-heal-in-production)
   *Ops pattern — concrete recipe for an auto-remediation loop using a coding agent as the fixer*
-- `2026-04-05` — [Continual Learning for AI Agents](https://blog.langchain.com/continual-learning-for-ai-agents/)
+- `2026-04-05` — [Continual Learning for AI Agents](https://www.langchain.com/blog/continual-learning-for-ai-agents)
   *Mental model — the three-layer separation is a clean way to organize "how agents improve" sections*
-- `2026-04-07` — [Deep Agents v0.5](https://blog.langchain.com/deep-agents-v0-5/)
+- `2026-04-07` — [Deep Agents v0.5](https://www.langchain.com/blog/deep-agents-v0-5)
   *Version milestone — async-subagent primitive is the v0.5-specific feature worth pinning*
-- `2026-04-08` — [Better Harness — Hill-Climbing with Evals](https://blog.langchain.com/better-harness-a-recipe-for-harness-hill-climbing-with-evals/)
+- `2026-04-08` — [Better Harness — Hill-Climbing with Evals](https://www.langchain.com/blog/better-harness-a-recipe-for-harness-hill-climbing-with-evals)
   *Harness pattern — concrete recipe for moving harness changes through eval gates rather than vibes*
 - `2026-04-08` — [Scaling Managed Agents: Decoupling the Brain from the Hands](https://anthropic.com/engineering/managed-agents)
   *Defines a reference architecture (session/harness/sandbox) for production agent systems*
@@ -882,6 +882,14 @@ Publication dates of the primary sources that informed the polished pages. Compi
 ## Site additions
 
 ## 2026-05-25 (later)
+
+### URL canonicalization — [#26](https://github.com/opencolin/agentic-engineering/pull/26)
+Migrated stale URLs to current canonical forms across all content:
+- LangChain blog: `blog.langchain.com/<slug>/` → `www.langchain.com/blog/<slug>` (70 occurrences across 6+ files)
+- LangChain self-heal post: slug renamed `production-agents-self-heal` → `how-my-agents-self-heal-in-production` (same post, same Apr 3 2026 date — confirmed via fetch)
+- ECC repo: `github.com/affaan-m/everything-claude-code` → `github.com/affaan-m/ECC` (repo renamed; section anchor `#everything-claude-code` preserved to avoid breaking internal links — rename noted in approaches.md body as "Also known as: ECC")
+
+One `blog.langchain.com` reference intentionally left in `research-notes.md` — it documents the redirect explicitly.
 
 ### Who's Who: Cameron R. Wolfe profile added — [#26](https://github.com/opencolin/agentic-engineering/pull/26)
 **[Cameron R. Wolfe](who-is-who.md#cameron-r-wolfe)** (PhD, ML) was in `reading-list.md` and `research-notes.md` but missing from Who's Who. His *Deep (Learning) Focus* Substack (68K+ subscribers) is the research-paper-translator voice the site was missing — the canonical explainer source for MoE architectures, reasoning LLMs, test-time-compute scaling, and similar concepts cited across [Models](models.md) and elsewhere. Total Who's Who profiles: 27 → 28.
@@ -1531,7 +1539,7 @@ Anthropic's first-party agent SDK — **the exact same harness that ships inside
 - **GitHub:** [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) [![stars](https://img.shields.io/github/stars/langchain-ai/deepagents?style=social)](https://github.com/langchain-ai/deepagents)
 - **Origin:** LangChain, August 2025; v0.5 alpha April 2026 (async sub-agents, expanded multi-modal filesystem)
 
-The closest open-source analog to [Claude Code's](#terminal-coding-clis) harness, but model-agnostic and built on the LangGraph runtime. Where Claude Agent SDK is *the* Anthropic-shaped harness, Deep Agents is the *batteries-included* harness anyone can adopt on top of LangGraph 1.0: planning, virtual filesystem, sub-agents, summarization, and skills, all as composable middleware. The thesis is that **harness engineering, not model selection, is the lever in 2026** — Vivek Trivedy's [Feb 2026 post](https://blog.langchain.com/improving-deep-agents-with-harness-engineering/) reports going from rank 30 to rank 5 on Terminal-Bench 2.0 holding GPT-5.2-codex fixed and only changing the harness.
+The closest open-source analog to [Claude Code's](#terminal-coding-clis) harness, but model-agnostic and built on the LangGraph runtime. Where Claude Agent SDK is *the* Anthropic-shaped harness, Deep Agents is the *batteries-included* harness anyone can adopt on top of LangGraph 1.0: planning, virtual filesystem, sub-agents, summarization, and skills, all as composable middleware. The thesis is that **harness engineering, not model selection, is the lever in 2026** — Vivek Trivedy's [Feb 2026 post](https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering) reports going from rank 30 to rank 5 on Terminal-Bench 2.0 holding GPT-5.2-codex fixed and only changing the harness.
 
 ### Architecture
 
@@ -1545,7 +1553,7 @@ The closest open-source analog to [Claude Code's](#terminal-coding-clis) harness
 
 - Pair with `create_agent` (LangChain 1.0 default factory, Oct 2025; supersedes the deprecated `create_react_agent`) to compose agent + middleware in idiomatic LangGraph
 - The right pick if you want Claude-Code-shaped ergonomics but need model neutrality, durable checkpointing, time-travel debugging, or first-class observability via [LangSmith](infrastructure.md#agent-observability--evaluation)
-- The reference work for harness engineering as a discipline — read alongside [The Anatomy of an Agent Harness](https://blog.langchain.com/the-anatomy-of-an-agent-harness/) (LangChain) and Trivedy's [Better Harness](https://blog.langchain.com/better-harness-a-recipe-for-harness-hill-climbing-with-evals/) hill-climbing recipe
+- The reference work for harness engineering as a discipline — read alongside [The Anatomy of an Agent Harness](https://www.langchain.com/blog/the-anatomy-of-an-agent-harness) (LangChain) and Trivedy's [Better Harness](https://www.langchain.com/blog/better-harness-a-recipe-for-harness-hill-climbing-with-evals) hill-climbing recipe
 - **Gap:** LangGraph weight. You get durability, time-travel, and middleware for free, but the conceptual surface area is larger than [Claude Agent SDK](#claude-agent-sdk) or [Smolagents](#smolagents). Teams that just want "claude.messages.create with hooks" should start lighter
 
 ---
@@ -2355,10 +2363,11 @@ A *software-development-methodology* shipped as a skills framework. Where [GStac
 
 - **Type:** Open Source
 - **Stars:** 190K
-- **GitHub:** https://github.com/affaan-m/everything-claude-code [![stars](https://img.shields.io/github/stars/affaan-m/everything-claude-code?style=social)](https://github.com/affaan-m/everything-claude-code)
+- **GitHub:** https://github.com/affaan-m/ECC [![stars](https://img.shields.io/github/stars/affaan-m/ECC?style=social)](https://github.com/affaan-m/ECC)
 - **Origin:** Affaan M., shipped at the Cerebral Valley × Anthropic Claude Code Hackathon (Feb 2026)
+- **Also known as:** ECC (the repo was renamed from `everything-claude-code` to `ECC` in 2026)
 
-A harness pack focused on a category none of the others target directly: **security auditing of the Claude Code harness itself**. Where GStack / Superpowers / GBrain / AgentHub assume your harness is the answer, `everything-claude-code` treats your harness as an attack surface and audits it.
+A harness pack focused on a category none of the others target directly: **security auditing of the Claude Code harness itself**. Where GStack / Superpowers / GBrain / AgentHub assume your harness is the answer, ECC treats your harness as an attack surface and audits it.
 
 ### Differentiator: security as a first-class subsystem
 
@@ -3398,7 +3407,7 @@ Adjacent reading:
 
 # Context Engineering
 
-The named discipline of curating what's inside an LLM's context window so it can actually do the task. Coined by Anthropic in [Effective Context Engineering for AI Agents](https://anthropic.com/engineering/effective-context-engineering-for-ai-agents) (Sept 2025) and codified by LangChain in [Context Engineering for Agents](https://blog.langchain.com/context-engineering-for-agents/) (July 2025).
+The named discipline of curating what's inside an LLM's context window so it can actually do the task. Coined by Anthropic in [Effective Context Engineering for AI Agents](https://anthropic.com/engineering/effective-context-engineering-for-ai-agents) (Sept 2025) and codified by LangChain in [Context Engineering for Agents](https://www.langchain.com/blog/context-engineering-for-agents) (July 2025).
 
 > "Context engineering is effectively the #1 job of engineers building AI agents." — Cognition (via LangChain)
 
@@ -3409,7 +3418,7 @@ The named discipline of curating what's inside an LLM's context window so it can
 Two reasons context engineering is the dominant lever for agent quality:
 
 1. **Context rot.** Anthropic's framing: every token in the window depletes an "attention budget." Accuracy decreases as the window fills, even though the model technically supports the context length. Root causes are n² transformer attention and training data skewed to shorter sequences.
-2. **Long-running agents fill windows fast.** A 200K-token window sounds infinite until an agent has done 200 tool calls. [Claude Code triggers auto-compact at 95% utilization](https://blog.langchain.com/context-engineering-for-agents/); [Deep Agents defaults to 85%](https://blog.langchain.com/context-management-for-deepagents/); tool responses over 20K tokens get offloaded to a virtual filesystem with a 10-line preview kept inline.
+2. **Long-running agents fill windows fast.** A 200K-token window sounds infinite until an agent has done 200 tool calls. [Claude Code triggers auto-compact at 95% utilization](https://www.langchain.com/blog/context-engineering-for-agents); [Deep Agents defaults to 85%](https://www.langchain.com/blog/context-management-for-deepagents); tool responses over 20K tokens get offloaded to a virtual filesystem with a 10-line preview kept inline.
 
 If the model has to reason over noise, it can't reason over signal. The job is to keep the signal-to-noise ratio high.
 
@@ -3449,7 +3458,7 @@ Move durable state out of the conversation and into a place the agent can re-rea
 
 ## Failure modes (name them so you can spot them)
 
-[LangChain](https://blog.langchain.com/context-engineering-for-agents/) catalogs four context failure modes:
+[LangChain](https://www.langchain.com/blog/context-engineering-for-agents) catalogs four context failure modes:
 
 | Mode | What it looks like |
 |---|---|
@@ -3679,7 +3688,7 @@ The cross-vendor primitive for giving an agent a capability without bloating its
 
 > "Instead of building fragmented, custom-designed agents for each use case, anyone can now specialize their agents with composable capabilities." — Anthropic
 
-The empirical case: Claude Code on its eval set scored **82% with skills vs 9% without** — a ~9× lift. ([LangChain, Evaluating Skills](https://blog.langchain.com/evaluating-skills/))
+The empirical case: Claude Code on its eval set scored **82% with skills vs 9% without** — a ~9× lift. ([LangChain, Evaluating Skills](https://www.langchain.com/blog/evaluating-skills))
 
 ---
 
@@ -3734,7 +3743,7 @@ This is why complexity isn't bounded by context size. The PDF-skill example: it 
 
 | Bound | Source | Implication |
 |---|---|---|
-| 82% vs 9% success | [LangChain, Evaluating Skills](https://blog.langchain.com/evaluating-skills/) | Skills are a real lever, not a packaging trick |
+| 82% vs 9% success | [LangChain, Evaluating Skills](https://www.langchain.com/blog/evaluating-skills) | Skills are a real lever, not a packaging trick |
 | ~12 similar skills max | LangChain | Loading 20 similar LangGraph skills caused mis-invocation; ~12 stabilized |
 | 70% invocation reliability | LangChain | Even with explicit invocation prompts, Claude Code only invoked some skills 70% of the time |
 | Limited markdown vs XML impact | LangChain | For 300-500-line skills, formatting choices barely moved the needle — content matters more |
@@ -3765,7 +3774,7 @@ Anything that's:
 
 Real-world examples worth studying:
 
-- [everything-claude-code](https://github.com/affaan-m/everything-claude-code) — 232 skills + 60 subagents, cross-harness (Cursor, Codex, OpenCode, Zed, Copilot, Claude Code)
+- [everything-claude-code](https://github.com/affaan-m/ECC) — 232 skills + 60 subagents, cross-harness (Cursor, Codex, OpenCode, Zed, Copilot, Claude Code)
 - [shanraisshan/claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice) — most-starred Claude Code reference repo (54.7K stars); see its skills catalog
 - Anthropic's bundled skills (PDF, presentations, web research) in the [Claude Agent SDK docs](https://code.claude.com/docs/en/agent-sdk)
 
@@ -3788,7 +3797,7 @@ The model autonomously executes bundled scripts when the skill is invoked. A mal
 - **Skill catalog as documentation dump.** A "skills" directory with 50 entries that are mostly notes is just more context noise. Skills are *invocable capabilities*, not READMEs.
 - **Overlapping descriptions.** Two skills with similar descriptions cause invocation collapse — the model picks neither, or picks wrong.
 - **Skills that just re-prompt.** If a skill is "system prompt + instruction text" with no bundled code, it's a slash command, not a skill. Slash commands are simpler and more predictable for that case.
-- **Skipping the dry-run.** [LangChain's evaluation methodology](https://blog.langchain.com/evaluating-skills/) — test invocation rate before testing success rate. A perfect skill that's never invoked is worthless.
+- **Skipping the dry-run.** [LangChain's evaluation methodology](https://www.langchain.com/blog/evaluating-skills) — test invocation rate before testing success rate. A perfect skill that's never invoked is worthless.
 
 ---
 
@@ -3826,7 +3835,7 @@ Three orthogonal axes — every memory system picks a position on each:
 | **Long-term** | Across sessions, same user | Persistent store (vector DB, KV, filesystem) |
 | **Cross-user** | Org-wide knowledge | Shared knowledge base, RAG over docs |
 
-### Axis 2: Type (from [LangChain Context Engineering](https://blog.langchain.com/context-engineering-for-agents/))
+### Axis 2: Type (from [LangChain Context Engineering](https://www.langchain.com/blog/context-engineering-for-agents))
 
 | Type | What it stores | Example |
 |---|---|---|
@@ -3842,7 +3851,7 @@ Three orthogonal axes — every memory system picks a position on each:
 | **Background consolidation** | Async, between sessions | Cleaner memories; delay before "learning" lands |
 | **Manual / human-curated** | On explicit signal | Highest quality; doesn't scale |
 
-[Deep Agents](https://blog.langchain.com/continual-learning-for-ai-agents/) ships user-level memory with background consolidation as the default — a pragmatic balance.
+[Deep Agents](https://www.langchain.com/blog/continual-learning-for-ai-agents) ships user-level memory with background consolidation as the default — a pragmatic balance.
 
 ---
 
@@ -3898,13 +3907,13 @@ Concrete shapes:
 - `.claude/memory/episodes/<date>.md` — episodic logs
 - JSON feature lists where each item has `passes: false` until proven otherwise ([Effective Harnesses example](https://anthropic.com/engineering/effective-harnesses-for-long-running-agents) — 200+ features for a claude.ai clone)
 
-The [Anatomy of an Agent Harness](https://blog.langchain.com/the-anatomy-of-an-agent-harness/) calls filesystems "foundational: durable storage, context management, multi-agent collaboration."
+The [Anatomy of an Agent Harness](https://www.langchain.com/blog/the-anatomy-of-an-agent-harness) calls filesystems "foundational: durable storage, context management, multi-agent collaboration."
 
 ---
 
 ## How agents actually learn over time
 
-[LangChain's continual-learning post](https://blog.langchain.com/continual-learning-for-ai-agents/) decomposes "learning" into three orthogonal layers:
+[LangChain's continual-learning post](https://www.langchain.com/blog/continual-learning-for-ai-agents) decomposes "learning" into three orthogonal layers:
 
 | Layer | What changes | Mechanism |
 |---|---|---|
@@ -3950,7 +3959,7 @@ Memory is the *context* layer. It's the cheapest and fastest of the three to cha
 
 How you measure whether an agent actually works. Distinct from [Benchmarks](benchmarks.md) — benchmarks are the public leaderboards (SWE-bench, GAIA, Terminal-Bench); evals are *your* tests against *your* failure modes.
 
-> "The evaluators that matter are the ones that catch your specific failure modes, discovered through the error analysis process." — [LangChain, Agent Evaluation Readiness Checklist](https://blog.langchain.com/agent-evaluation-readiness-checklist/)
+> "The evaluators that matter are the ones that catch your specific failure modes, discovered through the error analysis process." — [LangChain, Agent Evaluation Readiness Checklist](https://www.langchain.com/blog/agent-evaluation-readiness-checklist)
 
 Quality is the #1 production blocker — [89% of orgs have observability, only 57% have agents in production](https://langchain.com/state-of-agent-engineering). The gap is closing eval rigor.
 
@@ -3966,7 +3975,7 @@ Three layers of test, from cheapest to most-rigorous:
 | **Model-based graders (LLM-as-judge)** | API calls | Subjective quality, tone, factual claims | After your test set has 20-50 cases |
 | **Human review** | Hours | Anything else, gold-standard ground truth | The 20-50 traces you start the program with |
 
-[Anthropic's demystifying-evals post](https://anthropic.com/engineering/demystifying-evals-for-ai-agents) and [LangChain's readiness checklist](https://blog.langchain.com/agent-evaluation-readiness-checklist/) both make the same recommendation: combine all three. Use code-based for what's deterministic, model-based for what's subjective, human for what's irreducible.
+[Anthropic's demystifying-evals post](https://anthropic.com/engineering/demystifying-evals-for-ai-agents) and [LangChain's readiness checklist](https://www.langchain.com/blog/agent-evaluation-readiness-checklist) both make the same recommendation: combine all three. Use code-based for what's deterministic, model-based for what's subjective, human for what's irreducible.
 
 ---
 
@@ -3974,7 +3983,7 @@ Three layers of test, from cheapest to most-rigorous:
 
 The readiness-checklist consensus across both Anthropic and LangChain:
 
-1. **Hand-review 20-50 real traces first.** [LangChain says spend 60-80% of eval effort on error analysis](https://blog.langchain.com/agent-evaluation-readiness-checklist/) — not on building infrastructure. You can't write a useful grader for a failure mode you haven't seen.
+1. **Hand-review 20-50 real traces first.** [LangChain says spend 60-80% of eval effort on error analysis](https://www.langchain.com/blog/agent-evaluation-readiness-checklist) — not on building infrastructure. You can't write a useful grader for a failure mode you haven't seen.
 2. **Start with 20-50 simple tasks pulled from real failures.** [Anthropic, demystifying-evals](https://anthropic.com/engineering/demystifying-evals-for-ai-agents): "Effective programs start with 20-50 simple tasks pulled from real failures, not exhaustive benchmarks."
 3. **Separate capability evals from regression evals.** Capability evals measure new abilities; regression evals protect shipped behavior. Mixing them blocks both.
 4. **Prefer binary pass/fail over numeric scales.** Less subjective; smaller required sample sizes; easier to debug.
@@ -3998,7 +4007,7 @@ If your agent is 75% reliable and a user retries 3 times, you have a coin-flip o
 
 ### 1. Grading bugs masquerading as model failures
 
-From [Anthropic, demystifying-evals](https://anthropic.com/engineering/demystifying-evals-for-ai-agents): Opus 4.5 on CORE-Bench initially scored 42%. After fixing grading bugs (rigid precision, ambiguous specs), the *same model on the same task* scored 95%. From [LangChain's checklist](https://blog.langchain.com/agent-evaluation-readiness-checklist/): a Witan Labs benchmark moved from 50% to 73% after a single extraction-bug fix.
+From [Anthropic, demystifying-evals](https://anthropic.com/engineering/demystifying-evals-for-ai-agents): Opus 4.5 on CORE-Bench initially scored 42%. After fixing grading bugs (rigid precision, ambiguous specs), the *same model on the same task* scored 95%. From [LangChain's checklist](https://www.langchain.com/blog/agent-evaluation-readiness-checklist): a Witan Labs benchmark moved from 50% to 73% after a single extraction-bug fix.
 
 **Rule:** if you see a surprising number, suspect the grader before suspecting the model.
 
@@ -4030,7 +4039,7 @@ Use benchmarks for direction; trust *your* evals for production decisions.
 
 ## Categories to test (Deep Agents taxonomy)
 
-[How We Build Evals for Deep Agents](https://blog.langchain.com/how-we-build-evals-for-deep-agents/) lists eight categories worth covering:
+[How We Build Evals for Deep Agents](https://www.langchain.com/blog/how-we-build-evals-for-deep-agents) lists eight categories worth covering:
 
 1. **file_operations** — read/write/edit/search on the agent's filesystem
 2. **retrieval** — RAG over docs / codebase
@@ -4050,7 +4059,7 @@ Plus five efficiency metrics: step ratio, tool-call ratio, latency ratio, solve 
 Multi-turn breaks naive eval harnesses. Two patterns that work:
 
 - **N-1 testing.** Use real conversation prefixes (the first N-1 turns) and let the agent generate the final turn. Tests final-turn behavior in real context without re-running the whole conversation.
-- **Conditional branching.** Don't auto-fail when the agent deviates from the canonical path. Path deviation may be correct; check the end-state instead. From [Evaluating Deep Agents — Our Learnings](https://blog.langchain.com/evaluating-deep-agents-our-learnings/).
+- **Conditional branching.** Don't auto-fail when the agent deviates from the canonical path. Path deviation may be correct; check the end-state instead. From [Evaluating Deep Agents — Our Learnings](https://www.langchain.com/blog/evaluating-deep-agents-our-learnings).
 
 ---
 
@@ -4070,7 +4079,7 @@ Multi-turn breaks naive eval harnesses. Two patterns that work:
 
 ## Anti-patterns
 
-- **"More evals = better agents."** [LangChain](https://blog.langchain.com/how-we-build-evals-for-deep-agents/): curated focused tests beat high-volume noisy ones.
+- **"More evals = better agents."** [LangChain](https://www.langchain.com/blog/how-we-build-evals-for-deep-agents): curated focused tests beat high-volume noisy ones.
 - **Numeric scales for subjective grading.** Higher variance, larger samples required, harder to debug. Use binary.
 - **No holdout split.** You'll overfit your harness to your eval set. Hold out 20% minimum.
 - **Skipping error analysis.** Building grader infrastructure before reviewing real traces produces graders for the wrong failure modes.
@@ -4349,7 +4358,7 @@ Verified at primary source May 2026. **Anthropic** and **Google** numbers pulled
 
 ## Open-weights frontier
 
-The 2026 open-weights landscape closed most of the gap to frontier closed-source. The post worth reading first: [Open Models have crossed a threshold](https://blog.langchain.com/open-models-have-crossed-a-threshold/) (LangChain). Pricing varies by host — direct API from the lab, [Together AI](https://together.ai), [Fireworks](https://fireworks.ai), [Groq](https://groq.com), or self-hosted on your own GPU. Each row links to the primary source.
+The 2026 open-weights landscape closed most of the gap to frontier closed-source. The post worth reading first: [Open Models have crossed a threshold](https://www.langchain.com/blog/open-models-have-crossed-a-threshold) (LangChain). Pricing varies by host — direct API from the lab, [Together AI](https://together.ai), [Fireworks](https://fireworks.ai), [Groq](https://groq.com), or self-hosted on your own GPU. Each row links to the primary source.
 
 | Model | Provider | Context | Strong for | Source |
 |---|---|---|---|---|
@@ -4426,7 +4435,7 @@ For broader context across the whole field:
 - [Artificial Analysis](https://artificialanalysis.ai/models) — independent benchmarks + pricing across 500+ models
 - [LM Arena](https://lmarena.ai) — human-preference leaderboard
 - [Aider Polyglot Leaderboard](https://aider.chat/docs/leaderboards/) — coding-specific
-- [Open Models have crossed a threshold](https://blog.langchain.com/open-models-have-crossed-a-threshold/) — the LangChain post on the 2026 open-weights shift
+- [Open Models have crossed a threshold](https://www.langchain.com/blog/open-models-have-crossed-a-threshold) — the LangChain post on the 2026 open-weights shift
 - [Inference](inference.md) — providers, routers, and how to actually serve any of these models
 - [Benchmarks](benchmarks.md) — what the scores in this table mean
   </script>
@@ -5134,16 +5143,16 @@ Career: PhD in deep learning; runs Deep (Learning) Focus as a parallel writing p
 
 > ✍️ Chronicler / 🔨 Operator · LangChain · [@RLanceMartin](https://twitter.com/RLanceMartin) · [rlancemartin.github.io](https://rlancemartin.github.io)
 
-LangChain's most prolific writer on the *context* side of the stack. Martin formalized the **Write / Select / Compress / Isolate** framework in [*Context Engineering for Agents*](https://blog.langchain.com/context-engineering-for-agents/) (2025) — the four primitives every harness has to implement, and the conceptual scaffolding the rest of this reference uses on the [Harness Engineering](harness-engineering.md) page. The follow-up [*Context Management for Deep Agents*](https://blog.langchain.com/context-management-for-deepagents/) is where the 20K-token tool-response offload pattern and the 85%-of-window compaction triggers are spelled out concretely. If Anthropic's *Effective context engineering* is the *what*, Martin's pieces are the *how* — same ideas, runnable in LangGraph.
+LangChain's most prolific writer on the *context* side of the stack. Martin formalized the **Write / Select / Compress / Isolate** framework in [*Context Engineering for Agents*](https://www.langchain.com/blog/context-engineering-for-agents) (2025) — the four primitives every harness has to implement, and the conceptual scaffolding the rest of this reference uses on the [Harness Engineering](harness-engineering.md) page. The follow-up [*Context Management for Deep Agents*](https://www.langchain.com/blog/context-management-for-deepagents) is where the 20K-token tool-response offload pattern and the 85%-of-window compaction triggers are spelled out concretely. If Anthropic's *Effective context engineering* is the *what*, Martin's pieces are the *how* — same ideas, runnable in LangGraph.
 
-Career: ex-Robust Intelligence; LangChain since ~2023. The body of work to follow is the [LangChain blog](https://blog.langchain.com) (his pieces are the ones tagged "Context" and "Deep Agents").
+Career: ex-Robust Intelligence; LangChain since ~2023. The body of work to follow is the [LangChain blog](https://www.langchain.com/blog) (his pieces are the ones tagged "Context" and "Deep Agents").
 
 **Key works to know:**
 
-- *[Context Engineering for Agents](https://blog.langchain.com/context-engineering-for-agents/)* — Write/Select/Compress/Isolate
-- *[Context Management for Deep Agents](https://blog.langchain.com/context-management-for-deepagents/)* — offload thresholds, summarization triggers
-- *[Doubling down on Deep Agents](https://blog.langchain.com/doubling-down-on-deepagents/)* — the harness-vs-framework-vs-runtime distinction
-- *[Evaluating Deep Agents](https://blog.langchain.com/evaluating-deep-agents-our-learnings/)* — single-step / full-turn / multi-turn trajectory eval patterns
+- *[Context Engineering for Agents](https://www.langchain.com/blog/context-engineering-for-agents)* — Write/Select/Compress/Isolate
+- *[Context Management for Deep Agents](https://www.langchain.com/blog/context-management-for-deepagents)* — offload thresholds, summarization triggers
+- *[Doubling down on Deep Agents](https://www.langchain.com/blog/doubling-down-on-deepagents)* — the harness-vs-framework-vs-runtime distinction
+- *[Evaluating Deep Agents](https://www.langchain.com/blog/evaluating-deep-agents-our-learnings)* — single-step / full-turn / multi-turn trajectory eval patterns
 
 **Start here:** *Context Engineering for Agents*. The framework is short, the diagrams are clear, and you'll find yourself reaching for the vocabulary every time you design a harness.
 
@@ -5153,12 +5162,12 @@ Career: ex-Robust Intelligence; LangChain since ~2023. The body of work to follo
 
 > 🔨 Operator + chronicler · LangChain · [Deep Agents](approaches.md#deep-agents-langchain) harness lead
 
-The harness-engineering empiricist. Trivedy's [*Improving Deep Agents with harness engineering*](https://blog.langchain.com/improving-deep-agents-with-harness-engineering/) (Feb 2026) is the headline existence proof that harness changes alone — model held fixed at GPT-5.2-codex — moved [Deep Agents](approaches.md#deep-agents-langchain) from rank 30 to rank 5 on Terminal-Bench 2.0. The sequel [*Better Harness: A Recipe for Harness Hill-Climbing with Evals*](https://blog.langchain.com/better-harness-a-recipe-for-harness-hill-climbing-with-evals/) (Apr 2026) operationalized that result: self-verification + trace inspection + small atomic harness changes as a recipe an agent can run on itself. Read together, the two posts are the most concrete published example of *engineering as iterating on the harness, not the model* — the thesis [Harness Engineering](harness-engineering.md) builds the whole page around.
+The harness-engineering empiricist. Trivedy's [*Improving Deep Agents with harness engineering*](https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering) (Feb 2026) is the headline existence proof that harness changes alone — model held fixed at GPT-5.2-codex — moved [Deep Agents](approaches.md#deep-agents-langchain) from rank 30 to rank 5 on Terminal-Bench 2.0. The sequel [*Better Harness: A Recipe for Harness Hill-Climbing with Evals*](https://www.langchain.com/blog/better-harness-a-recipe-for-harness-hill-climbing-with-evals) (Apr 2026) operationalized that result: self-verification + trace inspection + small atomic harness changes as a recipe an agent can run on itself. Read together, the two posts are the most concrete published example of *engineering as iterating on the harness, not the model* — the thesis [Harness Engineering](harness-engineering.md) builds the whole page around.
 
 **Key works to know:**
 
-- *[Improving Deep Agents with harness engineering](https://blog.langchain.com/improving-deep-agents-with-harness-engineering/)* (Feb 2026) — the rank 30 → 5 case study
-- *[Better Harness: A Recipe for Harness Hill-Climbing with Evals](https://blog.langchain.com/better-harness-a-recipe-for-harness-hill-climbing-with-evals/)* (Apr 2026) — the iteration recipe
+- *[Improving Deep Agents with harness engineering](https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering)* (Feb 2026) — the rank 30 → 5 case study
+- *[Better Harness: A Recipe for Harness Hill-Climbing with Evals](https://www.langchain.com/blog/better-harness-a-recipe-for-harness-hill-climbing-with-evals)* (Apr 2026) — the iteration recipe
 - The Deep Agents source ([langchain-ai/deepagents](https://github.com/langchain-ai/deepagents)) — read the middleware files alongside the posts; the code is the artifact
 
 **Start here:** The Feb 2026 post. Then go read the diff between Deep Agents v0.4 and v0.5 in the repo — the recipe is the post, the evidence is the commits.
@@ -7422,7 +7431,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Defines the menu of LangChain primitives a reference site should map (harness, observability, data layer, sandboxes).
 
 ### Agent Evaluation Readiness Checklist
-**URL:** `https://blog.langchain.com/agent-evaluation-readiness-checklist/`
+**URL:** `https://www.langchain.com/blog/agent-evaluation-readiness-checklist`
 **Fetch:** OK
 **Date:** March 27, 2026
 **Key claims:**
@@ -7437,7 +7446,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Slot: eval lesson — readiness gate before automating eval infra; pairs with the "harness hill-climbing" post.
 
 ### Better Harness — Hill-Climbing with Evals
-**URL:** `https://blog.langchain.com/better-harness-a-recipe-for-harness-hill-climbing-with-evals/`
+**URL:** `https://www.langchain.com/blog/better-harness-a-recipe-for-harness-hill-climbing-with-evals`
 **Fetch:** OK
 **Date:** April 8, 2026
 **Key claims:**
@@ -7452,7 +7461,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Slot: harness pattern — concrete recipe for moving harness changes through eval gates rather than vibes.
 
 ### Context Engineering for Agents
-**URL:** `https://blog.langchain.com/context-engineering-for-agents/`
+**URL:** `https://www.langchain.com/blog/context-engineering-for-agents`
 **Fetch:** OK
 **Date:** July 2, 2025
 **Key claims:**
@@ -7467,7 +7476,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Foundational vocabulary — the write/select/compress/isolate taxonomy is the canonical framing referenced by later posts.
 
 ### Context Management for Deep Agents
-**URL:** `https://blog.langchain.com/context-management-for-deepagents/`
+**URL:** `https://www.langchain.com/blog/context-management-for-deepagents`
 **Fetch:** OK
 **Date:** January 28, 2026
 **Key claims:**
@@ -7482,7 +7491,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Deep-agents lesson — concrete numbers (20k tokens, 85% threshold, 10-line preview) for implementing the "compress" + "isolate" parts of context engineering.
 
 ### Continual Learning for AI Agents
-**URL:** `https://blog.langchain.com/continual-learning-for-ai-agents/`
+**URL:** `https://www.langchain.com/blog/continual-learning-for-ai-agents`
 **Fetch:** OK
 **Date:** April 5, 2026
 **Key claims:**
@@ -7497,7 +7506,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Mental model — the three-layer separation is a clean way to organize "how agents improve" sections of a reference site.
 
 ### Deep Agents v0.5
-**URL:** `https://blog.langchain.com/deep-agents-v0-5/`
+**URL:** `https://www.langchain.com/blog/deep-agents-v0-5`
 **Fetch:** OK
 **Date:** April 7, 2026
 **Key claims:**
@@ -7512,7 +7521,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Version milestone — async-subagent primitive is the v0.5-specific feature worth pinning.
 
 ### Doubling Down on Deep Agents
-**URL:** `https://blog.langchain.com/doubling-down-on-deepagents/`
+**URL:** `https://www.langchain.com/blog/doubling-down-on-deepagents`
 **Fetch:** OK
 **Date:** October 28, 2025
 **Key claims:**
@@ -7527,7 +7536,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Origin of the "harness" framing — establishes Deep Agents as a harness, not a framework competitor.
 
 ### Evaluating Deep Agents — Our Learnings
-**URL:** `https://blog.langchain.com/evaluating-deep-agents-our-learnings/`
+**URL:** `https://www.langchain.com/blog/evaluating-deep-agents-our-learnings`
 **Fetch:** OK
 **Date:** December 3, 2025
 **Key claims:**
@@ -7542,7 +7551,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Eval lesson — concrete proof that single-step decision evals are the high-leverage entry point.
 
 ### Evaluating Skills
-**URL:** `https://blog.langchain.com/evaluating-skills/`
+**URL:** `https://www.langchain.com/blog/evaluating-skills`
 **Fetch:** OK
 **Date:** March 5, 2026
 **Key claims:**
@@ -7557,7 +7566,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Skills design — the ~12-skill ceiling and 70% invocation reliability are useful empirical bounds for skill catalog design.
 
 ### How Middleware Lets You Customize Your Agent Harness
-**URL:** `https://blog.langchain.com/how-middleware-lets-you-customize-your-agent-harness/`
+**URL:** `https://www.langchain.com/blog/how-middleware-lets-you-customize-your-agent-harness`
 **Fetch:** OK
 **Date:** March 26, 2026
 **Key claims:**
@@ -7572,7 +7581,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Harness pattern — the six-hook taxonomy is the canonical reference for "where do I put this customization?"
 
 ### How to Build an Agent
-**URL:** `https://blog.langchain.com/how-to-build-an-agent/`
+**URL:** `https://www.langchain.com/blog/how-to-build-an-agent`
 **Fetch:** OK
 **Date:** July 9, 2025
 **Key claims:**
@@ -7587,7 +7596,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Onboarding — canonical "how do I start" sequence; useful as a default reading-list entry.
 
 ### How to Think About Agent Frameworks
-**URL:** `https://blog.langchain.com/how-to-think-about-agent-frameworks/`
+**URL:** `https://www.langchain.com/blog/how-to-think-about-agent-frameworks`
 **Fetch:** OK
 **Date:** April 20, 2025
 **Key claims:**
@@ -7602,7 +7611,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Framework taxonomy — clarifies "orchestration vs abstraction" axis when picking tools.
 
 ### How We Build Evals for Deep Agents
-**URL:** `https://blog.langchain.com/how-we-build-evals-for-deep-agents/`
+**URL:** `https://www.langchain.com/blog/how-we-build-evals-for-deep-agents`
 **Fetch:** OK
 **Date:** March 26, 2026
 **Key claims:**
@@ -7617,7 +7626,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Eval architecture — concrete category and metric scheme to copy when designing a project's eval taxonomy.
 
 ### Improving Deep Agents with Harness Engineering
-**URL:** `https://blog.langchain.com/improving-deep-agents-with-harness-engineering/`
+**URL:** `https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering`
 **Fetch:** OK
 **Date:** February 17, 2026
 **Key claims:**
@@ -7632,7 +7641,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Harness pattern — flagship case study showing harness changes alone can deliver double-digit benchmark gains.
 
 ### Introducing Ambient Agents
-**URL:** `https://blog.langchain.com/introducing-ambient-agents/`
+**URL:** `https://www.langchain.com/blog/introducing-ambient-agents`
 **Fetch:** OK
 **Date:** January 14, 2025
 **Key claims:**
@@ -7647,7 +7656,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** UX/architecture pattern — provides the canonical "non-chat" agent interaction model and HITL vocabulary.
 
 ### On Agent Frameworks and Agent Observability
-**URL:** `https://blog.langchain.com/on-agent-frameworks-and-agent-observability/`
+**URL:** `https://www.langchain.com/blog/on-agent-frameworks-and-agent-observability`
 **Fetch:** OK
 **Date:** February 12, 2026
 **Key claims:**
@@ -7662,7 +7671,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Observability framing — the "logic lives in traces" line is the strongest one-liner for why observability is first-class.
 
 ### Open Models Have Crossed a Threshold
-**URL:** `https://blog.langchain.com/open-models-have-crossed-a-threshold/`
+**URL:** `https://www.langchain.com/blog/open-models-have-crossed-a-threshold`
 **Fetch:** OK
 **Date:** April 2, 2026
 **Key claims:**
@@ -7677,7 +7686,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Model behavior — concrete cost/perf table for the "should I use open models?" decision.
 
 ### Production Agents Self-Heal
-**URL:** `https://blog.langchain.com/production-agents-self-heal/`
+**URL:** `https://www.langchain.com/blog/how-my-agents-self-heal-in-production`
 **Fetch:** OK
 **Date:** April 3, 2026
 **Key claims:**
@@ -7692,7 +7701,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Ops pattern — concrete recipe for an auto-remediation loop using a coding agent as the fixer.
 
 ### The Anatomy of an Agent Harness
-**URL:** `https://blog.langchain.com/the-anatomy-of-an-agent-harness/`
+**URL:** `https://www.langchain.com/blog/the-anatomy-of-an-agent-harness`
 **Fetch:** OK
 **Date:** March 10, 2026
 **Key claims:**
@@ -7893,7 +7902,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 **Why it matters:** Canonical eval library you plug your agent into to compare against published benchmarks.
 
 ### everything-claude-code (ECC)
-**URL:** `https://github.com/affaan-m/everything-claude-code`
+**URL:** `https://github.com/affaan-m/ECC`
 **Fetch:** OK
 **Stars / freshness:** ~191k stars, 29.5k forks, "Anthropic Hackathon Winner"
 **What it is:** A harness-native operator system providing 60 subagents, 232 skills, hooks, rules, and MCP configs that work across Claude Code, Cursor, Codex, OpenCode, Zed, and Copilot.

@@ -509,7 +509,7 @@ Anthropic's first-party agent SDK — **the exact same harness that ships inside
 - **GitHub:** [langchain-ai/deepagents](https://github.com/langchain-ai/deepagents) [![stars](https://img.shields.io/github/stars/langchain-ai/deepagents?style=social)](https://github.com/langchain-ai/deepagents)
 - **Origin:** LangChain, August 2025; v0.5 alpha April 2026 (async sub-agents, expanded multi-modal filesystem)
 
-The closest open-source analog to [Claude Code's](#terminal-coding-clis) harness, but model-agnostic and built on the LangGraph runtime. Where Claude Agent SDK is *the* Anthropic-shaped harness, Deep Agents is the *batteries-included* harness anyone can adopt on top of LangGraph 1.0: planning, virtual filesystem, sub-agents, summarization, and skills, all as composable middleware. The thesis is that **harness engineering, not model selection, is the lever in 2026** — Vivek Trivedy's [Feb 2026 post](https://blog.langchain.com/improving-deep-agents-with-harness-engineering/) reports going from rank 30 to rank 5 on Terminal-Bench 2.0 holding GPT-5.2-codex fixed and only changing the harness.
+The closest open-source analog to [Claude Code's](#terminal-coding-clis) harness, but model-agnostic and built on the LangGraph runtime. Where Claude Agent SDK is *the* Anthropic-shaped harness, Deep Agents is the *batteries-included* harness anyone can adopt on top of LangGraph 1.0: planning, virtual filesystem, sub-agents, summarization, and skills, all as composable middleware. The thesis is that **harness engineering, not model selection, is the lever in 2026** — Vivek Trivedy's [Feb 2026 post](https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering) reports going from rank 30 to rank 5 on Terminal-Bench 2.0 holding GPT-5.2-codex fixed and only changing the harness.
 
 ### Architecture
 
@@ -523,7 +523,7 @@ The closest open-source analog to [Claude Code's](#terminal-coding-clis) harness
 
 - Pair with `create_agent` (LangChain 1.0 default factory, Oct 2025; supersedes the deprecated `create_react_agent`) to compose agent + middleware in idiomatic LangGraph
 - The right pick if you want Claude-Code-shaped ergonomics but need model neutrality, durable checkpointing, time-travel debugging, or first-class observability via [LangSmith](infrastructure.md#agent-observability--evaluation)
-- The reference work for harness engineering as a discipline — read alongside [The Anatomy of an Agent Harness](https://blog.langchain.com/the-anatomy-of-an-agent-harness/) (LangChain) and Trivedy's [Better Harness](https://blog.langchain.com/better-harness-a-recipe-for-harness-hill-climbing-with-evals/) hill-climbing recipe
+- The reference work for harness engineering as a discipline — read alongside [The Anatomy of an Agent Harness](https://www.langchain.com/blog/the-anatomy-of-an-agent-harness) (LangChain) and Trivedy's [Better Harness](https://www.langchain.com/blog/better-harness-a-recipe-for-harness-hill-climbing-with-evals) hill-climbing recipe
 - **Gap:** LangGraph weight. You get durability, time-travel, and middleware for free, but the conceptual surface area is larger than [Claude Agent SDK](#claude-agent-sdk) or [Smolagents](#smolagents). Teams that just want "claude.messages.create with hooks" should start lighter
 
 ---
@@ -1333,10 +1333,11 @@ A *software-development-methodology* shipped as a skills framework. Where [GStac
 
 - **Type:** Open Source
 - **Stars:** 190K
-- **GitHub:** https://github.com/affaan-m/everything-claude-code [![stars](https://img.shields.io/github/stars/affaan-m/everything-claude-code?style=social)](https://github.com/affaan-m/everything-claude-code)
+- **GitHub:** https://github.com/affaan-m/ECC [![stars](https://img.shields.io/github/stars/affaan-m/ECC?style=social)](https://github.com/affaan-m/ECC)
 - **Origin:** Affaan M., shipped at the Cerebral Valley × Anthropic Claude Code Hackathon (Feb 2026)
+- **Also known as:** ECC (the repo was renamed from `everything-claude-code` to `ECC` in 2026)
 
-A harness pack focused on a category none of the others target directly: **security auditing of the Claude Code harness itself**. Where GStack / Superpowers / GBrain / AgentHub assume your harness is the answer, `everything-claude-code` treats your harness as an attack surface and audits it.
+A harness pack focused on a category none of the others target directly: **security auditing of the Claude Code harness itself**. Where GStack / Superpowers / GBrain / AgentHub assume your harness is the answer, ECC treats your harness as an attack surface and audits it.
 
 ### Differentiator: security as a first-class subsystem
 
