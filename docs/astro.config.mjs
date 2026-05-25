@@ -41,6 +41,7 @@ export default defineConfig({
         {
           label: 'Landscape',
           items: [
+            { label: 'Models', slug: 'models' },
             { label: 'Approaches', slug: 'approaches' },
             { label: 'Patterns', slug: 'patterns' },
             { label: 'Harness Engineering', slug: 'harness-engineering' },
