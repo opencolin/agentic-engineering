@@ -18,6 +18,11 @@ export default defineConfig({
       favicon: '/favicon.svg',
       social: [
         {
+          icon: 'rss',
+          label: 'Events',
+          href: '/events/',
+        },
+        {
           icon: 'github',
           label: 'GitHub',
           href: 'https://github.com/opencolin/agentic-engineering',
@@ -30,6 +35,7 @@ export default defineConfig({
           items: [
             { label: 'Overview', slug: 'index' },
             { label: 'Table of Contents', slug: 'table-of-contents' },
+            { label: 'Events', slug: 'events' },
           ],
         },
         {
