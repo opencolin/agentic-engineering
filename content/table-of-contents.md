@@ -105,8 +105,9 @@ The named discipline of curating what's in the LLM context window.
 
 ## 6. [Tool Design](tool-design.md)
 
-How to write tools agents use well.
+How to write tools agents use well — starting with MCP as the assumed wire format.
 
+- [MCP — the wire format you're writing tools in](tool-design.md#mcp--the-wire-format-youre-writing-tools-in) — the protocol that won, runtimes (Arcade, Composio), reading list
 - [What "good tool design" actually means](tool-design.md#what-good-tool-design-actually-means)
 - [Consolidate, don't expose your API surface](tool-design.md#1-consolidate-dont-expose-your-api-surface)
 - [Compress every response](tool-design.md#2-compress-every-response) — ResponseFormat enums (206 → 72 tokens)
@@ -115,7 +116,6 @@ How to write tools agents use well.
 - [Programmatic Tool Calling](tool-design.md#programmatic-tool-calling--the-third-optimization)
 - [Tool Use Examples](tool-design.md#tool-use-examples--the-input_examples-pattern) — 72% → 90%
 - [What to measure when iterating on tools](tool-design.md#what-to-measure-when-iterating-on-tools)
-- [MCP — the protocol layer](tool-design.md#mcp--the-protocol-layer)
 - [Anti-patterns](tool-design.md#anti-patterns)
 
 ---
