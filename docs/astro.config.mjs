@@ -36,6 +36,7 @@ export default defineConfig({
             { label: 'Overview', slug: 'index' },
             { label: 'Table of Contents', slug: 'table-of-contents' },
             { label: 'Reading List', slug: 'reading-list' },
+            { label: 'Changelog', slug: 'changelog' },
             { label: 'Events', slug: 'events' },
           ],
         },
