@@ -2,6 +2,8 @@
 
 A deep dive into the major systems and frameworks driving autonomous software engineering — from enterprise-internal platforms to open-source tools.
 
+For the model layer powering these systems (which Anthropic / Google / OpenAI / xAI models to pick, plus the open-weights options like DeepSeek, Qwen, Llama, Kimi, GLM, MiniMax, and Mistral), see [Models](models.md). For the surrounding disciplines that make any of these approaches reliable, see [Harness Engineering](harness-engineering.md), [Context Engineering](context-engineering.md), [Tool Design](tool-design.md), and [Skills](skills.md).
+
 ## Index
 
 ### Commercial / proprietary
