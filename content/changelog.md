@@ -126,6 +126,9 @@ Publication dates of the primary sources that informed the polished pages. Compi
 
 ## 2026-05-26
 
+### `docs/` directory removed
+The parallel Starlight setup at `docs/` (which was never deployed — Vercel serves the root) is gone. 34 tracked files removed. All unique content was preserved into `content/` first via PR #26: the 3 comparison tables that commit `1bb1bcb` had accidentally deleted from `approaches.md` were restored, and the 24 SEO descriptions from `.mdx` frontmatter were ported as HTML comments at the top of each `content/*.md`. Build pipeline (`build.sh` + `index.html`) is unchanged and unaffected.
+
 ### Context Hub + Moltbook added across Memory / Context Engineering / Infrastructure / Research Notes
 Two additions surfaced via The Batch newsletter:
 
