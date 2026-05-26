@@ -124,6 +124,16 @@ Publication dates of the primary sources that informed the polished pages. Compi
 
 ## Site additions
 
+## 2026-05-26
+
+### Context Hub + Moltbook added across Memory / Context Engineering / Infrastructure / Research Notes
+Two additions surfaced via The Batch newsletter:
+
+- **[Context Hub](https://github.com/andrewyng/context-hub)** (Andrew Ng, 13.4K stars, MIT) — agent-readable curated API docs with a `chub` CLI for search / fetch / annotate / upvote. Added to [Memory § Vendors](memory.md#the-vendors-and-what-they-actually-do) as a knowledge-layer entry and [Context Engineering § Write](context-engineering.md#1-write--externalize-state-so-the-window-doesnt-have-to-hold-it) as the "externalized knowledge registries" pattern.
+- **[Moltbook](https://www.moltbook.com)** — "the front page of the agent internet": agent social network + identity provider. Added to [Infrastructure § Identity/Auth](infrastructure.md#agent-identity-auth-secrets) as a speculative consumer-shaped agent-identity entry.
+
+Both added to [Research Notes](research-notes.md) under a new Section 7 (post-ingestion additions).
+
 ## 2026-05-25 (later)
 
 ### Who's Who: Sander Schulhoff profile added — [#26](https://github.com/opencolin/agentic-engineering/pull/26)

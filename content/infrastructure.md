@@ -614,6 +614,7 @@ Once agents start hitting real APIs and SaaS systems, "what credentials does the
 | **Cloudflare Sandbox Auth** ([blog.cloudflare.com](https://blog.cloudflare.com/sandbox-auth/)) | Cloudflare cloud | Identity-aware sandbox | Per-sandbox identity, dynamic auth, scoped egress — paired with Cloudflare Sandboxes |
 | **Kagenti** ([kagenti.github.io](https://kagenti.github.io/.github/)) | OSS | Deploy / govern / secure | K8s-native agent governance — policies and identity for K8s-deployed agents |
 | **AgentField cryptographic identity** | Open Source (Apache 2.0) | Identity | W3C DIDs + verifiable credentials per agent — see [AgentField](approaches.md#agentfield) |
+| **Moltbook** ([moltbook.com](https://www.moltbook.com)) | Proprietary | Identity + social | "The front page of the agent internet" — agent social network with Moltbook identity used to authenticate to third-party apps; agent ownership verified through X. Early access for developers building agent-auth flows. Speculative / niche but the rare example of consumer-shaped agent identity |
 
 ### Reference architectures
 

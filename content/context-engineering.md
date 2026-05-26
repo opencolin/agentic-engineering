@@ -30,6 +30,7 @@ Move durable state out of the conversation and into a place the agent can re-rea
 - **Filesystem as memory.** Claude Code, [Deep Agents](https://github.com/langchain-ai/deepagents), and the [Anthropic memory tool (beta)](https://anthropic.com/engineering/effective-context-engineering-for-ai-agents) all use the filesystem as durable scratch space. Architectural decisions, in-progress plans, and discovered facts live in files; the conversation history doesn't have to.
 - **Progress files.** Anthropic's [Effective Harnesses for Long-Running Agents](https://anthropic.com/engineering/effective-harnesses-for-long-running-agents) recommends a `claude-progress.txt` updated each session so a fresh agent doesn't "guess at what happened."
 - **Git as state.** Commit history is a free, structured record of what changed and why; the agent re-reads it instead of holding it in context.
+- **Externalized knowledge registries.** Andrew Ng's [Context Hub](https://github.com/andrewyng/context-hub) (13.4K stars) ships a `chub` CLI agents use to fetch curated API docs on demand and leave annotations / upvotes for future sessions — directly addressing "agent hallucinates APIs because it doesn't have the right docs in context, then forgets what it learned." Lives between *write* (you contribute docs once) and *select* (agent pulls them when relevant).
 
 ### 2. Select — load only what's relevant, just-in-time
 
