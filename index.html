@@ -883,6 +883,16 @@ Publication dates of the primary sources that informed the polished pages. Compi
 
 ## Site additions
 
+## 2026-05-26
+
+### Context Hub + Moltbook added across Memory / Context Engineering / Infrastructure / Research Notes
+Two additions surfaced via The Batch newsletter:
+
+- **[Context Hub](https://github.com/andrewyng/context-hub)** (Andrew Ng, 13.4K stars, MIT) — agent-readable curated API docs with a `chub` CLI for search / fetch / annotate / upvote. Added to [Memory § Vendors](memory.md#the-vendors-and-what-they-actually-do) as a knowledge-layer entry and [Context Engineering § Write](context-engineering.md#1-write--externalize-state-so-the-window-doesnt-have-to-hold-it) as the "externalized knowledge registries" pattern.
+- **[Moltbook](https://www.moltbook.com)** — "the front page of the agent internet": agent social network + identity provider. Added to [Infrastructure § Identity/Auth](infrastructure.md#agent-identity-auth-secrets) as a speculative consumer-shaped agent-identity entry.
+
+Both added to [Research Notes](research-notes.md) under a new Section 7 (post-ingestion additions).
+
 ## 2026-05-25 (later)
 
 ### Who's Who: Sander Schulhoff profile added — [#26](https://github.com/opencolin/agentic-engineering/pull/26)
@@ -3440,6 +3450,7 @@ Move durable state out of the conversation and into a place the agent can re-rea
 - **Filesystem as memory.** Claude Code, [Deep Agents](https://github.com/langchain-ai/deepagents), and the [Anthropic memory tool (beta)](https://anthropic.com/engineering/effective-context-engineering-for-ai-agents) all use the filesystem as durable scratch space. Architectural decisions, in-progress plans, and discovered facts live in files; the conversation history doesn't have to.
 - **Progress files.** Anthropic's [Effective Harnesses for Long-Running Agents](https://anthropic.com/engineering/effective-harnesses-for-long-running-agents) recommends a `claude-progress.txt` updated each session so a fresh agent doesn't "guess at what happened."
 - **Git as state.** Commit history is a free, structured record of what changed and why; the agent re-reads it instead of holding it in context.
+- **Externalized knowledge registries.** Andrew Ng's [Context Hub](https://github.com/andrewyng/context-hub) (13.4K stars) ships a `chub` CLI agents use to fetch curated API docs on demand and leave annotations / upvotes for future sessions — directly addressing "agent hallucinates APIs because it doesn't have the right docs in context, then forgets what it learned." Lives between *write* (you contribute docs once) and *select* (agent pulls them when relevant).
 
 ### 2. Select — load only what's relevant, just-in-time
 
@@ -3891,6 +3902,12 @@ Long-term memory primitive built into LangGraph. Used as the persistence layer f
 First-party memory tool from Anthropic. File-based — the agent reads and writes durable state to a structured filesystem.
 
 **Slot:** when you're already on Claude and want memory without taking a vendor dependency.
+
+### [Context Hub](https://github.com/andrewyng/context-hub) — Andrew Ng's curated-knowledge layer
+
+Targets a memory failure mode the other vendors don't — *agents hallucinate APIs and forget what they learn across sessions*. Agents use a `chub` CLI to search, fetch, annotate, and upvote markdown-based API docs. Documentation improves over time via the agent's own usage feedback (vote up/down, leave gap annotations). 13.4K stars, MIT, JavaScript. From [Andrew Ng](who-is-who.md) and the AI Suite project.
+
+**Slot:** when the agent's failure mode is "doesn't know the right API to call" rather than "doesn't remember the user's name" — a *knowledge* layer adjacent to memory, not a conversation-state layer.
 
 ---
 
@@ -6685,6 +6702,7 @@ Once agents start hitting real APIs and SaaS systems, "what credentials does the
 | **Cloudflare Sandbox Auth** ([blog.cloudflare.com](https://blog.cloudflare.com/sandbox-auth/)) | Cloudflare cloud | Identity-aware sandbox | Per-sandbox identity, dynamic auth, scoped egress — paired with Cloudflare Sandboxes |
 | **Kagenti** ([kagenti.github.io](https://kagenti.github.io/.github/)) | OSS | Deploy / govern / secure | K8s-native agent governance — policies and identity for K8s-deployed agents |
 | **AgentField cryptographic identity** | Open Source (Apache 2.0) | Identity | W3C DIDs + verifiable credentials per agent — see [AgentField](approaches.md#agentfield) |
+| **Moltbook** ([moltbook.com](https://www.moltbook.com)) | Proprietary | Identity + social | "The front page of the agent internet" — agent social network with Moltbook identity used to authenticate to third-party apps; agent ownership verified through X. Early access for developers building agent-auth flows. Speculative / niche but the rare example of consumer-shaped agent identity |
 
 ### Reference architectures
 
@@ -8362,6 +8380,28 @@ A few patterns repeat across enough sources to be worth pinning at the top of th
 **Open weights crossed a usable threshold (Apr 2026).** GLM-5 and MiniMax M2.7 at 8-10× lower price than Opus 4.6 with 4-6pp correctness gap; MiniMax M2.7 at $0.30/$1.20 per MT vs Opus at $5/$25; ~$87k/yr savings on a Deep Agents production workload.
 
 **Industry baseline (LangChain State of Agent Engineering, late 2025):** 57% of orgs have agents in prod; 89% have observability; 62% have detailed tracing; ~3/4 use multiple model providers; quality is the #1 production blocker.
+
+---
+
+## Section 7: Post-ingestion additions
+
+Sources added after the original May 25, 2026 ingestion via user audit / The Batch newsletter / spot-check.
+
+### Context Hub (andrewyng/context-hub)
+**URL:** `https://github.com/andrewyng/context-hub`
+**Fetch:** OK
+**Stars / freshness:** 13.4K stars, 1.2K forks, JavaScript, MIT, active 2026
+**What it is (1 sentence):** A curated-knowledge layer for coding agents — markdown API docs registry with a `chub` CLI for search / fetch / annotate / upvote that compounds across sessions.
+**Key concepts / classes / functions named:** `chub` CLI (search, fetch, annotate, vote); agent-readable markdown docs; AI Suite project; per-language doc variants (Python, JavaScript).
+**Why it matters for agentic-engineering:** Addresses a memory failure mode the other vendors don't — "agent hallucinates APIs because it doesn't have the right docs in context, then forgets what it learned." From Andrew Ng. Slots between *write* (you contribute docs once) and *select* (agent pulls them just-in-time).
+
+### Moltbook
+**URL:** `https://www.moltbook.com`
+**Fetch:** OK
+**Stars / freshness:** Pre-launch beta; no public GitHub repo listed
+**What it is (1 sentence):** "The front page of the agent internet" — a social network for AI agents (post / discuss / upvote) that doubles as an identity provider agents can use to authenticate to third-party apps.
+**Key concepts / classes / functions named:** Submolts (communities), agent posts, agent comments, X-verified agent ownership, Moltbook identity as auth provider, developer early access.
+**Why it matters for agentic-engineering:** Speculative consumer-shaped layer for agent identity — the rare attempt at a Reddit / Hacker News analog where agents are the primary users. Sits adjacent to [Infrastructure § Identity/Auth](infrastructure.md#agent-identity-auth-secrets); worth tracking even if the agent-social-network thesis doesn't pan out.
 
 ---
 

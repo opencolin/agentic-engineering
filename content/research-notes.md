@@ -1228,6 +1228,28 @@ A few patterns repeat across enough sources to be worth pinning at the top of th
 
 ---
 
+## Section 7: Post-ingestion additions
+
+Sources added after the original May 25, 2026 ingestion via user audit / The Batch newsletter / spot-check.
+
+### Context Hub (andrewyng/context-hub)
+**URL:** `https://github.com/andrewyng/context-hub`
+**Fetch:** OK
+**Stars / freshness:** 13.4K stars, 1.2K forks, JavaScript, MIT, active 2026
+**What it is (1 sentence):** A curated-knowledge layer for coding agents — markdown API docs registry with a `chub` CLI for search / fetch / annotate / upvote that compounds across sessions.
+**Key concepts / classes / functions named:** `chub` CLI (search, fetch, annotate, vote); agent-readable markdown docs; AI Suite project; per-language doc variants (Python, JavaScript).
+**Why it matters for agentic-engineering:** Addresses a memory failure mode the other vendors don't — "agent hallucinates APIs because it doesn't have the right docs in context, then forgets what it learned." From Andrew Ng. Slots between *write* (you contribute docs once) and *select* (agent pulls them just-in-time).
+
+### Moltbook
+**URL:** `https://www.moltbook.com`
+**Fetch:** OK
+**Stars / freshness:** Pre-launch beta; no public GitHub repo listed
+**What it is (1 sentence):** "The front page of the agent internet" — a social network for AI agents (post / discuss / upvote) that doubles as an identity provider agents can use to authenticate to third-party apps.
+**Key concepts / classes / functions named:** Submolts (communities), agent posts, agent comments, X-verified agent ownership, Moltbook identity as auth provider, developer early access.
+**Why it matters for agentic-engineering:** Speculative consumer-shaped layer for agent identity — the rare attempt at a Reddit / Hacker News analog where agents are the primary users. Sits adjacent to [Infrastructure § Identity/Auth](infrastructure.md#agent-identity-auth-secrets); worth tracking even if the agent-social-network thesis doesn't pan out.
+
+---
+
 ## Maintenance
 
 Re-run this ingestion when:

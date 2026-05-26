@@ -76,6 +76,12 @@ First-party memory tool from Anthropic. File-based — the agent reads and write
 
 **Slot:** when you're already on Claude and want memory without taking a vendor dependency.
 
+### [Context Hub](https://github.com/andrewyng/context-hub) — Andrew Ng's curated-knowledge layer
+
+Targets a memory failure mode the other vendors don't — *agents hallucinate APIs and forget what they learn across sessions*. Agents use a `chub` CLI to search, fetch, annotate, and upvote markdown-based API docs. Documentation improves over time via the agent's own usage feedback (vote up/down, leave gap annotations). 13.4K stars, MIT, JavaScript. From [Andrew Ng](who-is-who.md) and the AI Suite project.
+
+**Slot:** when the agent's failure mode is "doesn't know the right API to call" rather than "doesn't remember the user's name" — a *knowledge* layer adjacent to memory, not a conversation-state layer.
+
 ---
 
 ## The filesystem-as-memory pattern
