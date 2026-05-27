@@ -1,4 +1,4 @@
-<!-- description: How to write tools that agents actually use well — MCP as the assumed wire format, consolidate vs CRUD plumbing, ResponseFormat compression (206→72 tokens), lazy loading via Tool Search Tool (-85% tokens), code-as-tool via sandboxes (150K→2K tokens), Tool Use Examples (+18pp accuracy), and what to measure per tool. -->
+<!-- description: How to write tools that agents actually use well — MCP as the assumed wire format, consolidate vs CRUD plumbing, ResponseFormat compression (206→72 tokens), lazy loading via Tool Search Tool (-85% tokens), code-as-tool via sandboxes (150K→2K tokens), SQL-over-APIs (Coral, Steampipe, MindsDB) as an alternative to tool-per-call, Tool Use Examples (+18pp accuracy), and what to measure per tool. -->
 
 # Tool Design
 
@@ -118,6 +118,62 @@ Where code-as-tool wins:
 - Anything that should be reproducible — code is the audit trail
 
 Sandboxes worth knowing: [E2B](https://e2b.dev), [Modal](https://modal.com/docs), [Daytona](https://www.daytona.io), Pyodide (browser-native), Anthropic's built-in code execution tool.
+
+---
+
+## When the right tool is a query language — the SQL-over-APIs pattern
+
+A close cousin of code-as-tool: instead of exposing N micro-tools per data source (`list_issues`, `get_issue`, `search_issues`, `list_pulls`…) or even a Python sandbox, expose **a single SQL endpoint** and let the agent write the query.
+
+Why this matters for agent quality: when an agent needs to answer *"Why is auth failing more often after Tuesday's deploy?"*, a tool-per-call MCP setup typically needs 8–12 sequential calls — burning tokens, latency, and decision-points where the model can go off the rails. A SQL JOIN across Sentry × GitHub × Linear answers it in one query.
+
+### The case study — Coral
+
+[**Coral**](https://withcoral.com) (Apache 2.0, Rust, [GitHub](https://github.com/withcoral/coral), launched April 27 2026) is the cleanest expression of the pattern: a **local-first SQL runtime for agents** that exposes GitHub / Sentry / Datadog / Slack / Linear / Stripe / OpenTelemetry / JSONL+Parquet files as queryable tables, addressable from any MCP-aware harness.
+
+The headline benchmark — reported across 82 real-world coding tasks with Opus 4.6:
+
+| Metric | vs direct provider MCPs |
+|---|---|
+| Accuracy | **+20% average, +31% inside Claude Code** |
+| Cost efficiency | **2× cheaper average, 3.4× inside Claude Code** |
+| Latency | **−42%** |
+
+Source: [Introducing Coral](https://withcoral.com/blog/introducing-coral). The numbers tell the same story you get from other tool-design literature (the [Anthropic Code Execution with MCP](https://anthropic.com/engineering/code-execution-with-mcp) post showed 150K → 2K tokens / 98.7% reduction on a Drive-to-Salesforce workflow): when the abstraction matches the agent's actual decision unit, everything gets faster, cheaper, and more accurate at once.
+
+### The cluster — what else does this
+
+Five families of product compete in the same architectural space. Pick by license, breadth, and whether you want a runtime or an outcome:
+
+| Product | License | Architecture | Where it wins |
+|---|---|---|---|
+| **[Coral](https://withcoral.com)** | Apache 2.0 | Rust, local-first, MCP-native, ~10 sources | Permissive license, agent-first design, the benchmark story |
+| **[Steampipe](https://steampipe.io)** (Turbot) | AGPL-3.0 | Postgres FDW, CLI, 150+ plugins / 2,000+ tables | Largest plugin ecosystem in the space; mature |
+| **[MindsDB](https://github.com/mindsdb/mindsdb)** | Public Source | Python, federated SQL + ML, ships its own MCP | OSS with the most stars (~39K) + built-in ML/forecasting |
+| **[CData Connect AI](https://www.cdata.com/ai/)** | Proprietary | Cloud-hosted MCP, 300+ drivers | Enterprise breadth, support, MFT/EDI features |
+| **[PromptQL](https://promptql.io)** (Hasura) | Proprietary | Closed agent layer with plan-execute-verify built in; chat UI + multiplayer | Sells the *outcome* (the answer); enterprise traction (Cisco, McDonald's, Instacart) |
+| **[Trino](https://trino.io) / [Starburst Galaxy](https://www.starburst.io)** | Apache 2.0 / commercial | Lakehouse federation engine | Heavy-data workloads; not agent-native but agents can use it |
+| **[Cube](https://cube.dev)** | Apache 2.0 / MIT | Semantic layer with SQL API | When the queries you want are pre-modeled (metrics, dimensions) |
+
+The tool-per-call baseline this whole pattern argues against is best represented by **[Composio](https://composio.dev)** (1,000+ toolkits, MIT, ~28.5K stars), **[Pipedream MCP](https://mcp.pipedream.com)**, **[Zapier MCP](https://zapier.com/mcp)** (9,000+ apps), and **[Anthropic's reference MCP servers](https://modelcontextprotocol.io/examples)**. These win on breadth and no-code accessibility; they lose on token-cost efficiency when the agent's question crosses multiple sources.
+
+### When SQL-over-APIs is the right answer
+
+- **The question crosses 2+ sources.** A single source's MCP is fine if the agent never needs joins. Once it does, SQL collapses N round-trips into 1.
+- **The data fits a relational model.** Tickets, logs, deploys, traces, customer records — yes. Generative image / video / freeform document tasks — no, those want different shapes.
+- **You can iterate on the schema.** SQL-over-APIs only beats tool-per-call if you can keep adding columns / sources without re-prompting; Coral's YAML custom-source spec, Steampipe's plugin SDK, MindsDB's engine model are all designed for this.
+
+### When tool-per-call is still right
+
+- **The action is a side-effect, not a query.** "Open this PR," "send this email," "create this ticket" — these are operations, not data access. A typed tool with a `description` and `input_examples` (see [Tool Use Examples](#tool-use-examples--the-input_examples-pattern)) is the right shape.
+- **The data source has only one or two tables anyway.** Coral's overhead doesn't pay off when there's no JOIN to do.
+- **No-code reach matters more than per-token cost.** Zapier MCP's 9K-app breadth genuinely beats Coral's ~10-source list for business-user workflows.
+
+### Related
+
+- [Code Execution with MCP](https://anthropic.com/engineering/code-execution-with-mcp) (Anthropic, Nov 2025) — the canonical "code-as-tool" paper this pattern extends
+- [MCP servers, registries & gateways](infrastructure.md#mcp-servers-registries-gateways) — where the tool-per-call landscape lives
+- [Memory § Context Hub](memory.md#context-hub--andrew-ngs-curated-knowledge-layer) — Andrew Ng's adjacent pattern (curated knowledge instead of live query)
 
 ---
 

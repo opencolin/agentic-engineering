@@ -113,6 +113,7 @@ How to write tools agents use well — starting with MCP as the assumed wire for
 - [Compress every response](tool-design.md#2-compress-every-response) — ResponseFormat enums (206 → 72 tokens)
 - [Lazy load — the "too many tools" problem](tool-design.md#3-lazy-load--the-too-many-tools-problem) — Tool Search Tool, -85% tokens
 - [Code-as-tool — give the agent a Python sandbox](tool-design.md#4-code-as-tool--give-the-agent-a-python-sandbox) — 150K → 2K tokens
+- [SQL-over-APIs — when the right tool is a query language](tool-design.md#when-the-right-tool-is-a-query-language--the-sql-over-apis-pattern) — Coral case study (+31% accuracy, 3.4× cost-efficient) and the cluster: Steampipe, MindsDB, CData Connect AI, PromptQL, Trino/Starburst, Cube
 - [Programmatic Tool Calling](tool-design.md#programmatic-tool-calling--the-third-optimization)
 - [Tool Use Examples](tool-design.md#tool-use-examples--the-input_examples-pattern) — 72% → 90%
 - [What to measure when iterating on tools](tool-design.md#what-to-measure-when-iterating-on-tools)
