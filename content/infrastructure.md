@@ -568,6 +568,7 @@ Run MCP servers without managing the process yourself.
 | Vendor | License | Runtime model | Notes |
 |--------|---------|--------------|-------|
 | **Composio MCP** ([composio.dev](https://composio.dev/)) | Hosted | Aggregator — single endpoint to a managed library of pre-built integrations | Strongest pre-built tool catalog (Slack, Gmail, Linear, GitHub, etc.); pairs with their agent-orchestrator OSS |
+| **Coral** ([withcoral.com](https://withcoral.com)) | OSS (Apache 2.0), Rust, local-first | SQL-over-APIs runtime exposing GitHub / Sentry / Datadog / Slack / Linear / Stripe / OTel as queryable tables | Different shape from the rest of this table: instead of one MCP call per action, the agent writes a SQL query that JOINs across sources. Published +31% accuracy / 3.4× cost-efficient vs direct provider MCPs inside Claude Code (Opus 4.6, n=82). See [Tool Design § SQL-over-APIs](tool-design.md#when-the-right-tool-is-a-query-language--the-sql-over-apis-pattern) for the architectural argument. ~10 bundled sources at launch — integration breadth is the load-bearing risk |
 | **Smithery** | Hosted runtime | Auto-managed remote MCP servers + OAuth | Same project as the registry — install + run in one click |
 | **MCP Host** ([mcp.host](https://mcp.host/)) | Hosted | Managed hosting platform for MCP servers | Build-and-deploy without operating infra |
 | **Heroku AI Apps** | Hosted | Heroku dynos for MCP servers | Enterprise-tier managed hosting for production MCP deployments |

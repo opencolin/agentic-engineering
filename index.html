@@ -886,6 +886,9 @@ Publication dates of the primary sources that informed the polished pages. Compi
 
 ## 2026-05-26
 
+### Coral: Infrastructure entry + Tool Design "Risks to watch" callout
+Follow-up to the SQL-over-APIs section from PR #29. Added Coral as a named product row in [Infrastructure § MCP Servers, Registries & Gateways](infrastructure.md#mcp-servers-registries-gateways) (where MCP-native data products belong); the row notes the architectural difference from the rest of the table (SQL query vs tool-per-action) and flags integration breadth as the load-bearing risk. Also added a "Risks to watch if you're betting on this pattern" callout to the existing Tool Design SQL-over-APIs section, distilling four load-bearing concerns from the broader SWOT material: integration deficit, token-efficiency time-window, MCP single-vendor protocol risk, and local-first vs centralized-governance trade-off. Intentionally NOT added: SPAs, Magic Quadrant positioning, pairwise SWOTs, or 90/180/365-day strategic recommendations — those don't fit the site's pattern-first reference character.
+
 ### Tool Design: new "SQL-over-APIs" section comparing Coral and the cluster
 Added a new H2 section in [Tool Design](tool-design.md#when-the-right-tool-is-a-query-language--the-sql-over-apis-pattern) for the architectural pattern that extends code-as-tool: expose a single SQL endpoint instead of N micro-tools per data source. **Coral** ([withcoral.com](https://withcoral.com)) is the case study — Apache 2.0, Rust, local-first, MCP-native, with a published benchmark (+31% accuracy, 3.4× more cost-efficient, −42% latency vs direct provider MCPs across 82 real Claude Code tasks). Comparison table covers the cluster: Steampipe (AGPL, 150+ plugins), MindsDB (Python, ML-baked), CData Connect AI (proprietary, 300+ drivers), PromptQL (Hasura, agent-outcome layer), Trino / Starburst (lakehouse federation), Cube (semantic layer). Includes "when SQL-over-APIs is right" and "when tool-per-call is still right" decision rules. Cross-links to Memory § Context Hub (the adjacent curated-knowledge pattern) and the existing Infrastructure MCP section.
 
@@ -3696,6 +3699,13 @@ The tool-per-call baseline this whole pattern argues against is best represented
 - **The action is a side-effect, not a query.** "Open this PR," "send this email," "create this ticket" — these are operations, not data access. A typed tool with a `description` and `input_examples` (see [Tool Use Examples](#tool-use-examples--the-input_examples-pattern)) is the right shape.
 - **The data source has only one or two tables anyway.** Coral's overhead doesn't pay off when there's no JOIN to do.
 - **No-code reach matters more than per-token cost.** Zapier MCP's 9K-app breadth genuinely beats Coral's ~10-source list for business-user workflows.
+
+### Risks to watch if you're betting on this pattern
+
+- **Integration breadth is the binding constraint** for every SQL-over-APIs vendor. Coral ships ~10 sources at launch vs Steampipe's 150+ and Composio's 1,000+. If the sources you need aren't there, the architectural advantage is moot.
+- **The token-efficiency wedge is time-limited.** Frontier model prices keep falling (~75%/year through 2025), and context windows keep growing. The +20–31% accuracy / 2–3.4× cost advantage that motivates this pattern shrinks as the underlying token economics improve.
+- **MCP is a single-vendor-controlled protocol** (Anthropic). Any improvement they ship to the protocol — batched queries, server-side filtering, native joins — partially erodes the third-party SQL-runtime value prop. Pick this pattern with the assumption that Anthropic will eventually solve some of it inline.
+- **Local-first vs centralized governance.** Coral and Steampipe run on the developer's machine — credentials never leave. That's a security win in some orgs and a compliance gap in others (no central audit trail, no shared workspace). Match the architecture to your governance model before committing.
 
 ### Related
 
@@ -6719,6 +6729,7 @@ Run MCP servers without managing the process yourself.
 | Vendor | License | Runtime model | Notes |
 |--------|---------|--------------|-------|
 | **Composio MCP** ([composio.dev](https://composio.dev/)) | Hosted | Aggregator — single endpoint to a managed library of pre-built integrations | Strongest pre-built tool catalog (Slack, Gmail, Linear, GitHub, etc.); pairs with their agent-orchestrator OSS |
+| **Coral** ([withcoral.com](https://withcoral.com)) | OSS (Apache 2.0), Rust, local-first | SQL-over-APIs runtime exposing GitHub / Sentry / Datadog / Slack / Linear / Stripe / OTel as queryable tables | Different shape from the rest of this table: instead of one MCP call per action, the agent writes a SQL query that JOINs across sources. Published +31% accuracy / 3.4× cost-efficient vs direct provider MCPs inside Claude Code (Opus 4.6, n=82). See [Tool Design § SQL-over-APIs](tool-design.md#when-the-right-tool-is-a-query-language--the-sql-over-apis-pattern) for the architectural argument. ~10 bundled sources at launch — integration breadth is the load-bearing risk |
 | **Smithery** | Hosted runtime | Auto-managed remote MCP servers + OAuth | Same project as the registry — install + run in one click |
 | **MCP Host** ([mcp.host](https://mcp.host/)) | Hosted | Managed hosting platform for MCP servers | Build-and-deploy without operating infra |
 | **Heroku AI Apps** | Hosted | Heroku dynos for MCP servers | Enterprise-tier managed hosting for production MCP deployments |
