@@ -169,6 +169,13 @@ The tool-per-call baseline this whole pattern argues against is best represented
 - **The data source has only one or two tables anyway.** Coral's overhead doesn't pay off when there's no JOIN to do.
 - **No-code reach matters more than per-token cost.** Zapier MCP's 9K-app breadth genuinely beats Coral's ~10-source list for business-user workflows.
 
+### Risks to watch if you're betting on this pattern
+
+- **Integration breadth is the binding constraint** for every SQL-over-APIs vendor. Coral ships ~10 sources at launch vs Steampipe's 150+ and Composio's 1,000+. If the sources you need aren't there, the architectural advantage is moot.
+- **The token-efficiency wedge is time-limited.** Frontier model prices keep falling (~75%/year through 2025), and context windows keep growing. The +20–31% accuracy / 2–3.4× cost advantage that motivates this pattern shrinks as the underlying token economics improve.
+- **MCP is a single-vendor-controlled protocol** (Anthropic). Any improvement they ship to the protocol — batched queries, server-side filtering, native joins — partially erodes the third-party SQL-runtime value prop. Pick this pattern with the assumption that Anthropic will eventually solve some of it inline.
+- **Local-first vs centralized governance.** Coral and Steampipe run on the developer's machine — credentials never leave. That's a security win in some orgs and a compliance gap in others (no central audit trail, no shared workspace). Match the architecture to your governance model before committing.
+
 ### Related
 
 - [Code Execution with MCP](https://anthropic.com/engineering/code-execution-with-mcp) (Anthropic, Nov 2025) — the canonical "code-as-tool" paper this pattern extends
