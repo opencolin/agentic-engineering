@@ -67,6 +67,7 @@ Middleware that sits between agents and inference providers, adding reliability,
 | **Kalibr** | Autonomous cost/performance optimization via Thompson Sampling; hooks into every LLM call and routes to most cost-effective model | Production agents seeking order-of-magnitude cost reduction |
 | **Vercel AI Gateway** | Unified endpoint for model routing, provider failover, secure embeddings/retrieval — part of the Vercel Agents platform | Vercel-deployed agents, Open Agents template stack |
 | **Bifrost** (Maxim AI) | Go-based OSS gateway (Apache 2.0) unifying 20+ providers behind an OpenAI-compatible API; ~11 µs overhead at 5K RPS, MCP client + server built in, hierarchical budgets, SSO, audit logs | Performance-sensitive multi-tenant deployments; teams who hit LiteLLM's overhead ceiling |
+| **Merge Gateway** ([merge.dev](https://www.merge.dev)) | Enterprise LLM gateway from the unified-API vendor; differentiates on production-safety posture (PII redaction, guardrails, audit) and bundles with their MCP Agent Handler + Unified API products | Buyers already standardizing on Merge for enterprise SaaS integration; teams who want gateway + tool-calling + integrations from one vendor |
 
 ---
 

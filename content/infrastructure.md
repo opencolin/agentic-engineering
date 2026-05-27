@@ -575,6 +575,20 @@ Run MCP servers without managing the process yourself.
 | **Cloudflare MCP** ([blog.cloudflare.com](https://blog.cloudflare.com/sandbox-auth/)) | Cloudflare cloud | Edge-deployed MCP with identity-aware auth | Works with Cloudflare Sandboxes for full agent + tools edge stack |
 | **Pipedream MCP** | Hosted | 2,500+ pre-integrated apps as MCP tools | Workflow-builder roots; broad SaaS coverage |
 
+### Enterprise SaaS-integration platforms (now agent-capable)
+
+A separate cluster from the developer-facing MCP servers above — these companies built unified APIs / embedded iPaaS for SaaS-to-SaaS integration first, then pivoted into MCP / agent tool-calling once the protocol won. Sell into the enterprise buyer (compliance, SLAs, per-customer config) rather than the developer buyer.
+
+| Vendor | License | Original product | Agent product |
+|--------|---------|---|---|
+| **Merge** ([merge.dev](https://www.merge.dev)) | Proprietary | Unified API across HRIS / ATS / CRM / accounting / ticketing | **Agent Handler** (MCP tool-calling) + **Gateway** (LLM router); positions on enterprise trust + bundled compliance |
+| **Nango** ([nango.dev](https://www.nango.dev)) | OSS (Elastic License 2.0) | Code-first, customizable integration infrastructure | MCP support; positions hard on "AI agents can build and maintain custom connectors" vs Merge's fixed schema |
+| **Paragon** ([useparagon.com](https://www.useparagon.com)) | Proprietary | Embedded iPaaS with native integration UI for end users | ActionKit (agent tool platform); often called the best overall Merge alternative for native integrations |
+| **Apideck** ([apideck.com](https://www.apideck.com)) | Proprietary | Unify API across accounting / HRIS / CRM / ATS | Real-time, cache-free unified API positioned for agents; usage-based pricing |
+| **Scalekit** ([scalekit.com](https://www.scalekit.com)) | Proprietary | Auth + multi-tenancy for B2B SaaS | Positions explicitly against Merge and Composio on per-user delegation + per-operation scope enforcement for production agents |
+
+The strategic convergence: Merge, Nango, Paragon, Apideck, and Scalekit are all racing toward the same destination (the integration + tool-calling layer for enterprise agents) from different starting points. The wedge each defends is different — Merge on enterprise trust + breadth, Nango on customization + OSS, Paragon on native end-user UX, Apideck on real-time architecture, Scalekit on agent-grade auth. The critique competitors make of Merge specifically: its auth model was built for developer-initiated API calls, while agents need per-user delegation, per-operation scope enforcement, and sub-second execution — an architectural critique worth weighing if you're picking between them.
+
 ### MCP Gateways
 
 Aggregate dozens of MCP servers behind one OpenAI-compatible (or MCP-compatible) endpoint.

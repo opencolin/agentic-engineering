@@ -886,6 +886,9 @@ Publication dates of the primary sources that informed the polished pages. Compi
 
 ## 2026-05-26
 
+### Merge.dev + enterprise SaaS-integration platforms added to Infrastructure / Inference
+New "Enterprise SaaS-integration platforms (now agent-capable)" subsection in [Infrastructure § MCP](infrastructure.md#mcp-servers-registries-gateways) covering Merge, Nango, Paragon, Apideck, and Scalekit — companies that started in unified-API / embedded-iPaaS and pivoted into agent tool-calling once MCP won. Closing paragraph names the strategic convergence (all racing toward "integration + tool-calling layer for enterprise agents" from different starting points) and the architectural critique competitors make of Merge specifically (auth model built for developer-initiated API calls; agents need per-user delegation + sub-second scoped execution). Merge's LLM Gateway product also added as a new row in [Inference § Routing & Gateway Solutions](inference.md#routing--gateway-solutions). Coverage gap surfaced via a Merge-DevRel competitive-analysis dump the user shared — picked the 5 named not-covered competitors; intentionally skipped Toolhouse / Finch / Kombo / StackOne / Workato (long tail) and the Unified API category itself (borderline for the site's scope).
+
 ### Coral: Infrastructure entry + Tool Design "Risks to watch" callout
 Follow-up to the SQL-over-APIs section from PR #29. Added Coral as a named product row in [Infrastructure § MCP Servers, Registries & Gateways](infrastructure.md#mcp-servers-registries-gateways) (where MCP-native data products belong); the row notes the architectural difference from the rest of the table (SQL query vs tool-per-action) and flags integration breadth as the load-bearing risk. Also added a "Risks to watch if you're betting on this pattern" callout to the existing Tool Design SQL-over-APIs section, distilling four load-bearing concerns from the broader SWOT material: integration deficit, token-efficiency time-window, MCP single-vendor protocol risk, and local-first vs centralized-governance trade-off. Intentionally NOT added: SPAs, Magic Quadrant positioning, pairwise SWOTs, or 90/180/365-day strategic recommendations — those don't fit the site's pattern-first reference character.
 
@@ -5558,6 +5561,7 @@ Middleware that sits between agents and inference providers, adding reliability,
 | **Kalibr** | Autonomous cost/performance optimization via Thompson Sampling; hooks into every LLM call and routes to most cost-effective model | Production agents seeking order-of-magnitude cost reduction |
 | **Vercel AI Gateway** | Unified endpoint for model routing, provider failover, secure embeddings/retrieval — part of the Vercel Agents platform | Vercel-deployed agents, Open Agents template stack |
 | **Bifrost** (Maxim AI) | Go-based OSS gateway (Apache 2.0) unifying 20+ providers behind an OpenAI-compatible API; ~11 µs overhead at 5K RPS, MCP client + server built in, hierarchical budgets, SSO, audit logs | Performance-sensitive multi-tenant deployments; teams who hit LiteLLM's overhead ceiling |
+| **Merge Gateway** ([merge.dev](https://www.merge.dev)) | Enterprise LLM gateway from the unified-API vendor; differentiates on production-safety posture (PII redaction, guardrails, audit) and bundles with their MCP Agent Handler + Unified API products | Buyers already standardizing on Merge for enterprise SaaS integration; teams who want gateway + tool-calling + integrations from one vendor |
 
 ---
 
@@ -6735,6 +6739,20 @@ Run MCP servers without managing the process yourself.
 | **Heroku AI Apps** | Hosted | Heroku dynos for MCP servers | Enterprise-tier managed hosting for production MCP deployments |
 | **Cloudflare MCP** ([blog.cloudflare.com](https://blog.cloudflare.com/sandbox-auth/)) | Cloudflare cloud | Edge-deployed MCP with identity-aware auth | Works with Cloudflare Sandboxes for full agent + tools edge stack |
 | **Pipedream MCP** | Hosted | 2,500+ pre-integrated apps as MCP tools | Workflow-builder roots; broad SaaS coverage |
+
+### Enterprise SaaS-integration platforms (now agent-capable)
+
+A separate cluster from the developer-facing MCP servers above — these companies built unified APIs / embedded iPaaS for SaaS-to-SaaS integration first, then pivoted into MCP / agent tool-calling once the protocol won. Sell into the enterprise buyer (compliance, SLAs, per-customer config) rather than the developer buyer.
+
+| Vendor | License | Original product | Agent product |
+|--------|---------|---|---|
+| **Merge** ([merge.dev](https://www.merge.dev)) | Proprietary | Unified API across HRIS / ATS / CRM / accounting / ticketing | **Agent Handler** (MCP tool-calling) + **Gateway** (LLM router); positions on enterprise trust + bundled compliance |
+| **Nango** ([nango.dev](https://www.nango.dev)) | OSS (Elastic License 2.0) | Code-first, customizable integration infrastructure | MCP support; positions hard on "AI agents can build and maintain custom connectors" vs Merge's fixed schema |
+| **Paragon** ([useparagon.com](https://www.useparagon.com)) | Proprietary | Embedded iPaaS with native integration UI for end users | ActionKit (agent tool platform); often called the best overall Merge alternative for native integrations |
+| **Apideck** ([apideck.com](https://www.apideck.com)) | Proprietary | Unify API across accounting / HRIS / CRM / ATS | Real-time, cache-free unified API positioned for agents; usage-based pricing |
+| **Scalekit** ([scalekit.com](https://www.scalekit.com)) | Proprietary | Auth + multi-tenancy for B2B SaaS | Positions explicitly against Merge and Composio on per-user delegation + per-operation scope enforcement for production agents |
+
+The strategic convergence: Merge, Nango, Paragon, Apideck, and Scalekit are all racing toward the same destination (the integration + tool-calling layer for enterprise agents) from different starting points. The wedge each defends is different — Merge on enterprise trust + breadth, Nango on customization + OSS, Paragon on native end-user UX, Apideck on real-time architecture, Scalekit on agent-grade auth. The critique competitors make of Merge specifically: its auth model was built for developer-initiated API calls, while agents need per-user delegation, per-operation scope enforcement, and sub-second execution — an architectural critique worth weighing if you're picking between them.
 
 ### MCP Gateways
 
