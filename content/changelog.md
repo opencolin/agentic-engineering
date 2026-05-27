@@ -126,6 +126,9 @@ Publication dates of the primary sources that informed the polished pages. Compi
 
 ## 2026-05-26
 
+### Tool Design: new "SQL-over-APIs" section comparing Coral and the cluster
+Added a new H2 section in [Tool Design](tool-design.md#when-the-right-tool-is-a-query-language--the-sql-over-apis-pattern) for the architectural pattern that extends code-as-tool: expose a single SQL endpoint instead of N micro-tools per data source. **Coral** ([withcoral.com](https://withcoral.com)) is the case study — Apache 2.0, Rust, local-first, MCP-native, with a published benchmark (+31% accuracy, 3.4× more cost-efficient, −42% latency vs direct provider MCPs across 82 real Claude Code tasks). Comparison table covers the cluster: Steampipe (AGPL, 150+ plugins), MindsDB (Python, ML-baked), CData Connect AI (proprietary, 300+ drivers), PromptQL (Hasura, agent-outcome layer), Trino / Starburst (lakehouse federation), Cube (semantic layer). Includes "when SQL-over-APIs is right" and "when tool-per-call is still right" decision rules. Cross-links to Memory § Context Hub (the adjacent curated-knowledge pattern) and the existing Infrastructure MCP section.
+
 ### `docs/` directory removed
 The parallel Starlight setup at `docs/` (which was never deployed — Vercel serves the root) is gone. 34 tracked files removed. All unique content was preserved into `content/` first via PR #26: the 3 comparison tables that commit `1bb1bcb` had accidentally deleted from `approaches.md` were restored, and the 24 SEO descriptions from `.mdx` frontmatter were ported as HTML comments at the top of each `content/*.md`. Build pipeline (`build.sh` + `index.html`) is unchanged and unaffected.
 
