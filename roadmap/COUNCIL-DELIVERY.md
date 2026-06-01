@@ -53,6 +53,7 @@ Each worktree's PLAN.md is the canonical acceptance criteria.
 | 2026-06-01T05:29Z | main | **blocked: 429 @ tool 10** | running | **blocked: 429 @ tool 6** | running | running |
 | 2026-06-01T05:36Z | main | (queued for re-launch) | **pushed: edbd361** | (queued for re-launch) | running | running |
 | 2026-06-01T05:39Z | main | re-launched (sub-agent) | done | (queued) | **pushed: 5413bdc** | running |
+| 2026-06-01T05:41Z | main | running | done | re-launched (sub-agent) | done | running |
 
 Each row records: actor (main agent / sub-agent name / fleet), and per-release status — `idle / running / pushed / merged / blocked: <reason>`.
 
