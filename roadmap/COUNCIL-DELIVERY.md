@@ -47,9 +47,17 @@ Each worktree's PLAN.md is the canonical acceptance criteria.
 
 | Tick UTC | Actor | v1.1 | v1.2 | v1.3 | v1.4 | v2.0 |
 |----------|-------|------|------|------|------|------|
-| (filled in by execution) | | | | | | |
+| 2026-06-01T05:26Z | main | idle | idle | idle | idle | idle |
+| 2026-06-01T05:27Z | main | (worktree ready) | (worktree ready) | (worktree ready) | (worktree ready) | (worktree ready) |
+| 2026-06-01T05:28Z | main | sub-agent launched | sub-agent launched | sub-agent launched | sub-agent launched | sub-agent launched |
+| 2026-06-01T05:29Z | main | **blocked: 429 rate-limit @ tool 10** | running | **blocked: 429 rate-limit @ tool 6** | running | running |
 
 Each row records: actor (main agent / sub-agent name / fleet), and per-release status — `idle / running / pushed / merged / blocked: <reason>`.
+
+### Failure notes
+
+- **v1.1** sub-agent `ad6027` exhausted at 10 tool uses with upstream 429 (Anthropic rate limit, not usage). No commits landed. Re-launch sequentially after v1.2/v1.4/v2.0 finish.
+- **v1.3** sub-agent `a777a3` exhausted at 6 tool uses with same 429. No commits landed. Re-launch sequentially after v1.1 re-runs.
 
 ## Fan-Out Brief Given to Each Sub-Agent
 
