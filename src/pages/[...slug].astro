@@ -1,0 +1,30 @@
+---
+// Catch-all router for the `docs` content collection.
+// Maps each entry to a clean URL: `/<slug>/` (or `/` for index).
+
+import { getCollection } from 'astro:content';
+import Doc from '../layouts/Doc.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('docs');
+  return entries
+    // index has its own /src/pages/index.astro
+    .filter((e) => e.slug !== 'index')
+    .map((entry) => ({
+      params: { slug: entry.slug },
+      props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await entry.render();
+---
+
+<Doc
+  title={entry.data.title}
+  description={entry.data.description}
+  slug={entry.slug}
+  headings={headings}
+>
+  <Content />
+</Doc>

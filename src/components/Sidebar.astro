@@ -1,0 +1,75 @@
+---
+// Sidebar: reads the `docs` content collection, groups by frontmatter `group`,
+// orders by `order`. Active link is highlighted based on the current URL.
+
+import { getCollection } from 'astro:content';
+
+interface Props {
+  currentSlug?: string;
+}
+const { currentSlug = '' } = Astro.props;
+
+const entries = await getCollection('docs');
+
+// Group order matches the legacy heredoc in build.sh.
+const GROUP_ORDER = [
+  'Get Started',
+  'Foundations',
+  'People & Orgs',
+  'Infrastructure',
+  'Interfaces',
+  'Reference',
+  'Community',
+] as const;
+
+type GroupName = (typeof GROUP_ORDER)[number];
+
+const grouped = new Map<GroupName, typeof entries>();
+for (const entry of entries) {
+  const g = entry.data.group as GroupName;
+  if (!grouped.has(g)) grouped.set(g, []);
+  grouped.get(g)!.push(entry);
+}
+for (const list of grouped.values()) {
+  list.sort((a, b) => a.data.order - b.data.order);
+}
+---
+
+<aside id="sidebar" class="sidebar" aria-label="Navigation">
+  <div class="sidebar-inner">
+    <nav class="sidebar-nav" aria-label="Primary">
+      {
+        GROUP_ORDER.filter((g) => grouped.has(g)).map((group) => (
+          <div class="sidebar-group">
+            <div class="sidebar-group-title">{group}</div>
+            {grouped.get(group)!.map((entry) => {
+              const href = entry.slug === 'index' ? '/' : `/${entry.slug}/`;
+              const isActive = currentSlug === entry.slug;
+              return (
+                <a
+                  href={href}
+                  class:list={['sidebar-link', { 'is-active': isActive }]}
+                  aria-current={isActive ? 'page' : undefined}
+                >
+                  {entry.data.title}
+                </a>
+              );
+            })}
+          </div>
+        ))
+      }
+      <div class="sidebar-group">
+        <div class="sidebar-group-title">Community</div>
+        <a href="/events/" class="sidebar-link">Events &#8599;</a>
+        <a
+          href="https://github.com/opencolin/agentic-engineering"
+          class="sidebar-link"
+          target="_blank"
+          rel="noopener"
+        >
+          GitHub &#8599;
+        </a>
+      </div>
+    </nav>
+  </div>
+</aside>
