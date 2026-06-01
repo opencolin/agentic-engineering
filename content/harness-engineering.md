@@ -352,7 +352,7 @@ Build this habit and "the model isn't good enough" stops showing up in your fail
 
 Primary sources:
 
-- [OpenAI: Harness Engineering — Leveraging Codex in an Agent-First World](https://openai.com/index/harness-engineering/) — the million-line experiment, layered domain architecture, "enforce invariants, don't micromanage."
+- [OpenAI: Harness Engineering — Leveraging Codex in an Agent-First World](https://openai.com/index/harness-engineering/) — the million-line experiment, layered domain architecture, "enforce invariants, don't micromanage." <!-- quote -->
 - [Anthropic: Effective Harnesses for Long-Running Agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) — handoff files, "small next step" strategy, session continuity.
 - [Anthropic: Harness Design for Long-Running Application Development](https://www.anthropic.com/engineering/harness-design-long-running-apps) — three-agent planner/generator/evaluator architecture, context anxiety, model-specific tuning.
 

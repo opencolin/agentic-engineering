@@ -56,7 +56,7 @@ Structured digest of 112 URLs from `AGENT.md` and `ROADMAP.md` ingested in May 2
 - Tool Use Examples (input_examples) lift complex-parameter accuracy 72% → 90%.
 - Five MCP servers (GitHub/Slack/Sentry/Grafana/Splunk) already cost ~55K tokens before any conversation; adding Jira pushes past 100K.
 
-**Quotable:** "The future of AI agents is one where models work seamlessly across hundreds or thousands of tools."
+**Quotable:** "The future of AI agents is one where models work seamlessly across hundreds or thousands of tools." <!-- quote -->
 **Frameworks named:** Tool Search Tool (BM25/regex), Programmatic Tool Calling, Tool Use Examples, MCP, prompt caching, Opus 4 / 4.5 / Sonnet.
 **Why it matters:** Concrete numbers for the "tools as context burden" pattern — supports the case for lazy tool loading.
 
