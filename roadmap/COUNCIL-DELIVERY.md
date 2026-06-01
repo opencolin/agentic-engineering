@@ -52,6 +52,7 @@ Each worktree's PLAN.md is the canonical acceptance criteria.
 | 2026-06-01T05:28Z | main | sub-agent launched | sub-agent launched | sub-agent launched | sub-agent launched | sub-agent launched |
 | 2026-06-01T05:29Z | main | **blocked: 429 @ tool 10** | running | **blocked: 429 @ tool 6** | running | running |
 | 2026-06-01T05:36Z | main | (queued for re-launch) | **pushed: edbd361** | (queued for re-launch) | running | running |
+| 2026-06-01T05:39Z | main | re-launched (sub-agent) | done | (queued) | **pushed: 5413bdc** | running |
 
 Each row records: actor (main agent / sub-agent name / fleet), and per-release status — `idle / running / pushed / merged / blocked: <reason>`.
 
@@ -68,6 +69,15 @@ Each row records: actor (main agent / sub-agent name / fleet), and per-release s
 - `api/og/[slug].ts` SCAFFOLD only (needs `@vercel/og` install + vercel.json wiring)
 - Gotcha: commits unsigned — `/tmp/code-sign` returned 400. If branch protection enforces signing, the 4 commits need re-sign at merge.
 - Hash routes preserved: shell still inlines all 22 markdown blobs.
+
+**v1.4 — Pushed (5413bdc, 5 commits).** Sub-agent `a46b5c` shipped walking skeleton:
+- `astro.config.mjs` (Shiki `vesper`, rehype-slug + autolink), `tsconfig.json` (strict), `package.json` (Astro 4.16.18). Legacy `bash build.sh` preserved as `npm run build:legacy` so Vercel still ships the SPA — flip held until merge.
+- `src/content/config.ts` Zod schema (`title`, `description`, `group`, `order`, optional `lastVerified`/`staleBy`).
+- CSS split: `tokens.css` (light + dark), `base.css`, `prose.css` (70ch), `components.css`.
+- `ThemeToggle.astro` w/ `localStorage` (`ae-theme`), `Doc.astro` layout, `Sidebar.astro`, `TocRail.astro`, `Callout.astro`, `CodeBlock.astro`.
+- 3 sample pages migrated to content collection: `index.md`, `patterns.md`, `approaches.md` (frontmatter + `.md`→clean-URL link rewrites).
+- Verified: `npm install` clean, `npm run astro:check` 0 errors/warnings/hints, `npm run astro:build` 3 pages in 2.25s, `bash build.sh` legacy still produces 666 KB `index.html`.
+- Gotchas: 19 content pages NOT yet migrated. Hash-redirect script not implemented (strategy in `MIGRATION.md`). Read-time badge not wired. `Card`/`Tabs`/`Disclosure`/mobile-TOC-sheet deferred. Sponsor-banner CSS needs porting from legacy `css/style.css`. Commit signing also broken (matches v1.2 finding).
 
 ### Failure / re-queue notes
 
