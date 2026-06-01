@@ -1,0 +1,98 @@
+name: Propose a new page or section
+description: A topic that doesn't fit on any existing page deserves one of its own.
+title: "[New page]: <topic>"
+labels: ["content", "new-page"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        New pages are the highest-cost contribution: every page must end in a decision, cite primary sources, and carry `lastVerified` / `staleBy` frontmatter. Before proposing one, please confirm the topic doesn't fit as a section on an existing page.
+
+        If you already have a draft, link it below. Otherwise we'll co-design the page in this issue.
+
+  - type: input
+    id: topic
+    attributes:
+      label: Proposed page title
+      placeholder: "Agent-to-UI Protocols"
+    validations:
+      required: true
+
+  - type: input
+    id: slug
+    attributes:
+      label: Proposed slug
+      description: Lowercase, hyphenated. We use this as the URL.
+      placeholder: "a2ui-protocols"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: group
+    attributes:
+      label: Which IA group does this belong to?
+      multiple: false
+      options:
+        - Get Started
+        - Coding Agents
+        - Patterns & Schools
+        - Operate
+        - Protocols
+        - Interfaces
+        - Infrastructure
+        - People
+        - Community
+    validations:
+      required: true
+
+  - type: textarea
+    id: why-page
+    attributes:
+      label: Why does this need a new page (vs. a section)?
+      description: We err on the side of fewer pages. Convince us.
+      placeholder: "Because A2UI affects every layer (model, harness, infra) so it can't live under any one of them; and because there are now 6+ competing protocols worth comparing side by side."
+    validations:
+      required: true
+
+  - type: textarea
+    id: decision
+    attributes:
+      label: What decision will this page help readers make?
+      description: Commandment #1. Every page ends in a decision framework.
+      placeholder: "Which A2UI protocol to pick given (a) frontend framework, (b) agent runtime, (c) compliance posture."
+    validations:
+      required: true
+
+  - type: textarea
+    id: sections
+    attributes:
+      label: Proposed section outline
+      description: Bullet list of `##` headings.
+      placeholder: |
+        - Why A2UI matters
+        - The current protocols (table)
+        - Decision framework
+        - Loser rationale
+        - When to ignore this layer entirely
+    validations:
+      required: true
+
+  - type: textarea
+    id: primary-sources
+    attributes:
+      label: Primary sources you'd cite
+      description: Minimum three.
+    validations:
+      required: true
+
+  - type: textarea
+    id: overlap
+    attributes:
+      label: What pages does this overlap with, and how do we avoid duplication?
+      description: Be specific — name the page and the section.
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else?
+      description: Optional. Disclose any conflict of interest.

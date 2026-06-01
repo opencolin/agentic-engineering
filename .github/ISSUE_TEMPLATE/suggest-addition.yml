@@ -1,0 +1,79 @@
+name: Suggest an addition to the reference
+description: Add a new vendor, agent, paper, framework, or section to an existing page.
+title: "[Add]: <short description>"
+labels: ["content", "addition"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting an addition. We are an opinionated reference, so two things matter:
+        1. A **primary source** we can cite (vendor doc, paper, GitHub repo, conference talk).
+        2. A clear answer to "**why does the reader care?**" — what decision does this addition inform?
+
+        If you have a draft PR ready, link it below; if not, we will draft it together in this issue.
+
+  - type: input
+    id: subject
+    attributes:
+      label: What are you proposing to add?
+      description: One sentence. Vendor name, paper title, framework name, etc.
+      placeholder: "Example: ZenSandbox — a new microVM sandbox vendor"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: page
+    attributes:
+      label: Which page does this belong on?
+      multiple: false
+      options:
+        - approaches.md (coding agents)
+        - harness-engineering.md
+        - patterns.md
+        - schools.md
+        - benchmarks.md
+        - inference.md
+        - infrastructure.md
+        - memory.md
+        - context-engineering.md
+        - evals.md
+        - skills.md
+        - tool-design.md
+        - generative-ui.md
+        - models.md
+        - reading-list.md
+        - who-is-who.md
+        - new page (specify in description)
+    validations:
+      required: true
+
+  - type: textarea
+    id: primary-source
+    attributes:
+      label: Primary-source link(s)
+      description: At least one. Vendor docs, GitHub repo, blog post, paper. We do not accept press releases as the only source.
+      placeholder: "https://..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: why-care
+    attributes:
+      label: Why does the reader care?
+      description: What decision does adding this help the reader make? What does it let them pick / reject?
+      placeholder: "Example: ZenSandbox is the only microVM vendor with bare-metal Apple silicon support, so iOS-focused coding agents now have a sandbox option."
+    validations:
+      required: true
+
+  - type: textarea
+    id: comparison
+    attributes:
+      label: Where does this sit relative to what's already on the page?
+      description: Name the closest existing entry and how this one differs. We require named alternatives (commandment #2).
+      placeholder: "Example: Closest to E2B but adds Apple silicon support; loses to E2B on ecosystem maturity."
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else?
+      description: Optional. Pricing, license, your relationship to the project (disclose if you work there), draft markdown, etc.

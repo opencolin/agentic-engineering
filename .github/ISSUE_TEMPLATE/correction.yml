@@ -1,0 +1,77 @@
+name: Report an incorrect or outdated claim
+description: A specific claim on a specific page is wrong, stale, or unsourced.
+title: "[Correction]: <page> — <one-line claim>"
+labels: ["content", "correction"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for keeping the site honest. Corrections are the highest-leverage contribution.
+
+        We accept three kinds of corrections:
+        - **Factual** — the claim is wrong (numbers, dates, ownership, license, capability).
+        - **Stale** — the claim was true but is no longer current (vendor pivoted, repo archived, model deprecated).
+        - **Unsourced** — the claim is load-bearing but no primary source is cited.
+
+  - type: input
+    id: page
+    attributes:
+      label: Page (path or URL)
+      description: e.g. `content/infrastructure.md` or `https://agentic-engineering.vercel.app/#infrastructure`
+      placeholder: "content/infrastructure.md"
+    validations:
+      required: true
+
+  - type: input
+    id: section
+    attributes:
+      label: Section heading
+      description: The nearest `##` or `###` heading. Helps us locate the claim.
+      placeholder: "Code Execution Sandboxes"
+    validations:
+      required: true
+
+  - type: textarea
+    id: claim
+    attributes:
+      label: What does the page currently say?
+      description: Quote the claim verbatim if you can.
+      placeholder: "The page says: ..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of correction?
+      multiple: false
+      options:
+        - Factual error
+        - Stale (true once, no longer)
+        - Unsourced load-bearing claim
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: correction
+    attributes:
+      label: What should it say instead?
+      description: The proposed corrected text, or a description of the change.
+    validations:
+      required: true
+
+  - type: textarea
+    id: source
+    attributes:
+      label: Primary source(s) for the correction
+      description: Required for factual and stale corrections. For unsourced claims, the source we should cite.
+      placeholder: "https://..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else?
+      description: Optional. Disclose any conflict of interest (you work for the vendor mentioned, etc.).
