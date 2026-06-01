@@ -1,0 +1,621 @@
+{
+  "$schema": "./stack-questions.schema.json",
+  "version": "1.0.0",
+  "generatedAt": "2026-06-01",
+  "notes": "Powers /pick-stack/. Each answer carries weights that bias the recommendation toward one of the named stacks below. The PickStack island sums weights across answers and recommends the highest-scoring stack, then shows 'why not the alternatives' from loser_rationale.",
+  "schema": {
+    "questions[].id": "stable slug — used in the share-URL hash",
+    "questions[].prompt": "user-facing question",
+    "questions[].options[].label": "user-facing option label",
+    "questions[].options[].value": "stable slug for URL encoding",
+    "questions[].options[].weights": "object — stack name -> integer weight (positive = favor, negative = disfavor)",
+    "stacks[].name": "display name",
+    "stacks[].components": "object — slot -> chosen vendor",
+    "stacks[].rationale": "1-2 sentence why-this-stack",
+    "stacks[].loser_rationale": "object — losing stack name -> short why-not"
+  },
+  "questions": [
+    {
+      "id": "latency",
+      "prompt": "Hard real-time latency need (does p50 < 500ms matter)?",
+      "options": [
+        {
+          "label": "Yes, sub-500ms p50 required",
+          "value": "low-latency",
+          "weights": {
+            "anthropic-prod": -1,
+            "openai-prod": -1,
+            "groq-fast": 3,
+            "cerebras-fast": 3,
+            "nebius-oss": 1,
+            "together-oss": 0,
+            "self-hosted-vllm": 1,
+            "vercel-edge": 1
+          }
+        },
+        {
+          "label": "No, agent loops are async / background",
+          "value": "async",
+          "weights": {
+            "anthropic-prod": 2,
+            "openai-prod": 2,
+            "groq-fast": -1,
+            "cerebras-fast": -1,
+            "nebius-oss": 1,
+            "together-oss": 1,
+            "self-hosted-vllm": 0,
+            "vercel-edge": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "isolation",
+      "prompt": "How strong does code-execution isolation need to be?",
+      "options": [
+        {
+          "label": "Untrusted code, multi-tenant — microVM minimum",
+          "value": "microvm",
+          "weights": {
+            "anthropic-prod": 1,
+            "openai-prod": 1,
+            "self-hosted-vllm": -1,
+            "vercel-edge": 2,
+            "nebius-oss": 2,
+            "groq-fast": 0,
+            "cerebras-fast": 0,
+            "together-oss": 1
+          }
+        },
+        {
+          "label": "Trusted internal — container is fine",
+          "value": "container",
+          "weights": {
+            "anthropic-prod": 1,
+            "openai-prod": 1,
+            "self-hosted-vllm": 1,
+            "vercel-edge": 0,
+            "nebius-oss": 1,
+            "groq-fast": 1,
+            "cerebras-fast": 1,
+            "together-oss": 1
+          }
+        },
+        {
+          "label": "Dev loop on engineer's machine — host is fine",
+          "value": "host",
+          "weights": {
+            "anthropic-prod": 2,
+            "openai-prod": 1,
+            "self-hosted-vllm": 1,
+            "vercel-edge": -1,
+            "nebius-oss": 0,
+            "groq-fast": 0,
+            "cerebras-fast": 0,
+            "together-oss": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "language",
+      "prompt": "Primary language for the agent runtime?",
+      "options": [
+        {
+          "label": "Python",
+          "value": "python",
+          "weights": {
+            "anthropic-prod": 1,
+            "openai-prod": 1,
+            "self-hosted-vllm": 2,
+            "nebius-oss": 1,
+            "vercel-edge": -1,
+            "together-oss": 1,
+            "groq-fast": 1,
+            "cerebras-fast": 1
+          }
+        },
+        {
+          "label": "TypeScript / Node",
+          "value": "typescript",
+          "weights": {
+            "anthropic-prod": 1,
+            "openai-prod": 1,
+            "vercel-edge": 3,
+            "self-hosted-vllm": -1,
+            "nebius-oss": 0,
+            "together-oss": 1,
+            "groq-fast": 1,
+            "cerebras-fast": 0
+          }
+        },
+        {
+          "label": "Go / Rust / Java",
+          "value": "polyglot",
+          "weights": {
+            "anthropic-prod": 1,
+            "openai-prod": 1,
+            "self-hosted-vllm": 1,
+            "vercel-edge": -1,
+            "nebius-oss": 1,
+            "together-oss": 1,
+            "groq-fast": 1,
+            "cerebras-fast": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "budget",
+      "prompt": "Budget posture for inference?",
+      "options": [
+        {
+          "label": "Pay for best — under $5 / PR is fine",
+          "value": "premium",
+          "weights": {
+            "anthropic-prod": 3,
+            "openai-prod": 2,
+            "groq-fast": 0,
+            "cerebras-fast": 0,
+            "nebius-oss": 0,
+            "together-oss": -1,
+            "self-hosted-vllm": -1,
+            "vercel-edge": 1
+          }
+        },
+        {
+          "label": "Cost-optimized — under $0.15 / PR target",
+          "value": "low-cost",
+          "weights": {
+            "anthropic-prod": -2,
+            "openai-prod": -1,
+            "groq-fast": 2,
+            "cerebras-fast": 2,
+            "nebius-oss": 3,
+            "together-oss": 3,
+            "self-hosted-vllm": 2,
+            "vercel-edge": 1
+          }
+        },
+        {
+          "label": "Mid — under $1 / PR, mostly Sonnet-class",
+          "value": "mid",
+          "weights": {
+            "anthropic-prod": 2,
+            "openai-prod": 2,
+            "groq-fast": 1,
+            "cerebras-fast": 1,
+            "nebius-oss": 1,
+            "together-oss": 1,
+            "self-hosted-vllm": 0,
+            "vercel-edge": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "mcp",
+      "prompt": "How important is first-class MCP tool support?",
+      "options": [
+        {
+          "label": "Must-have — agents will call many MCP servers",
+          "value": "required",
+          "weights": {
+            "anthropic-prod": 3,
+            "openai-prod": 2,
+            "groq-fast": -1,
+            "cerebras-fast": -1,
+            "nebius-oss": 0,
+            "together-oss": 0,
+            "self-hosted-vllm": 0,
+            "vercel-edge": 1
+          }
+        },
+        {
+          "label": "Nice-to-have — function calling is enough",
+          "value": "optional",
+          "weights": {
+            "anthropic-prod": 1,
+            "openai-prod": 2,
+            "groq-fast": 1,
+            "cerebras-fast": 1,
+            "nebius-oss": 1,
+            "together-oss": 1,
+            "self-hosted-vllm": 1,
+            "vercel-edge": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "mode",
+      "prompt": "Sync (chat / IDE) or async (background PR fleet)?",
+      "options": [
+        {
+          "label": "Sync — interactive, in an IDE or chat",
+          "value": "sync",
+          "weights": {
+            "anthropic-prod": 3,
+            "openai-prod": 2,
+            "groq-fast": 1,
+            "cerebras-fast": 1,
+            "nebius-oss": 0,
+            "together-oss": 0,
+            "self-hosted-vllm": 0,
+            "vercel-edge": 2
+          }
+        },
+        {
+          "label": "Async — durable background fleet opening PRs",
+          "value": "async",
+          "weights": {
+            "anthropic-prod": 1,
+            "openai-prod": 1,
+            "groq-fast": 0,
+            "cerebras-fast": 0,
+            "nebius-oss": 2,
+            "together-oss": 2,
+            "self-hosted-vllm": 2,
+            "vercel-edge": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "scale",
+      "prompt": "Expected concurrency at steady state?",
+      "options": [
+        {
+          "label": "Single-digit concurrent agents",
+          "value": "small",
+          "weights": {
+            "anthropic-prod": 2,
+            "openai-prod": 2,
+            "groq-fast": 1,
+            "cerebras-fast": 1,
+            "nebius-oss": 0,
+            "together-oss": 0,
+            "self-hosted-vllm": -1,
+            "vercel-edge": 1
+          }
+        },
+        {
+          "label": "Tens to hundreds concurrent",
+          "value": "medium",
+          "weights": {
+            "anthropic-prod": 1,
+            "openai-prod": 1,
+            "groq-fast": 2,
+            "cerebras-fast": 2,
+            "nebius-oss": 2,
+            "together-oss": 2,
+            "self-hosted-vllm": 1,
+            "vercel-edge": 2
+          }
+        },
+        {
+          "label": "Thousands+ concurrent (eval / SWE-bench / fleet)",
+          "value": "large",
+          "weights": {
+            "anthropic-prod": -1,
+            "openai-prod": -1,
+            "groq-fast": 1,
+            "cerebras-fast": 1,
+            "nebius-oss": 3,
+            "together-oss": 2,
+            "self-hosted-vllm": 3,
+            "vercel-edge": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "compliance",
+      "prompt": "Compliance posture required?",
+      "options": [
+        {
+          "label": "SOC 2 + HIPAA + VPC deploy",
+          "value": "regulated",
+          "weights": {
+            "anthropic-prod": 2,
+            "openai-prod": 2,
+            "groq-fast": 0,
+            "cerebras-fast": 0,
+            "nebius-oss": 1,
+            "together-oss": 1,
+            "self-hosted-vllm": 2,
+            "vercel-edge": 1
+          }
+        },
+        {
+          "label": "EU data residency required",
+          "value": "eu",
+          "weights": {
+            "anthropic-prod": 1,
+            "openai-prod": 1,
+            "groq-fast": 0,
+            "cerebras-fast": 0,
+            "nebius-oss": 3,
+            "together-oss": 1,
+            "self-hosted-vllm": 2,
+            "vercel-edge": 1
+          }
+        },
+        {
+          "label": "Standard SaaS DPAs are fine",
+          "value": "standard",
+          "weights": {
+            "anthropic-prod": 2,
+            "openai-prod": 2,
+            "groq-fast": 1,
+            "cerebras-fast": 1,
+            "nebius-oss": 1,
+            "together-oss": 1,
+            "self-hosted-vllm": 0,
+            "vercel-edge": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "license",
+      "prompt": "License preference for the stack itself?",
+      "options": [
+        {
+          "label": "OSS only — must self-host the pieces I care about",
+          "value": "oss",
+          "weights": {
+            "anthropic-prod": -2,
+            "openai-prod": -2,
+            "groq-fast": -1,
+            "cerebras-fast": -1,
+            "nebius-oss": 2,
+            "together-oss": 3,
+            "self-hosted-vllm": 3,
+            "vercel-edge": -1
+          }
+        },
+        {
+          "label": "Mixed — OSS where it helps, proprietary where it ships faster",
+          "value": "mixed",
+          "weights": {
+            "anthropic-prod": 2,
+            "openai-prod": 2,
+            "groq-fast": 1,
+            "cerebras-fast": 1,
+            "nebius-oss": 2,
+            "together-oss": 2,
+            "self-hosted-vllm": 1,
+            "vercel-edge": 2
+          }
+        },
+        {
+          "label": "Proprietary fine — I want vendor support",
+          "value": "proprietary",
+          "weights": {
+            "anthropic-prod": 3,
+            "openai-prod": 3,
+            "groq-fast": 1,
+            "cerebras-fast": 1,
+            "nebius-oss": 1,
+            "together-oss": 0,
+            "self-hosted-vllm": -2,
+            "vercel-edge": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "observability",
+      "prompt": "How serious is the observability story?",
+      "options": [
+        {
+          "label": "Critical — production traces, evals, SLO alerts",
+          "value": "production",
+          "weights": {
+            "anthropic-prod": 2,
+            "openai-prod": 2,
+            "groq-fast": 0,
+            "cerebras-fast": 0,
+            "nebius-oss": 2,
+            "together-oss": 1,
+            "self-hosted-vllm": 2,
+            "vercel-edge": 2
+          }
+        },
+        {
+          "label": "Just enough — logs + a tracing UI",
+          "value": "basic",
+          "weights": {
+            "anthropic-prod": 1,
+            "openai-prod": 1,
+            "groq-fast": 1,
+            "cerebras-fast": 1,
+            "nebius-oss": 1,
+            "together-oss": 1,
+            "self-hosted-vllm": 0,
+            "vercel-edge": 1
+          }
+        }
+      ]
+    }
+  ],
+  "stacks": [
+    {
+      "name": "anthropic-prod",
+      "displayName": "Sonnet-First Production Stack",
+      "components": {
+        "inference": "Anthropic API (Claude Sonnet for impl, Haiku for routing)",
+        "sandbox": "E2B",
+        "orchestrator": "Inngest AgentKit",
+        "observability": "Langfuse",
+        "memory": "pgvector",
+        "harness": "Claude Code or Claude Agent SDK"
+      },
+      "rationale": "If the agent ships PRs and you want the best coding model in the loop, this stack pays the premium where it matters (inference) and stays OSS everywhere else.",
+      "loser_rationale": {
+        "openai-prod": "GPT-class models lag Sonnet on agentic coding eval suites by ~10 points on SWE-bench Verified at time of writing — pick this stack instead if Sonnet is available.",
+        "groq-fast": "Groq is excellent for low-latency but does not host Claude. Use it for routing, not the implementation step.",
+        "cerebras-fast": "Same caveat as Groq — open-weight throughput leader, but not where you want your final code-writing call.",
+        "nebius-oss": "If cost dominates and SWE-bench-grade results matter less than throughput, Nebius wins on dollars per million tokens.",
+        "together-oss": "Together is the cheaper Llama path; pick it when you have post-trained your own coding model.",
+        "self-hosted-vllm": "Self-hosting Sonnet is impossible (proprietary weights). vLLM only competes once you commit to open weights.",
+        "vercel-edge": "Vercel's edge stack is best when the agent UI runs in a browser session, not when it runs as a long background PR fleet."
+      }
+    },
+    {
+      "name": "openai-prod",
+      "displayName": "GPT-Class Production Stack",
+      "components": {
+        "inference": "OpenAI API (GPT-5 for impl, 4.1-mini for routing)",
+        "sandbox": "E2B or Modal",
+        "orchestrator": "OpenAI Agents SDK",
+        "observability": "Braintrust",
+        "memory": "pgvector",
+        "harness": "Codex CLI or custom"
+      },
+      "rationale": "First-party OpenAI loop with Agents SDK + Codex — strongest single-vendor story when your team already standardizes on OpenAI and wants tracing + evals in one place.",
+      "loser_rationale": {
+        "anthropic-prod": "If your benchmark numbers favor Claude on the workload you actually care about, the Anthropic stack wins on raw code quality.",
+        "groq-fast": "Use Groq alongside, not instead — route classification tasks to Groq, keep implementation on GPT.",
+        "cerebras-fast": "Same as Groq — throughput leader, but you still want a top-tier model for the implementation step.",
+        "nebius-oss": "Cheaper per token, weaker on first-party tooling — pick when cost matters more than vendor support.",
+        "together-oss": "Pick when you've fine-tuned your own model — otherwise OpenAI's tooling is more polished.",
+        "self-hosted-vllm": "Operational burden is large; only worth it at thousands of QPS or with a regulatory mandate.",
+        "vercel-edge": "Vercel is great for the UI tier; pair them rather than choose between them."
+      }
+    },
+    {
+      "name": "groq-fast",
+      "displayName": "Latency-First Open-Weight Stack",
+      "components": {
+        "inference": "Groq (Llama 3.1 70B for impl, 8B for routing)",
+        "sandbox": "Daytona",
+        "orchestrator": "LangGraph",
+        "observability": "Langfuse",
+        "memory": "pgvector",
+        "harness": "Custom — Goose works well"
+      },
+      "rationale": "Sub-500ms p50 across the entire loop — Groq's LPUs hold the latency floor in the field, and Llama is good enough for most non-frontier work.",
+      "loser_rationale": {
+        "anthropic-prod": "Sonnet beats Llama on code quality but adds ~3-5x latency under load — pick Anthropic when quality dominates.",
+        "openai-prod": "Same trade — GPT is higher quality, higher latency.",
+        "cerebras-fast": "Cerebras and Groq compete on the same axis; pick by which models they host (Cerebras leads on Qwen Coder, Groq on Llama).",
+        "nebius-oss": "Nebius wins on cost per million tokens; Groq wins on tokens per second.",
+        "together-oss": "Together hosts more models with more SKUs; Groq hosts fewer but faster.",
+        "self-hosted-vllm": "Self-hosted vLLM can match Groq's quality but not its latency without custom hardware.",
+        "vercel-edge": "Vercel is the UI layer, not the inference layer — pair them."
+      }
+    },
+    {
+      "name": "cerebras-fast",
+      "displayName": "Wafer-Scale Throughput Stack",
+      "components": {
+        "inference": "Cerebras (Qwen Coder for impl, Llama for routing)",
+        "sandbox": "Modal",
+        "orchestrator": "Temporal",
+        "observability": "Helicone",
+        "memory": "Mem0",
+        "harness": "OpenHands"
+      },
+      "rationale": "Massive throughput per dollar with state-of-the-art open coding models — pick this when you're running thousands of evals in parallel.",
+      "loser_rationale": {
+        "anthropic-prod": "Claude has the quality edge but you'll wait minutes for parallel runs that finish in seconds on Cerebras.",
+        "openai-prod": "Same as above — better single-call quality, worse parallel economics.",
+        "groq-fast": "Groq leads on single-call latency; Cerebras leads on aggregate throughput.",
+        "nebius-oss": "Nebius is more general-purpose (you can also run training jobs); Cerebras is inference-only.",
+        "together-oss": "Together is the cheaper backstop; Cerebras the faster primary.",
+        "self-hosted-vllm": "vLLM on commodity GPUs caps out at a fraction of Cerebras throughput per dollar.",
+        "vercel-edge": "Different layer — Cerebras for the model, Vercel for the UI."
+      }
+    },
+    {
+      "name": "nebius-oss",
+      "displayName": "Cost-Optimized OSS Coding Loop",
+      "components": {
+        "inference": "Nebius Token Factory (Llama, DeepSeek, Qwen)",
+        "sandbox": "Contree",
+        "orchestrator": "LangGraph",
+        "observability": "Langfuse",
+        "memory": "pgvector",
+        "harness": "Open SWE or OpenHands"
+      },
+      "rationale": "Pennies per million tokens, EU data residency, and Contree's branching sandbox for tree-of-thought workflows — the best stack when cost and reproducibility both matter.",
+      "loser_rationale": {
+        "anthropic-prod": "Anthropic wins on raw quality and MCP polish; lose if your budget is constrained or you need EU residency.",
+        "openai-prod": "Same as above; OpenAI also has stronger first-party tracing.",
+        "groq-fast": "Groq wins on single-call latency; Nebius wins on cost per million tokens.",
+        "cerebras-fast": "Cerebras wins on raw throughput; Nebius wins on stack breadth (storage, K8s, GPUs).",
+        "together-oss": "Together is the closer competitor — pick Nebius when you also want managed Kubernetes and GPU rental in the same account.",
+        "self-hosted-vllm": "Self-hosting beats Nebius on cost at very high scale; Nebius wins on operational simplicity.",
+        "vercel-edge": "Different layer."
+      }
+    },
+    {
+      "name": "together-oss",
+      "displayName": "Llama Fine-Tune Production Stack",
+      "components": {
+        "inference": "Together AI (your fine-tuned Llama / DeepSeek)",
+        "sandbox": "Daytona or E2B",
+        "orchestrator": "Temporal",
+        "observability": "Langfuse",
+        "memory": "Zep",
+        "harness": "Custom — SWE-agent works well"
+      },
+      "rationale": "If you've post-trained your own coding model and want serverless + dedicated endpoint options in one vendor, Together is the cleanest landing spot.",
+      "loser_rationale": {
+        "anthropic-prod": "Anthropic wins on out-of-the-box quality without training; Together wins on customization.",
+        "openai-prod": "OpenAI offers fine-tuning too, but Together is cheaper and supports more open models.",
+        "groq-fast": "Groq is faster per call; Together hosts more model SKUs.",
+        "cerebras-fast": "Cerebras hosts fewer models; pick Together for catalog breadth.",
+        "nebius-oss": "Very close call — Nebius edges on cost and GPU rental, Together on fine-tune ergonomics.",
+        "self-hosted-vllm": "Self-host when scale demands it; otherwise Together's managed endpoints save weeks.",
+        "vercel-edge": "Different layer."
+      }
+    },
+    {
+      "name": "self-hosted-vllm",
+      "displayName": "Self-Hosted Sovereign Stack",
+      "components": {
+        "inference": "vLLM on your own GPUs (Llama / DeepSeek / Qwen Coder)",
+        "sandbox": "Microsandbox or Kubernetes agent-sandbox",
+        "orchestrator": "Temporal",
+        "observability": "Langfuse (self-hosted)",
+        "memory": "pgvector on your Postgres",
+        "harness": "OpenHands or SWE-agent"
+      },
+      "rationale": "Everything OSS, everything on your hardware — pick this when regulation, data residency, or air-gapped deployment is the binding constraint.",
+      "loser_rationale": {
+        "anthropic-prod": "Anthropic is impossible to self-host (proprietary weights); only viable if you can route to an API.",
+        "openai-prod": "Same as Anthropic.",
+        "groq-fast": "Groq's latency advantage comes from custom silicon you cannot replicate on commodity GPUs.",
+        "cerebras-fast": "Same as Groq — proprietary wafer-scale hardware.",
+        "nebius-oss": "Nebius lets you start with managed inference and graduate to your own GPU clusters in the same account — softer landing than full self-host.",
+        "together-oss": "Together's managed endpoints save weeks of operational pain; self-host only if regulation forces it.",
+        "vercel-edge": "Different layer."
+      }
+    },
+    {
+      "name": "vercel-edge",
+      "displayName": "Edge-Native TypeScript Stack",
+      "components": {
+        "inference": "Vercel AI Gateway (routing across Anthropic / OpenAI / Groq)",
+        "sandbox": "Vercel Sandbox",
+        "orchestrator": "Vercel Workflow SDK",
+        "observability": "Vercel + Langfuse",
+        "memory": "Upstash Redis + pgvector",
+        "harness": "Vercel Open Agents template"
+      },
+      "rationale": "If your front end already runs on Vercel and your agents need to talk to it, this stack ships in days — every primitive is TypeScript-first and edge-native.",
+      "loser_rationale": {
+        "anthropic-prod": "Pure Anthropic stack wins for Python shops; Vercel wins for Next.js shops.",
+        "openai-prod": "Same trade — language preference dominates.",
+        "groq-fast": "Vercel's gateway can route to Groq — you can have both.",
+        "cerebras-fast": "Same — Vercel routes; Cerebras serves.",
+        "nebius-oss": "Nebius is a sovereign-cloud play; Vercel is a developer-velocity play.",
+        "together-oss": "Vercel's gateway can hit Together; the choice is at the UI/runtime layer.",
+        "self-hosted-vllm": "Different posture entirely — Vercel is fully managed."
+      }
+    }
+  ]
+}
