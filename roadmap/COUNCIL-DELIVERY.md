@@ -50,14 +50,29 @@ Each worktree's PLAN.md is the canonical acceptance criteria.
 | 2026-06-01T05:26Z | main | idle | idle | idle | idle | idle |
 | 2026-06-01T05:27Z | main | (worktree ready) | (worktree ready) | (worktree ready) | (worktree ready) | (worktree ready) |
 | 2026-06-01T05:28Z | main | sub-agent launched | sub-agent launched | sub-agent launched | sub-agent launched | sub-agent launched |
-| 2026-06-01T05:29Z | main | **blocked: 429 rate-limit @ tool 10** | running | **blocked: 429 rate-limit @ tool 6** | running | running |
+| 2026-06-01T05:29Z | main | **blocked: 429 @ tool 10** | running | **blocked: 429 @ tool 6** | running | running |
+| 2026-06-01T05:36Z | main | (queued for re-launch) | **pushed: edbd361** | (queued for re-launch) | running | running |
 
 Each row records: actor (main agent / sub-agent name / fleet), and per-release status — `idle / running / pushed / merged / blocked: <reason>`.
 
-### Failure notes
+### Release-by-release status
 
-- **v1.1** sub-agent `ad6027` exhausted at 10 tool uses with upstream 429 (Anthropic rate limit, not usage). No commits landed. Re-launch sequentially after v1.2/v1.4/v2.0 finish.
-- **v1.3** sub-agent `a777a3` exhausted at 6 tool uses with same 429. No commits landed. Re-launch sequentially after v1.1 re-runs.
+**v1.2 — Pushed (edbd361, 4 commits ahead of plan).** Sub-agent `ab29fc` shipped:
+- `content/manifest.json` (6 groups · 22 pages · external links group)
+- `build.sh` reads manifest for slug loop + sidebar HTML (heredoc gone)
+- `scripts/check-links.sh` (676 internal links resolve cleanly today)
+- `bash build.sh --check` drift mode
+- `.github/workflows/ci.yml` (link check + build drift)
+- 22 per-slug `<slug>/index.html` with `<title>`/description/canonical/og/twitter/JSON-LD
+- `sitemap.xml`, `robots.txt`, `/404.html`
+- `api/og/[slug].ts` SCAFFOLD only (needs `@vercel/og` install + vercel.json wiring)
+- Gotcha: commits unsigned — `/tmp/code-sign` returned 400. If branch protection enforces signing, the 4 commits need re-sign at merge.
+- Hash routes preserved: shell still inlines all 22 markdown blobs.
+
+### Failure / re-queue notes
+
+- **v1.1** sub-agent `ad6027` exhausted at 10 tool uses (upstream 429). No commits. Re-launch sequentially.
+- **v1.3** sub-agent `a777a3` exhausted at 6 tool uses (upstream 429). No commits. Re-launch sequentially.
 
 ## Fan-Out Brief Given to Each Sub-Agent
 
