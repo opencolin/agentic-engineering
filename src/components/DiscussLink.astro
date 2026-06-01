@@ -1,0 +1,43 @@
+---
+// STUB — picks up once v1.4 (Astro substrate) merges.
+//
+// DiscussLink — per-page "Discuss this page" link to GitHub Discussions.
+//
+// Strategy:
+// - We label one canonical Discussion per content slug (e.g. `infrastructure`).
+// - The link goes to a search URL that finds the existing Discussion if it
+//   exists, or surfaces a "create new" path if it doesn't.
+// - URL pattern:
+//     https://github.com/opencolin/agentic-engineering/discussions?discussions_q=page%3A<slug>
+//
+// Implementation TODO (post v1.4 merge):
+// 1. Enable GitHub Discussions on the repo (settings task — not in this PR).
+// 2. Create one Discussion per page on launch day, tagged with the slug.
+//    Optionally automate via a one-shot script after Discussions is on.
+// 3. When the API supports it, swap the search URL for a deep link to the
+//    specific Discussion.
+
+interface Props {
+  slug: string;
+  repo?: string;  // override for forks; defaults below
+}
+
+const { slug, repo = 'opencolin/agentic-engineering' } = Astro.props;
+const search = `https://github.com/${repo}/discussions?discussions_q=${encodeURIComponent(`page:${slug}`)}`;
+---
+
+<a class="discuss-link" href={search} target="_blank" rel="noopener noreferrer">
+  Discuss this page
+  <span aria-hidden="true">↗</span>
+</a>
+
+<style>
+  .discuss-link {
+    display: inline-flex;
+    gap: 0.25rem;
+    align-items: center;
+    text-decoration: none;
+    font-size: 0.875rem;
+  }
+  .discuss-link:hover { text-decoration: underline; }
+</style>

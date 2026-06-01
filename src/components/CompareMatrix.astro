@@ -1,0 +1,58 @@
+---
+// STUB — picks up once v1.4 (Astro substrate) merges.
+//
+// CompareMatrix — filterable, sortable matrix island for /compare/.
+//
+// Props:
+//   rows: ComparisonRow[]  (schema in src/data/comparison.json)
+//
+// Implementation TODO:
+// 1. Render a <table> with the columns:
+//    name | category | isolation | $/PR | HITL | MCP | license | language | verified
+// 2. Above the table, render filter controls:
+//    - category multi-select (coding-agent, inference, sandbox, etc.)
+//    - isolation multi-select (host, container, gvisor, microvm, vm)
+//    - hitl single-select (any, full, partial, none)
+//    - mcp toggle (any, yes, no)
+//    - license multi-select (proprietary, oss-mit, oss-apache, oss-other, source-available)
+//    - language multi-select (python, typescript, go, java, ruby, dotnet, any)
+//    - price-per-pr range slider ($0 - $5)
+// 3. Click column header to sort asc/desc.
+// 4. Each row links to the vendor URL and to the corresponding content page section.
+// 5. Show "verified N days ago" badge per row; red badge if > 90 days.
+// 6. Persist filter state in URL hash so deep links work.
+// 7. Accessibility: <th scope="col">, sortable header has aria-sort,
+//    filter controls have visible labels.
+//
+// Implementation hint: vanilla JS with <script> is:inline is enough.
+// Total dataset is ~48 rows — no virtualization needed.
+
+interface ComparisonRow {
+  name: string;
+  category: string;
+  isolation: string;
+  price_per_pr_usd: number | null;
+  hitl: string;
+  mcp: boolean;
+  license: string;
+  language_support: string[];
+  url: string;
+  lastVerified: string;
+}
+
+interface Props {
+  rows: ComparisonRow[];
+}
+
+const { rows } = Astro.props;
+---
+
+<div class="compare-matrix" data-rows={JSON.stringify(rows)}>
+  <p><em>STUB:</em> Compare-matrix island renders once Astro substrate lands.</p>
+  <p>{rows.length} rows loaded.</p>
+  <!-- TODO(post v1.4): render filters + sortable table -->
+</div>
+
+<style>
+  .compare-matrix { padding: 1rem; border: 1px dashed var(--border, #ccc); }
+</style>

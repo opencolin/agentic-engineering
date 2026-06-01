@@ -1,0 +1,54 @@
+---
+// STUB — picks up once v1.4 (Astro substrate) merges.
+//
+// NewsletterForm — Buttondown signup, embedded on every page footer
+// and on the /changelog/ page.
+//
+// The form below is the real Buttondown public endpoint (no JS required —
+// it POSTs to https://buttondown.com/api/emails/embed-subscribe/<slug>).
+// The slug is `agentic-engineering`. If the slug is wrong on the day of
+// launch, update the action attribute below — no other code change needed.
+//
+// Implementation TODO:
+// 1. Confirm the Buttondown account exists and the slug matches.
+// 2. Add the embed CSS to globally style the form to match the site.
+// 3. Add a thank-you page or in-page confirmation after submit.
+// 4. Consider adding a hidden honeypot field for spam (Buttondown handles
+//    most of this, but a hidden field reduces spam ~order of magnitude).
+//
+// Acceptance criteria (from PLAN.md):
+// - Embedded on / and /changelog/.
+// - Signup writes to Buttondown via their public form endpoint.
+// - 200 response from Buttondown; confirmation email arrives.
+
+interface Props {
+  variant?: 'inline' | 'footer';
+}
+const { variant = 'inline' } = Astro.props;
+---
+
+<form
+  action="https://buttondown.com/api/emails/embed-subscribe/agentic-engineering"
+  method="post"
+  target="popupwindow"
+  onsubmit="window.open('https://buttondown.com/agentic-engineering', 'popupwindow')"
+  class={`newsletter-form newsletter-form--${variant}`}
+>
+  <label>
+    Subscribe to the newsletter — quarterly reports + monthly content roundups.
+    <input type="email" name="email" placeholder="you@example.com" required />
+  </label>
+  <input type="hidden" value="1" name="embed" />
+  <button type="submit">Subscribe</button>
+  <p class="newsletter-form__legal">
+    <a href="https://buttondown.com/refer/agentic-engineering" rel="noopener">Powered by Buttondown</a>.
+    No spam. Unsubscribe at the bottom of any email.
+  </p>
+</form>
+
+<style>
+  .newsletter-form { display: grid; gap: 0.5rem; max-width: 32rem; }
+  .newsletter-form input[type="email"] { padding: 0.5rem; font: inherit; }
+  .newsletter-form button { padding: 0.5rem 1rem; cursor: pointer; }
+  .newsletter-form__legal { font-size: 0.75rem; color: var(--muted, #666); }
+</style>

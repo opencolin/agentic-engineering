@@ -1,0 +1,56 @@
+---
+// STUB — picks up once v1.4 (Astro substrate) merges.
+//
+// This page hosts the Interactive Comparison Matrix.
+// Data source: src/data/comparison.json (48 rows; schema documented in the file).
+//
+// Implementation TODO (post v1.4 merge):
+// 1. Import the JSON: `import comparison from '../data/comparison.json';`
+// 2. Render <CompareMatrix /> island (see src/components/CompareMatrix.astro).
+// 3. Filterable axes: category, isolation, hitl, mcp (bool), license, language.
+// 4. Sortable columns: name, category, isolation, price_per_pr_usd, lastVerified.
+// 5. Per-row "verified N days ago" badge — pulled from `lastVerified`.
+// 6. Each row links to `url` and to the relevant content page section.
+// 7. SEO: title, description, og:image (static at first).
+//
+// Acceptance criteria (from PLAN.md):
+// - Replaces static content/comparison.md (deprecated this release).
+// - JSON dataset is the source of truth; PR-able.
+// - Filter on `MCP support = yes` and `isolation = microvm` matches the JSON.
+// - Sortable columns work.
+
+import Layout from '../layouts/BaseLayout.astro';
+import CompareMatrix from '../components/CompareMatrix.astro';
+import comparison from '../data/comparison.json';
+---
+
+<Layout
+  title="Compare — Agent Stacks Side by Side"
+  description="Filterable, sortable matrix of 48 coding agents, inference providers, sandboxes, orchestrators, observability tools, memory stores, and MCP gateways."
+>
+  <main>
+    <h1>Compare</h1>
+    <p class="lede">
+      48 vendors across 7 categories. Filter by isolation tier, dollar-per-PR,
+      HITL support, MCP support, license, language. Every row carries a
+      <code>lastVerified</code> date — propose a correction via PR.
+    </p>
+
+    <CompareMatrix rows={comparison.rows} />
+
+    <section class="meta">
+      <h2>The dataset</h2>
+      <p>
+        The matrix above is rendered from
+        <code>src/data/comparison.json</code> (schema in the file head).
+        Pricing is rough-order-of-magnitude — see notes in the JSON before
+        citing. Every row's <code>lastVerified</code> date is shown so you
+        can spot rows that need a refresh.
+      </p>
+      <p>
+        Add or correct a row by opening a PR against the JSON. See
+        <a href="/CONTRIBUTING.md">CONTRIBUTING.md</a> for the bar.
+      </p>
+    </section>
+  </main>
+</Layout>

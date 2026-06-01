@@ -1,0 +1,49 @@
+---
+// STUB — picks up once v1.4 (Astro substrate) merges.
+//
+// EditLink — per-page "Edit this page" link to the GitHub editor for the
+// underlying markdown file.
+//
+// URL pattern:
+//   https://github.com/opencolin/agentic-engineering/edit/main/content/<slug>.md
+//
+// For pages under content/blog/, prefix with `blog/`; for state-of-* reports,
+// the path is `content/state-of-agentic-engineering-<issue>.md`.
+//
+// Implementation TODO (post v1.4 merge):
+// 1. Inject this into the BaseLayout footer.
+// 2. Per-page override via frontmatter for special routes (e.g. /events/ has
+//    its own data file and shouldn't route to a markdown file).
+
+interface Props {
+  slug: string;
+  pathPrefix?: string;   // defaults to 'content'
+  repo?: string;          // defaults below
+  branch?: string;        // defaults to 'main'
+}
+
+const {
+  slug,
+  pathPrefix = 'content',
+  repo = 'opencolin/agentic-engineering',
+  branch = 'main',
+} = Astro.props;
+
+const url = `https://github.com/${repo}/edit/${branch}/${pathPrefix}/${slug}.md`;
+---
+
+<a class="edit-link" href={url} target="_blank" rel="noopener noreferrer">
+  Edit this page on GitHub
+  <span aria-hidden="true">↗</span>
+</a>
+
+<style>
+  .edit-link {
+    display: inline-flex;
+    gap: 0.25rem;
+    align-items: center;
+    text-decoration: none;
+    font-size: 0.875rem;
+  }
+  .edit-link:hover { text-decoration: underline; }
+</style>

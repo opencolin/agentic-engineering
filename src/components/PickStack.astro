@@ -1,0 +1,59 @@
+---
+// STUB — picks up once v1.4 (Astro substrate) merges.
+//
+// PickStack — the question tree + scoring island for /pick-stack/.
+//
+// Props:
+//   questions: { id, prompt, options: [{ label, value, weights: { stack: int } }] }[]
+//   stacks:    { name, displayName, components, rationale, loser_rationale }[]
+//
+// Implementation TODO:
+// 1. Render the questions as a vertical form. Single-select per question.
+// 2. On every change, sum the weights for each stack across selected answers.
+// 3. Render the top-scoring stack: components, rationale, "why not" section.
+// 4. Update the URL hash on every change (e.g. `#latency=async&isolation=microvm`).
+// 5. On page load, parse the URL hash and restore answers.
+// 6. Add a "Share this stack" button that copies the URL.
+// 7. Render every component recommendation with a link to the relevant
+//    content page section (cross-link inference -> inference.md, sandbox -> sandboxes section, etc.).
+// 8. Accessibility: keyboard-navigable, ARIA labels per question group.
+//
+// Implementation hint: this can be vanilla JS inside the Astro component
+// using `<script>` with `is:inline`. No need for React/Preact — the state is
+// flat and the data is local. ~150 lines of JS should be enough.
+
+interface Option {
+  label: string;
+  value: string;
+  weights: Record<string, number>;
+}
+interface Question {
+  id: string;
+  prompt: string;
+  options: Option[];
+}
+interface Stack {
+  name: string;
+  displayName: string;
+  components: Record<string, string>;
+  rationale: string;
+  loser_rationale: Record<string, string>;
+}
+
+interface Props {
+  questions: Question[];
+  stacks: Stack[];
+}
+
+const { questions, stacks } = Astro.props;
+---
+
+<div class="pick-stack" data-questions={JSON.stringify(questions)} data-stacks={JSON.stringify(stacks)}>
+  <p><em>STUB:</em> Pick-stack island renders once Astro substrate lands.</p>
+  <p>{questions.length} questions, {stacks.length} named stacks loaded.</p>
+  <!-- TODO(post v1.4): render the form + recommendation block -->
+</div>
+
+<style>
+  .pick-stack { padding: 1rem; border: 1px dashed var(--border, #ccc); }
+</style>
