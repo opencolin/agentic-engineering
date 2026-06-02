@@ -1,0 +1,24 @@
+---
+// Callout: <Callout type="note|tip|warning|danger" title="Optional">…</Callout>
+
+interface Props {
+  type?: 'note' | 'tip' | 'warning' | 'danger';
+  title?: string;
+}
+const { type = 'note', title } = Astro.props;
+
+const DEFAULT_TITLES: Record<NonNullable<Props['type']>, string> = {
+  note: 'Note',
+  tip: 'Tip',
+  warning: 'Warning',
+  danger: 'Danger',
+};
+const resolvedTitle = title ?? DEFAULT_TITLES[type];
+---
+
+<aside class={`callout callout-${type}`} role="note">
+  <div class="callout-title">{resolvedTitle}</div>
+  <div class="callout-body">
+    <slot />
+  </div>
+</aside>

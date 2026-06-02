@@ -1,0 +1,91 @@
+---
+// Doc layout: the canonical page shell for the v1.4 Astro migration.
+// Renders topbar (with theme toggle), sidebar, prose container, right-rail
+// TOC, and footer.
+
+import '../styles/tokens.css';
+import '../styles/base.css';
+import '../styles/prose.css';
+import '../styles/components.css';
+
+import Sidebar from '../components/Sidebar.astro';
+import TocRail from '../components/TocRail.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+import type { MarkdownHeading } from 'astro';
+
+interface Props {
+  title: string;
+  description: string;
+  slug?: string;
+  headings?: MarkdownHeading[];
+}
+const { title, description, slug = '', headings = [] } = Astro.props;
+
+const fullTitle =
+  slug === '' || slug === 'index'
+    ? `${title} — Agentic Engineering`
+    : `${title} — Agentic Engineering`;
+
+const hasToc = headings.some((h) => h.depth >= 2 && h.depth <= 3);
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="article" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script is:inline>
+      // Pre-paint theme application. Reads localStorage, falls back to
+      // `prefers-color-scheme`. Runs before first paint so there's no FOUC.
+      (function () {
+        try {
+          var stored = localStorage.getItem('ae-theme');
+          if (stored === 'light' || stored === 'dark') {
+            document.documentElement.setAttribute('data-theme', stored);
+          }
+        } catch (e) {
+          /* localStorage unavailable */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <a href="#main" class="skip-to-content">Skip to content</a>
+    <header class="topbar">
+      <a href="/" class="topbar-brand"><span>&gt;_</span> Agentic Engineering</a>
+      <div></div>
+      <div class="topbar-actions">
+        <ThemeToggle />
+      </div>
+    </header>
+
+    <div class:list={['layout', { 'layout-with-toc': hasToc }]}>
+      <Sidebar currentSlug={slug} />
+
+      <main id="main" class="content" tabindex="-1">
+        <article class="prose">
+          <slot />
+        </article>
+        <footer class="content-footer">
+          <p>
+            Agentic Engineering Reference — content stored as plain markdown for
+            easy reading by humans and agents alike.
+          </p>
+        </footer>
+      </main>
+
+      {hasToc && <TocRail headings={headings} />}
+    </div>
+  </body>
+</html>

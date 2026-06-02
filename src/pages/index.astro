@@ -1,0 +1,23 @@
+---
+// Landing page. Renders the `index` entry from the docs collection.
+
+import { getEntry } from 'astro:content';
+import Doc from '../layouts/Doc.astro';
+
+const entry = await getEntry('docs', 'index');
+if (!entry) {
+  throw new Error(
+    'src/content/docs/index.md is missing. Did you forget to migrate the landing page?',
+  );
+}
+const { Content, headings } = await entry.render();
+---
+
+<Doc
+  title={entry.data.title}
+  description={entry.data.description}
+  slug="index"
+  headings={headings}
+>
+  <Content />
+</Doc>

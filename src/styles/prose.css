@@ -1,0 +1,154 @@
+/* ============================================================
+ * Prose container (v1.4)
+ *
+ * PM #3 §4 Tier 2: drop body max-width to ~70ch and provide a
+ * `.full-bleed` escape hatch for wide tables / code blocks.
+ * ============================================================ */
+
+.prose {
+  max-width: var(--prose-width);
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+  font-size: var(--fs-base);
+  line-height: var(--lh-prose);
+  color: var(--color-text-primary);
+}
+
+.prose > * + * {
+  margin-top: var(--space-4);
+}
+
+.prose h1 {
+  font-size: var(--fs-3xl);
+  margin-top: var(--space-8);
+  margin-bottom: var(--space-4);
+}
+.prose h2 {
+  font-size: var(--fs-2xl);
+  margin-top: var(--space-10);
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+}
+.prose h3 {
+  font-size: var(--fs-xl);
+  margin-top: var(--space-8);
+  margin-bottom: var(--space-3);
+}
+.prose h4 {
+  font-size: var(--fs-lg);
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-2);
+}
+
+/* Heading anchors injected by rehype-autolink-headings. */
+.prose :where(h1, h2, h3, h4, h5, h6) .header-anchor {
+  margin-left: 0.4rem;
+  color: var(--color-text-muted);
+  opacity: 0;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+.prose :where(h1, h2, h3, h4, h5, h6):hover .header-anchor,
+.prose .header-anchor:focus-visible {
+  opacity: 1;
+}
+
+.prose :where(h1, h2, h3, h4, h5, h6)[id] {
+  scroll-margin-top: calc(var(--topbar-height) + 0.5rem);
+}
+
+.prose p {
+  color: var(--color-text-primary);
+}
+
+.prose a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--color-accent) 40%, transparent);
+  text-underline-offset: 2px;
+}
+.prose a:hover {
+  text-decoration-color: var(--color-accent);
+}
+
+.prose ul,
+.prose ol {
+  padding-left: var(--space-6);
+}
+.prose li + li {
+  margin-top: var(--space-1);
+}
+
+.prose blockquote {
+  border-left: 3px solid var(--color-accent);
+  padding-left: var(--space-4);
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+.prose hr {
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  margin-block: var(--space-8);
+}
+
+/* ---------- Inline code + code blocks ---------- */
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--color-bg-code);
+  padding: 0.15em 0.4em;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+}
+
+.prose pre {
+  background: var(--color-bg-code);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  overflow-x: auto;
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+}
+.prose pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+}
+
+/* ---------- Tables ---------- */
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+}
+.prose th,
+.prose td {
+  text-align: left;
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: top;
+}
+.prose th {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  background: var(--color-bg-secondary);
+}
+
+/* ---------- Images ---------- */
+.prose img {
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+}
+
+/* ---------- Full-bleed escape hatch ---------- *
+ * Wrap wide tables, code blocks, or figures in <div class="full-bleed">
+ * to break out of the 70ch container up to the wider content column. */
+.prose .full-bleed {
+  max-width: min(100%, 1100px);
+  margin-left: 50%;
+  transform: translateX(-50%);
+}

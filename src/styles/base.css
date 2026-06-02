@@ -1,0 +1,95 @@
+/* ============================================================
+ * Base reset + body + heading defaults (v1.4)
+ * ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--topbar-height) + 0.5rem);
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  line-height: var(--lh-prose);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* Visible keyboard focus on every interactive element. */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Skip-to-content link. Visually hidden until focused. */
+.skip-to-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  background: var(--color-accent);
+  color: #fff;
+  padding: var(--space-2) var(--space-3);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0 0 var(--radius) 0;
+  transform: translateY(-120%);
+  transition: transform 0.15s;
+}
+.skip-to-content:focus-visible {
+  transform: translateY(0);
+  outline: none;
+}
+
+/* Heading defaults. Prose-specific tuning lives in prose.css. */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: var(--lh-tight);
+  color: var(--color-text-primary);
+}
+
+code, pre, kbd, samp {
+  font-family: var(--font-mono);
+}

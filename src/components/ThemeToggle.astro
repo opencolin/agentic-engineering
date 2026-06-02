@@ -1,0 +1,40 @@
+---
+// ThemeToggle: light/dark switch with localStorage persistence.
+//
+// The pre-paint script in <Doc.astro>'s <head> applies the persisted choice
+// *before* first paint so the toggle button matches reality on mount.
+---
+
+<button
+  class="theme-toggle"
+  type="button"
+  aria-label="Toggle color theme"
+  data-theme-toggle
+>
+  <span class="icon-light" aria-hidden="true">&#9788;</span>
+  <span class="icon-dark" aria-hidden="true">&#9789;</span>
+</button>
+
+<script>
+  // Wire up clicks. The initial theme is already applied by the inline
+  // pre-paint script in Doc.astro's <head>.
+  const STORAGE_KEY = 'ae-theme';
+  const root = document.documentElement;
+  const btn = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+
+  function currentTheme(): 'light' | 'dark' {
+    const explicit = root.getAttribute('data-theme');
+    if (explicit === 'light' || explicit === 'dark') return explicit;
+    return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  btn?.addEventListener('click', () => {
+    const next = currentTheme() === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem(STORAGE_KEY, next);
+    } catch {
+      /* localStorage disabled — non-fatal. */
+    }
+  });
+</script>

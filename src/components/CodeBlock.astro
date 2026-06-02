@@ -1,0 +1,41 @@
+---
+// CodeBlock: thin wrapper that adds a language label + copy button around a
+// raw <pre><code>. Shiki highlights at build time via astro.config's
+// markdown.shikiConfig — this component is for *non-prose* code blocks
+// authored directly in .astro files.
+
+interface Props {
+  lang?: string;
+  code: string;
+}
+const { lang = 'text', code } = Astro.props;
+---
+
+<figure class="codeblock">
+  <div class="codeblock-header">
+    <span class="codeblock-lang">{lang}</span>
+    <button class="codeblock-copy" type="button" data-copy-code aria-label="Copy code">
+      Copy
+    </button>
+  </div>
+  <pre><code>{code}</code></pre>
+</figure>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy-code]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const pre = btn.closest('.codeblock')?.querySelector('pre');
+      if (!pre) return;
+      try {
+        await navigator.clipboard.writeText(pre.innerText);
+        const original = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => {
+          btn.textContent = original;
+        }, 1200);
+      } catch {
+        /* clipboard denied — ignore */
+      }
+    });
+  });
+</script>

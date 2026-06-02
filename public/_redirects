@@ -1,0 +1,18 @@
+# Vercel-style redirects scaffold for v1.4 Astro migration.
+#
+# NOTE: This file is currently INERT — vercel.json still points at the bash
+# build, which serves `index.html` from the repo root. These rules will only
+# take effect after `vercel.json` is flipped to `{ "framework": "astro",
+# "outputDirectory": "dist" }` at merge time.
+#
+# Strategy for legacy hash URLs (e.g. https://.../#patterns):
+#   The legacy SPA used `#<slug>` for routing. Hash fragments are NEVER sent
+#   to the server, so server-side redirects can't catch them. Instead,
+#   src/layouts/Doc.astro contains an inline pre-paint script that checks
+#   `location.hash`, maps it to `/<slug>/`, and `history.replaceState`s.
+#   That script will be added as part of the bulk-migration follow-up; the
+#   stub below is for any future *path* redirects we discover during the
+#   visual diff.
+
+# Example (uncomment when needed):
+# /old-slug   /new-slug   301

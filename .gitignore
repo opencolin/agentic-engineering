@@ -7,3 +7,7 @@ node_modules
 # Astro / Starlight build artifacts
 docs/dist
 docs/.astro
+
+# Astro (v1.4 root-level scaffold)
+.astro
+dist

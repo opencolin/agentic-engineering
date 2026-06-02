@@ -1,0 +1,46 @@
+---
+// TocRail: renders the right-hand "On this page" rail from Astro's
+// `getHeadings()` output. Visible at >=1200px; tablet uses a <details>
+// block; mobile gets nothing (a JS bottom-sheet is a v1.1 carry-over).
+//
+// Pass `headings` from the parent: `const headings = await entry.render();`
+// then `<TocRail headings={headings.headings} />`.
+
+import type { MarkdownHeading } from 'astro';
+
+interface Props {
+  headings: MarkdownHeading[];
+}
+const { headings } = Astro.props;
+
+// Only show h2 + h3 in the rail. h1 is the page title already.
+const visible = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
+---
+
+{
+  visible.length > 0 && (
+    <>
+      <aside class="toc-rail" aria-label="On this page">
+        <div class="toc-rail-title">On this page</div>
+        <ul>
+          {visible.map((h) => (
+            <li data-depth={h.depth}>
+              <a href={`#${h.slug}`}>{h.text}</a>
+            </li>
+          ))}
+        </ul>
+      </aside>
+
+      <details class="toc-disclosure">
+        <summary>On this page</summary>
+        <ul>
+          {visible.map((h) => (
+            <li data-depth={h.depth}>
+              <a href={`#${h.slug}`}>{h.text}</a>
+            </li>
+          ))}
+        </ul>
+      </details>
+    </>
+  )
+}
