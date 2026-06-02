@@ -105,10 +105,7 @@ function init() {
       });
 
       // Close mobile sidebar after navigating
-      const sidebar = document.querySelector('.sidebar');
-      const toggle = document.querySelector('.sidebar-toggle');
-      if (sidebar) sidebar.classList.remove('open');
-      if (toggle) toggle.setAttribute('aria-expanded', 'false');
+      closeSidebar();
 
       // Rewrite in-page anchor links from `#slug` to the SPA `#page:slug`
       // form so they participate in the hash router instead of being treated
@@ -145,7 +142,13 @@ function init() {
         });
       });
 
-      // Build the right-rail "On this page" TOC from h2s.
+      // Decorate code blocks with language label + copy button.
+      decorateCodeBlocks();
+
+      // Wire up the heading `#` anchor links to copy the permalink.
+      wireHeadingAnchors(page);
+
+      // Build the right-rail / details / bottom-sheet "On this page" TOC.
       buildTocRail(page);
     }
 
@@ -164,63 +167,208 @@ function init() {
     history.replaceState(null, '', '#' + newHash);
   }
 
-  // On-this-page rail. Show for pages with ≥4 h2s; track active section
-  // via IntersectionObserver as the user scrolls.
+  // Decorate every <pre> block with a top-left language label (from the
+  // class `language-xxx` injected by marked) and a top-right copy button.
+  function decorateCodeBlocks() {
+    contentEl.querySelectorAll('pre').forEach(pre => {
+      if (pre.dataset.decorated) return;
+      pre.dataset.decorated = '1';
+      const codeEl = pre.querySelector('code');
+      // Language label
+      let lang = '';
+      if (codeEl) {
+        const m = (codeEl.className || '').match(/language-([\w+-]+)/);
+        if (m) lang = m[1];
+      }
+      if (lang) {
+        const label = document.createElement('span');
+        label.className = 'code-lang';
+        label.textContent = lang;
+        pre.appendChild(label);
+      }
+      // Copy button
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'code-copy';
+      btn.textContent = 'Copy';
+      btn.setAttribute('aria-label', 'Copy code to clipboard');
+      btn.addEventListener('click', async () => {
+        const text = codeEl ? codeEl.textContent : pre.textContent;
+        try {
+          await navigator.clipboard.writeText(text);
+        } catch (_) {
+          // Fallback for older browsers / non-secure contexts
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); } catch (_) {}
+          document.body.removeChild(ta);
+        }
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 1500);
+      });
+      pre.appendChild(btn);
+    });
+  }
+
+  // Wire up the hover-revealed `#` anchor links so clicking copies the
+  // permalink (full URL including hash) to the clipboard and shows a 1.5s
+  // confirmation. We still update the location hash so the page state
+  // matches what was copied.
+  function wireHeadingAnchors(page) {
+    contentEl.querySelectorAll('.heading-anchor').forEach(a => {
+      if (a.dataset.wired) return;
+      a.dataset.wired = '1';
+      a.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const slug = (a.getAttribute('href') || '').replace(/^#/, '');
+        if (!slug) return;
+        const hash = '#' + page + ':' + slug;
+        const url = location.origin + location.pathname + hash;
+        try {
+          await navigator.clipboard.writeText(url);
+        } catch (_) {
+          const ta = document.createElement('textarea');
+          ta.value = url;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); } catch (_) {}
+          document.body.removeChild(ta);
+        }
+        history.replaceState(null, '', hash);
+        a.classList.add('copied');
+        setTimeout(() => a.classList.remove('copied'), 1500);
+      });
+    });
+  }
+
+  // On-this-page TOC. Drives three surfaces from the same data + observer:
+  //   - .toc-rail (desktop right rail, ≥1180px)
+  //   - .toc-details (tablet collapsible, 768–1179px)
+  //   - .toc-sheet  (mobile bottom-sheet, <768px) opened by .toc-sheet-toggle
+  // Scroll-spy syncs `.active` on all three plus the sidebar group.
   let tocObserver = null;
   const tocRail = document.getElementById('toc-rail');
   const tocRailList = document.getElementById('toc-rail-list');
-  function buildTocRail(page) {
-    if (!tocRail || !tocRailList) return;
-    if (tocObserver) { tocObserver.disconnect(); tocObserver = null; }
-    tocRailList.innerHTML = '';
+  const tocSheet = document.getElementById('toc-sheet');
+  const tocSheetList = document.getElementById('toc-sheet-list');
+  const tocSheetToggle = document.getElementById('toc-sheet-toggle');
+  let tocDetails = null;
+  let tocDetailsList = null;
+  function ensureTocDetails() {
+    // Inject a <details> placeholder once, just above the rendered article
+    // content. The CSS shows it only in the 768–1179px range.
+    if (tocDetails) return;
+    tocDetails = document.createElement('details');
+    tocDetails.className = 'toc-details';
+    tocDetails.hidden = true;
+    const summary = document.createElement('summary');
+    summary.textContent = 'On this page';
+    tocDetailsList = document.createElement('ul');
+    tocDetails.appendChild(summary);
+    tocDetails.appendChild(tocDetailsList);
+    contentEl.parentNode.insertBefore(tocDetails, contentEl);
+  }
+  function closeTocSheet() {
+    if (!tocSheet || !tocSheetToggle) return;
+    tocSheet.classList.remove('open');
+    tocSheetToggle.setAttribute('aria-expanded', 'false');
+  }
+  if (tocSheetToggle && tocSheet) {
+    tocSheetToggle.addEventListener('click', () => {
+      const open = !tocSheet.classList.contains('open');
+      tocSheet.classList.toggle('open', open);
+      tocSheetToggle.setAttribute('aria-expanded', String(open));
+    });
+    // Tap outside the sheet closes it.
+    document.addEventListener('click', (e) => {
+      if (!tocSheet.classList.contains('open')) return;
+      if (e.target.closest('#toc-sheet') || e.target.closest('#toc-sheet-toggle')) return;
+      closeTocSheet();
+    });
+  }
 
-    const h2s = Array.from(contentEl.querySelectorAll('h2[id]'));
-    if (h2s.length < 4) {
-      tocRail.hidden = true;
+  function buildTocRail(page) {
+    if (tocObserver) { tocObserver.disconnect(); tocObserver = null; }
+    ensureTocDetails();
+    if (tocRailList) tocRailList.innerHTML = '';
+    if (tocDetailsList) tocDetailsList.innerHTML = '';
+    if (tocSheetList) tocSheetList.innerHTML = '';
+    closeTocSheet();
+
+    // H2 + H3 of the rendered article.
+    const headings = Array.from(contentEl.querySelectorAll('h2[id], h3[id]'));
+    const h2Only = headings.filter(h => h.tagName === 'H2');
+
+    // Hide everything if the page is too short to warrant a TOC.
+    if (h2Only.length < 4) {
+      if (tocRail) tocRail.hidden = true;
+      if (tocDetails) tocDetails.hidden = true;
+      if (tocSheetToggle) tocSheetToggle.hidden = true;
+      if (tocSheet) tocSheet.hidden = true;
       return;
     }
 
     const linksById = {};
-    h2s.forEach(h2 => {
-      const id = h2.id;
-      const label = h2.textContent.replace(/^#\s*/, '').trim();
+    function appendTo(list, h, indent) {
+      if (!list) return;
       const li = document.createElement('li');
       const a = document.createElement('a');
-      a.href = '#' + page + ':' + id;
-      a.textContent = label;
+      a.href = '#' + page + ':' + h.id;
+      a.textContent = h.textContent.replace(/^#\s*/, '').trim();
+      if (indent) a.style.paddingLeft = '1.6rem';
       a.addEventListener('click', (e) => {
         e.preventDefault();
-        renderPage(page, id);
+        closeTocSheet();
+        renderPage(page, h.id);
       });
-      linksById[id] = a;
+      (linksById[h.id] = linksById[h.id] || []).push(a);
       li.appendChild(a);
-      tocRailList.appendChild(li);
+      list.appendChild(li);
+    }
+    headings.forEach(h => {
+      const isH3 = h.tagName === 'H3';
+      appendTo(tocRailList, h, isH3);
+      appendTo(tocDetailsList, h, isH3);
+      appendTo(tocSheetList, h, isH3);
     });
-    tocRail.hidden = false;
 
-    // Highlight the section currently closest to the top of the viewport.
+    if (tocRail) tocRail.hidden = false;
+    if (tocDetails) tocDetails.hidden = false;
+    if (tocSheetToggle) tocSheetToggle.hidden = false;
+    if (tocSheet) tocSheet.hidden = false;
+
+    // Scroll-spy: highlight the topmost visible H2/H3.
     const visible = new Set();
     tocObserver = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) visible.add(e.target.id);
         else visible.delete(e.target.id);
       });
-      // Pick the topmost visible h2 (first in document order).
       let activeId = null;
-      for (const h2 of h2s) {
-        if (visible.has(h2.id)) { activeId = h2.id; break; }
+      for (const h of headings) {
+        if (visible.has(h.id)) { activeId = h.id; break; }
       }
-      // If nothing is intersecting, fall back to the last h2 above the top.
       if (!activeId) {
-        for (let i = h2s.length - 1; i >= 0; i--) {
-          if (h2s[i].getBoundingClientRect().top < 100) { activeId = h2s[i].id; break; }
+        for (let i = headings.length - 1; i >= 0; i--) {
+          if (headings[i].getBoundingClientRect().top < 100) { activeId = headings[i].id; break; }
         }
       }
-      Object.entries(linksById).forEach(([id, link]) => {
-        link.classList.toggle('active', id === activeId);
+      Object.entries(linksById).forEach(([id, links]) => {
+        const isActive = id === activeId;
+        links.forEach(a => a.classList.toggle('active', isActive));
       });
     }, { rootMargin: '-80px 0px -65% 0px' });
-    h2s.forEach(h2 => tocObserver.observe(h2));
+    headings.forEach(h => tocObserver.observe(h));
   }
 
   // Page click handlers (sidebar + brand)
@@ -231,15 +379,50 @@ function init() {
     });
   });
 
-  // Sidebar toggle (mobile)
+  // Sidebar toggle (mobile) — drawer + scrim + body scroll lock + Escape close.
   const toggle = document.querySelector('.sidebar-toggle');
   const sidebar = document.querySelector('.sidebar');
+  const scrim = document.getElementById('sidebar-scrim');
+  // Stash the pre-open scroll position so we can restore it on close. iOS
+  // Safari reflows to top when body becomes position:fixed; we mitigate by
+  // pinning `top` while locked and resetting it after.
+  let savedScrollY = 0;
+  function openSidebar() {
+    if (!sidebar) return;
+    savedScrollY = window.scrollY || window.pageYOffset || 0;
+    sidebar.classList.add('open');
+    if (scrim) scrim.classList.add('visible');
+    if (toggle) toggle.setAttribute('aria-expanded', 'true');
+    document.body.style.top = '-' + savedScrollY + 'px';
+    document.body.classList.add('scroll-locked');
+  }
+  function closeSidebar() {
+    if (!sidebar) return;
+    const wasOpen = sidebar.classList.contains('open');
+    sidebar.classList.remove('open');
+    if (scrim) scrim.classList.remove('visible');
+    if (toggle) toggle.setAttribute('aria-expanded', 'false');
+    if (wasOpen && document.body.classList.contains('scroll-locked')) {
+      document.body.classList.remove('scroll-locked');
+      document.body.style.top = '';
+      window.scrollTo(0, savedScrollY);
+    }
+  }
   if (toggle && sidebar) {
     toggle.addEventListener('click', () => {
-      const opened = sidebar.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', String(opened));
+      if (sidebar.classList.contains('open')) closeSidebar();
+      else openSidebar();
     });
   }
+  if (scrim) scrim.addEventListener('click', closeSidebar);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && sidebar && sidebar.classList.contains('open')) {
+      closeSidebar();
+      if (toggle) toggle.focus();
+    }
+  });
+  // Make closeSidebar accessible to renderPage above (defined earlier in
+  // the closure via hoisting — function declarations are hoisted).
 
   // Hash navigation
   const pageRedirects = { comparison: 'approaches' };
