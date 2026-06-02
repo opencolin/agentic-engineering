@@ -1,53 +1,59 @@
 ---
-// STUB — picks up once v1.4 (Astro substrate) merges.
-//
-// This page hosts the Pick Your Agent Stack island.
-// Data source: src/data/stack-questions.json (10 questions, 8 named stacks).
-//
-// Implementation TODO (post v1.4 merge):
-// 1. Import the JSON: `import questions from '../data/stack-questions.json';`
-// 2. Render the <PickStack /> island (see src/components/PickStack.astro).
-// 3. URL-encode answers in the hash (e.g. `#latency=async&isolation=microvm&...`)
-//    so users can share a stack with a one-line URL.
-// 4. The island sums weights, picks the highest-scoring stack, and
-//    renders the "why not the alternatives" block from `loser_rationale`.
-// 5. Add a "Share this stack" button that copies the current URL.
-// 6. Add SEO: title, description, og:image (static at first; the report
-//    PDF pipeline will eventually render a per-result og:image).
-//
-// Acceptance criteria (from PLAN.md):
-// - 8-12 questions (we ship 10) covering: latency, isolation, language, budget,
-//   MCP support, sync vs async, scale, compliance, license, observability.
-// - 6-10 named stacks (we ship 8) with rationale + "why not" text.
-// - Shareable URL encodes answers.
-// - Every recommendation shows "why not the 7 alternatives" with loser_rationale.
+// /pick-stack/ — Pick Your Agent Stack wizard.
+// Renders the PickStack island; data is checked in at src/data/stack-questions.json.
 
-import Layout from '../layouts/BaseLayout.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 import PickStack from '../components/PickStack.astro';
 import questions from '../data/stack-questions.json';
+
+// Cast: the inferred TS types from the JSON are too strict (literal-narrowed
+// loser_rationale shapes). The island treats this as a plain record.
+const stacks = questions.stacks as unknown as Parameters<typeof PickStack>[0]['stacks'];
+const qs = questions.questions as unknown as Parameters<typeof PickStack>[0]['questions'];
 ---
 
-<Layout
+<BaseLayout
   title="Pick Your Agent Stack"
-  description="Ten questions → a concrete stack recommendation: inference, sandbox, orchestrator, observability, memory. Plus why every alternative loses in your case."
+  description="Ten questions, one opinionated recommendation: inference provider, sandbox, orchestrator, observability, memory, harness. Plus why every alternative loses in your case. Share the URL to argue with the inputs, not the output."
+  editSlug="src/data/stack-questions"
+  editPathPrefix=""
 >
-  <main>
-    <h1>Pick Your Agent Stack</h1>
-    <p class="lede">
-      Ten questions. One opinionated recommendation. Eight loser rationales.
-      Share the URL to argue with the inputs, not the output.
+  <h1>Pick Your Agent Stack</h1>
+  <p class="lede">
+    Ten questions. One opinionated recommendation. Why every other stack lost
+    in your case. Share the URL — it round-trips your answers.
+  </p>
+
+  <PickStack questions={qs} stacks={stacks} />
+
+  <section class="meta">
+    <h2>How this works</h2>
+    <p>
+      Every answer carries a weight toward each named stack. We sum the weights
+      and pick the highest-scoring stack, then show you a one-line rationale per
+      losing alternative. The dataset is checked in at
+      <code>src/data/stack-questions.json</code> — propose changes via PR.
     </p>
+    <p>
+      The stack names are shorthand for opinionated bundles
+      (e.g. <em>Sonnet-First Production Stack</em> = Anthropic API + E2B + Inngest AgentKit + Langfuse + pgvector + Claude Code).
+      The wizard does not endorse any vendor over another except where the
+      weights say so for your inputs.
+    </p>
+  </section>
+</BaseLayout>
 
-    <PickStack questions={questions.questions} stacks={questions.stacks} />
-
-    <section class="meta">
-      <h2>How this works</h2>
-      <p>
-        Every answer carries a weight toward each named stack. We sum the
-        weights and pick the highest-scoring stack. The dataset is checked
-        into the repo at
-        <code>src/data/stack-questions.json</code> — propose changes via PR.
-      </p>
-    </section>
-  </main>
-</Layout>
+<style>
+  .lede {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: var(--muted, #aaa);
+    max-width: 50rem;
+  }
+  .meta {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border, #2a2a2a);
+    max-width: 50rem;
+  }
+</style>

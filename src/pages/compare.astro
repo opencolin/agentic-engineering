@@ -1,56 +1,58 @@
 ---
-// STUB — picks up once v1.4 (Astro substrate) merges.
-//
-// This page hosts the Interactive Comparison Matrix.
-// Data source: src/data/comparison.json (48 rows; schema documented in the file).
-//
-// Implementation TODO (post v1.4 merge):
-// 1. Import the JSON: `import comparison from '../data/comparison.json';`
-// 2. Render <CompareMatrix /> island (see src/components/CompareMatrix.astro).
-// 3. Filterable axes: category, isolation, hitl, mcp (bool), license, language.
-// 4. Sortable columns: name, category, isolation, price_per_pr_usd, lastVerified.
-// 5. Per-row "verified N days ago" badge — pulled from `lastVerified`.
-// 6. Each row links to `url` and to the relevant content page section.
-// 7. SEO: title, description, og:image (static at first).
-//
-// Acceptance criteria (from PLAN.md):
-// - Replaces static content/comparison.md (deprecated this release).
-// - JSON dataset is the source of truth; PR-able.
-// - Filter on `MCP support = yes` and `isolation = microvm` matches the JSON.
-// - Sortable columns work.
+// /compare/ — interactive comparison matrix.
+// Renders the CompareMatrix island; data is checked in at src/data/comparison.json.
 
-import Layout from '../layouts/BaseLayout.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 import CompareMatrix from '../components/CompareMatrix.astro';
 import comparison from '../data/comparison.json';
+
+const rows = comparison.rows as unknown as Parameters<typeof CompareMatrix>[0]['rows'];
 ---
 
-<Layout
+<BaseLayout
   title="Compare — Agent Stacks Side by Side"
-  description="Filterable, sortable matrix of 48 coding agents, inference providers, sandboxes, orchestrators, observability tools, memory stores, and MCP gateways."
+  description="Filterable, sortable matrix of coding agents, inference providers, sandboxes, orchestrators, observability tools, memory stores, and gateways. Filter by isolation, $/PR, HITL, MCP, license, language."
+  editSlug="src/data/comparison"
+  editPathPrefix=""
 >
-  <main>
-    <h1>Compare</h1>
-    <p class="lede">
-      48 vendors across 7 categories. Filter by isolation tier, dollar-per-PR,
-      HITL support, MCP support, license, language. Every row carries a
-      <code>lastVerified</code> date — propose a correction via PR.
+  <h1>Compare</h1>
+  <p class="lede">
+    {rows.length} vendors across 7 categories. Filter by isolation tier,
+    dollar-per-PR, HITL support, MCP support, license, language. Every row
+    carries a <code>lastVerified</code> date — rows older than 90 days are
+    flagged.
+  </p>
+
+  <CompareMatrix rows={rows} />
+
+  <section class="meta">
+    <h2>The dataset</h2>
+    <p>
+      The matrix above is rendered from <code>src/data/comparison.json</code>
+      (schema documented at the top of the file). Pricing is
+      rough-order-of-magnitude — see the schema notes before citing. Click any
+      column header to sort. Filters and sort are encoded in the URL hash, so
+      deep links work.
     </p>
+    <p>
+      Add or correct a row by opening a PR against the JSON. See
+      <a href="https://github.com/opencolin/agentic-engineering/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>
+      for the bar.
+    </p>
+  </section>
+</BaseLayout>
 
-    <CompareMatrix rows={comparison.rows} />
-
-    <section class="meta">
-      <h2>The dataset</h2>
-      <p>
-        The matrix above is rendered from
-        <code>src/data/comparison.json</code> (schema in the file head).
-        Pricing is rough-order-of-magnitude — see notes in the JSON before
-        citing. Every row's <code>lastVerified</code> date is shown so you
-        can spot rows that need a refresh.
-      </p>
-      <p>
-        Add or correct a row by opening a PR against the JSON. See
-        <a href="/CONTRIBUTING.md">CONTRIBUTING.md</a> for the bar.
-      </p>
-    </section>
-  </main>
-</Layout>
+<style>
+  .lede {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: var(--muted, #aaa);
+    max-width: 60rem;
+  }
+  .meta {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border, #2a2a2a);
+    max-width: 60rem;
+  }
+</style>

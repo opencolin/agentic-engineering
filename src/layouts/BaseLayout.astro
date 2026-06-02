@@ -1,0 +1,133 @@
+---
+// BaseLayout — the lighter shell for interactive pages that aren't part of
+// the docs content collection (e.g. /pick-stack/, /compare/, /blog/v2-launch/).
+// Renders topbar + footer + global styles, but no sidebar or TOC rail.
+
+import '../styles/tokens.css';
+import '../styles/base.css';
+import '../styles/prose.css';
+import '../styles/components.css';
+
+import ThemeToggle from '../components/ThemeToggle.astro';
+import EditLink from '../components/EditLink.astro';
+import DiscussLink from '../components/DiscussLink.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Slug used by EditLink + DiscussLink. Pass null to omit those links. */
+  editSlug?: string | null;
+  /** Where the markdown lives relative to repo root (defaults to "content"). */
+  editPathPrefix?: string;
+}
+
+const {
+  title,
+  description,
+  editSlug = null,
+  editPathPrefix = 'content',
+} = Astro.props;
+
+const fullTitle = `${title} — Agentic Engineering`;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://agentic-engineering.vercel.app').toString();
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="alternate" type="application/rss+xml" title="Agentic Engineering" href="/feed.xml" />
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem('ae-theme');
+          if (stored === 'light' || stored === 'dark') {
+            document.documentElement.setAttribute('data-theme', stored);
+          }
+        } catch (e) {
+          /* localStorage unavailable */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <a href="#main" class="skip-to-content">Skip to content</a>
+    <header class="topbar">
+      <a href="/" class="topbar-brand"><span>&gt;_</span> Agentic Engineering</a>
+      <nav class="topbar-nav" aria-label="Primary">
+        <a href="/pick-stack/">Pick Stack</a>
+        <a href="/compare/">Compare</a>
+        <a href="/changelog/">Changelog</a>
+      </nav>
+      <div class="topbar-actions">
+        <ThemeToggle />
+      </div>
+    </header>
+
+    <main id="main" class="content content-wide" tabindex="-1">
+      <slot />
+    </main>
+
+    <footer class="content-footer site-footer">
+      <div class="site-footer-links">
+        {editSlug && <EditLink slug={editSlug} pathPrefix={editPathPrefix} />}
+        {editSlug && <DiscussLink slug={editSlug} />}
+        <a href="/feed.xml">RSS</a>
+        <a href="https://github.com/opencolin/agentic-engineering">GitHub</a>
+      </div>
+      <p>
+        Agentic Engineering — the opinionated reference for shipping agents in
+        production. Content is plain markdown and openly contributable.
+      </p>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .topbar-nav {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  .topbar-nav a {
+    text-decoration: none;
+    font-size: 0.95rem;
+    color: inherit;
+  }
+  .topbar-nav a:hover { text-decoration: underline; }
+  .content-wide {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+  .site-footer {
+    max-width: 72rem;
+    margin: 2rem auto 4rem;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border, #2a2a2a);
+  }
+  .site-footer-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.75rem;
+    font-size: 0.875rem;
+  }
+  .site-footer-links a { color: inherit; }
+</style>

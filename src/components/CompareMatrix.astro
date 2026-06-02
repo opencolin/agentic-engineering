@@ -1,31 +1,8 @@
 ---
-// STUB — picks up once v1.4 (Astro substrate) merges.
-//
 // CompareMatrix — filterable, sortable matrix island for /compare/.
 //
-// Props:
-//   rows: ComparisonRow[]  (schema in src/data/comparison.json)
-//
-// Implementation TODO:
-// 1. Render a <table> with the columns:
-//    name | category | isolation | $/PR | HITL | MCP | license | language | verified
-// 2. Above the table, render filter controls:
-//    - category multi-select (coding-agent, inference, sandbox, etc.)
-//    - isolation multi-select (host, container, gvisor, microvm, vm)
-//    - hitl single-select (any, full, partial, none)
-//    - mcp toggle (any, yes, no)
-//    - license multi-select (proprietary, oss-mit, oss-apache, oss-other, source-available)
-//    - language multi-select (python, typescript, go, java, ruby, dotnet, any)
-//    - price-per-pr range slider ($0 - $5)
-// 3. Click column header to sort asc/desc.
-// 4. Each row links to the vendor URL and to the corresponding content page section.
-// 5. Show "verified N days ago" badge per row; red badge if > 90 days.
-// 6. Persist filter state in URL hash so deep links work.
-// 7. Accessibility: <th scope="col">, sortable header has aria-sort,
-//    filter controls have visible labels.
-//
-// Implementation hint: vanilla JS with <script> is:inline is enough.
-// Total dataset is ~48 rows — no virtualization needed.
+// Vanilla JS in an inline <script>. The dataset (≤ 100 rows) is small enough
+// that virtualization is unnecessary; render the whole table.
 
 interface ComparisonRow {
   name: string;
@@ -45,14 +22,332 @@ interface Props {
 }
 
 const { rows } = Astro.props;
+
+// Pre-compute facet option lists for the filter controls.
+const categories = Array.from(new Set(rows.map((r) => r.category))).sort();
+const isolations = Array.from(new Set(rows.map((r) => r.isolation))).sort();
+const licenses = Array.from(new Set(rows.map((r) => r.license))).sort();
+const languages = Array.from(new Set(rows.flatMap((r) => r.language_support))).sort();
+const hitls = ['any', 'full', 'partial', 'none'];
+const mcps = ['any', 'yes', 'no'];
 ---
 
 <div class="compare-matrix" data-rows={JSON.stringify(rows)}>
-  <p><em>STUB:</em> Compare-matrix island renders once Astro substrate lands.</p>
-  <p>{rows.length} rows loaded.</p>
-  <!-- TODO(post v1.4): render filters + sortable table -->
+  <form class="compare-filters" aria-label="Filter the matrix">
+    <label>
+      Category
+      <select name="category">
+        <option value="">All</option>
+        {categories.map((c) => <option value={c}>{c}</option>)}
+      </select>
+    </label>
+    <label>
+      Isolation
+      <select name="isolation">
+        <option value="">All</option>
+        {isolations.map((c) => <option value={c}>{c}</option>)}
+      </select>
+    </label>
+    <label>
+      HITL
+      <select name="hitl">
+        {hitls.map((c) => <option value={c === 'any' ? '' : c}>{c}</option>)}
+      </select>
+    </label>
+    <label>
+      MCP support
+      <select name="mcp">
+        {mcps.map((c) => <option value={c === 'any' ? '' : c}>{c}</option>)}
+      </select>
+    </label>
+    <label>
+      License
+      <select name="license">
+        <option value="">All</option>
+        {licenses.map((c) => <option value={c}>{c}</option>)}
+      </select>
+    </label>
+    <label>
+      Language
+      <select name="language">
+        <option value="">All</option>
+        {languages.map((c) => <option value={c}>{c}</option>)}
+      </select>
+    </label>
+    <label>
+      Max $/PR
+      <input type="number" name="max_price" min="0" step="0.05" placeholder="any" />
+    </label>
+    <button type="button" id="compare-reset">Reset</button>
+    <span id="compare-count" class="compare-count" aria-live="polite"></span>
+  </form>
+
+  <div class="compare-table-wrap">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th scope="col" data-sort="name" aria-sort="none">Name</th>
+          <th scope="col" data-sort="category" aria-sort="none">Category</th>
+          <th scope="col" data-sort="isolation" aria-sort="none">Isolation</th>
+          <th scope="col" data-sort="price_per_pr_usd" aria-sort="none">$/PR</th>
+          <th scope="col" data-sort="hitl" aria-sort="none">HITL</th>
+          <th scope="col" data-sort="mcp" aria-sort="none">MCP</th>
+          <th scope="col" data-sort="license" aria-sort="none">License</th>
+          <th scope="col">Language</th>
+          <th scope="col" data-sort="lastVerified" aria-sort="none">Verified</th>
+        </tr>
+      </thead>
+      <tbody id="compare-tbody"></tbody>
+    </table>
+  </div>
 </div>
 
+<script is:inline>
+  (function () {
+    var root = document.querySelector('.compare-matrix');
+    if (!root) return;
+    var rows = JSON.parse(root.getAttribute('data-rows') || '[]');
+    var tbody = document.getElementById('compare-tbody');
+    var form = root.querySelector('.compare-filters');
+    var countEl = document.getElementById('compare-count');
+    var resetBtn = document.getElementById('compare-reset');
+    var headers = root.querySelectorAll('th[data-sort]');
+
+    var sortKey = null;
+    var sortDir = 1;
+
+    function formatPrice(p) {
+      if (p === null || p === undefined) return '—';
+      return '$' + p.toFixed(2);
+    }
+
+    function daysSince(iso) {
+      var then = new Date(iso);
+      if (isNaN(then.getTime())) return null;
+      var diff = (Date.now() - then.getTime()) / (1000 * 60 * 60 * 24);
+      return Math.round(diff);
+    }
+
+    function readFilters() {
+      var data = new FormData(form);
+      return {
+        category: data.get('category') || '',
+        isolation: data.get('isolation') || '',
+        hitl: data.get('hitl') || '',
+        mcp: data.get('mcp') || '',
+        license: data.get('license') || '',
+        language: data.get('language') || '',
+        max_price: data.get('max_price') ? parseFloat(data.get('max_price')) : null,
+      };
+    }
+
+    function writeHash(filters) {
+      var pairs = [];
+      Object.keys(filters).forEach(function (k) {
+        var v = filters[k];
+        if (v === null || v === undefined || v === '') return;
+        pairs.push(encodeURIComponent(k) + '=' + encodeURIComponent(v));
+      });
+      if (sortKey) pairs.push('sort=' + encodeURIComponent(sortKey) + (sortDir < 0 ? ':desc' : ':asc'));
+      var newHash = pairs.length ? '#' + pairs.join('&') : '';
+      if (window.location.hash !== newHash) {
+        history.replaceState(null, '', window.location.pathname + window.location.search + newHash);
+      }
+    }
+
+    function applyHash() {
+      var hash = window.location.hash.replace(/^#/, '');
+      if (!hash) return;
+      hash.split('&').forEach(function (pair) {
+        var parts = pair.split('=');
+        if (parts.length !== 2) return;
+        var k = decodeURIComponent(parts[0]);
+        var v = decodeURIComponent(parts[1]);
+        if (k === 'sort') {
+          var sortParts = v.split(':');
+          sortKey = sortParts[0];
+          sortDir = sortParts[1] === 'desc' ? -1 : 1;
+          headers.forEach(function (h) {
+            if (h.getAttribute('data-sort') === sortKey) {
+              h.setAttribute('aria-sort', sortDir < 0 ? 'descending' : 'ascending');
+            }
+          });
+        } else {
+          var input = form.elements.namedItem(k);
+          if (input) input.value = v;
+        }
+      });
+    }
+
+    function matches(row, f) {
+      if (f.category && row.category !== f.category) return false;
+      if (f.isolation && row.isolation !== f.isolation) return false;
+      if (f.hitl && row.hitl !== f.hitl) return false;
+      if (f.mcp === 'yes' && !row.mcp) return false;
+      if (f.mcp === 'no' && row.mcp) return false;
+      if (f.license && row.license !== f.license) return false;
+      if (f.language && row.language_support.indexOf(f.language) === -1) return false;
+      if (f.max_price !== null && !isNaN(f.max_price)) {
+        if (row.price_per_pr_usd === null || row.price_per_pr_usd > f.max_price) return false;
+      }
+      return true;
+    }
+
+    function compareRows(a, b) {
+      if (!sortKey) return 0;
+      var av = a[sortKey];
+      var bv = b[sortKey];
+      // Push nulls to the bottom regardless of sort direction.
+      if (av === null && bv === null) return 0;
+      if (av === null) return 1;
+      if (bv === null) return -1;
+      if (typeof av === 'number' && typeof bv === 'number') return (av - bv) * sortDir;
+      if (typeof av === 'boolean' && typeof bv === 'boolean') return ((av ? 1 : 0) - (bv ? 1 : 0)) * sortDir;
+      return String(av).localeCompare(String(bv)) * sortDir;
+    }
+
+    function render() {
+      var filters = readFilters();
+      writeHash(filters);
+      var filtered = rows.filter(function (r) { return matches(r, filters); });
+      filtered.sort(compareRows);
+
+      tbody.innerHTML = '';
+      filtered.forEach(function (r) {
+        var tr = document.createElement('tr');
+
+        function cell(text) {
+          var td = document.createElement('td');
+          if (typeof text === 'string' || typeof text === 'number') td.textContent = text;
+          else if (text instanceof Node) td.appendChild(text);
+          return td;
+        }
+
+        var nameLink = document.createElement('a');
+        nameLink.href = r.url;
+        nameLink.target = '_blank';
+        nameLink.rel = 'noopener noreferrer';
+        nameLink.textContent = r.name;
+        tr.appendChild(cell(nameLink));
+        tr.appendChild(cell(r.category));
+        tr.appendChild(cell(r.isolation));
+        tr.appendChild(cell(formatPrice(r.price_per_pr_usd)));
+        tr.appendChild(cell(r.hitl));
+        tr.appendChild(cell(r.mcp ? 'yes' : 'no'));
+        tr.appendChild(cell(r.license));
+        tr.appendChild(cell(r.language_support.join(', ')));
+
+        var verifiedTd = document.createElement('td');
+        var days = daysSince(r.lastVerified);
+        if (days === null) {
+          verifiedTd.textContent = r.lastVerified || '—';
+        } else if (days <= 90) {
+          verifiedTd.textContent = days + 'd ago';
+        } else {
+          verifiedTd.innerHTML = '<span class="compare-stale">' + days + 'd ago</span>';
+        }
+        tr.appendChild(verifiedTd);
+        tbody.appendChild(tr);
+      });
+
+      countEl.textContent = filtered.length + ' of ' + rows.length + ' rows';
+    }
+
+    form.addEventListener('change', render);
+    form.addEventListener('input', function (e) {
+      if (e.target && e.target.name === 'max_price') render();
+    });
+    resetBtn.addEventListener('click', function () {
+      form.reset();
+      sortKey = null;
+      sortDir = 1;
+      headers.forEach(function (h) { h.setAttribute('aria-sort', 'none'); });
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+      render();
+    });
+
+    headers.forEach(function (h) {
+      h.addEventListener('click', function () {
+        var key = h.getAttribute('data-sort');
+        if (sortKey === key) {
+          sortDir = -sortDir;
+        } else {
+          sortKey = key;
+          sortDir = 1;
+        }
+        headers.forEach(function (other) { other.setAttribute('aria-sort', 'none'); });
+        h.setAttribute('aria-sort', sortDir < 0 ? 'descending' : 'ascending');
+        render();
+      });
+    });
+
+    applyHash();
+    render();
+  })();
+</script>
+
 <style>
-  .compare-matrix { padding: 1rem; border: 1px dashed var(--border, #ccc); }
+  .compare-matrix {
+    margin: 2rem 0;
+    display: grid;
+    gap: 1rem;
+  }
+  .compare-filters {
+    display: flex;
+    gap: 0.75rem 1rem;
+    flex-wrap: wrap;
+    align-items: end;
+    padding: 1rem;
+    border: 1px solid var(--border, #2a2a2a);
+    border-radius: 0.5rem;
+  }
+  .compare-filters label {
+    display: grid;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+  }
+  .compare-filters select,
+  .compare-filters input {
+    padding: 0.35rem 0.5rem;
+    font: inherit;
+    min-width: 9rem;
+  }
+  .compare-filters input[name='max_price'] { min-width: 7rem; }
+  .compare-filters button {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font: inherit;
+  }
+  .compare-count {
+    font-size: 0.875rem;
+    color: var(--muted, #888);
+    margin-left: auto;
+  }
+  .compare-table-wrap {
+    overflow-x: auto;
+  }
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  .compare-table th,
+  .compare-table td {
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--border, #2a2a2a);
+    vertical-align: top;
+  }
+  .compare-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+  }
+  .compare-table th[aria-sort='ascending']::after { content: ' ▲'; opacity: 0.6; }
+  .compare-table th[aria-sort='descending']::after { content: ' ▼'; opacity: 0.6; }
+  .compare-table a { color: inherit; }
+  .compare-stale {
+    color: var(--danger, #d04444);
+    font-weight: 600;
+  }
 </style>

@@ -1,26 +1,17 @@
 ---
-// STUB — picks up once v1.4 (Astro substrate) merges.
-//
 // PickStack — the question tree + scoring island for /pick-stack/.
 //
-// Props:
-//   questions: { id, prompt, options: [{ label, value, weights: { stack: int } }] }[]
-//   stacks:    { name, displayName, components, rationale, loser_rationale }[]
+// Pure vanilla JS inside an <script is:inline>. No framework needed.
+// Reads the dataset from data-attributes serialized in the wrapper div.
 //
-// Implementation TODO:
-// 1. Render the questions as a vertical form. Single-select per question.
-// 2. On every change, sum the weights for each stack across selected answers.
-// 3. Render the top-scoring stack: components, rationale, "why not" section.
-// 4. Update the URL hash on every change (e.g. `#latency=async&isolation=microvm`).
-// 5. On page load, parse the URL hash and restore answers.
-// 6. Add a "Share this stack" button that copies the URL.
-// 7. Render every component recommendation with a link to the relevant
-//    content page section (cross-link inference -> inference.md, sandbox -> sandboxes section, etc.).
-// 8. Accessibility: keyboard-navigable, ARIA labels per question group.
-//
-// Implementation hint: this can be vanilla JS inside the Astro component
-// using `<script>` with `is:inline`. No need for React/Preact — the state is
-// flat and the data is local. ~150 lines of JS should be enough.
+// Behavior:
+//   - Renders one fieldset per question with radio options.
+//   - On every change: sums weights across selected answers, picks top stack.
+//   - Updates URL hash with answers (?id1=val1&id2=val2 style, in the fragment).
+//   - On load: reads hash, restores answers.
+//   - "Copy share URL" button.
+//   - Renders the winning stack's components + rationale + a "Why not the
+//     alternatives" block listing the other stacks with their loser_rationale.
 
 interface Option {
   label: string;
@@ -48,12 +39,289 @@ interface Props {
 const { questions, stacks } = Astro.props;
 ---
 
-<div class="pick-stack" data-questions={JSON.stringify(questions)} data-stacks={JSON.stringify(stacks)}>
-  <p><em>STUB:</em> Pick-stack island renders once Astro substrate lands.</p>
-  <p>{questions.length} questions, {stacks.length} named stacks loaded.</p>
-  <!-- TODO(post v1.4): render the form + recommendation block -->
+<div
+  class="pick-stack"
+  data-questions={JSON.stringify(questions)}
+  data-stacks={JSON.stringify(stacks)}
+>
+  <form id="pick-stack-form" class="pick-stack-form" aria-label="Pick your agent stack">
+    {questions.map((q) => (
+      <fieldset class="pick-stack-question" data-qid={q.id}>
+        <legend>{q.prompt}</legend>
+        {q.options.map((opt) => (
+          <label class="pick-stack-option">
+            <input type="radio" name={q.id} value={opt.value} />
+            <span>{opt.label}</span>
+          </label>
+        ))}
+      </fieldset>
+    ))}
+  </form>
+
+  <div class="pick-stack-actions">
+    <button type="button" id="pick-stack-share">Copy share URL</button>
+    <button type="button" id="pick-stack-reset">Reset</button>
+    <span id="pick-stack-share-status" aria-live="polite" class="pick-stack-share-status"></span>
+  </div>
+
+  <section id="pick-stack-result" class="pick-stack-result" aria-live="polite" hidden>
+    <h2 id="pick-stack-result-title"></h2>
+    <p id="pick-stack-result-rationale" class="pick-stack-rationale"></p>
+
+    <h3>Recommended components</h3>
+    <dl id="pick-stack-components" class="pick-stack-components"></dl>
+
+    <h3>Why not the alternatives</h3>
+    <ul id="pick-stack-losers" class="pick-stack-losers"></ul>
+
+    <p class="pick-stack-disclaimer">
+      Scores are summed weights per stack from your answers. Disagree?
+      <a href="https://github.com/opencolin/agentic-engineering/edit/main/src/data/stack-questions.json">Propose a tuning PR</a>.
+    </p>
+  </section>
+
+  <p id="pick-stack-empty" class="pick-stack-empty">
+    Answer the questions above to see your recommended stack.
+  </p>
 </div>
 
+<script is:inline>
+  (function () {
+    var root = document.querySelector('.pick-stack');
+    if (!root) return;
+    var questions = JSON.parse(root.getAttribute('data-questions') || '[]');
+    var stacks = JSON.parse(root.getAttribute('data-stacks') || '[]');
+    var form = document.getElementById('pick-stack-form');
+    var result = document.getElementById('pick-stack-result');
+    var resultTitle = document.getElementById('pick-stack-result-title');
+    var resultRationale = document.getElementById('pick-stack-result-rationale');
+    var componentsList = document.getElementById('pick-stack-components');
+    var losersList = document.getElementById('pick-stack-losers');
+    var emptyMsg = document.getElementById('pick-stack-empty');
+    var shareBtn = document.getElementById('pick-stack-share');
+    var resetBtn = document.getElementById('pick-stack-reset');
+    var shareStatus = document.getElementById('pick-stack-share-status');
+
+    function parseHash() {
+      var hash = window.location.hash.replace(/^#/, '');
+      var out = {};
+      if (!hash) return out;
+      hash.split('&').forEach(function (pair) {
+        var parts = pair.split('=');
+        if (parts.length === 2) out[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1]);
+      });
+      return out;
+    }
+
+    function writeHash(answers) {
+      var pairs = [];
+      Object.keys(answers).forEach(function (k) {
+        if (answers[k]) pairs.push(encodeURIComponent(k) + '=' + encodeURIComponent(answers[k]));
+      });
+      var newHash = pairs.length ? '#' + pairs.join('&') : '';
+      if (window.location.hash !== newHash) {
+        history.replaceState(null, '', window.location.pathname + window.location.search + newHash);
+      }
+    }
+
+    function readAnswers() {
+      var out = {};
+      questions.forEach(function (q) {
+        var checked = form.querySelector('input[name="' + q.id + '"]:checked');
+        if (checked) out[q.id] = checked.value;
+      });
+      return out;
+    }
+
+    function applyAnswers(answers) {
+      questions.forEach(function (q) {
+        var val = answers[q.id];
+        if (!val) return;
+        var input = form.querySelector('input[name="' + q.id + '"][value="' + val + '"]');
+        if (input) input.checked = true;
+      });
+    }
+
+    function scoreStacks(answers) {
+      var scores = {};
+      stacks.forEach(function (s) { scores[s.name] = 0; });
+      questions.forEach(function (q) {
+        var val = answers[q.id];
+        if (!val) return;
+        var opt;
+        for (var i = 0; i < q.options.length; i++) {
+          if (q.options[i].value === val) { opt = q.options[i]; break; }
+        }
+        if (!opt) return;
+        Object.keys(opt.weights).forEach(function (stackName) {
+          if (scores[stackName] !== undefined) {
+            scores[stackName] += opt.weights[stackName];
+          }
+        });
+      });
+      return scores;
+    }
+
+    function render() {
+      var answers = readAnswers();
+      writeHash(answers);
+
+      var answered = Object.keys(answers).length;
+      if (answered === 0) {
+        result.hidden = true;
+        emptyMsg.hidden = false;
+        return;
+      }
+      emptyMsg.hidden = true;
+
+      var scores = scoreStacks(answers);
+      var ranked = stacks.slice().sort(function (a, b) {
+        return scores[b.name] - scores[a.name];
+      });
+      var winner = ranked[0];
+      if (!winner) return;
+
+      result.hidden = false;
+      resultTitle.textContent = winner.displayName + ' (' + scores[winner.name] + ' pts)';
+      resultRationale.textContent = winner.rationale;
+
+      // Components
+      componentsList.innerHTML = '';
+      Object.keys(winner.components).forEach(function (slot) {
+        var dt = document.createElement('dt');
+        dt.textContent = slot;
+        var dd = document.createElement('dd');
+        dd.textContent = winner.components[slot];
+        componentsList.appendChild(dt);
+        componentsList.appendChild(dd);
+      });
+
+      // Losers — show every other stack in score-descending order.
+      losersList.innerHTML = '';
+      for (var i = 1; i < ranked.length; i++) {
+        var loser = ranked[i];
+        var why = winner.loser_rationale[loser.name];
+        if (!why) continue;
+        var li = document.createElement('li');
+        var strong = document.createElement('strong');
+        strong.textContent = loser.displayName + ' (' + scores[loser.name] + ' pts) — ';
+        li.appendChild(strong);
+        li.appendChild(document.createTextNode(why));
+        losersList.appendChild(li);
+      }
+    }
+
+    form.addEventListener('change', render);
+
+    shareBtn.addEventListener('click', function () {
+      var url = window.location.href;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function () {
+          shareStatus.textContent = 'Copied!';
+          setTimeout(function () { shareStatus.textContent = ''; }, 2000);
+        }, function () {
+          shareStatus.textContent = 'Copy failed — select the URL bar instead.';
+        });
+      } else {
+        shareStatus.textContent = 'Copy unsupported — select the URL bar.';
+      }
+    });
+
+    resetBtn.addEventListener('click', function () {
+      form.reset();
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+      render();
+    });
+
+    // Restore from hash on load.
+    var initial = parseHash();
+    if (Object.keys(initial).length) {
+      applyAnswers(initial);
+    }
+    render();
+  })();
+</script>
+
 <style>
-  .pick-stack { padding: 1rem; border: 1px dashed var(--border, #ccc); }
+  .pick-stack {
+    display: grid;
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+  .pick-stack-form {
+    display: grid;
+    gap: 1rem;
+  }
+  .pick-stack-question {
+    border: 1px solid var(--border, #2a2a2a);
+    border-radius: 0.5rem;
+    padding: 1rem 1.25rem;
+  }
+  .pick-stack-question legend {
+    font-weight: 600;
+    padding: 0 0.5rem;
+  }
+  .pick-stack-option {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+    padding: 0.4rem 0;
+    cursor: pointer;
+  }
+  .pick-stack-option input { margin-top: 0.25rem; }
+
+  .pick-stack-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .pick-stack-actions button {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font: inherit;
+  }
+  .pick-stack-share-status {
+    font-size: 0.875rem;
+    color: var(--muted, #888);
+  }
+
+  .pick-stack-result {
+    border: 2px solid var(--accent, #5d9cec);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    background: var(--bg-muted, rgba(93, 156, 236, 0.08));
+  }
+  .pick-stack-result h2 { margin-top: 0; }
+  .pick-stack-rationale {
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+  .pick-stack-components {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.5rem 1rem;
+    margin: 1rem 0;
+  }
+  .pick-stack-components dt {
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+  .pick-stack-components dd { margin: 0; }
+  .pick-stack-losers {
+    padding-left: 1.5rem;
+  }
+  .pick-stack-losers li {
+    margin: 0.5rem 0;
+    line-height: 1.5;
+  }
+  .pick-stack-disclaimer {
+    font-size: 0.875rem;
+    color: var(--muted, #888);
+    margin-top: 1rem;
+  }
+  .pick-stack-empty {
+    color: var(--muted, #888);
+    font-style: italic;
+  }
 </style>
