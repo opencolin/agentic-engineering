@@ -2,6 +2,8 @@ export const config = { runtime: 'edge' };
 
 const TO_EMAIL = 'collin@dabl.club';
 const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL || 'contact@agentic-engineering.com';
+const SUPABASE_URL = process.env.SUPABASE_URL || 'https://uflkltmvzvhziysheccd.supabase.co';
+const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || '';
 
 const cors = {
   'Access-Control-Allow-Origin': '*',
@@ -53,6 +55,23 @@ export default async function handler(req: Request) {
 
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) return json(500, { error: 'email_not_configured' });
+
+  // Best-effort persist to Supabase. We don't fail the request if this errors —
+  // the email is the system of record; Supabase is for the /admin/contacts/ view.
+  if (SUPABASE_ANON_KEY) {
+    const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || null;
+    const ua = req.headers.get('user-agent') || null;
+    fetch(`${SUPABASE_URL}/rest/v1/contact_submissions`, {
+      method: 'POST',
+      headers: {
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json',
+        Prefer: 'return=minimal',
+      },
+      body: JSON.stringify({ name, email, message, ip, user_agent: ua }),
+    }).catch(() => {});
+  }
 
   const subject = `[agentic-engineering] Contact from ${name}`;
   const text =
