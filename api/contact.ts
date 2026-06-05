@@ -1,7 +1,7 @@
 export const config = { runtime: 'edge' };
 
 const TO_EMAIL = 'collin@dabl.club';
-const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL || 'contact@agentic-engineering.com';
+const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL || 'contact@automate.engineering';
 const SUPABASE_URL = process.env.SUPABASE_URL || 'https://uflkltmvzvhziysheccd.supabase.co';
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || '';
 
