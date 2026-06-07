@@ -1,4 +1,6 @@
-# Agentic Engineering
+# Automate Engineering
+
+*A reference for agentic engineering.*
 
 A comprehensive reference to autonomous coding agents, agentic organizations, and the emerging patterns of AI-native software engineering. Covers 25+ agent systems (Stripe Minions, Claude Managed Agents, Vercel Open Agents, OpenAI Symphony, OpenHands, AgentField, Devin, the Steinberger / OpenClaw ecosystem, GStack, GBrain, Hermes Agent, AgentHub, and more), 180+ infrastructure vendors, and the architectural patterns driving the category.
 

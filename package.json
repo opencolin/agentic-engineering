@@ -1,7 +1,7 @@
 {
   "name": "agentic-engineering",
   "version": "1.0.0",
-  "description": "Agentic Engineering — reference site (front end) and documentation portal (Astro Starlight).",
+  "description": "Automate Engineering — reference site for agentic engineering (front end) and documentation portal (Astro Starlight).",
   "private": true,
   "scripts": {
     "build": "bash build.sh",
