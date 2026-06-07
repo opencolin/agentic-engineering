@@ -27,6 +27,7 @@ cat > index.html << 'HTMLHEAD'
       </label>
       <ul id="search-results" class="search-results" role="listbox" hidden></ul>
     </div>
+    <a href="/contact/" class="topbar-contact">Contact</a>
   </header>
 
   <div class="layout">

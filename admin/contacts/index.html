@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin · Contacts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .admin-wrap { max-width: 1080px; margin: 2rem auto; padding: 0 1.5rem; }
+    .admin-wrap h1 { font-size: 1.5rem; margin-bottom: 1.5rem; }
+    .login-card {
+      max-width: 360px;
+      margin: 4rem auto;
+      padding: 2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+    .login-card h1 { margin: 0 0 1rem; font-size: 1.25rem; }
+    .login-card label { display: block; margin-bottom: 1rem; font-size: 0.875rem; color: var(--text-secondary); }
+    .login-card input { width: 100%; box-sizing: border-box; font: inherit; color: var(--text-primary); background: var(--bg-primary); border: 1px solid var(--border); border-radius: 6px; padding: 0.55rem 0.75rem; margin-top: 0.4rem; }
+    .login-card button { width: 100%; padding: 0.6rem; font: inherit; font-weight: 600; color: #0a0a0f; background: var(--accent); border: 0; border-radius: 6px; cursor: pointer; }
+    .login-error { color: #dc5050; font-size: 0.875rem; margin-top: 0.5rem; min-height: 1.2em; }
+    .contact-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    .contact-table th, .contact-table td { text-align: left; padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .contact-table th { color: var(--text-muted); font-weight: 500; background: var(--bg-card); position: sticky; top: 0; }
+    .contact-table td.msg { max-width: 480px; white-space: pre-wrap; }
+    .contact-table td.ts { white-space: nowrap; color: var(--text-secondary); font-family: var(--font-mono); font-size: 0.8rem; }
+    .meta { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1rem; }
+    .empty { color: var(--text-muted); padding: 2rem; text-align: center; border: 1px dashed var(--border); border-radius: 8px; }
+    .logout { float: right; font-size: 0.875rem; color: var(--text-secondary); text-decoration: none; }
+    .logout:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script>
+    (function () {
+      var root = document.getElementById('root');
+
+      function renderLogin(errMsg) {
+        root.innerHTML =
+          '<div class="login-card">' +
+          '<h1>Admin sign-in</h1>' +
+          '<form id="login-form">' +
+          '<label>Password<input type="password" id="pw" autocomplete="current-password" autofocus></label>' +
+          '<button type="submit">Sign in</button>' +
+          '<div class="login-error" id="err">' + (errMsg || '') + '</div>' +
+          '</form></div>';
+        document.getElementById('login-form').addEventListener('submit', function (e) {
+          e.preventDefault();
+          var pw = document.getElementById('pw').value;
+          fetch('/api/admin/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password: pw })
+          }).then(function (r) {
+            if (r.ok) load();
+            else renderLogin('Wrong password.');
+          }).catch(function () { renderLogin('Network error.'); });
+        });
+      }
+
+      function escape(s) {
+        return String(s == null ? '' : s)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function renderTable(rows) {
+        if (!rows.length) {
+          root.innerHTML = '<div class="admin-wrap"><h1>Contact submissions</h1><div class="empty">No submissions yet.</div></div>';
+          return;
+        }
+        var trs = rows.map(function (r) {
+          return '<tr>' +
+            '<td class="ts">' + escape(r.created_at) + '</td>' +
+            '<td>' + escape(r.name) + '</td>' +
+            '<td><a href="mailto:' + escape(r.email) + '">' + escape(r.email) + '</a></td>' +
+            '<td class="msg">' + escape(r.message) + '</td>' +
+            '<td>' + escape(r.ip || '') + '</td>' +
+            '</tr>';
+        }).join('');
+        root.innerHTML =
+          '<div class="admin-wrap">' +
+          '<h1>Contact submissions <a href="#" class="logout" id="logout">sign out</a></h1>' +
+          '<div class="meta">' + rows.length + ' rows (most recent first)</div>' +
+          '<table class="contact-table">' +
+          '<thead><tr><th>Received</th><th>Name</th><th>Email</th><th>Message</th><th>IP</th></tr></thead>' +
+          '<tbody>' + trs + '</tbody>' +
+          '</table></div>';
+        document.getElementById('logout').addEventListener('click', function (e) {
+          e.preventDefault();
+          document.cookie = 'admin_auth=; Path=/; Max-Age=0; SameSite=Strict';
+          renderLogin('');
+        });
+      }
+
+      function load() {
+        fetch('/api/admin/contacts').then(function (r) {
+          if (r.status === 401) { renderLogin(''); return null; }
+          if (!r.ok) { renderLogin('Server error: ' + r.status); return null; }
+          return r.json();
+        }).then(function (data) {
+          if (data) renderTable(data.rows || []);
+        }).catch(function () { renderLogin('Network error.'); });
+      }
+
+      load();
+    })();
+  </script>
+</body>
+</html>

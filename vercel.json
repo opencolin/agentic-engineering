@@ -2,5 +2,9 @@
   "buildCommand": null,
   "outputDirectory": ".",
   "framework": null,
-  "cleanUrls": true
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/contact", "destination": "/contact/index.html" },
+    { "source": "/admin/contacts", "destination": "/admin/contacts/index.html" }
+  ]
 }
