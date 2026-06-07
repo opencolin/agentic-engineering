@@ -5,6 +5,15 @@
   height: 100vh;
 }
 
+/* Events page topbar uses a simpler flex layout — brand on the left,
+   title in the middle, theme toggle pushed to the right. */
+.events-page .topbar {
+  display: flex;
+  align-items: center;
+}
+.events-page .topbar-brand {
+  flex: 0 0 auto;
+}
 .events-page .topbar-events-title {
   font-family: var(--font-mono);
   font-size: 0.85rem;
@@ -12,6 +21,10 @@
   letter-spacing: 0.05em;
   text-transform: uppercase;
   margin-left: 1rem;
+  flex: 1 1 auto;
+}
+.events-page .theme-toggle {
+  margin-left: auto;
 }
 
 .events-layout {
@@ -80,11 +93,11 @@
 }
 
 .event-item:hover {
-  background: rgba(99, 102, 241, 0.06);
+  background: rgba(var(--accent-rgb), 0.06);
 }
 
 .event-item.active {
-  background: rgba(99, 102, 241, 0.12);
+  background: rgba(var(--accent-rgb), 0.12);
   border-left: 3px solid var(--accent);
   padding-left: calc(1.5rem - 3px);
 }
@@ -156,8 +169,8 @@
   font-size: 0.72rem;
   font-weight: 500;
   color: var(--accent);
-  background: rgba(99, 102, 241, 0.08);
-  border: 1px solid rgba(99, 102, 241, 0.25);
+  background: rgba(var(--accent-rgb), 0.08);
+  border: 1px solid rgba(var(--accent-rgb), 0.25);
   border-radius: var(--radius);
   text-decoration: none;
   letter-spacing: 0.02em;
@@ -165,7 +178,7 @@
 }
 
 .event-details-btn:hover {
-  background: rgba(99, 102, 241, 0.18);
+  background: rgba(var(--accent-rgb), 0.18);
   border-color: var(--accent);
   color: var(--accent-hover);
 }
@@ -269,12 +282,12 @@
   height: 20px;
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  border: 1px solid rgba(99, 102, 241, 0.5);
+  border: 1px solid rgba(var(--accent-rgb), 0.5);
   animation: eventDotPulse 3s ease-in-out infinite;
 }
 
 .event-dot.flagship::before {
-  box-shadow: 0 0 10px 2px rgba(99, 102, 241, 0.7);
+  box-shadow: 0 0 10px 2px rgba(var(--accent-rgb), 0.7);
 }
 
 .event-dot.flagship::after {

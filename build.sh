@@ -13,6 +13,16 @@ cat > index.html << 'HTMLHEAD'
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <script>
+    // Early theme init — runs before <body> paints to avoid FOUC.
+    (function () {
+      try {
+        var stored = localStorage.getItem('ae-theme');
+        var theme = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
   <a href="#main" class="skip-to-content">Skip to content</a>
@@ -27,6 +37,10 @@ cat > index.html << 'HTMLHEAD'
       </label>
       <ul id="search-results" class="search-results" role="listbox" hidden></ul>
     </div>
+    <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to light mode" title="Switch to light mode">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
     <a href="/contact/" class="topbar-contact">Contact</a>
   </header>
 
@@ -112,6 +126,7 @@ cat >> index.html << 'HTMLFOOT'
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/theme.js"></script>
 </body>
 </html>
 HTMLFOOT
