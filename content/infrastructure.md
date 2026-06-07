@@ -138,6 +138,7 @@ Open-source and cloud-hosted visual builders for agent workflows.
 | **Flowise** | Free OSS + cloud | Visual LangChain/LlamaIndex orchestration |
 | **Langflow** | Free OSS + cloud | DataStax-backed LangChain visual IDE |
 | **CrewAI Enterprise** | Free OSS + paid cloud | Role-based crew orchestration paradigm |
+| **[RocketRide (AIDE)](https://rocketride.org/)** | Free OSS + cloud beta | C++ pipeline runtime (3.7K stars) + VS Code extension form factor; MCP-native, TS/Python SDKs, runs on your own infra |
 
 ---
 
