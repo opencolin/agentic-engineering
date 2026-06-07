@@ -1,5 +1,5 @@
 /**
- * Agentic Engineering — Events Map
+ * Automate Engineering — Events Map
  * Renders a chronological list of upcoming events alongside a world map.
  */
 

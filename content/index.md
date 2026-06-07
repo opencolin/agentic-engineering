@@ -1,6 +1,8 @@
 <!-- description: A comprehensive reference to autonomous coding agents, agentic organizations, and the emerging patterns of AI-native software engineering. -->
 
-# Agentic Engineering
+# Automate Engineering
+
+*A reference for agentic engineering.*
 
 <p class="sponsor-banner">Sponsored by <a href="https://nebius.com/" target="_blank" rel="noopener" aria-label="Nebius"><img src="img/nebius-logo.svg" alt="Nebius" class="sponsor-logo" /></a></p>
 
