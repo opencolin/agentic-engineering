@@ -8,7 +8,7 @@ cat > index.html << 'HTMLHEAD'
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agentic Engineering - A Comprehensive Reference</title>
+  <title>Automate Engineering — A Reference for Agentic Engineering</title>
   <meta name="description" content="A comprehensive guide to autonomous coding agents, agentic organizations, and the emerging patterns of AI-native software engineering.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@ cat > index.html << 'HTMLHEAD'
   <a href="#main" class="skip-to-content">Skip to content</a>
   <header class="topbar">
     <button class="sidebar-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="sidebar">&#9776;</button>
-    <a href="#" class="topbar-brand" data-page="index"><span>&gt;_</span> Agentic Engineering</a>
+    <a href="#" class="topbar-brand" data-page="index"><span>&gt;_</span> Automate Engineering</a>
     <div class="topbar-search">
       <label class="search-field">
         <span class="search-icon" aria-hidden="true">&#128269;</span>
@@ -88,7 +88,7 @@ cat > index.html << 'HTMLHEAD'
         <p class="loading">Loading...</p>
       </article>
       <footer class="content-footer">
-        <p>Agentic Engineering Reference &mdash; Content stored as plain markdown for easy reading by humans and agents alike.</p>
+        <p>Automate Engineering &mdash; a reference for agentic engineering. Content stored as plain markdown for easy reading by humans and agents alike.</p>
       </footer>
     </main>
 
