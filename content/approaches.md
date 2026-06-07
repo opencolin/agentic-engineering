@@ -52,7 +52,7 @@ Ordered by GitHub stars (descending).
 - [GStack](#gstack) — Garry Tan's 23-skill Claude Code setup, CEO / Designer / Eng Manager / QA personas
 - [GBrain](#gbrain) — Garry Tan's persistent-memory companion to GStack
 - [Superpowers](#superpowers) — Jesse Vincent's skills framework + design-then-implement methodology
-- [Everything Claude Code](#everything-claude-code) — Affaan M.'s security-auditing harness pack
+- [Everything Claude Code](#everything-claude-code) — Affaan M.'s multi-harness operator system: 63 subagents, 249 skills, hooks, MCP, AgentShield security audit
 - [AgentHub](#agenthub) — Electron harness-engineering control plane on top of Claude Code CLI
 
 ### The Steinberger ecosystem
@@ -1331,41 +1331,50 @@ A *software-development-methodology* shipped as a skills framework. Where [GStac
 
 ## Everything Claude Code
 
-- **Type:** Open Source
+- **Type:** Open Source (MIT)
 - **Stars:** 190K
 - **GitHub:** https://github.com/affaan-m/ECC [![stars](https://img.shields.io/github/stars/affaan-m/ECC?style=social)](https://github.com/affaan-m/ECC)
-- **Origin:** Affaan M., shipped at the Cerebral Valley × Anthropic Claude Code Hackathon (Feb 2026)
-- **Also known as:** ECC (the repo was renamed from `everything-claude-code` to `ECC` in 2026)
+- **npm:** [`ecc-universal`](https://www.npmjs.com/package/ecc-universal) (full pack) · [`ecc-agentshield`](https://www.npmjs.com/package/ecc-agentshield) (security audit standalone)
+- **Origin:** Affaan M., shipped at the Cerebral Valley × Anthropic Claude Code Hackathon (Feb 2026); reached `v2.0.0-rc.1` April 2026
+- **Also known as:** ECC (the repo was renamed from `everything-claude-code` to `ECC` in 2026; the README now describes ECC as the brand, with no canonical acronym expansion)
 
-A harness pack focused on a category none of the others target directly: **security auditing of the Claude Code harness itself**. Where GStack / Superpowers / GBrain / AgentHub assume your harness is the answer, ECC treats your harness as an attack surface and audits it.
+Positioned by the README as **"the harness-native operator system for agentic work."** Where GStack / Superpowers / GBrain / AgentHub each pick a single angle (product workflow, design discipline, persistent memory, GUI control plane), ECC is the everything-bundle: subagents + skills + hooks + MCP configs + language rules + a security-audit subsystem, with installer adapters across **Codex, Claude Code, Cursor, OpenCode, Gemini, Zed, and GitHub Copilot**.
 
-### Differentiator: security as a first-class subsystem
+### Scope
 
-It scans your `CLAUDE.md`, `settings.json`, MCP configs, hooks, agent definitions, and skills across five categories:
+The pack ships, per the v2.0 README:
 
-1. **Secrets detection** (14 patterns) — find API keys, tokens, credentials accidentally committed to harness config
+- **63 subagents** for delegated tasks (planning, review, refactor, security, language specialists)
+- **249 skills** — `SKILL.md`-style workflow definitions
+- **Hook automations** across 8+ event types (PreToolUse, PostToolUse, Stop, SessionStart, SessionEnd, etc.)
+- **14 MCP server configurations** — GitHub, Context7, Exa, Playwright, and others, pre-wired
+- **34 language/framework rule packs** — TypeScript, Python, Go, Swift, PHP, ArkTS, plus common rules
+- **AgentShield** — the security-audit subsystem, now distributed standalone as `ecc-agentshield`
+
+### AgentShield: security audit as a first-class subsystem
+
+The differentiator the previous version of ECC was best known for — now its own npm package. AgentShield scans your `CLAUDE.md`, `settings.json`, MCP configs, hooks, agent definitions, and skills across five categories:
+
+1. **Secrets detection** (14 patterns) — API keys, tokens, credentials accidentally committed to harness config
 2. **Permission auditing** — overly-broad allowlists, missing denylists, dangerous default scopes
 3. **Hook injection analysis** — Pre/PostToolUse hooks that could be exploited
 4. **MCP server risk profiling** — untrusted MCP servers, missing auth, scope creep
 5. **Agent config review** — agent definitions that over-grant capabilities
 
-Run `--opus` for a red-team / blue-team / auditor pipeline using three Opus 4.6 agents: attacker finds exploit chains, defender evaluates protections, auditor synthesizes a prioritized risk assessment. The project ships with 1,282 tests, 98% coverage, and 102 static-analysis rules — unusually disciplined for an agent project.
-
-### Beyond security
-
-It also bundles skills, instincts (lightweight always-on rules), memory, and a "research-first development" workflow for Claude Code, Codex, OpenCode, and Cursor. The breadth is real, but the security-audit angle is the reason to install it specifically.
+Run `--opus` for a red-team / blue-team / auditor pipeline using three Opus 4.6 agents: attacker finds exploit chains, defender evaluates protections, auditor synthesizes a prioritized risk assessment.
 
 ### Key Properties
 
-- **Cross-agent compatibility** — ships installation paths under `.claude/`, `.cursor/`, and `.agents/` skill directories
-- **Pairs with [Agent Identity, Auth & Secrets](infrastructure.md#agent-identity-auth-secrets)** — runtime governance enforces; this project audits the *configuration* that governance depends on
-- **Hackathon-grade origin** — has the rough-edges-but-shipping flavor of a project that ran fast; the volume of stars suggests it solved a real pain point
+- **Multi-harness installer** — single source of truth deploys to `.claude/`, `.cursor/`, `.opencode/`, `.codex/`, `.gemini/`, `.zed/`, and Copilot `.github/` skill directories
+- **Skills-first methodology** — pattern extraction, continuous learning, and token-optimization framing taken from the SKILL.md / Claude Code Plugin tradition
+- **Pairs with [Agent Identity, Auth & Secrets](infrastructure.md#agent-identity-auth-secrets)** — AgentShield audits the *configuration* that runtime governance enforces
+- **Composable with single-angle packs** — install AgentShield alongside GStack or Superpowers if you want their workflow opinions plus ECC's audit layer
 
 ### When to Pick It
 
-- You're operating Claude Code at any scale and have never run a security audit of the harness itself
-- You manage multiple `.claude/` skill installs across a team and want a way to verify no one shipped a secret or an overly-broad MCP scope
-- You want red-team / blue-team / auditor patterns for harness security without building them yourself
+- You want a batteries-included starting harness across multiple coding agents, not just Claude Code
+- You manage `.claude/` (or equivalent) installs across a team and want secrets / permission / hook auditing as a discoverable command, not a custom script
+- You want red-team / blue-team / auditor patterns for harness security without building them yourself — install just `ecc-agentshield` for the security slice alone
 
 ---
 
