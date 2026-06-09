@@ -122,15 +122,39 @@ body {
   border-bottom: 1px solid var(--border);
   height: var(--topbar-height);
   display: grid;
-  grid-template-columns: var(--sidebar-width) 1fr auto auto;
+  grid-template-columns: var(--sidebar-width) 1fr auto;
   align-items: center;
   gap: 0;
 }
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-right: 1rem;
+}
+.topbar-action-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+.topbar-action-link:hover,
+.topbar-action-link:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.04);
+}
+/* Legacy alias so older surfaces using .topbar-contact still match. */
 .topbar-contact {
   display: inline-flex;
   align-items: center;
   padding: 0.5rem 1rem;
-  margin-right: 0.5rem;
   border: 1px solid var(--border);
   border-radius: 6px;
   color: var(--text-secondary);
@@ -153,7 +177,6 @@ body {
   justify-content: center;
   width: 2.25rem;
   height: 2.25rem;
-  margin-right: 1rem;
   background: transparent;
   border: 1px solid var(--border);
   border-radius: 6px;
