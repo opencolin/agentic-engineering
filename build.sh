@@ -47,6 +47,8 @@ cat > index.html << 'HTMLHEAD'
     </div>
   </header>
 
+  <div id="sidebar-scrim" class="sidebar-scrim" aria-hidden="true"></div>
+
   <div class="layout">
     <aside id="sidebar" class="sidebar" aria-label="Navigation">
       <div class="sidebar-inner">
@@ -112,6 +114,13 @@ cat > index.html << 'HTMLHEAD'
       <div class="toc-rail-title">On this page</div>
       <ul id="toc-rail-list"></ul>
     </aside>
+  </div>
+
+  <button id="toc-sheet-toggle" class="toc-sheet-toggle" type="button" aria-controls="toc-sheet" aria-expanded="false" hidden>On this page</button>
+  <div id="toc-sheet" class="toc-sheet" role="dialog" aria-label="On this page" aria-modal="false" hidden>
+    <div class="toc-sheet-handle" aria-hidden="true"></div>
+    <div class="toc-sheet-title">On this page</div>
+    <ul id="toc-sheet-list"></ul>
   </div>
 
 HTMLHEAD
