@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page not found — Automate Engineering</title>
+  <meta name="description" content="The page you were looking for could not be found.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a href="/" class="topbar-brand"><span>&gt;_</span> Automate Engineering</a>
+  </header>
+  <main id="main" class="content" tabindex="-1" style="max-width: 720px; margin: 4rem auto; padding: 0 1.5rem;">
+    <article class="markdown-body">
+      <h1>404 &mdash; Page not found</h1>
+      <p>That page doesn't exist (or it moved). Try searching, or head back to the start.</p>
+      <form action="/" method="get" onsubmit="event.preventDefault(); var q=this.querySelector('input').value; window.location.href='/#' + encodeURIComponent(q);">
+        <label class="search-field" style="display:flex; gap:.5rem; align-items:center; margin:1.5rem 0;">
+          <input type="search" name="q" placeholder="Search the reference&hellip;" autofocus style="flex:1; padding:.6rem .8rem; font-size:1rem;">
+          <button type="submit" style="padding:.6rem 1rem;">Search</button>
+        </label>
+      </form>
+      <p><a href="/">&larr; Back to home</a></p>
+      <h2>Popular sections</h2>
+      <ul>
+        <li><a href="/approaches/">Approaches</a></li>
+        <li><a href="/patterns/">Patterns</a></li>
+        <li><a href="/harness-engineering/">Harness Engineering</a></li>
+        <li><a href="/tool-design/">Tool Design</a></li>
+        <li><a href="/models/">Models</a></li>
+      </ul>
+    </article>
+  </main>
+</body>
+</html>
