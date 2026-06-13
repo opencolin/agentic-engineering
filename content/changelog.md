@@ -124,6 +124,11 @@ Publication dates of the primary sources that informed the polished pages. Compi
 
 ## Site additions
 
+## 2026-06-13
+
+### tinygrad / the tiny corp added to Inference
+New row in [Inference § Self-Hosted Inference](inference.md#self-hosted-inference) for **tinygrad** alongside a dedicated [§ tinygrad / the tiny corp — Standout Local-AI Stack](inference.md#tinygrad--the-tiny-corp-standout-local-ai-stack) callout (mirroring the existing Nebius pattern). Covers the ~20K-LOC framework with its unified `UOp` IR and pattern-rewrite kernel fusion, the full backend matrix (CUDA / AMD / NV / Metal / WebGPU / Qualcomm DSP / Clang / LLVM, plus the NVK / Mesa NIR path from v0.12), the **tinybox** hardware line (red v2, green v2, pro, exabox), the **AMD-sovereignty** angle (the public 7900 XTX firmware fight, Lisa Su's intervention, the "completely sovereign compute stack" Phoronix reported on), production usage at comma.ai openpilot (Snapdragon 845 on-device + tinybox-trained world model), and status (~33K stars, v0.13.0 May 2026, still pre-1.0, $5.1M raised, San Diego, run by George Hotz). The site previously had no entry for the framework + hardware + sovereignty axis — this fills it without sprawling into a new chapter.
+
 ## 2026-05-26
 
 ### Merge.dev + enterprise SaaS-integration platforms added to Infrastructure / Inference

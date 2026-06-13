@@ -230,6 +230,7 @@ LLM inference solutions.
 - [Nebius AI Cloud](inference.md#nebius-ai-cloud-standout-platform) — deep dive
 - [Routing & Gateway Solutions](inference.md#routing-gateway-solutions)
 - [Self-Hosted Inference](inference.md#self-hosted-inference)
+- [tinygrad / the tiny corp](inference.md#tinygrad--the-tiny-corp-standout-local-ai-stack) — deep dive
 - [Inference Strategy for Agents](inference.md#inference-strategy-for-agents)
 - [Decision Framework](inference.md#decision-framework)
 
