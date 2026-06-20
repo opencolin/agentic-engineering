@@ -82,6 +82,22 @@ Running models on your own infrastructure for maximum control, privacy, and cost
 | **TGI (Text Generation Inference)** | Hugging Face's production serving solution | Hugging Face model ecosystem |
 | **SGLang** | Fast serving with RadixAttention for structured generation | Tool-use heavy agents, structured outputs |
 | **llama.cpp** | CPU/GPU inference for GGUF models | Edge deployment, resource-constrained environments |
+| **tinygrad** | ~20K-LOC end-to-end DL framework with a unified IR + kernel fusion; same code runs across CUDA, AMD, Metal, WebGPU, Qualcomm DSP | Sovereign / AMD-first inference, on-device serving (Snapdragon, Apple Silicon), hackable compiler stack |
+
+---
+
+## tinygrad / the tiny corp — Standout Local-AI Stack
+
+Worth highlighting separately: [tinygrad](https://tinygrad.org) is doing something none of the other rows in the Self-Hosted Inference table are doing — building **the entire stack**, from a ~20K-LOC PyTorch-style framework down to the hardware it runs on, with a deliberately RISC-like compiler architecture that makes every layer hackable. For teams who want a sovereign, vendor-independent AI stack — especially one that takes AMD seriously — it's the most interesting bet in the category.
+
+- **Framework** — Eager `Tensor` API with autograd, a lazy `UOp` IR, and pattern-rewrite kernel fusion in a single mechanism. Every network reduces to roughly a dozen primitive ops (Elementwise / Reduce / Movement); a new backend takes ~25 low-level ops to add. The contrast with PyTorch / XLA is intentional: keep the ergonomic eager API but expose the entire compiler.
+- **Backends** — CUDA, AMD/HIP, **NV** (talks to NVIDIA GPUs without going through CUDA), Metal, WebGPU, OpenCL, Clang/LLVM, and Qualcomm DSP. v0.12 added a Mesa NIR / NVK backend for a fully-open NVIDIA path.
+- **tinybox** — The tiny corp ships turnkey AI workstations: **tinybox red v2** (4× Radeon RX 9070 XT, ~778 TFLOPS), **tinybox green v2** (4× RTX PRO 6000 Blackwell, ~3,086 TFLOPS), the earlier 8× RTX 4090 **tinybox pro** (~1.36 PFLOPS FP16), and a preordered **exabox** for 2027. Original v1 pricing was $15K red / $25K green. Positioning: "commoditize the petaflop" — a sub-rack local AI box as an alternative to a DGX or 8× H100 server for individuals and small labs.
+- **The AMD-sovereignty angle** — tiny corp has publicly fought RX 7900 XTX firmware / ROCm quality issues, prompting Lisa Su to personally intervene and AMD to ship MI300X units to them. They're nearing what Phoronix calls a "completely sovereign compute stack" for AMD GPUs that bypasses ROCm entirely. For anyone whose agent infrastructure is one CUDA-license decision away from existential risk, this matters.
+- **Production usage** — Powers comma.ai's openpilot driving model on Snapdragon 845; openpilot 0.11's world model was trained on tinybox infrastructure. Both training and inference are first-class — most other self-hosted entries in the table above are inference-only.
+- **Status** — ~33K GitHub stars, latest release v0.13.0 (May 2026), still pre-1.0. Run by **George Hotz (geohot)**, formerly of comma.ai; the tiny corp raised $5.1M in May 2023 and is based in San Diego.
+
+The pitch in one line: a fully-hackable ~20K-LOC compiler stack that turns a single tinybox into a credible alternative to a DGX across NVIDIA, AMD, Apple, Qualcomm, and WebGPU — and forces the AMD stack open in the process. See [tinygrad.org/pitch.pdf](https://tinygrad.org/pitch.pdf), the [docs](https://docs.tinygrad.org/), and the [Latent Space interview with geohot](https://www.latent.space/p/geohot).
 
 ---
 
