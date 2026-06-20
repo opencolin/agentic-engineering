@@ -124,6 +124,11 @@ Publication dates of the primary sources that informed the polished pages. Compi
 
 ## Site additions
 
+## 2026-06-20
+
+### New "Tenki Review" vendor deep-dive page
+New page at [tenki.md](tenki.md), wired into the Infrastructure sidebar group as **Tenki Review**. Vendor-named pages are unusual on this site (Nebius and Coral got dedicated callouts inside category pages, but no standalone vendor page exists for any other vendor), and this one is justified by **Tenki being the only operator shipping three of the four legs of the agent CI loop** — Sandbox, Runners, and Code Reviewer — under one roof. The page benchmarks each product head-to-head against its category leader: **Sandbox** vs E2B / Daytona / Modal / Blaxel / Sprites.dev / Contree; **Runners** vs Blacksmith / Depot / Namespace / BuildJet / RunsOn / Ubicloud; **Code Reviewer** vs CodeRabbit (the mindshare leader, $60M Series B Sep 2025, ~$40M ARR, 8K paying customers) / Greptile ($25M A from Benchmark) / Qodo (OSS / self-hostable) / GitHub Copilot review (first-party threat) / Cursor BugBot / Graphite Agent / Sourcery / Ellipsis / Bito. Closes with the strategic-position section examining the bundle thesis (where it wins: vendor-stitching pain; where it loses: best-of-breed depth) and a "where DevRel adds the most leverage" section that's analytically framed but pulls no punches on the gaps (no GPU sandbox, no public Runners benchmark, undisclosed reviewer models, GitHub-only across the line, no marquee enterprise reference). Cross-links to [Sandboxes](sandboxes.md), [CI Runners for Agent Iteration](infrastructure.md), and the Nebius / Contree comparable deep-dives.
+
 ## 2026-06-13
 
 ### New "CI Runners for Agent Iteration" section in Infrastructure

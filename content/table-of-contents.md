@@ -275,6 +275,21 @@ The execution-environment layer.
 
 ---
 
+## 16.5 [Tenki Review](tenki.md)
+
+Vendor deep-dive on Tenki — the only operator shipping all three legs of the agent CI loop (Sandbox, Runners, Code Reviewer) — benchmarked head-to-head against the category leader for each leg.
+
+- [Company](tenki.md#company) — Luxor origin, team, funding, customers, security
+- [The agent-iteration loop](tenki.md#the-agent-iteration-loop) — the bundle thesis
+- [Sandbox](tenki.md#product-1--sandbox) — vs E2B, Daytona, Modal, Blaxel, Sprites.dev, Contree
+- [Runners](tenki.md#product-2--runners) — vs Blacksmith, Depot, Namespace, BuildJet, RunsOn, Ubicloud
+- [Code Reviewer](tenki.md#product-3--code-reviewer) — vs CodeRabbit, Greptile, Qodo, Copilot review, Cursor BugBot, Graphite Agent
+- [Strategic position](tenki.md#strategic-position) — the bundle thesis examined honestly
+- [Where DevRel adds the most leverage](tenki.md#where-devrel-adds-the-most-leverage)
+- [Verdict](tenki.md#verdict)
+
+---
+
 ## 17. [Generative UI](generative-ui.md)
 
 The agent's front-end story.
