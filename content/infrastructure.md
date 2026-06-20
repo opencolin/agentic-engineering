@@ -9,7 +9,7 @@ For LLM inference solutions, see [Inference](inference.md).
 ## Index
 
 - **Where to run** — [Hosting & Execution Platforms](#agent-hosting-execution-platforms) · [Code Execution Sandboxes](#code-execution-sandboxes) · [Turnkey Managed Platforms](#turnkey-managed-platforms) · [Agent-Optimized Hosting](#agent-optimized-hosting)
-- **Scale & topology** — [Agent Orchestration](#agent-orchestration) · [Cloud Mac Hosting](#cloud-mac-hosting) · [Self-Hosted Infrastructure](#self-hosted-infrastructure)
+- **Scale & topology** — [Agent Orchestration](#agent-orchestration) · [Cloud Mac Hosting](#cloud-mac-hosting) · [CI Runners for Agent Iteration](#ci-runners-for-agent-iteration) · [Self-Hosted Infrastructure](#self-hosted-infrastructure)
 - **State & control** — [Memory & Context](#agent-memory-context-infrastructure) · [Observability & Evaluation](#agent-observability-evaluation) · [MCP Servers, Registries & Gateways](#mcp-servers-registries-gateways) · [Identity, Auth & Secrets](#agent-identity-auth-secrets)
 - **Decision** — [What Stripe Uses](#what-stripe-uses) · [Sandbox vs. Serverless](#sandbox-vs-serverless-fit-for-purpose) · [Key Trends](#key-trends) · [Choosing Your Stack](#choosing-your-stack) · [Decision Framework](#decision-framework)
 
@@ -267,6 +267,26 @@ Managed CI services with macOS runners — useful for build-and-test agent workf
 | **Bitrise** | Per-seat + usage | Mobile-app workflow library |
 | **Appcircle** | Paid tiered | Mobile-only DevOps platform |
 | **Cirrus CI Mac** | Usage-based | Generous free tier for OSS, per-minute Apple silicon |
+
+---
+
+## CI Runners for Agent Iteration
+
+When agents author PRs autonomously, the CI run *is* the feedback loop. The default GitHub-hosted runners were sized for human PR cadence; agent fleets pushing dozens of PRs an hour expose them as the bottleneck. A new generation of drop-in runner replacements has emerged specifically pitching "faster CI = faster agent iteration" — same `runs-on:` swap, same workflows, 2–10× wall-clock improvements on typical jobs. (For macOS-specific runners, see the [Mac CI Runners](#mac-ci-runners) table above.)
+
+| Vendor | Hardware | Isolation | Speed vs. GitHub-hosted | Pricing | Agent Angle |
+|--------|---------|----------|------------------------|---------|-------------|
+| **Blacksmith** ([blacksmith.sh](https://www.blacksmith.sh)) | Bare-metal gaming CPUs (top single-core perf), persistent NVMe layer cache | Bare metal | Up to 2× faster; up to 40× faster Docker builds via warm caches | ~$0.004/min for 2 vCPU x64 (half of GitHub-hosted); 3,000 free min/mo; macOS M4 $0.08/min | YC W24, $10M Series A (Sep 2025, GV-led). Launch headline was literally "Unblock AI Development with Fast CI." 800+ paying customers including Vercel, Supabase, Clerk, Mercury, Ashby. ARM + macOS M4 + Windows Server 2025 (beta). |
+| **Tenki Runners** ([tenki.cloud/products/runners](https://tenki.cloud/products/runners)) | x64 Linux + Apple Silicon M4 Pro | Firecracker microVM, destroyed per job | "30% faster, up to 60–90% cheaper" | $0.002/core-min x64, $0.080/core-min macOS; Starter $10/mo credits, Team $200/mo | From Luxor Technology (Seattle). Sister product to the [Tenki Sandbox](sandboxes.md#purpose-built-agent-sandboxes) for AI-agent code execution — same operator across the agent's "run untrusted code" and "verify the PR" surfaces. SOC 2 Type II. |
+| **Depot** ([depot.dev](https://depot.dev)) | Bare-metal x64 + ARM, persistent build cache | Container / VM | 2–10× faster Docker / Bazel builds; faster Actions runners | Per-minute, free tier for OSS | Started as a Docker build accelerator; runners are the natural extension. Cache-first architecture maps well to agent loops that rebuild the same project hundreds of times. |
+| **Namespace** ([namespace.so](https://namespace.so)) | Bare-metal x64 + ARM | microVM | 2–4× faster, similar cost as GitHub-hosted | Per-minute, generous free tier | Sells both fast Actions runners and remote dev environments — closest competitor to the Ona / Daytona category on the dev-env side and Blacksmith / Tenki on the CI side. |
+| **BuildJet** ([buildjet.com](https://buildjet.com)) | Bare-metal x64 + ARM | VM | ~2× faster | ~30% cheaper than GitHub-hosted | One of the earliest faster-runner shops; mature, no AI-specific positioning — still the conservative pick. |
+| **RunsOn** ([runs-on.com](https://runs-on.com)) | Your AWS account, any EC2 SKU | EC2 instance | Up to 10× faster on right-sized hardware | $0 per minute — you pay AWS only; flat license fee | Self-hosted: the runners live in your VPC, so secrets, GPUs, and private network access are all native. Right fit when an agent fleet needs the same VPC posture as production. |
+| **Ubicloud** ([ubicloud.com](https://www.ubicloud.com)) | Bare-metal | VM | ~2× faster | Up to 10× cheaper than GitHub-hosted | Open-source, self-hostable; positioned as "open AWS." Same drop-in `runs-on:` swap with the cost discipline of running on Hetzner-class infra. |
+
+**Why it matters for agents.** Blacksmith CEO JP Jayaprakash's framing on the Series A: *"This is even more important for teams that are using AI codegen tools and want to move quickly."* If a [Copilot Coding Agent](approaches.md) or a fleet of [Claude managed agents](approaches.md#claude-managed-agents) opens 30 PRs an hour and each waits 8 minutes for CI to turn green before merge-or-iterate, the harness is throttled by the runner queue, not the model. Cutting CI from 8 minutes to 90 seconds is often a more leveraged investment than upgrading the model. Compare to the parallel logic in [Sandboxes — Tier 3 latent opportunities](sandboxes.md#the-sandbox-market-structure): the faster the verification signal, the more iteration the harness can afford.
+
+**Choosing.** Default to **Blacksmith** if you want the lowest-touch SaaS migration with explicit AI-codegen positioning. Pick **Tenki Runners** if you also need an agent code-execution sandbox from the same vendor (the Runners + Sandbox combo). Pick **Depot** if your bottleneck is Docker / Bazel builds rather than the runners themselves. Pick **RunsOn** or **Ubicloud** if you want the runners inside your own AWS / Hetzner footprint. **Namespace** is the right call if you also want remote dev environments from the same provider.
 
 ---
 

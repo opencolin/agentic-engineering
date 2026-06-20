@@ -264,6 +264,7 @@ The execution-environment layer.
 - [Agent-Optimized Hosting](infrastructure.md#agent-optimized-hosting)
 - [Agent Orchestration](infrastructure.md#agent-orchestration) — durable execution, cloud workflows, [agent-specific frameworks](infrastructure.md#agent-specific-orchestration-frameworks), data/ML orchestrators
 - [Cloud Mac Hosting](infrastructure.md#cloud-mac-hosting)
+- [CI Runners for Agent Iteration](infrastructure.md#ci-runners-for-agent-iteration) — Blacksmith, Tenki Runners, Depot, Namespace, BuildJet, RunsOn, Ubicloud
 - [Self-Hosted Infrastructure](infrastructure.md#self-hosted-infrastructure) — GPU clouds, general clouds, [VPS for agents](infrastructure.md#vps-for-agents)
 - [Agent Memory & Context Infrastructure](infrastructure.md#agent-memory-context-infrastructure) — [purpose-built memory](infrastructure.md#purpose-built-agent-memory), vector DBs, graph DBs
 - [Agent Observability & Evaluation](infrastructure.md#agent-observability-evaluation) — [tracing](infrastructure.md#llm-agent-tracing-observability), [evaluation](infrastructure.md#evaluation-testing), [guardrails](infrastructure.md#guardrails-safety)
