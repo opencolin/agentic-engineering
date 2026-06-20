@@ -772,6 +772,25 @@ The YouTube talk archive is the deliverable — even if you never attend, watch 
 
 ---
 
+## Agent security & authorization
+
+The under-covered "what can go wrong" side of agent design. Required if you're shipping anything that touches private data or external tools. See [patterns.md § Adversarial Surface](patterns.md#7-adversarial-surface) and [§ Pre-Action Authorization](patterns.md#8-pre-action-authorization) for the architectural callouts that draw on these.
+
+| Source | What you get |
+|---|---|
+| [The Lethal Trifecta](https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/) — Simon Willison | The canonical short framing: private data + untrusted content + external comms = exfiltration risk. Read this first. |
+| [Agents Rule of Two](https://ai.meta.com/blog/practical-ai-agent-security/) — Meta AI | The design-time mitigation: never let one agent session have all three trifecta properties |
+| [OWASP Top 10 for Agentic Applications (2026)](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) | Industry-standard agent-specific risk taxonomy (Dec 2025); the canonical names to map controls against |
+| [MITRE ATLAS](https://atlas.mitre.org) | Living TTP knowledge base for AI/ML adversaries, modeled on ATT&CK; pairs with OWASP as risks-vs-tactics |
+| [Defense in Depth for Autonomous AI Agents](https://www.microsoft.com/en-us/security/blog/2026/05/14/defense-in-depth-autonomous-ai-agents/) — Microsoft Security | Layered-defense reference + four application-layer design patterns (agents-as-microservices, least permissions, deterministic HITL, agent identity) |
+| [Google's Approach to AI Agent Security](https://simonwillison.net/2025/Jun/15/ai-agent-security/) — via Willison | Three core principles: well-defined human controllers, limited powers, observable actions |
+| [Before the Tool Call: Deterministic Pre-Action Authorization](https://arxiv.org/abs/2603.20953) — Uchibeke (arXiv 2603.20953) | Concrete pre-action gating with measured numbers: 53ms median latency, 74.6%→0% attack success delta |
+| [Layered Attack Surface Framework](https://arxiv.org/abs/2604.23338) — Chu (arXiv 2604.23338) | Academic survey of 116 papers; 7-layer taxonomy plus temporality dimension for mapping attacks/defenses |
+
+For Claude Code's specific take on classifier-mediated autonomy, see [Anthropic's Auto Mode post](https://anthropic.com/engineering/claude-code-auto-mode) and [Sandboxing Claude Code](https://anthropic.com/engineering/claude-code-sandboxing) (both already digested in [Research Notes § 1](research-notes.md#section-1-anthropic-engineering-19-urls)).
+
+---
+
 ## Newsletters bundle
 
 - [Ben's Bites](https://bensbites.com) — high-volume signal layer for what builders are trying
@@ -3125,6 +3144,98 @@ Each minion gets its own full development environment. No shared filesystem, no 
 ### Key Insight
 
 Stripe chose to avoid merge conflicts entirely by isolating at the VM level and letting humans handle PR-level conflicts. AgentField chose to embrace parallelism and build automated merge resolution. The right choice depends on how independent your tasks are.
+
+---
+
+## 7. Adversarial Surface
+
+The threat model unique to autonomous agents. Most agent designs inherit the wrong threat model from chat (filter the prompt, trust the model) and miss the failure mode that actually matters: an agent with tools is an attack-execution engine, not a text generator.
+
+### The Lethal Trifecta
+
+Simon Willison's canonical formulation: an agent is dangerous when it combines all three of (a) **access to private data**, (b) **exposure to untrusted content**, (c) **ability to communicate externally**. Any single capability is safe in isolation; the combination is exfiltration-by-design. ([source](https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/))
+
+> "If your agent combines these three features, an attacker can easily trick it into accessing your private data and sending it to that attacker."
+
+Important corollary: **adding a third-party MCP tool can silently flip an agent into the trifecta**. Every new tool changes the threat surface.
+
+### Why Guardrails Aren't Enough
+
+Current LLM architectures cannot rigorously separate system instructions from instructions embedded in untrusted content — this is the same root cause Google's SAIF agentic guidance names and the reason OWASP's Agentic Top 10 exists as a distinct list from the LLM Top 10. Prompt-injection is, in Meta's words, "a fundamental, unsolved weakness in all LLMs." ([Meta](https://ai.meta.com/blog/practical-ai-agent-security/))
+
+### Reference Taxonomies
+
+| Source | What it gives you |
+|---|---|
+| [OWASP Top 10 for Agentic Applications (2026)](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) | Industry-standard agent-specific risk categories (Dec 2025) |
+| [MITRE ATLAS](https://atlas.mitre.org) | Living TTP knowledge base for AI/ML adversaries — agent-specific tactics from Initial Access through Exfiltration |
+| [Layered Attack Surface Framework — arXiv 2604.23338](https://arxiv.org/abs/2604.23338) | Academic 7-layer + temporality taxonomy; surveys 116 papers (2021–2026) |
+| [Defense in Depth for Autonomous AI Agents — Microsoft](https://www.microsoft.com/en-us/security/blog/2026/05/14/defense-in-depth-autonomous-ai-agents/) | Five novel agent threat classes: agent hijacking, intent breaking, sensitive-data leakage, supply-chain compromise, inappropriate reliance |
+
+### Key Insight
+
+The adversarial surface of an agent is determined more by **which tools it can call in combination** than by which model is driving it. A model upgrade doesn't change the threat model; adding a tool with new auth scope does. Audit the tool combinations, not the prompt.
+
+---
+
+## 8. Pre-Action Authorization
+
+The mitigation pattern that follows from the adversarial-surface threat model: never trust the model's decision to act — gate every action through a deterministic policy at the tool-call boundary. Authentication says *who* the agent is; pre-action authorization says *what it's allowed to do right now*.
+
+### Meta's Rule of Two
+
+Operational design-time rule: an agent session must satisfy **no more than two of three** properties — (A) processes untrustworthy input, (B) accesses sensitive systems, (C) changes state or communicates externally. If all three are required, autonomous execution is prohibited; supervise via HITL approval or reliable validation. ([source](https://ai.meta.com/blog/practical-ai-agent-security/))
+
+This is the direct operationalization of Willison's lethal trifecta — diagnostic plus prescription, the cleanest single-page pairing in agent security.
+
+### Deterministic Gates at the Tool-Call Boundary
+
+The Open Agent Passport (OAP) specification ([arXiv 2603.20953](https://arxiv.org/abs/2603.20953)) gives the concrete primitive: synchronously intercept every tool call, evaluate a declarative policy, allow or deny before execution. Measured numbers:
+
+| Metric | Result |
+|---|---|
+| Median authorization latency | 53 ms (N=1,000) |
+| Social-engineering attack success — permissive policy | 74.6% |
+| Social-engineering attack success — OAP restrictive policy | 0% (across 879 attempts) |
+
+The same gate generalizes beyond security: spending limits, capability scoping, sub-agent delegation, quality gates, and compliance controls all become declarative policies at the same boundary.
+
+### Classifier-Mediated Autonomy (Anthropic's Auto Mode)
+
+[Claude Code Auto Mode](https://anthropic.com/engineering/claude-code-auto-mode) replaces permission prompts with a two-stage classifier — a prompt-injection probe at input plus a transcript classifier at output. Measured: 0.4% false-positive rate on n=10,000 real traffic; 17% false-negative on n=52 overeager actions. The architecture is a three-tier hierarchy:
+
+```
+Built-in allowlist  →  In-project file ops  →  Transcript classifier for high-risk actions
+```
+
+Both stages strip assistant text to resist prompt-injection of the classifier itself. The threat model named explicitly: overeager behavior, honest mistakes, prompt injection, model misalignment.
+
+### Google SAIF: Three Core Principles
+
+Google's published agent-security principles ([source](https://simonwillison.net/2025/Jun/15/ai-agent-security/)) align with the same architecture:
+
+1. **Well-defined human controllers** — every agent has an identified responsible human
+2. **Limited agent powers** — least-privilege capability scoping (the OAP enforcement substrate)
+3. **Observable actions and planning** — traces and audit logs as first-class infrastructure
+
+Defense is hybrid: Layer 1 deterministic runtime policy enforcement, Layer 2 reasoning-based defenses. **Deterministic first, model-based second** — the model is part of the defense, not the only line.
+
+### Microsoft DiD: Four Application-Layer Patterns
+
+Microsoft's layered-defense post ([source](https://www.microsoft.com/en-us/security/blog/2026/05/14/defense-in-depth-autonomous-ai-agents/)) names the application-layer patterns most relevant to pre-action authz:
+
+| Pattern | What it does |
+|---|---|
+| **Agents-as-microservices** | Each agent is a network-isolated service with explicit interfaces, not an in-process call |
+| **Least permissions** | Scoped credentials per tool, per session — never the developer's full OAuth |
+| **Deterministic HITL** | Human approval is a non-bypassable code path, not a prompt to the model |
+| **Agent identity as a security primitive** | Agents have stable identities for audit, not anonymous sessions |
+
+> "When an agent can act autonomously, mistakes propagate faster, blast radius increases, and rollback becomes harder."
+
+### Key Insight
+
+The "permission prompt" UX that current agents use is the wrong abstraction: users approve 93% of prompts ([Anthropic Auto Mode data](https://anthropic.com/engineering/claude-code-auto-mode)) — approval fatigue dominates real behavior, so the prompt provides almost no security value. The fix is to move authorization decisions **out of the user's interactive loop** and into a deterministic policy layer that gates the agent at the tool-call boundary. Humans set policy; the gate enforces it; the agent runs autonomously within it.
   </script>
   <script type="text/markdown" data-page="harness-engineering">
 <!-- description: How to make AI coding agents reliable — the five-subsystem model, repo-as-system-of-record, WIP=1, three-layer verification, sprint contracts, and clean-state exits. -->
@@ -9878,6 +9989,133 @@ Sources added after the original May 25, 2026 ingestion via user audit / The Bat
 **What it is (1 sentence):** "The front page of the agent internet" — a social network for AI agents (post / discuss / upvote) that doubles as an identity provider agents can use to authenticate to third-party apps.
 **Key concepts / classes / functions named:** Submolts (communities), agent posts, agent comments, X-verified agent ownership, Moltbook identity as auth provider, developer early access.
 **Why it matters for agentic-engineering:** Speculative consumer-shaped layer for agent identity — the rare attempt at a Reddit / Hacker News analog where agents are the primary users. Sits adjacent to [Infrastructure § Identity/Auth](infrastructure.md#agent-identity-auth-secrets); worth tracking even if the agent-social-network thesis doesn't pan out.
+
+---
+
+## Section 8: Agent Security & Authorization (post-ingestion thematic add)
+
+Sources added June 2026 to fill two under-covered topics: the **adversarial surface** of autonomous agents (prompt injection, lethal trifecta, threat taxonomies) and **pre-action authorization** (deterministic gates between intent and execution). The previous ingestion has scattered coverage — Claude Code auto-mode classifier, Anthropic sandboxing, Meta Rule of Two mentioned in passing — but no consolidated bibliography of the named frameworks (OWASP Agentic Top 10, MITRE ATLAS, Willison's lethal trifecta, OAP, SAIF, Microsoft DiD). The 8 entries below close that gap.
+
+### The Lethal Trifecta for AI Agents
+**URL:** `https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/`
+**Fetch:** OK
+**Date:** June 16, 2025
+**Author:** Simon Willison
+**Key claims:**
+- The "lethal trifecta" is the combination of three agent capabilities: (1) access to private data, (2) exposure to untrusted content, (3) ability to externally communicate / exfiltrate.
+- When all three coexist in one agent, an attacker can exfiltrate private data via prompt injection — and vendors cannot reliably prevent this.
+- LLMs cannot reliably distinguish trusted instructions from instructions embedded in untrusted content; guardrails are insufficient.
+- Risk compounds when users mix third-party MCP tools — each new tool can silently flip the agent into the trifecta state.
+
+**Quotable:** "If your agent combines these three features, an attacker can easily trick it into accessing your private data and sending it to that attacker."
+**Frameworks named:** Prompt injection (distinguished from jailbreaking), MCP, guardrails (critiqued).
+**Why it matters:** Provides the canonical name and the three-capability formulation that every downstream agent-security framework (Meta Rule of Two, OWASP, Microsoft DiD) builds on.
+
+### Agents Rule of Two: A Practical Approach to AI Agent Security
+**URL:** `https://ai.meta.com/blog/practical-ai-agent-security/`
+**Fetch:** OK
+**Date:** October 31, 2025
+**Author:** Meta AI (unsigned)
+**Key claims:**
+- An agent should satisfy no more than two of three properties within a single session: (A) process untrustworthy inputs, (B) access sensitive systems / private data, (C) change state or communicate externally.
+- If all three are required in one session, the agent must not run autonomously — supervise via HITL approval or other reliable validation.
+- Explicitly framed as a generalization of Chromium's "Rule of Two" security policy, applied to agents, and as the operational complement to Willison's lethal trifecta.
+- Positions Meta's Llama Protections suite (Llama Firewall, Prompt Guard, Code Shield, Llama Guard) as enforcement components.
+
+**Quotable:** "Prompt injection is a fundamental, unsolved weakness in all LLMs."
+**Frameworks named:** Agents Rule of Two, Chromium Rule of Two, lethal trifecta, Llama Firewall, Prompt Guard, Code Shield, Llama Guard, MCP, defense in depth, HITL.
+**Why it matters:** The operational rule a builder can actually apply at design time — diagnostic (trifecta) plus prescription (Rule of Two) is the cleanest single-page security pairing.
+
+### OWASP Top 10 for Agentic Applications for 2026
+**URL:** `https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/`
+**Fetch:** OK (landing page; full risk list requires PDF download)
+**Date:** December 9, 2025
+**Author:** OWASP GenAI Security Project (100+ industry experts/researchers)
+**Key claims:**
+- First OWASP Top 10 scoped specifically to autonomous/agentic applications, distinct from the existing LLM Top 10.
+- Targets builders, defenders, and decision-makers as a starting point for reducing agentic AI risks.
+- Cross-walks to other GenAI security frameworks via an AIUC-1 Crosswalk.
+- The detailed 10-risk enumeration is in the downloadable document, not the landing page.
+
+**Quotable:** "The Top 10 equips builders, defenders, and decision-makers with a clear starting point for reducing agentic AI risks."
+**Frameworks named:** OWASP GenAI Security, AIUC-1 Crosswalk, OWASP LLM Top 10 (sibling).
+**Why it matters:** Industry-standard naming layer — when a risk category needs a stable name, cite OWASP's number.
+
+### MITRE ATLAS (Adversarial Threat Landscape for AI Systems)
+**URL:** `https://atlas.mitre.org`
+**Fetch:** PARTIAL (JS-rendered SPA returns minimal static content; release metadata via `github.com/mitre-atlas/atlas-data/releases`)
+**Date:** Current release `v2026.05` (May 27, 2026); the project moved to date-based versioning for content + semver for the data format.
+**Author:** The MITRE Corporation
+**Key claims:**
+- Living knowledge base of adversary tactics, techniques, and procedures (TTPs) targeting AI/ML systems, modeled on MITRE ATT&CK.
+- Catalog spans tactics including Reconnaissance, Resource Development, Initial Access, ML Model Access, Execution, Persistence, Privilege Escalation, Defense Evasion, Credential Access, Discovery, Collection, ML Attack Staging, Exfiltration, Impact, Command and Control (AML.TA0001 – TA0015, plus additional 2026 tactics — verify exact set against the live matrix before citing a count).
+- May 2026 release introduced versioning split: content versioned by date (2026.05), data format versioned by semver.
+
+**Quotable:** "A globally accessible adversarial ML knowledge base that documents adversary tactics, techniques, and procedures specifically targeting artificial intelligence and machine learning systems."
+**Frameworks named:** MITRE ATT&CK (inheritance source), SAFE-AI (sibling MITRE work).
+**Why it matters:** Pairs with OWASP Top 10 as the threat-model (tactics) side of an agent-security reference — risks (OWASP) and tactics (ATLAS) together.
+
+### Defense in Depth for Autonomous AI Agents
+**URL:** `https://www.microsoft.com/en-us/security/blog/2026/05/14/defense-in-depth-autonomous-ai-agents/`
+**Fetch:** OK
+**Date:** May 14, 2026
+**Authors:** Alyssa Ofstein (Senior Program Manager), Elliot H. Omiya (Principal Architect)
+**Key claims:**
+- Agentic security needs reinforcing layers — model, safety system, application, positioning — and no single layer is sufficient.
+- The application layer is the most critical because it's the only layer organizations fully control and where probabilistic model behavior is converted into deterministic system outcomes.
+- Names a novel agent threat class set: agent hijacking, intent breaking, sensitive-data leakage, supply-chain compromise, inappropriate reliance.
+- Prescribes four application-layer design patterns: agents-as-microservices, least permissions, deterministic human-in-the-loop, agent identity as a security primitive.
+
+**Quotable:** "When an agent can act autonomously, mistakes propagate faster, blast radius increases, and rollback becomes harder."
+**Frameworks named:** Defense in depth, zero trust, agents-as-microservices, least permissions, deterministic HITL, agent identity as security primitive.
+**Why it matters:** Vendor-side reference for layered-defense architecture; provides the canonical "blast radius" framing and four application-layer patterns an agentic-engineering reference can cite as enterprise-validated guidance.
+
+### An Introduction to Google's Approach to AI Agent Security
+**URL:** `https://simonwillison.net/2025/Jun/15/ai-agent-security/`
+**Fetch:** OK
+**Date:** June 15, 2025
+**Author:** Simon Willison (covering a paper by Santiago Díaz, Christoph Kern, Kara Olive — Google)
+**Key claims:**
+- Two primary agent risks: rogue actions and sensitive-data disclosure.
+- Current LLM architectures cannot rigorously separate system instructions from untrusted inputs — the same root cause Willison names elsewhere as the lethal trifecta.
+- Google's three core principles: well-defined human controllers, limited agent powers, observable actions/planning.
+- Recommends a hybrid defense: Layer 1 deterministic runtime policy enforcement + Layer 2 reasoning-based defenses.
+
+**Quotable:** "Agents must have well-defined human controllers... it is essential for security and accountability that agents operate under clear human oversight."
+**Frameworks named:** Google SAIF (agentic addendum), hybrid defense-in-depth (deterministic + reasoning), three-core-principles framework.
+**Why it matters:** Captures Google's published agentic stance; pairs naturally with the Microsoft DiD post for vendor-side coverage.
+
+### Before the Tool Call: Deterministic Pre-Action Authorization for Autonomous AI Agents
+**URL:** `https://arxiv.org/abs/2603.20953`
+**Fetch:** OK
+**Date:** March 21, 2026
+**Author:** Uchi Uchibeke
+**Key claims:**
+- Agents have authentication but lack a deterministic authorization layer at the tool-call boundary; alignment + post-hoc review are insufficient.
+- Proposes the Open Agent Passport (OAP) — a specification for synchronously intercepting tool calls and evaluating declarative policies before execution.
+- Authorization latency: median 53 ms over N=1,000 calls.
+- Under permissive policies, social-engineering attacks succeed 74.6% of the time; under OAP's restrictive policy, attackers achieve 0% across 879 attempts.
+- Same mechanism enforces spending limits, capability scoping, sub-agent delegation, quality gates, and compliance controls.
+
+**Quotable:** "OAP enforces authorization decisions in a measured median of 53 ms (N=1,000)."
+**Frameworks named:** Open Agent Passport (OAP), declarative policies, Apache 2.0 / CC BY 4.0.
+**Why it matters:** Concrete, measured proposal for the "deterministic pre-action gate" pattern — building block for the runtime-enforcement layer in any agent-security architecture.
+
+### A Systematic Survey of Security Threats and Defenses in LLM-Based AI Agents: A Layered Attack Surface Framework
+**URL:** `https://arxiv.org/abs/2604.23338`
+**Fetch:** OK
+**Date:** v1 April 25, 2026; v2 May 6, 2026
+**Author:** Kexin Chu
+**Key claims:**
+- Surveys 116 papers (2021–2026) on agent security through a Layered Attack Surface Model (LASM): seven architectural layers plus a four-class temporality dimension.
+- Argues agentic systems are qualitatively different from stateless LLMs because of persistent memory, tool integration, multi-agent coordination, and cross-session operation.
+- Upper layers of the agentic stack remain "sharply under-explored, especially for long-horizon and stack-propagating threats."
+- Identifies multiple attack regions with documented attacks but no documented defenses.
+- Delivers a cross-layer defense taxonomy and distinguishes near-term engineering gaps from open research problems.
+
+**Quotable:** "Agentic AI systems introduce a security surface that is qualitatively different from that of stateless LLMs."
+**Frameworks named:** Layered Attack Surface Model (LASM), 7-layer architectural decomposition, 4-class temporality dimension.
+**Why it matters:** Up-to-date academic survey that gives the literature-overview "lay of the land" slot, with a clean taxonomy for mapping individual attacks/defenses.
 
 ---
 

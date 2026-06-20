@@ -125,6 +125,25 @@ The YouTube talk archive is the deliverable — even if you never attend, watch 
 
 ---
 
+## Agent security & authorization
+
+The under-covered "what can go wrong" side of agent design. Required if you're shipping anything that touches private data or external tools. See [patterns.md § Adversarial Surface](patterns.md#7-adversarial-surface) and [§ Pre-Action Authorization](patterns.md#8-pre-action-authorization) for the architectural callouts that draw on these.
+
+| Source | What you get |
+|---|---|
+| [The Lethal Trifecta](https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/) — Simon Willison | The canonical short framing: private data + untrusted content + external comms = exfiltration risk. Read this first. |
+| [Agents Rule of Two](https://ai.meta.com/blog/practical-ai-agent-security/) — Meta AI | The design-time mitigation: never let one agent session have all three trifecta properties |
+| [OWASP Top 10 for Agentic Applications (2026)](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) | Industry-standard agent-specific risk taxonomy (Dec 2025); the canonical names to map controls against |
+| [MITRE ATLAS](https://atlas.mitre.org) | Living TTP knowledge base for AI/ML adversaries, modeled on ATT&CK; pairs with OWASP as risks-vs-tactics |
+| [Defense in Depth for Autonomous AI Agents](https://www.microsoft.com/en-us/security/blog/2026/05/14/defense-in-depth-autonomous-ai-agents/) — Microsoft Security | Layered-defense reference + four application-layer design patterns (agents-as-microservices, least permissions, deterministic HITL, agent identity) |
+| [Google's Approach to AI Agent Security](https://simonwillison.net/2025/Jun/15/ai-agent-security/) — via Willison | Three core principles: well-defined human controllers, limited powers, observable actions |
+| [Before the Tool Call: Deterministic Pre-Action Authorization](https://arxiv.org/abs/2603.20953) — Uchibeke (arXiv 2603.20953) | Concrete pre-action gating with measured numbers: 53ms median latency, 74.6%→0% attack success delta |
+| [Layered Attack Surface Framework](https://arxiv.org/abs/2604.23338) — Chu (arXiv 2604.23338) | Academic survey of 116 papers; 7-layer taxonomy plus temporality dimension for mapping attacks/defenses |
+
+For Claude Code's specific take on classifier-mediated autonomy, see [Anthropic's Auto Mode post](https://anthropic.com/engineering/claude-code-auto-mode) and [Sandboxing Claude Code](https://anthropic.com/engineering/claude-code-sandboxing) (both already digested in [Research Notes § 1](research-notes.md#section-1-anthropic-engineering-19-urls)).
+
+---
+
 ## Newsletters bundle
 
 - [Ben's Bites](https://bensbites.com) — high-volume signal layer for what builders are trying
