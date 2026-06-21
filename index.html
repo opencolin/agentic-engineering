@@ -691,6 +691,7 @@ If you only follow one of these, follow Simon Willison.
 
 Required reading if you're serious about the field:
 
+- **[Immersive Commons — The Twelve-Layer Agentic Stack](https://www.immersivecommons.com/news/agentic-stack-12-layers)** (June 2026, updated monthly) — research-commons synthesis of ~1,800 recent agentic papers into a 12-layer "builder's map" of where the engineering of an autonomous agent actually lives. Names the canonical layers (Action Substrate → Pre-Action Authz), which are solved vs consolidating vs emerging, and the "Four Hard Truths." [patterns.md § Twelve-Layer Agentic Stack](patterns.md#the-twelve-layer-agentic-stack) maps each layer to the chapter that covers it on this site.
 - **[Anthropic Engineering](https://anthropic.com/engineering)** — the most consistently high-signal lab blog. Start with [Building Effective Agents](https://anthropic.com/research/building-effective-agents) (Dec 2024) → [Effective Context Engineering](https://anthropic.com/engineering/effective-context-engineering-for-ai-agents) (Sept 2025) → [Multi-Agent Research System](https://anthropic.com/engineering/multi-agent-research-system) (June 2025) → [Managed Agents](https://anthropic.com/engineering/managed-agents) (Apr 2026)
 - **[LangChain Blog](https://www.langchain.com/blog)** — practitioner perspective on agent harnesses, evals, deep agents. Don't miss [The Anatomy of an Agent Harness](https://www.langchain.com/blog/the-anatomy-of-an-agent-harness) and [Open Models Have Crossed a Threshold](https://www.langchain.com/blog/open-models-have-crossed-a-threshold)
 - **[OpenAI Cookbook](https://cookbook.openai.com)** — first-party patterns; the cross-vendor counterpart to Anthropic Cookbook
@@ -2942,6 +2943,53 @@ To: Systems thinker optimizing agent productivity.
 
 ---
 
+## The Twelve-Layer Agentic Stack
+
+A meta-organizing map for everything that follows. [Immersive Commons](https://www.immersivecommons.com/news/agentic-stack-12-layers) (June 2026) synthesized ~1,800 recent agentic papers into a 12-layer model of where the engineering of an autonomous agent actually lives — from the action substrate at the bottom to runtime defense at the top. Each layer names a state-of-the-art approach and a common failure mode; the document is positioned as a "builder's map" and refreshed monthly.
+
+The thesis: *"An agent is a loop, not a model with a clever prompt. Almost all of its real-world capability comes from the engineering around that loop, not from the weights."* The 12 layers are how this site is organized in practice — almost every chapter is the deep dive on one or two of them.
+
+### The 12 layers, mapped to this site
+
+| # | Layer (verbatim) | What it covers | Where this site covers it |
+|---|---|---|---|
+| 01 | Action Substrate | How the loop acts: shell, code interpreter, sandbox, CodeAct | [Sandboxes](sandboxes.md), § 1 below |
+| 02 | Control Loop & Planning | ReAct, MCTS, world models, Agent Q, DPO | [Harness Engineering](harness-engineering.md), [Approaches](approaches.md), § 2 below |
+| 03 | Tool Interface & Discovery | MCP, hierarchical retrieval, AnyTool, ToolFuzz | [Tool Design](tool-design.md), § 3 below |
+| 04 | Memory & Recall | MemGPT, virtual paging, archival KV/vector | [Memory](memory.md) |
+| 05 | Context Lifecycle & Compression | ACON, MemAct, AgentFold, trajectory folding | [Context Engineering](context-engineering.md), § 3 below |
+| 06 | Multi-Agent Coordination & Interop | MetaGPT, phase DAG, schema-constrained handoffs, SOP-as-prompt | § 6 below |
+| 07 | Runtime & Resource Management | KV-cache reuse, prompt placement, AgentRM, MLFQ admission | [Infrastructure](infrastructure.md), [Cost & Economics](cost-economics.md) (under-built per IC) |
+| 08 | Self-Improvement & Skill Acquisition | Agent Workflow Memory, EvoSkill, AlphaEvolve | [Skills](skills.md) covers the primitive; *self-improvement is a gap* |
+| 09 | Verification & Observability | Trace-Based Assurance, message-action trace, LLM-as-judge | [Observability](observability.md) |
+| 10 | Evaluation & Reliability | τ-bench, pass^k, milestone scoring, ToolSandbox, SWE-bench+ | [Evals](evals.md), [Benchmarks](benchmarks.md) |
+| 11 | Adversarial Surface & Red-Teaming | ART, AiTM, tool-poisoning, cross-temporal attacks | [Safety](safety.md), § 7 below |
+| 12 | Runtime Defense & Pre-Action Authorization | OAP, Faramesh, MELON, Memory Sandbox, external non-bypassable gates | [Safety](safety.md), § 8 below |
+
+### Four Hard Truths
+
+The framework distills four field-wide findings worth pinning at the top of any agentic-engineering practice:
+
+1. **Capability lives in the harness, not the model** — scaffold engineering beats model upgrades for agent improvement.
+2. **Memory is a time-bomb** — accumulated memory raises safety violations, drives behavior drift, becomes an attack surface. *"Budget and invalidate memory on purpose."*
+3. **Reasoning can be performative** — models rationalize actions post-hoc; chain-of-thought is an unreliable safety control. *"Verify actions, not explanations."*
+4. **Autonomy is a regression vector** — self-improving agents misevolve; accumulated memory, self-created tools, and rewritten workflows can degrade the alignment they started with.
+
+### Which layers are under-built
+
+IC classifies the field as **1 solved layer** (Action Substrate), **7 consolidating layers**, and **4 emerging / under-built layers** — Layers 7 (Runtime & Resource Mgmt), 8 (Self-Improvement), 9 (Verification & Observability), and 12 (Runtime Defense & Pre-Action Authz). These are the highest-leverage investment areas. Layer 9 specifically is called *"the buildable spine."*
+
+Honest audit of this site against that view:
+
+- **Layer 9 (Observability)** — covered by a dedicated chapter
+- **Layer 12 (Runtime Defense & Pre-Action Authz)** — newly framed in § 8 below
+- **Layer 7 (Runtime & Resource Mgmt)** — partial; [Cost & Economics](cost-economics.md) covers the cost angle but not KV-cache engineering or admission control as design surfaces
+- **Layer 8 (Self-Improvement & Skill Acquisition)** — genuine gap; the Skills chapter covers the *primitive*, not the *self-improvement* literature (Agent Workflow Memory, EvoSkill, AlphaEvolve)
+
+The structured source notes for the framework — including the verbatim layer list, all ~30 cited papers, and the per-layer empirical claims — live in [Research Notes § 9](research-notes.md#section-9-agent-architecture-frameworks-post-ingestion-thematic-add).
+
+---
+
 ## 1. Isolation Strategies
 
 How agents are sandboxed from production and from each other.
@@ -3147,9 +3195,11 @@ Stripe chose to avoid merge conflicts entirely by isolating at the VM level and 
 
 ---
 
-## 7. Adversarial Surface
+## 7. Adversarial Surface & Red-Teaming (Layer 11)
 
-The threat model unique to autonomous agents. Most agent designs inherit the wrong threat model from chat (filter the prompt, trust the model) and miss the failure mode that actually matters: an agent with tools is an attack-execution engine, not a text generator.
+Layer 11 of the [Twelve-Layer Agentic Stack](#the-twelve-layer-agentic-stack) — the catalogued attack surface that follows from agents having memory, tools, and external IO. The dedicated chapter is [Safety](safety.md); this section is the cross-cutting framing and reference taxonomies.
+
+Most agent designs inherit the wrong threat model from chat (filter the prompt, trust the model) and miss the failure mode that actually matters: an agent with tools is an attack-execution engine, not a text generator. Immersive Commons reports the consensus empirical finding: *"Nearly every deployed agent violates policy within 10–100 queries and robustness doesn't correlate with model size."*
 
 ### The Lethal Trifecta
 
@@ -3178,9 +3228,11 @@ The adversarial surface of an agent is determined more by **which tools it can c
 
 ---
 
-## 8. Pre-Action Authorization
+## 8. Runtime Defense & Pre-Action Authorization (Layer 12)
 
-The mitigation pattern that follows from the adversarial-surface threat model: never trust the model's decision to act — gate every action through a deterministic policy at the tool-call boundary. Authentication says *who* the agent is; pre-action authorization says *what it's allowed to do right now*.
+Layer 12 of the [Twelve-Layer Agentic Stack](#the-twelve-layer-agentic-stack) — the non-bypassable enforcement layer that closes the attack surface named in Layer 11. The mitigation pattern that follows from the adversarial-surface threat model: never trust the model's decision to act — gate every action through a deterministic policy at the tool-call boundary. Authentication says *who* the agent is; pre-action authorization says *what it's allowed to do right now*.
+
+Immersive Commons calls this layer one of the four "emerging / under-built" investment areas, alongside Verification & Observability (Layer 9). Their phrasing: *"Only an external, non-bypassable gate is reliable. The same shim doubles as your spend/quality gate."*
 
 ### Meta's Rule of Two
 
@@ -10116,6 +10168,48 @@ Sources added June 2026 to fill two under-covered topics: the **adversarial surf
 **Quotable:** "Agentic AI systems introduce a security surface that is qualitatively different from that of stateless LLMs."
 **Frameworks named:** Layered Attack Surface Model (LASM), 7-layer architectural decomposition, 4-class temporality dimension.
 **Why it matters:** Up-to-date academic survey that gives the literature-overview "lay of the land" slot, with a clean taxonomy for mapping individual attacks/defenses.
+
+---
+
+## Section 9: Agent Architecture Frameworks (post-ingestion thematic add)
+
+Frameworks that try to name and organize the layers of an autonomous-agent stack. Useful as meta-references when you need to point at "where does this technique fit?" instead of citing a single paper.
+
+### The Agentic Stack: How a State-of-the-Art AI Agent Actually Works
+**URL:** `https://www.immersivecommons.com/news/agentic-stack-12-layers`
+**Fetch:** OK
+**Date:** June 20, 2026 (v1; living document, refreshed monthly)
+**Author:** Immersive Commons research cluster (Frontier Tower / FT10, San Francisco; no individual byline)
+**Key claims:**
+- Synthesizes ~1,800 recent agentic papers into a 12-layer "builder's map" of where the engineering of an autonomous agent actually lives.
+- The 12 layers, verbatim:
+  1. **Action Substrate** — how the loop acts (shell, code interpreter, sandbox, CodeAct)
+  2. **Control Loop & Planning** — decision policy sequencing (ReAct, MCTS, Agent Q, world model, DPO)
+  3. **Tool Interface & Discovery** — finding and invoking capability at scale (AnyTool, hierarchical retrieval, ToolFuzz)
+  4. **Memory & Recall** — persistent state across turns/sessions (MemGPT, virtual paging, searchable recall)
+  5. **Context Lifecycle & Compression** — managing finite working-token budget (ACON, MemAct, AgentFold)
+  6. **Multi-Agent Coordination & Interop** — composing loops safely (MetaGPT, SagaLLM, phase DAG, S-Bus)
+  7. **Runtime & Resource Management** — serving, scheduling, cost-bounding at scale (KV-cache reuse, AgentRM, MLFQ admission)
+  8. **Self-Improvement & Skill Acquisition** — getting better without weight surgery (Agent Workflow Memory, EvoSkill, HASP, AlphaEvolve)
+  9. **Verification & Observability** — making behavior inspectable and judgeable (Trace-Based Assurance, message-action trace, LLM-as-judge with A/B swap)
+  10. **Evaluation & Reliability** — knowing the loop is consistent (τ-bench, pass^k, ToolSandbox, SWE-bench+)
+  11. **Adversarial Surface & Red-Teaming** — catalogued attack surface (ART, AiTM, tool-poisoning, cross-temporal attacks)
+  12. **Runtime Defense & Pre-Action Authorization** — non-bypassable enforcement (OAP, Faramesh, MELON, Memory Sandbox)
+- Field state: 1 solved layer (Action Substrate), 7 consolidating layers, 4 emerging / under-built layers (Layers 7, 8, 9, 12) — emerging is where reliability and safety actually come from.
+- Layer 9 (Verification & Observability) is called *"the buildable spine."*
+- Four Hard Truths: (1) capability lives in harness not model; (2) memory is a time-bomb — "budget and invalidate memory on purpose"; (3) reasoning can be performative — "verify actions, not explanations"; (4) autonomy is a regression vector — self-improving agents misevolve.
+- Concrete empirical claims:
+  - **Layer 2:** premature MCTS / async planning collapses overlapping-task performance 47% → 11%
+  - **Layer 4:** memory systems' invalidation-reasoning accuracy is ~1–3%
+  - **Layer 5:** input length alone degrades accuracy 14–85% even with perfect retrieval
+  - **Layer 7:** placing all dynamic content (tool results, session state, date) at the END of the system prompt enables KV-cache reuse for a 41–80% cost cut
+  - **Layer 8:** 39 of 49 induced skills gave +0% lift on SWE tasks
+  - **Layer 10:** "agents that succeed once routinely fail on identical re-runs" — report pass^k, not pass@1
+  - **Layer 11:** nearly every deployed agent violates policy within 10–100 queries; robustness does not correlate with model size
+
+**Quotable:** "An agent is a loop, not a model with a clever prompt. Almost all of its real-world capability comes from the engineering around that loop, not from the weights."
+**Frameworks named (full list from the linked papers):** CodeAct (arXiv 2402.01030), Agent Q (2408.07199), AI Harness Engineering (2605.13357), Graph-of-Thoughts (2308.09687), AnyTool (2402.04253), ToolFuzz (2503.04479), MemGPT (2310.08560), ACON (2510.00615), MemAct (2510.12635), AgentFold (2510.24699), MetaGPT (2308.00352), SagaLLM (2503.11951), S-Bus (2605.17076), Don't Break the Cache (2601.06007), AgentRM (2603.13110), Agent Workflow Memory (2409.07429), EvoSkill (2603.02766), HASP (2605.17734), AlphaEvolve (2506.13131), Trace-Based Assurance (2603.18096), τ-bench (2406.12045), ToolSandbox (2408.04682), SWE-bench+ (2410.06992), ART (2507.20526), AiTM (2502.14847), OAP (2603.20953), Faramesh (2601.17744), MELON (2502.05174), Memory Sandbox (2605.08442), Trojan Hippo (2605.01970), MemoryGraft (2512.16962), SWE-Skills-Bench (2603.15401), WildClawBench (2605.10912).
+**Why it matters:** Meta-organizing map for the whole site. Anchor reference for [patterns.md § Twelve-Layer Agentic Stack](patterns.md#the-twelve-layer-agentic-stack), and the framing for Layers 11/12 in [patterns.md §§ 7–8](patterns.md#7-adversarial-surface--red-teaming-layer-11). The page is positioned as the first public output of the Immersive Commons research cluster and is refreshed monthly — re-verify the framework version and per-layer claims before citing in production work.
 
 ---
 

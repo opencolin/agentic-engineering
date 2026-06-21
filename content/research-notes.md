@@ -1377,6 +1377,48 @@ Sources added June 2026 to fill two under-covered topics: the **adversarial surf
 
 ---
 
+## Section 9: Agent Architecture Frameworks (post-ingestion thematic add)
+
+Frameworks that try to name and organize the layers of an autonomous-agent stack. Useful as meta-references when you need to point at "where does this technique fit?" instead of citing a single paper.
+
+### The Agentic Stack: How a State-of-the-Art AI Agent Actually Works
+**URL:** `https://www.immersivecommons.com/news/agentic-stack-12-layers`
+**Fetch:** OK
+**Date:** June 20, 2026 (v1; living document, refreshed monthly)
+**Author:** Immersive Commons research cluster (Frontier Tower / FT10, San Francisco; no individual byline)
+**Key claims:**
+- Synthesizes ~1,800 recent agentic papers into a 12-layer "builder's map" of where the engineering of an autonomous agent actually lives.
+- The 12 layers, verbatim:
+  1. **Action Substrate** — how the loop acts (shell, code interpreter, sandbox, CodeAct)
+  2. **Control Loop & Planning** — decision policy sequencing (ReAct, MCTS, Agent Q, world model, DPO)
+  3. **Tool Interface & Discovery** — finding and invoking capability at scale (AnyTool, hierarchical retrieval, ToolFuzz)
+  4. **Memory & Recall** — persistent state across turns/sessions (MemGPT, virtual paging, searchable recall)
+  5. **Context Lifecycle & Compression** — managing finite working-token budget (ACON, MemAct, AgentFold)
+  6. **Multi-Agent Coordination & Interop** — composing loops safely (MetaGPT, SagaLLM, phase DAG, S-Bus)
+  7. **Runtime & Resource Management** — serving, scheduling, cost-bounding at scale (KV-cache reuse, AgentRM, MLFQ admission)
+  8. **Self-Improvement & Skill Acquisition** — getting better without weight surgery (Agent Workflow Memory, EvoSkill, HASP, AlphaEvolve)
+  9. **Verification & Observability** — making behavior inspectable and judgeable (Trace-Based Assurance, message-action trace, LLM-as-judge with A/B swap)
+  10. **Evaluation & Reliability** — knowing the loop is consistent (τ-bench, pass^k, ToolSandbox, SWE-bench+)
+  11. **Adversarial Surface & Red-Teaming** — catalogued attack surface (ART, AiTM, tool-poisoning, cross-temporal attacks)
+  12. **Runtime Defense & Pre-Action Authorization** — non-bypassable enforcement (OAP, Faramesh, MELON, Memory Sandbox)
+- Field state: 1 solved layer (Action Substrate), 7 consolidating layers, 4 emerging / under-built layers (Layers 7, 8, 9, 12) — emerging is where reliability and safety actually come from.
+- Layer 9 (Verification & Observability) is called *"the buildable spine."*
+- Four Hard Truths: (1) capability lives in harness not model; (2) memory is a time-bomb — "budget and invalidate memory on purpose"; (3) reasoning can be performative — "verify actions, not explanations"; (4) autonomy is a regression vector — self-improving agents misevolve.
+- Concrete empirical claims:
+  - **Layer 2:** premature MCTS / async planning collapses overlapping-task performance 47% → 11%
+  - **Layer 4:** memory systems' invalidation-reasoning accuracy is ~1–3%
+  - **Layer 5:** input length alone degrades accuracy 14–85% even with perfect retrieval
+  - **Layer 7:** placing all dynamic content (tool results, session state, date) at the END of the system prompt enables KV-cache reuse for a 41–80% cost cut
+  - **Layer 8:** 39 of 49 induced skills gave +0% lift on SWE tasks
+  - **Layer 10:** "agents that succeed once routinely fail on identical re-runs" — report pass^k, not pass@1
+  - **Layer 11:** nearly every deployed agent violates policy within 10–100 queries; robustness does not correlate with model size
+
+**Quotable:** "An agent is a loop, not a model with a clever prompt. Almost all of its real-world capability comes from the engineering around that loop, not from the weights."
+**Frameworks named (full list from the linked papers):** CodeAct (arXiv 2402.01030), Agent Q (2408.07199), AI Harness Engineering (2605.13357), Graph-of-Thoughts (2308.09687), AnyTool (2402.04253), ToolFuzz (2503.04479), MemGPT (2310.08560), ACON (2510.00615), MemAct (2510.12635), AgentFold (2510.24699), MetaGPT (2308.00352), SagaLLM (2503.11951), S-Bus (2605.17076), Don't Break the Cache (2601.06007), AgentRM (2603.13110), Agent Workflow Memory (2409.07429), EvoSkill (2603.02766), HASP (2605.17734), AlphaEvolve (2506.13131), Trace-Based Assurance (2603.18096), τ-bench (2406.12045), ToolSandbox (2408.04682), SWE-bench+ (2410.06992), ART (2507.20526), AiTM (2502.14847), OAP (2603.20953), Faramesh (2601.17744), MELON (2502.05174), Memory Sandbox (2605.08442), Trojan Hippo (2605.01970), MemoryGraft (2512.16962), SWE-Skills-Bench (2603.15401), WildClawBench (2605.10912).
+**Why it matters:** Meta-organizing map for the whole site. Anchor reference for [patterns.md § Twelve-Layer Agentic Stack](patterns.md#the-twelve-layer-agentic-stack), and the framing for Layers 11/12 in [patterns.md §§ 7–8](patterns.md#7-adversarial-surface--red-teaming-layer-11). The page is positioned as the first public output of the Immersive Commons research cluster and is refreshed monthly — re-verify the framework version and per-layer claims before citing in production work.
+
+---
+
 ## Maintenance
 
 Re-run this ingestion when:
