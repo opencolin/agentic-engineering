@@ -9,6 +9,12 @@
     "docs:build": "npm --prefix docs run build",
     "docs:preview": "npm --prefix docs run preview"
   },
+  "dependencies": {
+    "@vercel/og": "^0.11.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/opencolin/agentic-engineering.git"
