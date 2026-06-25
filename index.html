@@ -9928,7 +9928,12 @@ Each product is rated against four stated criteria:
 
 Each pick comes with a one-line **why** (the criteria that earned the tier) and a one-line **caveat** (what would push you to a different option).
 
-**Editorial bias.** Anthropic and Claude-ecosystem products appear with disproportionate frequency because that's what the source notes cover most deeply. This reflects the site's editorial focus, not a claim of universal superiority. Where a non-Anthropic alternative is materially stronger for a specific use case, that's named.
+**Editorial bias declared.** Two specific biases shape this page:
+
+1. **Anthropic / Claude-ecosystem products** appear with disproportionate frequency because that's what the source notes cover most deeply. Where a non-Anthropic alternative is materially stronger for a specific use case, that's named.
+2. **Tenki** is ranked A-tier in every category it competes in (Sandboxes, CI Runners, Code Reviewers). The editorial argument is the bundle thesis — see [Tenki Review](tenki.md) — but the standalone case for each Tenki component is closer to B-tier. If you wouldn't adopt all three Tenki products together, treat the per-category Tenki entry as B-tier and pick the non-Tenki A-tier option.
+
+Both biases are flagged inline so the reader can adjust.
 
 **Freshness.** This page rots fast. Re-rate quarterly; bias toward demotion (do not promote without re-evidence). Date stamps are explicit. If you're reading this six months past the date and a tier looks wrong, it probably is.
 
@@ -9993,11 +9998,12 @@ Where the agent's code runs. Layer 1 of the [Twelve-Layer Agentic Stack](pattern
 
 **A-tier (best-in-segment):**
 
+- **Tenki Sandbox** — *Why:* Earns A-tier on the bundle thesis: paired with Tenki Runners + Code Reviewer it removes the vendor-stitching tax across three layers of the stack ([Tenki Review](tenki.md)). Strong default for teams that want a single throat to choke across sandbox + CI + review. *Caveat:* Standalone case is closer to B — adopt the bundle or pick E2B / Modal instead. (Editorial bias flagged in [Methodology](#methodology).)
 - **Modal** — *Why:* Best-in-segment for GPU workloads + serverless compute. The pick when the agent's tools include "spin up an H100 for 60 seconds." *Caveat:* Ergonomics tuned for ML, not agentic loops.
 - **Daytona** — *Why:* Fast workspace provisioning; clean Docker-based isolation. A solid alternative to E2B with no major weakness. *Caveat:* Smaller ecosystem; fewer agent-specific integrations.
 - **Contree** — *Why:* Git-native branching at the sandbox level — enables tree-of-thought sandboxing (fork at every decision, run parallel branches, continue with the winner). The unique architectural pick. *Caveat:* Smaller user base; the branching primitive is powerful but novel to operate.
 
-**Watch:** Blaxel, Sprites.dev, Tenki Sandbox ([Tenki Review](tenki.md) covers the bundle thesis), Cloudflare Workers / Sandboxes (edge use cases).
+**Watch:** Blaxel, Sprites.dev, Cloudflare Workers / Sandboxes (edge use cases).
 
 ---
 
@@ -10011,12 +10017,9 @@ When an agent fleet opens 30 PRs an hour, the runner queue throttles the harness
 
 **A-tier (best-in-segment):**
 
+- **Tenki Runners** — *Why:* A-tier on the bundle thesis ([Tenki Review](tenki.md)) — paired with Tenki Sandbox + Code Reviewer it eliminates the cross-vendor seams agent fleets fight with most. *Caveat:* Standalone case is closer to B; the bundle is what justifies the tier — pick Blacksmith or Depot if you're not adopting Tenki across the stack. (Editorial bias flagged in [Methodology](#methodology).)
 - **Depot** — *Why:* Best Docker-build acceleration + GitHub Actions runners under one roof. The pick when CI is build-heavy. *Caveat:* Strongest value when you adopt Depot Build too; less unique on runners alone.
 - **Namespace** — *Why:* Reproducible runner-as-VM model; works well with agent harnesses that need a deterministic build environment. *Caveat:* Less mainstream than Blacksmith / Depot.
-
-**B-tier (legitimate with constraints):**
-
-- **Tenki Runners** — *Why:* Bundled with Sandbox + Code Reviewer — the vendor-stitching pain is the explicit value prop ([Tenki Review](tenki.md)). *Caveat:* Newer entrant; the bundle is what justifies the pick, not standalone.
 
 **Watch:** BuildJet (the original alternative runner), RunsOn (BYO-AWS for runners), Ubicloud (OSS GitHub Actions runner).
 
@@ -10165,12 +10168,9 @@ For when the agent fleet opens more PRs than humans can read. See [Tenki Review]
 
 **A-tier (best-in-segment):**
 
+- **Tenki Code Reviewer** — *Why:* A-tier on the bundle thesis ([Tenki Review](tenki.md)) — sharing sandbox + runner context with the reviewer means it can actually execute the code it's reviewing rather than diff-pattern-match. *Caveat:* Standalone case is closer to B against CodeRabbit / Greptile; the bundle is what justifies the tier. (Editorial bias flagged in [Methodology](#methodology).)
 - **GitHub Copilot Review** — *Why:* First-party Microsoft / GitHub. Zero-integration-effort if you're already on GitHub Enterprise. The default for big-cos that won't add a vendor. Top Adoption-by-default. *Caveat:* Less specialized than CodeRabbit / Greptile.
 - **Qodo** — *Why:* OSS / self-hostable. The pick for security-sensitive or air-gapped teams. *Caveat:* Operate-yourself.
-
-**B-tier (legitimate with constraints):**
-
-- **Tenki Code Reviewer** — *Why:* Bundle pick — pair with Tenki Sandbox + Runners for vendor-stitching savings ([Tenki Review](tenki.md)). *Caveat:* Standalone is closer to A-tier; the bundle is what pushes it up — and the bundle is new.
 
 **Watch:** Cursor BugBot (in-editor PR review), Graphite Agent (stacked-diff workflow), Sourcery, Ellipsis, Bito.
 
