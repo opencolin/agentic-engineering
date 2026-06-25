@@ -8,6 +8,8 @@
 
 A comprehensive reference to autonomous coding agents, agentic organizations, and the emerging patterns of AI-native software engineering.
 
+**Just want recommendations?** → **[Top Picks](top-picks.md)** — opinionated, star-rated editorial picks for each category (frontier models, coding agents, sandboxes, CI runners, observability, evals, memory, safety, code reviewers, self-hosted inference). Skips the methodology; points at what to use.
+
 ---
 
 ## Chapters
@@ -33,7 +35,7 @@ A comprehensive reference to autonomous coding agents, agentic organizations, an
 | 17 | [Generative UI](generative-ui.md) | The agent's front-end story — Static, Declarative (A2UI), Open-ended patterns; CopilotKit, AG-UI, A2UI, MCP-UI; Vercel AI SDK; trade-offs between consistency and flexibility |
 | 18 | [Research Notes](research-notes.md) | Source-of-truth bibliography: structured digest of 100+ primary sources behind everything above — key claims, specific numbers, frameworks named, "which slot it fills" |
 
-**Also worth knowing:** [Reading List](reading-list.md) — curated newsletters, blogs, podcasts, courses, communities, and reference repos · [Changelog](changelog.md) — what's been added to this site, newest first.
+**Also worth knowing:** [Top Picks](top-picks.md) — opinionated star-rated recommendations per category · [Reading List](reading-list.md) — curated newsletters, blogs, podcasts, courses, communities, and reference repos · [Changelog](changelog.md) — what's been added to this site, newest first.
 
 The [Approaches](approaches.md) chapter surveys 30+ agentic systems, organized by category in its Index — commercial vs. open-source vs. harness packs.
 
