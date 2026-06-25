@@ -4465,7 +4465,7 @@ This page covers the **public leaderboards**. For the methodology of building ev
 
 ## SWE-bench
 
-**Home:** [swebench.com](https://www.swebench.com/) · **Source:** [github.com/swe-bench/SWE-bench](https://github.com/swe-bench/SWE-bench) · **License:** MIT
+**Home:** [swebench.com](https://www.swebench.com/) · **Source:** [github.com/swe-bench/SWE-bench](https://github.com/swe-bench/SWE-bench) · **License:** MIT · **Alt view:** [openlm.ai/swe-bench](https://openlm.ai/swe-bench/) (side-by-side display of standard + Verified + IOI competition scores with explicit harness column)
 
 SWE-bench is the de facto standard benchmark for autonomous coding agents. It measures whether an agent, given a real GitHub issue and a snapshot of the repository, can produce a patch that makes the existing test suite pass.
 
@@ -4538,15 +4538,15 @@ Tasks run inside a standardized harness (`harbor run -d terminal-bench@2.0`). Su
 
 These are harder than SWE-bench in a particular way: they require the agent to know how a *system* works, not just a codebase. Compiling a kernel or standing up a Git server exercises package management, filesystem layout, service configuration — the ambient knowledge senior engineers carry that's traditionally absent from LM-focused benchmarks.
 
-### Top performers (Terminal Bench 2.0)
+### Top performers (Terminal Bench 2.0, June 2026)
 
-| Rank | Agent × Model | Score |
-|------|---------------|-------|
-| 1 | ForgeCode + GPT-5.4 | 81.8% ± 2.0 |
-| 2 | TongAgents + Gemini 3.1 Pro | 80.2% ± 2.6 |
-| 3 | ForgeCode + Claude Opus 4.6 | 79.8% ± 1.6 |
+| Rank | Agent × Model | Score | Date |
+|------|---------------|-------|------|
+| 1 | NexAU-AHE + GPT-5.5 | 84.7% ± 2.1 | 2026-05-14 |
+| 2 | LemonHarness (multi-model) | 84.5% | 2026-05-14 |
+| 3 | Capy + GPT-5.5 | 83.1% | 2026-05-14 |
 
-Notable pattern: the same agent harness (ForgeCode) ranks #1 and #3 on different models — reinforcing the [harness-is-a-bigger-lever-than-model](patterns.md) thesis. Smaller models (GPT-5-Nano, OSS-20B) score in single digits regardless of harness, so scaffolding alone doesn't rescue a weak base.
+142 total submissions tracked as of June 2026. Notable pattern: GPT-5.5 powers #1 and #3 with very different harnesses (NexAU-AHE vs Capy) — small score gap, different scaffolding choices — and an unspecified-model harness (LemonHarness) lands between them. Smaller models (GPT-5-Nano, OSS-20B) score in single digits regardless of harness, so scaffolding alone doesn't rescue a weak base.
 
 ### Why it matters
 
@@ -4596,9 +4596,37 @@ Where SWE-bench measures *can the agent ship a PR* and Terminal Bench measures *
 
 ### Why it matters
 
-SWE-bench / Terminal Bench score on pass-rate against a deterministic harness. τ-bench scores on **Pass^k** — the probability the agent succeeds on *k* independent attempts. That metric matters because customer-service agents fail differently each run; a 70% pass@1 with 30% Pass^4 is a different product than 70% pass@1 with 65% Pass^4. Sierra publishes the leaderboard and uses it as the basis for their own product claims.
+SWE-bench / Terminal Bench score on pass-rate against a deterministic harness. τ-bench scores on **Pass^k** — the probability the agent succeeds on *k* independent attempts. That metric matters because customer-service agents fail differently each run; a 70% pass@1 with 30% Pass^4 is a different product than 70% pass@1 with 65% Pass^4. The original τ-bench paper ([arXiv 2406.12045](https://arxiv.org/abs/2406.12045)) reported GPT-4o at *Pass^8 < 25%* in the retail domain — i.e., even when single-run success is moderate, consistency across runs collapses fast. Sierra publishes the leaderboard and uses it as the basis for their own product claims.
 
 For coding agents, τ-bench is the closest public proxy for "can the agent be left alone with a real user without supervision" — a question SWE-bench-style benchmarks structurally can't answer.
+
+---
+
+## Model-level leaderboards
+
+Before you pick an agent benchmark, pick a model substrate. These rank *base LLMs*, not harnesses — they're how you choose what to put inside Claude Code, Cursor, or your own harness. Headlines below are as of June 2026; click through for live data.
+
+### Chatbot Arena (LMArena / OpenLM.ai)
+
+**Home:** [openlm.ai/chatbot-arena](https://openlm.ai/chatbot-arena/)
+
+The canonical human-preference ranking — crowdsourced pairwise battles, Bradley-Terry-fit Elo ratings, 6M+ votes. Top three by Arena Elo: **Claude Fable 5 (1510), Claude Opus 4.8 Thinking (1506), GPT-5.5-high (1506)**. Specialized sub-leaderboards for coding, vision, and MMLU-Pro / ARC-AGI / AAII v3.
+
+**What it does and doesn't tell you.** Elo ranks "what humans prefer to read" on freeform turns — not "what completes agentic tasks reliably." A model can dominate Chatbot Arena and still flunk τ-bench Pass^k. Use it as a coarse model-quality baseline, not as agent selection signal.
+
+### Artificial Analysis
+
+**Home:** [artificialanalysis.ai](https://artificialanalysis.ai/)
+
+Multi-dimensional model ranking on three axes simultaneously: **composite Intelligence Index v4.1** (nine evals including GDPval-AA v2, coding, reasoning), **output speed** (tokens/sec), and **cost** ($/MTok). Also tracks a separate agentic-performance axis. The right place to look when picking a model on a cost/quality/speed Pareto curve — most leaderboards give you one axis at a time. Independent; updated continuously.
+
+### ARC Prize / ARC-AGI
+
+**Home:** [arcprize.org](https://arcprize.org/)
+
+Nonprofit-run benchmark series founded by François Chollet. **ARC-AGI-1** (saturated by frontier models with test-time compute) → **ARC-AGI-2** → **ARC-AGI-3**, the latter explicitly billed as the "world's only unbeaten agentic-intelligence benchmark." The framing: abstract grid-puzzle tasks designed to be easy for humans, hard for pattern-matching. >$2M in prizes for 2026 across three competition tracks.
+
+Less practical than SWE-bench / Terminal Bench for picking a coding agent, but the cleanest public signal for "is the model doing actual reasoning, or pattern-matching at scale?" Worth tracking if you're building agents whose tasks generalize beyond the training distribution.
 
 ---
 
@@ -4608,6 +4636,7 @@ The four above are the *production* benchmarks — what agent teams publish agai
 
 | Benchmark | Domain | Notable | Link |
 |---|---|---|---|
+| **Arena.ai Agent Leaderboard** | Dynamic agent ranking | Arena Intelligence's live leaderboard scoring agents on tool reliability, task completion, steerability, bash command recovery, and tool hallucination across real-world tasks. **889K+ sessions across 28 models** tracked as of June 2026. Top three by net-improvement metric: Claude Fable 5 (High) +14.05%, Claude Opus 4.8 Thinking +8.85%, GPT-5.5 xHigh +8.13%. Closest analog to "agent Chatbot Arena" — measures live-traffic agentic behavior rather than offline benchmark pass rates | [arena.ai/leaderboard/agent](https://arena.ai/leaderboard/agent) |
 | **BrowseComp** | Web research (OpenAI, Nov 2024) | 1,266 multi-hop browsing tasks where correct answers are *hard to find, easy to verify*. May 2026 headline numbers: GPT-5.5 90.1% · Gemini 3.1 Pro 85.9% · Opus 4.7 79.3% (a regression from 4.6's 83.7% — production tip: route web research to GPT-5.5) | [github.com/openai/simple-evals](https://github.com/openai/simple-evals) |
 | **GAIA** | General assistants (Meta + HuggingFace + AutoGPT, ICLR 2024) | 466 real-world questions designed so humans hit 92% and GPT-4 hit 15%. Three difficulty levels; tests multi-tool use, web search, multimodal reasoning, code execution. Sonnet 4.5 leads at 74.6% as of May 2026 | [huggingface.co/spaces/gaia-benchmark](https://huggingface.co/spaces/gaia-benchmark/leaderboard) |
 | **Princeton HAL** | Harness ablation leaderboard | "Holistic Agent Leaderboard" — fixes the model, varies the harness, publishes the score gap. The structural answer to *how much harness matters relative to model*. Covers GAIA, SWE-bench, AppWorld, MLE-bench, USACO, more | [hal.cs.princeton.edu](https://hal.cs.princeton.edu/) |
@@ -4637,6 +4666,7 @@ The four above are the *production* benchmarks — what agent teams publish agai
 | Non-Python coverage | SWE-bench Multilingual |
 | Long-horizon SWE work (Verified saturating) | SWE-bench Pro |
 | Customer-facing reliability (Pass^k, policy adherence) | τ³-bench |
+| Live-traffic agent behavior (tool reliability, steerability) | Arena.ai Agent Leaderboard |
 | Safety + capability under one harness | Inspect AI + `inspect_evals` |
 | Generalist multi-tool agent (web + multimodal + code) | GAIA |
 | Web research / browsing | BrowseComp |
@@ -4647,6 +4677,7 @@ The four above are the *production* benchmarks — what agent teams publish agai
 | Offensive-security capability | Cybench |
 | Harness-vs-model ablation evidence | Princeton HAL |
 | Commercial harness quality | Both leaderboards — harness is the differentiator |
+| **Picking your base model** | **Chatbot Arena (human preference), Artificial Analysis (cost/speed/intelligence Pareto), ARC Prize (reasoning generalization)** |
 
 Neither benchmark is sufficient on its own. A team shipping autonomous PRs internally should track:
 
