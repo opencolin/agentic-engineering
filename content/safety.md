@@ -215,6 +215,52 @@ A team running agent safety seriously will have:
 
 ---
 
+## Empirical defenses: what actually works
+
+A recurring problem with the prompt-injection literature is that it's heavy on attacks and light on numbers about which defenses move the needle. Two recent results give honest, measured answers.
+
+### The red-team competition baseline (ART, July 2025)
+
+The largest public red-team study to date: 22 deployed agents × 44 scenarios → **1.8 million attacks, 60K+ policy violations**. Headline findings from [Zou et al., *Security Challenges in AI Agent Deployment*](https://arxiv.org/abs/2507.20526):
+
+- **Most agents violate policy within 10–100 attacker queries.** Robustness is the exception, not the default.
+- Attacks **transfer across models** — what jailbreaks GPT-class systems usually works on Claude-class systems and vice versa.
+- **Robustness is uncorrelated with scale, capability, or compute** — a larger or more capable model is not a more secure agent.
+
+The ART benchmark distilled from this work is the closest thing to a shared red-team yardstick the field has.
+
+### What memory attacks look like (Trojan Hippo, May 2026)
+
+[Trojan Hippo](https://arxiv.org/abs/2605.01970) (Das, Piet, Kaviani, Beurer-Kellner, Tramèr, Wagner) shows the threat model for *agents with long-term memory*. A single untrusted tool call plants a dormant payload in memory; the payload activates only when the agent later discusses sensitive topics (finance, health) and exfiltrates data:
+
+- **85–100% attack success across four memory architectures** on frontier models.
+- **Four conventional defenses (input filters, retrieval filters, prompt hardening, output filters): 0–5% reduction**, with utility cost.
+
+The lesson: memory makes prompt injection *persistent across sessions*. Defenses that work on stateless chat don't transfer.
+
+### What does work: comparative defense effectiveness (May 2026)
+
+The rare honest study on this is [Defense Effectiveness Across Architectural Layers](https://arxiv.org/abs/2605.08442) (Leong, May 2026) — six defenses vs persistent memory attacks across nine models, 5,700 pre-registered runs. The headline ASR numbers (attack success rate, baseline 88.6%):
+
+| Defense | ASR | Verdict |
+|---|---|---|
+| Input filters | 88% | No help |
+| Retrieval filters | 89% | No help |
+| Prompt Hardening | 77.8% | Marginal |
+| Memory Sandbox (tool-gating) | **0% on 8 of 9 models** | The thing that actually works |
+
+The *Memory Sandbox* approach removes the *capability* the attack needs (controlled write access to long-term memory) rather than trying to filter the *content* of the attack. This is the same insight as the Dual LLM pattern — pattern-matching content is a losing game; gating capability is winnable.
+
+One striking caveat: a reasoning model in the study *inverts* under Memory Sandbox, going from 0% ASR to 100% ASR via an alternate pathway. The defense closed one door and opened another. Defenses are model-specific; verify per-deployment.
+
+### Pre-action authorization as the structural answer
+
+For the runtime-gating story — *don't filter the model's intent, gate every action against a deterministic policy* — see [Patterns § 8: Runtime Defense & Pre-Action Authorization](patterns.md#8-runtime-defense--pre-action-authorization-layer-12), which covers the [Open Agent Passport](https://arxiv.org/abs/2603.20953) (**74.6% → 0% social-engineering ASR at 53 ms median overhead**), Meta's *Agents Rule of Two*, Google's SAIF principles, and Anthropic's Auto Mode classifier. These are the *structural* answer to the empirical finding above — content filters are bypassable; deterministic gates aren't.
+
+For full source notes on the 8 agent-security primary sources and the 33 papers cited in the Immersive Commons 12-layer stack, see [Research Notes §§ 8–10](research-notes.md#section-8-agent-security--authorization-post-ingestion-thematic-add).
+
+---
+
 ## See also
 
 - [Infrastructure § Agent Observability & Evaluation](infrastructure.md#agent-observability-evaluation) — the cross-link stub left behind after this page absorbed the guardrails vendor table.

@@ -72,6 +72,18 @@ Take a coding agent with a 30K-token system + tools + repo context prompt that r
 
 The structural rule: any prompt content reused across turns should be cached. The harness arranges the prompt so the *invariant* parts (system prompt, tools schema, retrieved-corpus boilerplate) come first and get marked; the *variable* parts (user message, latest tool result) come last and are not cached. See [Context Engineering](context-engineering.md) for the prompt-layout patterns this enables.
 
+### Don't break the cache — prompt-layout discipline
+
+The biggest source of agent-cost regression is breaking the cache by accident. *Don't Break the Cache* ([arXiv 2601.06007](https://arxiv.org/abs/2601.06007), Lumer et al., Jan 2026) is the empirical study on this — a long-horizon agentic-task benchmark across OpenAI, Anthropic, and Google providers, with prompt sizes from 500 to 50K tokens and 3 to 50 tool calls per session. The findings:
+
+- **41–80% API cost reduction** from strategic prompt-cache placement vs naive caching.
+- **13–31% time-to-first-token improvement** in the same conditions.
+- **Naive full-context caching can *worsen* latency** — surprisingly, caching everything indiscriminately makes things slower because of cache-miss replays on dynamic tool results.
+
+The structural rule that follows: **place all dynamic content (tool results, session state, date strings) at the *end* of the prompt** so the cacheable prefix stays stable. The IC 12-layer framework cites this as one of the most concrete Layer 7 (Runtime & Resource Management) findings — the same instruction Anthropic gives in its `cache_control` docs but with the empirical backing for *why*.
+
+This is the same lever IC counts as part of *"the 41–80% cost cut from prompt placement"* in their Four Hard Truths. The harness orchestrates prompt layout; the model just consumes it.
+
 ### KV reuse beyond caching
 
 Self-hosted setups can reuse the KV cache directly across requests: vLLM's [Automatic Prefix Caching](https://docs.vllm.ai/en/latest/features/automatic_prefix_caching.html), [SGLang's RadixAttention](https://github.com/sgl-project/sglang) (the [paper](https://arxiv.org/abs/2312.07104) is the canonical reference). The economics are the same shape — pay GPU time once for the shared prefix, reuse — but the operator pays directly in GPU hours rather than the provider's marked-up cache-read rate. For high-volume self-hosted deployments this is a 5–10× cost lever on top of model selection.

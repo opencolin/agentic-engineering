@@ -70,6 +70,24 @@ This is why complexity isn't bounded by context size. The PDF-skill example: it 
 
 ---
 
+## Do skills actually help on real engineering tasks?
+
+The 82% vs 9% number above is from one well-curated eval set. The more important question — does a typical skill catalog move real software-engineering work? — has a harder answer.
+
+[SWE-Skills-Bench](https://arxiv.org/abs/2603.15401) (Han et al., March 2026) benchmarked **49 skills against 565 SWE-bench-style task instances**. The findings:
+
+- **39 of the 49 skills produced zero pass-rate improvement.** Most skills, on most tasks, are neutral at best.
+- Average gain across all skills: **+1.2%.**
+- Only **7 skills** produced substantial gains — up to **+30%** on the tasks they targeted.
+- **3 skills actively degraded** performance.
+- Token overhead ranged from net savings to **+451% with no payoff** — i.e., the skill cost half a context window and changed nothing.
+
+The honest takeaway: *most skills you write will not help, and a few will hurt.* The 82% vs 9% case isn't wrong — it's what happens when the skill catalog is curated to the eval. When skills are added speculatively, the average effect collapses. Measure each skill against your own workload before shipping it as default-on; the empirical bound (~12 similar before degradation, 70% invocation reliability) is necessary but not sufficient.
+
+This is also why the Anthropic / LangChain literature emphasizes the *description* field and progressive disclosure: invocation gating and gradual loading are how you avoid paying for the dozens of skills that are neutral.
+
+---
+
 ## Designing a skill that gets invoked
 
 The `description` field is the single most important line. The model sees descriptions and decides which skill is relevant. Make them:

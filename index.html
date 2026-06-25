@@ -691,6 +691,7 @@ If you only follow one of these, follow Simon Willison.
 
 Required reading if you're serious about the field:
 
+- **[Immersive Commons — The Twelve-Layer Agentic Stack](https://www.immersivecommons.com/news/agentic-stack-12-layers)** (June 2026, updated monthly) — research-commons synthesis of ~1,800 recent agentic papers into a 12-layer "builder's map" of where the engineering of an autonomous agent actually lives. Names the canonical layers (Action Substrate → Pre-Action Authz), which are solved vs consolidating vs emerging, and the "Four Hard Truths." [patterns.md § Twelve-Layer Agentic Stack](patterns.md#the-twelve-layer-agentic-stack) maps each layer to the chapter that covers it on this site.
 - **[Anthropic Engineering](https://anthropic.com/engineering)** — the most consistently high-signal lab blog. Start with [Building Effective Agents](https://anthropic.com/research/building-effective-agents) (Dec 2024) → [Effective Context Engineering](https://anthropic.com/engineering/effective-context-engineering-for-ai-agents) (Sept 2025) → [Multi-Agent Research System](https://anthropic.com/engineering/multi-agent-research-system) (June 2025) → [Managed Agents](https://anthropic.com/engineering/managed-agents) (Apr 2026)
 - **[LangChain Blog](https://www.langchain.com/blog)** — practitioner perspective on agent harnesses, evals, deep agents. Don't miss [The Anatomy of an Agent Harness](https://www.langchain.com/blog/the-anatomy-of-an-agent-harness) and [Open Models Have Crossed a Threshold](https://www.langchain.com/blog/open-models-have-crossed-a-threshold)
 - **[OpenAI Cookbook](https://cookbook.openai.com)** — first-party patterns; the cross-vendor counterpart to Anthropic Cookbook
@@ -769,6 +770,25 @@ The YouTube talk archive is the deliverable — even if you never attend, watch 
 | [affaan-m/ECC](https://github.com/affaan-m/ECC) | 60 subagents + 232 skills, cross-harness (191K stars, hackathon winner) |
 | [sierra-research/tau2-bench](https://github.com/sierra-research/tau2-bench) | Standard customer-service agent benchmark |
 | [EthicalML/awesome-agentic-engineering-resources](https://github.com/EthicalML/awesome-agentic-engineering-resources) | Curated index of 21 topics — courses, papers, benchmarks, implementations |
+
+---
+
+## Agent security & authorization
+
+The under-covered "what can go wrong" side of agent design. Required if you're shipping anything that touches private data or external tools. See [patterns.md § Adversarial Surface](patterns.md#7-adversarial-surface) and [§ Pre-Action Authorization](patterns.md#8-pre-action-authorization) for the architectural callouts that draw on these.
+
+| Source | What you get |
+|---|---|
+| [The Lethal Trifecta](https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/) — Simon Willison | The canonical short framing: private data + untrusted content + external comms = exfiltration risk. Read this first. |
+| [Agents Rule of Two](https://ai.meta.com/blog/practical-ai-agent-security/) — Meta AI | The design-time mitigation: never let one agent session have all three trifecta properties |
+| [OWASP Top 10 for Agentic Applications (2026)](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) | Industry-standard agent-specific risk taxonomy (Dec 2025); the canonical names to map controls against |
+| [MITRE ATLAS](https://atlas.mitre.org) | Living TTP knowledge base for AI/ML adversaries, modeled on ATT&CK; pairs with OWASP as risks-vs-tactics |
+| [Defense in Depth for Autonomous AI Agents](https://www.microsoft.com/en-us/security/blog/2026/05/14/defense-in-depth-autonomous-ai-agents/) — Microsoft Security | Layered-defense reference + four application-layer design patterns (agents-as-microservices, least permissions, deterministic HITL, agent identity) |
+| [Google's Approach to AI Agent Security](https://simonwillison.net/2025/Jun/15/ai-agent-security/) — via Willison | Three core principles: well-defined human controllers, limited powers, observable actions |
+| [Before the Tool Call: Deterministic Pre-Action Authorization](https://arxiv.org/abs/2603.20953) — Uchibeke (arXiv 2603.20953) | Concrete pre-action gating with measured numbers: 53ms median latency, 74.6%→0% attack success delta |
+| [Layered Attack Surface Framework](https://arxiv.org/abs/2604.23338) — Chu (arXiv 2604.23338) | Academic survey of 116 papers; 7-layer taxonomy plus temporality dimension for mapping attacks/defenses |
+
+For Claude Code's specific take on classifier-mediated autonomy, see [Anthropic's Auto Mode post](https://anthropic.com/engineering/claude-code-auto-mode) and [Sandboxing Claude Code](https://anthropic.com/engineering/claude-code-sandboxing) (both already digested in [Research Notes § 1](research-notes.md#section-1-anthropic-engineering-19-urls)).
 
 ---
 
@@ -2923,6 +2943,53 @@ To: Systems thinker optimizing agent productivity.
 
 ---
 
+## The Twelve-Layer Agentic Stack
+
+A meta-organizing map for everything that follows. [Immersive Commons](https://www.immersivecommons.com/news/agentic-stack-12-layers) (June 2026) synthesized ~1,800 recent agentic papers into a 12-layer model of where the engineering of an autonomous agent actually lives — from the action substrate at the bottom to runtime defense at the top. Each layer names a state-of-the-art approach and a common failure mode; the document is positioned as a "builder's map" and refreshed monthly.
+
+The thesis: *"An agent is a loop, not a model with a clever prompt. Almost all of its real-world capability comes from the engineering around that loop, not from the weights."* The 12 layers are how this site is organized in practice — almost every chapter is the deep dive on one or two of them.
+
+### The 12 layers, mapped to this site
+
+| # | Layer (verbatim) | What it covers | Where this site covers it |
+|---|---|---|---|
+| 01 | Action Substrate | How the loop acts: shell, code interpreter, sandbox, CodeAct | [Sandboxes](sandboxes.md), § 1 below |
+| 02 | Control Loop & Planning | ReAct, MCTS, world models, Agent Q, DPO | [Harness Engineering](harness-engineering.md), [Approaches](approaches.md), § 2 below |
+| 03 | Tool Interface & Discovery | MCP, hierarchical retrieval, AnyTool, ToolFuzz | [Tool Design](tool-design.md), § 3 below |
+| 04 | Memory & Recall | MemGPT, virtual paging, archival KV/vector | [Memory](memory.md) |
+| 05 | Context Lifecycle & Compression | ACON, MemAct, AgentFold, trajectory folding | [Context Engineering](context-engineering.md), § 3 below |
+| 06 | Multi-Agent Coordination & Interop | MetaGPT, phase DAG, schema-constrained handoffs, SOP-as-prompt | § 6 below |
+| 07 | Runtime & Resource Management | KV-cache reuse, prompt placement, AgentRM, MLFQ admission | [Infrastructure](infrastructure.md), [Cost & Economics](cost-economics.md) (under-built per IC) |
+| 08 | Self-Improvement & Skill Acquisition | Agent Workflow Memory, EvoSkill, AlphaEvolve | [Skills](skills.md) covers the primitive; *self-improvement is a gap* |
+| 09 | Verification & Observability | Trace-Based Assurance, message-action trace, LLM-as-judge | [Observability](observability.md) |
+| 10 | Evaluation & Reliability | τ-bench, pass^k, milestone scoring, ToolSandbox, SWE-bench+ | [Evals](evals.md), [Benchmarks](benchmarks.md) |
+| 11 | Adversarial Surface & Red-Teaming | ART, AiTM, tool-poisoning, cross-temporal attacks | [Safety](safety.md), § 7 below |
+| 12 | Runtime Defense & Pre-Action Authorization | OAP, Faramesh, MELON, Memory Sandbox, external non-bypassable gates | [Safety](safety.md), § 8 below |
+
+### Four Hard Truths
+
+The framework distills four field-wide findings worth pinning at the top of any agentic-engineering practice:
+
+1. **Capability lives in the harness, not the model** — scaffold engineering beats model upgrades for agent improvement.
+2. **Memory is a time-bomb** — accumulated memory raises safety violations, drives behavior drift, becomes an attack surface. *"Budget and invalidate memory on purpose."*
+3. **Reasoning can be performative** — models rationalize actions post-hoc; chain-of-thought is an unreliable safety control. *"Verify actions, not explanations."*
+4. **Autonomy is a regression vector** — self-improving agents misevolve; accumulated memory, self-created tools, and rewritten workflows can degrade the alignment they started with.
+
+### Which layers are under-built
+
+IC classifies the field as **1 solved layer** (Action Substrate), **7 consolidating layers**, and **4 emerging / under-built layers** — Layers 7 (Runtime & Resource Mgmt), 8 (Self-Improvement), 9 (Verification & Observability), and 12 (Runtime Defense & Pre-Action Authz). These are the highest-leverage investment areas. Layer 9 specifically is called *"the buildable spine."*
+
+Honest audit of this site against that view:
+
+- **Layer 9 (Observability)** — covered by a dedicated chapter
+- **Layer 12 (Runtime Defense & Pre-Action Authz)** — newly framed in § 8 below
+- **Layer 7 (Runtime & Resource Mgmt)** — partial; [Cost & Economics](cost-economics.md) covers the cost angle but not KV-cache engineering or admission control as design surfaces
+- **Layer 8 (Self-Improvement & Skill Acquisition)** — genuine gap; the Skills chapter covers the *primitive*, not the *self-improvement* literature (Agent Workflow Memory, EvoSkill, AlphaEvolve)
+
+The structured source notes for the framework — including the verbatim layer list, all ~30 cited papers, and the per-layer empirical claims — live in [Research Notes § 9](research-notes.md#section-9-agent-architecture-frameworks-post-ingestion-thematic-add).
+
+---
+
 ## 1. Isolation Strategies
 
 How agents are sandboxed from production and from each other.
@@ -3125,6 +3192,102 @@ Each minion gets its own full development environment. No shared filesystem, no 
 ### Key Insight
 
 Stripe chose to avoid merge conflicts entirely by isolating at the VM level and letting humans handle PR-level conflicts. AgentField chose to embrace parallelism and build automated merge resolution. The right choice depends on how independent your tasks are.
+
+---
+
+## 7. Adversarial Surface & Red-Teaming (Layer 11)
+
+Layer 11 of the [Twelve-Layer Agentic Stack](#the-twelve-layer-agentic-stack) — the catalogued attack surface that follows from agents having memory, tools, and external IO. The dedicated chapter is [Safety](safety.md); this section is the cross-cutting framing and reference taxonomies.
+
+Most agent designs inherit the wrong threat model from chat (filter the prompt, trust the model) and miss the failure mode that actually matters: an agent with tools is an attack-execution engine, not a text generator. Immersive Commons reports the consensus empirical finding: *"Nearly every deployed agent violates policy within 10–100 queries and robustness doesn't correlate with model size."*
+
+### The Lethal Trifecta
+
+Simon Willison's canonical formulation: an agent is dangerous when it combines all three of (a) **access to private data**, (b) **exposure to untrusted content**, (c) **ability to communicate externally**. Any single capability is safe in isolation; the combination is exfiltration-by-design. ([source](https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/))
+
+> "If your agent combines these three features, an attacker can easily trick it into accessing your private data and sending it to that attacker."
+
+Important corollary: **adding a third-party MCP tool can silently flip an agent into the trifecta**. Every new tool changes the threat surface.
+
+### Why Guardrails Aren't Enough
+
+Current LLM architectures cannot rigorously separate system instructions from instructions embedded in untrusted content — this is the same root cause Google's SAIF agentic guidance names and the reason OWASP's Agentic Top 10 exists as a distinct list from the LLM Top 10. Prompt-injection is, in Meta's words, "a fundamental, unsolved weakness in all LLMs." ([Meta](https://ai.meta.com/blog/practical-ai-agent-security/))
+
+### Reference Taxonomies
+
+| Source | What it gives you |
+|---|---|
+| [OWASP Top 10 for Agentic Applications (2026)](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) | Industry-standard agent-specific risk categories (Dec 2025) |
+| [MITRE ATLAS](https://atlas.mitre.org) | Living TTP knowledge base for AI/ML adversaries — agent-specific tactics from Initial Access through Exfiltration |
+| [Layered Attack Surface Framework — arXiv 2604.23338](https://arxiv.org/abs/2604.23338) | Academic 7-layer + temporality taxonomy; surveys 116 papers (2021–2026) |
+| [Defense in Depth for Autonomous AI Agents — Microsoft](https://www.microsoft.com/en-us/security/blog/2026/05/14/defense-in-depth-autonomous-ai-agents/) | Five novel agent threat classes: agent hijacking, intent breaking, sensitive-data leakage, supply-chain compromise, inappropriate reliance |
+
+### Key Insight
+
+The adversarial surface of an agent is determined more by **which tools it can call in combination** than by which model is driving it. A model upgrade doesn't change the threat model; adding a tool with new auth scope does. Audit the tool combinations, not the prompt.
+
+---
+
+## 8. Runtime Defense & Pre-Action Authorization (Layer 12)
+
+Layer 12 of the [Twelve-Layer Agentic Stack](#the-twelve-layer-agentic-stack) — the non-bypassable enforcement layer that closes the attack surface named in Layer 11. The mitigation pattern that follows from the adversarial-surface threat model: never trust the model's decision to act — gate every action through a deterministic policy at the tool-call boundary. Authentication says *who* the agent is; pre-action authorization says *what it's allowed to do right now*.
+
+Immersive Commons calls this layer one of the four "emerging / under-built" investment areas, alongside Verification & Observability (Layer 9). Their phrasing: *"Only an external, non-bypassable gate is reliable. The same shim doubles as your spend/quality gate."*
+
+### Meta's Rule of Two
+
+Operational design-time rule: an agent session must satisfy **no more than two of three** properties — (A) processes untrustworthy input, (B) accesses sensitive systems, (C) changes state or communicates externally. If all three are required, autonomous execution is prohibited; supervise via HITL approval or reliable validation. ([source](https://ai.meta.com/blog/practical-ai-agent-security/))
+
+This is the direct operationalization of Willison's lethal trifecta — diagnostic plus prescription, the cleanest single-page pairing in agent security.
+
+### Deterministic Gates at the Tool-Call Boundary
+
+The Open Agent Passport (OAP) specification ([arXiv 2603.20953](https://arxiv.org/abs/2603.20953)) gives the concrete primitive: synchronously intercept every tool call, evaluate a declarative policy, allow or deny before execution. Measured numbers:
+
+| Metric | Result |
+|---|---|
+| Median authorization latency | 53 ms (N=1,000) |
+| Social-engineering attack success — permissive policy | 74.6% |
+| Social-engineering attack success — OAP restrictive policy | 0% (across 879 attempts) |
+
+The same gate generalizes beyond security: spending limits, capability scoping, sub-agent delegation, quality gates, and compliance controls all become declarative policies at the same boundary.
+
+### Classifier-Mediated Autonomy (Anthropic's Auto Mode)
+
+[Claude Code Auto Mode](https://anthropic.com/engineering/claude-code-auto-mode) replaces permission prompts with a two-stage classifier — a prompt-injection probe at input plus a transcript classifier at output. Measured: 0.4% false-positive rate on n=10,000 real traffic; 17% false-negative on n=52 overeager actions. The architecture is a three-tier hierarchy:
+
+```
+Built-in allowlist  →  In-project file ops  →  Transcript classifier for high-risk actions
+```
+
+Both stages strip assistant text to resist prompt-injection of the classifier itself. The threat model named explicitly: overeager behavior, honest mistakes, prompt injection, model misalignment.
+
+### Google SAIF: Three Core Principles
+
+Google's published agent-security principles ([source](https://simonwillison.net/2025/Jun/15/ai-agent-security/)) align with the same architecture:
+
+1. **Well-defined human controllers** — every agent has an identified responsible human
+2. **Limited agent powers** — least-privilege capability scoping (the OAP enforcement substrate)
+3. **Observable actions and planning** — traces and audit logs as first-class infrastructure
+
+Defense is hybrid: Layer 1 deterministic runtime policy enforcement, Layer 2 reasoning-based defenses. **Deterministic first, model-based second** — the model is part of the defense, not the only line.
+
+### Microsoft DiD: Four Application-Layer Patterns
+
+Microsoft's layered-defense post ([source](https://www.microsoft.com/en-us/security/blog/2026/05/14/defense-in-depth-autonomous-ai-agents/)) names the application-layer patterns most relevant to pre-action authz:
+
+| Pattern | What it does |
+|---|---|
+| **Agents-as-microservices** | Each agent is a network-isolated service with explicit interfaces, not an in-process call |
+| **Least permissions** | Scoped credentials per tool, per session — never the developer's full OAuth |
+| **Deterministic HITL** | Human approval is a non-bypassable code path, not a prompt to the model |
+| **Agent identity as a security primitive** | Agents have stable identities for audit, not anonymous sessions |
+
+> "When an agent can act autonomously, mistakes propagate faster, blast radius increases, and rollback becomes harder."
+
+### Key Insight
+
+The "permission prompt" UX that current agents use is the wrong abstraction: users approve 93% of prompts ([Anthropic Auto Mode data](https://anthropic.com/engineering/claude-code-auto-mode)) — approval fatigue dominates real behavior, so the prompt provides almost no security value. The fix is to move authorization decisions **out of the user's interactive loop** and into a deterministic policy layer that gates the agent at the tool-call boundary. Humans set policy; the gate enforces it; the agent runs autonomously within it.
   </script>
   <script type="text/markdown" data-page="harness-engineering">
 <!-- description: How to make AI coding agents reliable — the five-subsystem model, repo-as-system-of-record, WIP=1, three-layer verification, sprint contracts, and clean-state exits. -->
@@ -3133,7 +3296,9 @@ Stripe chose to avoid merge conflicts entirely by isolating at the VM level and 
 
 Most teams think a "harness" is a prompt file. It isn't. A harness is **everything in the engineering infrastructure outside the model weights** — the instructions, tools, environment, state, and feedback machinery that determines how much of a model's capability actually shows up at runtime. Same model, different harness, fundamentally different output.
 
-This page is the deep dive on that discipline. It synthesizes the primary sources — [OpenAI's *Harness Engineering*](https://openai.com/index/harness-engineering/), [Anthropic's *Effective Harnesses for Long-Running Agents*](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) and [*Harness Design for Long-Running Application Development*](https://www.anthropic.com/engineering/harness-design-long-running-apps), and the [Walking Labs *Learn Harness Engineering* course](https://walkinglabs.github.io/learn-harness-engineering/en/) — and maps them onto the broader landscape covered elsewhere in this reference.
+This page is the deep dive on that discipline. It synthesizes the primary sources — [OpenAI's *Harness Engineering*](https://openai.com/index/harness-engineering/), [Anthropic's *Effective Harnesses for Long-Running Agents*](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) and [*Harness Design for Long-Running Application Development*](https://www.anthropic.com/engineering/harness-design-long-running-apps), the [Walking Labs *Learn Harness Engineering* course](https://walkinglabs.github.io/learn-harness-engineering/en/), and the academic formalization in *[AI Harness Engineering: A Runtime Substrate for Foundation-Model Software Agents](https://arxiv.org/abs/2605.13357)* (Zhong & Zhu, May 2026) — and maps them onto the broader landscape covered elsewhere in this reference.
+
+The Zhong & Zhu paper is the closest thing to a definitional source for the discipline name. It proposes an **H0–H3 ladder** of progressive runtime support exposure (from raw model up through fully-supported agent runtime) and names **11 component responsibilities** of a harness — useful as a checklist when auditing whether you've built one or only a wrapper. Their central reframe: the question isn't "can the model patch?" but *"can the system produce verifiably correct, attributed, maintainable changes?"* That's the harness question.
 
 For a shorter, pattern-oriented treatment, see [Patterns § Harness Engineering](patterns.md#harness-engineering). For tools that implement these principles, see [Sandboxes](sandboxes.md), [Skills, Plugins & Marketplaces](approaches.md#skills-plugins-marketplaces), and [Agent Observability & Evaluation](infrastructure.md#agent-observability-evaluation).
 
@@ -3916,6 +4081,24 @@ This is why complexity isn't bounded by context size. The PDF-skill example: it 
 | Limited markdown vs XML impact | LangChain | For 300-500-line skills, formatting choices barely moved the needle — content matters more |
 
 **Operational takeaway:** beyond ~12 similar skills, performance degrades. Group skills into clusters; route via a meta-skill or subagent rather than loading 50 at once. And don't trust 100% invocation — instrument it.
+
+---
+
+## Do skills actually help on real engineering tasks?
+
+The 82% vs 9% number above is from one well-curated eval set. The more important question — does a typical skill catalog move real software-engineering work? — has a harder answer.
+
+[SWE-Skills-Bench](https://arxiv.org/abs/2603.15401) (Han et al., March 2026) benchmarked **49 skills against 565 SWE-bench-style task instances**. The findings:
+
+- **39 of the 49 skills produced zero pass-rate improvement.** Most skills, on most tasks, are neutral at best.
+- Average gain across all skills: **+1.2%.**
+- Only **7 skills** produced substantial gains — up to **+30%** on the tasks they targeted.
+- **3 skills actively degraded** performance.
+- Token overhead ranged from net savings to **+451% with no payoff** — i.e., the skill cost half a context window and changed nothing.
+
+The honest takeaway: *most skills you write will not help, and a few will hurt.* The 82% vs 9% case isn't wrong — it's what happens when the skill catalog is curated to the eval. When skills are added speculatively, the average effect collapses. Measure each skill against your own workload before shipping it as default-on; the empirical bound (~12 similar before degradation, 70% invocation reliability) is necessary but not sufficient.
+
+This is also why the Anthropic / LangChain literature emphasizes the *description* field and progressive disclosure: invocation gating and gradual loading are how you avoid paying for the dozens of skills that are neutral.
 
 ---
 
@@ -8389,6 +8572,52 @@ A team running agent safety seriously will have:
 
 ---
 
+## Empirical defenses: what actually works
+
+A recurring problem with the prompt-injection literature is that it's heavy on attacks and light on numbers about which defenses move the needle. Two recent results give honest, measured answers.
+
+### The red-team competition baseline (ART, July 2025)
+
+The largest public red-team study to date: 22 deployed agents × 44 scenarios → **1.8 million attacks, 60K+ policy violations**. Headline findings from [Zou et al., *Security Challenges in AI Agent Deployment*](https://arxiv.org/abs/2507.20526):
+
+- **Most agents violate policy within 10–100 attacker queries.** Robustness is the exception, not the default.
+- Attacks **transfer across models** — what jailbreaks GPT-class systems usually works on Claude-class systems and vice versa.
+- **Robustness is uncorrelated with scale, capability, or compute** — a larger or more capable model is not a more secure agent.
+
+The ART benchmark distilled from this work is the closest thing to a shared red-team yardstick the field has.
+
+### What memory attacks look like (Trojan Hippo, May 2026)
+
+[Trojan Hippo](https://arxiv.org/abs/2605.01970) (Das, Piet, Kaviani, Beurer-Kellner, Tramèr, Wagner) shows the threat model for *agents with long-term memory*. A single untrusted tool call plants a dormant payload in memory; the payload activates only when the agent later discusses sensitive topics (finance, health) and exfiltrates data:
+
+- **85–100% attack success across four memory architectures** on frontier models.
+- **Four conventional defenses (input filters, retrieval filters, prompt hardening, output filters): 0–5% reduction**, with utility cost.
+
+The lesson: memory makes prompt injection *persistent across sessions*. Defenses that work on stateless chat don't transfer.
+
+### What does work: comparative defense effectiveness (May 2026)
+
+The rare honest study on this is [Defense Effectiveness Across Architectural Layers](https://arxiv.org/abs/2605.08442) (Leong, May 2026) — six defenses vs persistent memory attacks across nine models, 5,700 pre-registered runs. The headline ASR numbers (attack success rate, baseline 88.6%):
+
+| Defense | ASR | Verdict |
+|---|---|---|
+| Input filters | 88% | No help |
+| Retrieval filters | 89% | No help |
+| Prompt Hardening | 77.8% | Marginal |
+| Memory Sandbox (tool-gating) | **0% on 8 of 9 models** | The thing that actually works |
+
+The *Memory Sandbox* approach removes the *capability* the attack needs (controlled write access to long-term memory) rather than trying to filter the *content* of the attack. This is the same insight as the Dual LLM pattern — pattern-matching content is a losing game; gating capability is winnable.
+
+One striking caveat: a reasoning model in the study *inverts* under Memory Sandbox, going from 0% ASR to 100% ASR via an alternate pathway. The defense closed one door and opened another. Defenses are model-specific; verify per-deployment.
+
+### Pre-action authorization as the structural answer
+
+For the runtime-gating story — *don't filter the model's intent, gate every action against a deterministic policy* — see [Patterns § 8: Runtime Defense & Pre-Action Authorization](patterns.md#8-runtime-defense--pre-action-authorization-layer-12), which covers the [Open Agent Passport](https://arxiv.org/abs/2603.20953) (**74.6% → 0% social-engineering ASR at 53 ms median overhead**), Meta's *Agents Rule of Two*, Google's SAIF principles, and Anthropic's Auto Mode classifier. These are the *structural* answer to the empirical finding above — content filters are bypassable; deterministic gates aren't.
+
+For full source notes on the 8 agent-security primary sources and the 33 papers cited in the Immersive Commons 12-layer stack, see [Research Notes §§ 8–10](research-notes.md#section-8-agent-security--authorization-post-ingestion-thematic-add).
+
+---
+
 ## See also
 
 - [Infrastructure § Agent Observability & Evaluation](infrastructure.md#agent-observability-evaluation) — the cross-link stub left behind after this page absorbed the guardrails vendor table.
@@ -8487,6 +8716,18 @@ Take a coding agent with a 30K-token system + tools + repo context prompt that r
 **Savings: ~72%** for a single session. For an agent handling 1000 sessions / day at the same shape: $1,950 / day → $549 / day = ~$1,400 / day or ~$510K / year in straight token cost.
 
 The structural rule: any prompt content reused across turns should be cached. The harness arranges the prompt so the *invariant* parts (system prompt, tools schema, retrieved-corpus boilerplate) come first and get marked; the *variable* parts (user message, latest tool result) come last and are not cached. See [Context Engineering](context-engineering.md) for the prompt-layout patterns this enables.
+
+### Don't break the cache — prompt-layout discipline
+
+The biggest source of agent-cost regression is breaking the cache by accident. *Don't Break the Cache* ([arXiv 2601.06007](https://arxiv.org/abs/2601.06007), Lumer et al., Jan 2026) is the empirical study on this — a long-horizon agentic-task benchmark across OpenAI, Anthropic, and Google providers, with prompt sizes from 500 to 50K tokens and 3 to 50 tool calls per session. The findings:
+
+- **41–80% API cost reduction** from strategic prompt-cache placement vs naive caching.
+- **13–31% time-to-first-token improvement** in the same conditions.
+- **Naive full-context caching can *worsen* latency** — surprisingly, caching everything indiscriminately makes things slower because of cache-miss replays on dynamic tool results.
+
+The structural rule that follows: **place all dynamic content (tool results, session state, date strings) at the *end* of the prompt** so the cacheable prefix stays stable. The IC 12-layer framework cites this as one of the most concrete Layer 7 (Runtime & Resource Management) findings — the same instruction Anthropic gives in its `cache_control` docs but with the empirical backing for *why*.
+
+This is the same lever IC counts as part of *"the 41–80% cost cut from prompt placement"* in their Four Hard Truths. The harness orchestrates prompt layout; the model just consumes it.
 
 ### KV reuse beyond caching
 
@@ -9878,6 +10119,434 @@ Sources added after the original May 25, 2026 ingestion via user audit / The Bat
 **What it is (1 sentence):** "The front page of the agent internet" — a social network for AI agents (post / discuss / upvote) that doubles as an identity provider agents can use to authenticate to third-party apps.
 **Key concepts / classes / functions named:** Submolts (communities), agent posts, agent comments, X-verified agent ownership, Moltbook identity as auth provider, developer early access.
 **Why it matters for agentic-engineering:** Speculative consumer-shaped layer for agent identity — the rare attempt at a Reddit / Hacker News analog where agents are the primary users. Sits adjacent to [Infrastructure § Identity/Auth](infrastructure.md#agent-identity-auth-secrets); worth tracking even if the agent-social-network thesis doesn't pan out.
+
+---
+
+## Section 8: Agent Security & Authorization (post-ingestion thematic add)
+
+Sources added June 2026 to fill two under-covered topics: the **adversarial surface** of autonomous agents (prompt injection, lethal trifecta, threat taxonomies) and **pre-action authorization** (deterministic gates between intent and execution). The previous ingestion has scattered coverage — Claude Code auto-mode classifier, Anthropic sandboxing, Meta Rule of Two mentioned in passing — but no consolidated bibliography of the named frameworks (OWASP Agentic Top 10, MITRE ATLAS, Willison's lethal trifecta, OAP, SAIF, Microsoft DiD). The 8 entries below close that gap.
+
+### The Lethal Trifecta for AI Agents
+**URL:** `https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/`
+**Fetch:** OK
+**Date:** June 16, 2025
+**Author:** Simon Willison
+**Key claims:**
+- The "lethal trifecta" is the combination of three agent capabilities: (1) access to private data, (2) exposure to untrusted content, (3) ability to externally communicate / exfiltrate.
+- When all three coexist in one agent, an attacker can exfiltrate private data via prompt injection — and vendors cannot reliably prevent this.
+- LLMs cannot reliably distinguish trusted instructions from instructions embedded in untrusted content; guardrails are insufficient.
+- Risk compounds when users mix third-party MCP tools — each new tool can silently flip the agent into the trifecta state.
+
+**Quotable:** "If your agent combines these three features, an attacker can easily trick it into accessing your private data and sending it to that attacker."
+**Frameworks named:** Prompt injection (distinguished from jailbreaking), MCP, guardrails (critiqued).
+**Why it matters:** Provides the canonical name and the three-capability formulation that every downstream agent-security framework (Meta Rule of Two, OWASP, Microsoft DiD) builds on.
+
+### Agents Rule of Two: A Practical Approach to AI Agent Security
+**URL:** `https://ai.meta.com/blog/practical-ai-agent-security/`
+**Fetch:** OK
+**Date:** October 31, 2025
+**Author:** Meta AI (unsigned)
+**Key claims:**
+- An agent should satisfy no more than two of three properties within a single session: (A) process untrustworthy inputs, (B) access sensitive systems / private data, (C) change state or communicate externally.
+- If all three are required in one session, the agent must not run autonomously — supervise via HITL approval or other reliable validation.
+- Explicitly framed as a generalization of Chromium's "Rule of Two" security policy, applied to agents, and as the operational complement to Willison's lethal trifecta.
+- Positions Meta's Llama Protections suite (Llama Firewall, Prompt Guard, Code Shield, Llama Guard) as enforcement components.
+
+**Quotable:** "Prompt injection is a fundamental, unsolved weakness in all LLMs."
+**Frameworks named:** Agents Rule of Two, Chromium Rule of Two, lethal trifecta, Llama Firewall, Prompt Guard, Code Shield, Llama Guard, MCP, defense in depth, HITL.
+**Why it matters:** The operational rule a builder can actually apply at design time — diagnostic (trifecta) plus prescription (Rule of Two) is the cleanest single-page security pairing.
+
+### OWASP Top 10 for Agentic Applications for 2026
+**URL:** `https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/`
+**Fetch:** OK (landing page; full risk list requires PDF download)
+**Date:** December 9, 2025
+**Author:** OWASP GenAI Security Project (100+ industry experts/researchers)
+**Key claims:**
+- First OWASP Top 10 scoped specifically to autonomous/agentic applications, distinct from the existing LLM Top 10.
+- Targets builders, defenders, and decision-makers as a starting point for reducing agentic AI risks.
+- Cross-walks to other GenAI security frameworks via an AIUC-1 Crosswalk.
+- The detailed 10-risk enumeration is in the downloadable document, not the landing page.
+
+**Quotable:** "The Top 10 equips builders, defenders, and decision-makers with a clear starting point for reducing agentic AI risks."
+**Frameworks named:** OWASP GenAI Security, AIUC-1 Crosswalk, OWASP LLM Top 10 (sibling).
+**Why it matters:** Industry-standard naming layer — when a risk category needs a stable name, cite OWASP's number.
+
+### MITRE ATLAS (Adversarial Threat Landscape for AI Systems)
+**URL:** `https://atlas.mitre.org`
+**Fetch:** PARTIAL (JS-rendered SPA returns minimal static content; release metadata via `github.com/mitre-atlas/atlas-data/releases`)
+**Date:** Current release `v2026.05` (May 27, 2026); the project moved to date-based versioning for content + semver for the data format.
+**Author:** The MITRE Corporation
+**Key claims:**
+- Living knowledge base of adversary tactics, techniques, and procedures (TTPs) targeting AI/ML systems, modeled on MITRE ATT&CK.
+- Catalog spans tactics including Reconnaissance, Resource Development, Initial Access, ML Model Access, Execution, Persistence, Privilege Escalation, Defense Evasion, Credential Access, Discovery, Collection, ML Attack Staging, Exfiltration, Impact, Command and Control (AML.TA0001 – TA0015, plus additional 2026 tactics — verify exact set against the live matrix before citing a count).
+- May 2026 release introduced versioning split: content versioned by date (2026.05), data format versioned by semver.
+
+**Quotable:** "A globally accessible adversarial ML knowledge base that documents adversary tactics, techniques, and procedures specifically targeting artificial intelligence and machine learning systems."
+**Frameworks named:** MITRE ATT&CK (inheritance source), SAFE-AI (sibling MITRE work).
+**Why it matters:** Pairs with OWASP Top 10 as the threat-model (tactics) side of an agent-security reference — risks (OWASP) and tactics (ATLAS) together.
+
+### Defense in Depth for Autonomous AI Agents
+**URL:** `https://www.microsoft.com/en-us/security/blog/2026/05/14/defense-in-depth-autonomous-ai-agents/`
+**Fetch:** OK
+**Date:** May 14, 2026
+**Authors:** Alyssa Ofstein (Senior Program Manager), Elliot H. Omiya (Principal Architect)
+**Key claims:**
+- Agentic security needs reinforcing layers — model, safety system, application, positioning — and no single layer is sufficient.
+- The application layer is the most critical because it's the only layer organizations fully control and where probabilistic model behavior is converted into deterministic system outcomes.
+- Names a novel agent threat class set: agent hijacking, intent breaking, sensitive-data leakage, supply-chain compromise, inappropriate reliance.
+- Prescribes four application-layer design patterns: agents-as-microservices, least permissions, deterministic human-in-the-loop, agent identity as a security primitive.
+
+**Quotable:** "When an agent can act autonomously, mistakes propagate faster, blast radius increases, and rollback becomes harder."
+**Frameworks named:** Defense in depth, zero trust, agents-as-microservices, least permissions, deterministic HITL, agent identity as security primitive.
+**Why it matters:** Vendor-side reference for layered-defense architecture; provides the canonical "blast radius" framing and four application-layer patterns an agentic-engineering reference can cite as enterprise-validated guidance.
+
+### An Introduction to Google's Approach to AI Agent Security
+**URL:** `https://simonwillison.net/2025/Jun/15/ai-agent-security/`
+**Fetch:** OK
+**Date:** June 15, 2025
+**Author:** Simon Willison (covering a paper by Santiago Díaz, Christoph Kern, Kara Olive — Google)
+**Key claims:**
+- Two primary agent risks: rogue actions and sensitive-data disclosure.
+- Current LLM architectures cannot rigorously separate system instructions from untrusted inputs — the same root cause Willison names elsewhere as the lethal trifecta.
+- Google's three core principles: well-defined human controllers, limited agent powers, observable actions/planning.
+- Recommends a hybrid defense: Layer 1 deterministic runtime policy enforcement + Layer 2 reasoning-based defenses.
+
+**Quotable:** "Agents must have well-defined human controllers... it is essential for security and accountability that agents operate under clear human oversight."
+**Frameworks named:** Google SAIF (agentic addendum), hybrid defense-in-depth (deterministic + reasoning), three-core-principles framework.
+**Why it matters:** Captures Google's published agentic stance; pairs naturally with the Microsoft DiD post for vendor-side coverage.
+
+### Before the Tool Call: Deterministic Pre-Action Authorization for Autonomous AI Agents
+**URL:** `https://arxiv.org/abs/2603.20953`
+**Fetch:** OK
+**Date:** March 21, 2026
+**Author:** Uchi Uchibeke
+**Key claims:**
+- Agents have authentication but lack a deterministic authorization layer at the tool-call boundary; alignment + post-hoc review are insufficient.
+- Proposes the Open Agent Passport (OAP) — a specification for synchronously intercepting tool calls and evaluating declarative policies before execution.
+- Authorization latency: median 53 ms over N=1,000 calls.
+- Under permissive policies, social-engineering attacks succeed 74.6% of the time; under OAP's restrictive policy, attackers achieve 0% across 879 attempts.
+- Same mechanism enforces spending limits, capability scoping, sub-agent delegation, quality gates, and compliance controls.
+
+**Quotable:** "OAP enforces authorization decisions in a measured median of 53 ms (N=1,000)."
+**Frameworks named:** Open Agent Passport (OAP), declarative policies, Apache 2.0 / CC BY 4.0.
+**Why it matters:** Concrete, measured proposal for the "deterministic pre-action gate" pattern — building block for the runtime-enforcement layer in any agent-security architecture.
+
+### A Systematic Survey of Security Threats and Defenses in LLM-Based AI Agents: A Layered Attack Surface Framework
+**URL:** `https://arxiv.org/abs/2604.23338`
+**Fetch:** OK
+**Date:** v1 April 25, 2026; v2 May 6, 2026
+**Author:** Kexin Chu
+**Key claims:**
+- Surveys 116 papers (2021–2026) on agent security through a Layered Attack Surface Model (LASM): seven architectural layers plus a four-class temporality dimension.
+- Argues agentic systems are qualitatively different from stateless LLMs because of persistent memory, tool integration, multi-agent coordination, and cross-session operation.
+- Upper layers of the agentic stack remain "sharply under-explored, especially for long-horizon and stack-propagating threats."
+- Identifies multiple attack regions with documented attacks but no documented defenses.
+- Delivers a cross-layer defense taxonomy and distinguishes near-term engineering gaps from open research problems.
+
+**Quotable:** "Agentic AI systems introduce a security surface that is qualitatively different from that of stateless LLMs."
+**Frameworks named:** Layered Attack Surface Model (LASM), 7-layer architectural decomposition, 4-class temporality dimension.
+**Why it matters:** Up-to-date academic survey that gives the literature-overview "lay of the land" slot, with a clean taxonomy for mapping individual attacks/defenses.
+
+---
+
+## Section 9: Agent Architecture Frameworks (post-ingestion thematic add)
+
+Frameworks that try to name and organize the layers of an autonomous-agent stack. Useful as meta-references when you need to point at "where does this technique fit?" instead of citing a single paper.
+
+### The Agentic Stack: How a State-of-the-Art AI Agent Actually Works
+**URL:** `https://www.immersivecommons.com/news/agentic-stack-12-layers`
+**Fetch:** OK
+**Date:** June 20, 2026 (v1; living document, refreshed monthly)
+**Author:** Immersive Commons research cluster (Frontier Tower / FT10, San Francisco; no individual byline)
+**Key claims:**
+- Synthesizes ~1,800 recent agentic papers into a 12-layer "builder's map" of where the engineering of an autonomous agent actually lives.
+- The 12 layers, verbatim:
+  1. **Action Substrate** — how the loop acts (shell, code interpreter, sandbox, CodeAct)
+  2. **Control Loop & Planning** — decision policy sequencing (ReAct, MCTS, Agent Q, world model, DPO)
+  3. **Tool Interface & Discovery** — finding and invoking capability at scale (AnyTool, hierarchical retrieval, ToolFuzz)
+  4. **Memory & Recall** — persistent state across turns/sessions (MemGPT, virtual paging, searchable recall)
+  5. **Context Lifecycle & Compression** — managing finite working-token budget (ACON, MemAct, AgentFold)
+  6. **Multi-Agent Coordination & Interop** — composing loops safely (MetaGPT, SagaLLM, phase DAG, S-Bus)
+  7. **Runtime & Resource Management** — serving, scheduling, cost-bounding at scale (KV-cache reuse, AgentRM, MLFQ admission)
+  8. **Self-Improvement & Skill Acquisition** — getting better without weight surgery (Agent Workflow Memory, EvoSkill, HASP, AlphaEvolve)
+  9. **Verification & Observability** — making behavior inspectable and judgeable (Trace-Based Assurance, message-action trace, LLM-as-judge with A/B swap)
+  10. **Evaluation & Reliability** — knowing the loop is consistent (τ-bench, pass^k, ToolSandbox, SWE-bench+)
+  11. **Adversarial Surface & Red-Teaming** — catalogued attack surface (ART, AiTM, tool-poisoning, cross-temporal attacks)
+  12. **Runtime Defense & Pre-Action Authorization** — non-bypassable enforcement (OAP, Faramesh, MELON, Memory Sandbox)
+- Field state: 1 solved layer (Action Substrate), 7 consolidating layers, 4 emerging / under-built layers (Layers 7, 8, 9, 12) — emerging is where reliability and safety actually come from.
+- Layer 9 (Verification & Observability) is called *"the buildable spine."*
+- Four Hard Truths: (1) capability lives in harness not model; (2) memory is a time-bomb — "budget and invalidate memory on purpose"; (3) reasoning can be performative — "verify actions, not explanations"; (4) autonomy is a regression vector — self-improving agents misevolve.
+- Concrete empirical claims:
+  - **Layer 2:** premature MCTS / async planning collapses overlapping-task performance 47% → 11%
+  - **Layer 4:** memory systems' invalidation-reasoning accuracy is ~1–3%
+  - **Layer 5:** input length alone degrades accuracy 14–85% even with perfect retrieval
+  - **Layer 7:** placing all dynamic content (tool results, session state, date) at the END of the system prompt enables KV-cache reuse for a 41–80% cost cut
+  - **Layer 8:** 39 of 49 induced skills gave +0% lift on SWE tasks
+  - **Layer 10:** "agents that succeed once routinely fail on identical re-runs" — report pass^k, not pass@1
+  - **Layer 11:** nearly every deployed agent violates policy within 10–100 queries; robustness does not correlate with model size
+
+**Quotable:** "An agent is a loop, not a model with a clever prompt. Almost all of its real-world capability comes from the engineering around that loop, not from the weights."
+**Frameworks named (full list from the linked papers):** CodeAct (arXiv 2402.01030), Agent Q (2408.07199), AI Harness Engineering (2605.13357), Graph-of-Thoughts (2308.09687), AnyTool (2402.04253), ToolFuzz (2503.04479), MemGPT (2310.08560), ACON (2510.00615), MemAct (2510.12635), AgentFold (2510.24699), MetaGPT (2308.00352), SagaLLM (2503.11951), S-Bus (2605.17076), Don't Break the Cache (2601.06007), AgentRM (2603.13110), Agent Workflow Memory (2409.07429), EvoSkill (2603.02766), HASP (2605.17734), AlphaEvolve (2506.13131), Trace-Based Assurance (2603.18096), τ-bench (2406.12045), ToolSandbox (2408.04682), SWE-bench+ (2410.06992), ART (2507.20526), AiTM (2502.14847), OAP (2603.20953), Faramesh (2601.17744), MELON (2502.05174), Memory Sandbox (2605.08442), Trojan Hippo (2605.01970), MemoryGraft (2512.16962), SWE-Skills-Bench (2603.15401), WildClawBench (2605.10912).
+**Why it matters:** Meta-organizing map for the whole site. Anchor reference for [patterns.md § Twelve-Layer Agentic Stack](patterns.md#the-twelve-layer-agentic-stack), and the framing for Layers 11/12 in [patterns.md §§ 7–8](patterns.md#7-adversarial-surface--red-teaming-layer-11). The page is positioned as the first public output of the Immersive Commons research cluster and is refreshed monthly — re-verify the framework version and per-layer claims before citing in production work.
+
+---
+
+## Section 10: Twelve-Layer Stack — Cited Papers (post-ingestion thematic add)
+
+The 33 arXiv papers cited by [Immersive Commons](https://www.immersivecommons.com/news/agentic-stack-12-layers) as the state-of-the-art evidence for each of the 12 layers. Each entry is compact — title, URL, date, authors, one-sentence gist, key empirical claims, method, where this site cites it (if it does). Organized by IC's layer assignment. All 33 verified June 2026; 0 failed.
+
+### Layer 2 — Control Loop & Planning
+
+#### AI Harness Engineering: A Runtime Substrate for Foundation-Model Software Agents
+**URL:** `https://arxiv.org/abs/2605.13357` · **Date:** 2026-05-13 · **Authors:** Zhong, Zhu
+**Gist:** Capability of SWE agents emerges from model + harness + environment interaction; formalizes a runtime substrate with 11 component responsibilities and an H0–H3 progressive-support ladder.
+**Key claims:** H0–H3 ladder; 11 named harness component responsibilities; trace-based evaluation protocol; reframes the central question from "can models patch?" to "can the system produce verifiably correct, attributed, maintainable changes?"
+**Method:** Conceptual framework + trace-based evaluation.
+**Site slot:** [harness-engineering.md](harness-engineering.md) (foundational definitional citation — title matches the page).
+
+#### Agent Q: Advanced Reasoning and Learning for Autonomous AI Agents
+**URL:** `https://arxiv.org/abs/2408.07199` · **Date:** 2024-08-13 · **Authors:** Putta, Mills, Garg, Motwani, Finn, Garg, Rafailov
+**Gist:** Guided MCTS planning + self-critique + off-policy DPO fine-tuning for multi-step agents.
+**Key claims:** Llama-3 70B on real booking: 18.6% → 81.7% success (340% relative); 95.4% with online MCTS at inference; outperforms baselines on WebShop.
+**Method:** Guided MCTS + self-critique + off-policy DPO.
+**Site slot:** patterns.md (planning/search pattern); approaches.md (named technique).
+
+#### Executable Code Actions Elicit Better LLM Agents (CodeAct)
+**URL:** `https://arxiv.org/abs/2402.01030` · **Date:** 2024-02-01 (rev 2024-06-07) · **Authors:** Wang, Chen, Yuan, Zhang, Li, Peng, Ji · **Venue:** ICML 2024
+**Gist:** Python code as the unified action space (vs JSON/text) yields up to 20% higher success across 17 LLMs.
+**Key claims:** Up to 20% absolute success-rate lift; releases CodeActInstruct (7K multi-turn) + CodeActAgent fine-tunes; enables dynamic revision and autonomous self-debugging across turns.
+**Method:** Executable Python actions + multi-turn observation/revision loop.
+**Site slot:** tool-design.md (action-substrate choice); approaches.md (CodeAct as named pattern).
+
+#### Graph of Thoughts: Solving Elaborate Problems with Large Language Models
+**URL:** `https://arxiv.org/abs/2308.09687` · **Date:** 2023-08-18 (rev 2024-02-06) · **Authors:** Besta et al.
+**Gist:** Generalizes CoT/ToT into arbitrary-graph reasoning topology with thought aggregation/distillation/feedback operators.
+**Key claims:** 62% sorting-quality improvement over ToT while cutting cost >31%.
+**Method:** Graph-structured thought representation with merge/refine operators.
+**Site slot:** primary source only (lineage well-trodden; cite-as-needed).
+
+### Layer 3 — Tool Interface & Discovery
+
+#### AnyTool: Self-Reflective, Hierarchical Agents for Large-Scale API Calls
+**URL:** `https://arxiv.org/abs/2402.04253` · **Date:** 2024-02-06 · **Authors:** Du, Wei, Zhang
+**Gist:** Hierarchical API retriever + solver + self-reflection over 16K+ Rapid APIs, no training.
+**Key claims:** +35.4% avg pass rate over ToolLLM on ToolBench; introduces AnyToolBench; uses only GPT-4 function calling.
+**Method:** Hierarchical tool retrieval + iterative self-reflection.
+**Site slot:** tool-design.md (tool discovery at scale).
+
+#### ToolFuzz — Automated Agent Tool Testing
+**URL:** `https://arxiv.org/abs/2503.04479` · **Date:** 2025-03-06 (rev 2025-03-11) · **Authors:** Milev, Balunović, Baader, Vechev
+**Gist:** Fuzz-tests tool documentation for under/over/ill-specification that breaks agents.
+**Key claims:** 20× more erroneous inputs surfaced vs prompt-engineering baselines; evaluated on 32 LangChain + 35 custom tools; separates runtime failures from incorrect agent responses.
+**Method:** Automated docstring/schema fuzzing.
+**Site slot:** tool-design.md (docs hygiene); evals.md (tool-surface testing).
+
+### Layer 4 — Memory & Recall
+
+#### MemGPT: Towards LLMs as Operating Systems
+**URL:** `https://arxiv.org/abs/2310.08560` · **Date:** 2023-10-12 (rev 2024-02-12) · **Authors:** Packer, Wooders, Lin, Fang, Patil, Stoica, Gonzalez
+**Gist:** OS-style virtual context management — paged memory hierarchy + interrupts — extends effective context beyond the window.
+**Key claims:** Tiered memory with explicit paging in/out; demonstrated on long-doc analysis and multi-turn dialogue persistence.
+**Method:** OS-inspired memory hierarchy with function-call-driven paging.
+**Site slot:** memory.md (foundational tiered-memory citation).
+
+### Layer 5 — Context Lifecycle & Compression
+
+#### ACON: Optimizing Context Compression for Long-horizon LLM Agents
+**URL:** `https://arxiv.org/abs/2510.00615` · **Date:** 2025-10-01 · **Authors:** Kang, Chen, Han, Inan, Wutschitz, Chen, Sim, Rajmohan
+**Gist:** Failure-driven, iteratively refined compression guidelines preserve task-critical state without fine-tuning.
+**Key claims:** 26–54% token reduction with higher task success; enables smaller LMs to act as competent agents; no fine-tuning required.
+**Method:** Failure-analysis loop rewriting compression rules.
+**Site slot:** context-engineering.md (compression strategy).
+
+#### Memory as Action: Autonomous Context Curation for Long-Horizon Agentic Tasks (MemAct)
+**URL:** `https://arxiv.org/abs/2510.12635` · **Date:** 2025-10-14 (rev 2026-05-07) · **Authors:** Zhang, Shu, Ma, Lin, Wu, Sang
+**Gist:** Memory edits as RL actions; agent learns its own context-curation policy via Dynamic Context Policy Optimization.
+**Key claims:** MemAct-RL-14B matches models 16× larger; 51% avg context-length reduction.
+**Method:** RL-trained edit actions over the working window.
+**Site slot:** context-engineering.md; memory.md cross-ref.
+
+#### AgentFold: Long-Horizon Web Agents with Proactive Context Management
+**URL:** `https://arxiv.org/abs/2510.24699` · **Date:** 2025-10-28 · **Authors:** Ye et al. (15 authors, Alibaba)
+**Gist:** Cognitively-inspired "folding" of history at multiple scales — from detail-preserving to multi-step abstraction.
+**Key claims:** AgentFold-30B-A3B: 36.2% BrowseComp, 47.3% BrowseComp-ZH; beats OpenAI o4-mini and matches/surpasses much larger open models.
+**Method:** SFT on proactive fold operations across granularities.
+**Site slot:** context-engineering.md (specific named technique with benchmark numbers).
+
+### Layer 6 — Multi-Agent Coordination & Interop
+
+#### MetaGPT: Meta Programming for A Multi-Agent Collaborative Framework
+**URL:** `https://arxiv.org/abs/2308.00352` · **Date:** 2023-08-01 (rev 2024-11-01) · **Authors:** Hong et al. (with Schmidhuber)
+**Gist:** Encodes Standardized Operating Procedures into prompt sequences, assigning roles assembly-line style to reduce multi-agent hallucination.
+**Key claims:** Assembly-line role decomposition; more coherent SE solutions vs prior chat-based multi-agent systems.
+**Method:** SOP-encoded prompt chains across role-specialized agents.
+**Site slot:** primary source only (widely cited; no specific number to feature).
+
+#### SagaLLM: Context Management, Validation, and Transaction Guarantees for Multi-Agent LLM Planning
+**URL:** `https://arxiv.org/abs/2503.11951` · **Date:** 2025-03-15 (rev 2025-07-09) · **Authors:** Chang, Geng
+**Gist:** Adapts the Saga transactional pattern (checkpointing + compensable execution) to LLM multi-agent planning.
+**Key claims:** Addresses self-validation unreliability, context loss, missing transactional safeguards, weak coordination; relaxed-ACID workflow with independent validation agents.
+**Method:** Saga pattern + persistent memory + validator agents.
+**Site slot:** patterns.md (transaction/compensation pattern); safety.md cross-ref.
+
+#### S-Bus: Automatic Read-Set Reconstruction for Multi-Agent LLM State Coordination
+**URL:** `https://arxiv.org/abs/2605.17076` · **Date:** 2026-05-16 (rev 2026-05-22) · **Author:** Khan
+**Gist:** HTTP middleware reconstructs each agent's read set from GET traffic, providing Observable-Read Isolation for shared mutable state.
+**Key claims:** Prevents Structural Race Conditions; TLAPS + TLC proofs; empirical safety parity with Postgres 17 / Redis 7; LLM-judge validated against humans at κ=0.93.
+**Method:** Server-side DeliveryLog observing HTTP GETs to infer read sets.
+**Site slot:** patterns.md (concurrency control for multi-agent state).
+
+### Layer 7 — Runtime & Resource Management
+
+#### Don't Break the Cache: An Evaluation of Prompt Caching for Long-Horizon Agentic Tasks
+**URL:** `https://arxiv.org/abs/2601.06007` · **Date:** 2026-01-09 (rev 2026-01-31) · **Authors:** Lumer, Nizar, Jangiti, Frank, Gulati, Phadate, Subbiah
+**Gist:** Strategic prompt-cache placement (dynamic content last, exclude dynamic tool results) beats naive caching across OpenAI/Anthropic/Google.
+**Key claims:** 41–80% API cost reduction; 13–31% TTFT improvement; naive full-context caching can *worsen* latency; ablations span 500–50K tokens and 3–50 tool calls.
+**Method:** Empirical study on DeepResearch Bench across three providers.
+**Site slot:** [cost-economics.md](cost-economics.md) (primary caching-economics citation); infrastructure.md cross-ref.
+
+#### AgentRM: An OS-Inspired Resource Manager for LLM Agent Systems
+**URL:** `https://arxiv.org/abs/2603.13110` · **Date:** 2026-03-13 · **Author:** She
+**Gist:** Brings MLFQ scheduling + admission control + adaptive context compaction to agent runtimes, motivated by analysis of 40K+ GitHub issues.
+**Key claims:** P95 latency −86%; throughput +168%; zombie agents eliminated; Context Lifecycle Manager retains 100% of key info vs 65.1% baseline.
+**Method:** MLFQ scheduler + zombie reaping + rate-limit-aware admission + Context Lifecycle Manager.
+**Site slot:** infrastructure.md (runtime/resource management); context-engineering.md cross-ref.
+
+### Layer 8 — Self-Improvement & Skill Acquisition
+
+#### Agent Workflow Memory
+**URL:** `https://arxiv.org/abs/2409.07429` · **Date:** 2024-09-11 · **Authors:** Wang, Mao, Fried, Neubig
+**Gist:** Agents extract reusable workflow routines from past episodes and reuse them as memory.
+**Key claims:** +24.6% and +51.1% relative success across two web nav benchmarks; works offline and online; robust under distribution shift.
+**Method:** Induced-workflow memory keyed on task patterns.
+**Site slot:** skills.md (workflow-as-skill); memory.md cross-ref.
+
+#### EvoSkill: Automated Skill Discovery for Multi-Agent Systems
+**URL:** `https://arxiv.org/abs/2603.02766` · **Date:** 2026-03-03 · **Authors:** Alzubi, Provenzano, Bingham, Chen, Vu
+**Gist:** Failure-driven skill discovery; proposes new skills, refines existing ones, organizes into reusable folders — frozen base model.
+**Key claims:** +7.3% OfficeQA, +12.1% SealQA; skills transfer +5.3% on BrowseComp without modification.
+**Method:** Iterative failure-analysis → skill proposal/refinement loop.
+**Site slot:** skills.md (auto-discovery angle).
+
+#### Harnessing LLM Agents with Skill Programs (HASP)
+**URL:** `https://arxiv.org/abs/2605.17734` · **Date:** 2026-05-18 · **Authors:** Liu, Ming, Joty, Zhao
+**Gist:** Reframes skills as executable Program Functions acting as runtime guardrails rather than passive guidance text.
+**Key claims:** +25% over multi-loop ReAct at inference; +30.4% over Search-R1 with controlled skill evolution post-training; validated on web search, math, code.
+**Method:** Skills-as-programs activated on failure to modify actions + inject corrective context.
+**Site slot:** skills.md ("skill-as-program" angle, distinct from AWM/EvoSkill).
+
+#### AlphaEvolve: A Coding Agent for Scientific and Algorithmic Discovery
+**URL:** `https://arxiv.org/abs/2506.13131` · **Date:** 2025-06-16 · **Authors:** Novikov et al. (DeepMind, 18 authors)
+**Gist:** Evolutionary LLM pipeline that edits algorithms; produced the first improvement on Strassen's matrix multiplication in 56 years.
+**Key claims:** 4×4 complex matmul in 48 scalar mults (beats Strassen since 1969); deployed to Google datacenter scheduling and hardware-accelerator circuit design.
+**Method:** LLM-orchestrated evolutionary search over code variants.
+**Site slot:** approaches.md (evolutionary coding agents as a named approach).
+
+#### SWE-Skills-Bench: Do Agent Skills Actually Help in Real-World Software Engineering?
+**URL:** `https://arxiv.org/abs/2603.15401` · **Date:** 2026-03-16 · **Authors:** Han, Zhang, Song, Fang, Chen, Sun, Hu
+**Gist:** Empirical audit of agent skills on SWE tasks — most skills don't help and several hurt.
+**Key claims:** **39 of 49 skills yield 0 pass-rate gain**; avg gain only +1.2%; only 7 skills give substantial gains (up to +30%); 3 skills *degrade* performance; token overhead ranges from savings to +451% with no payoff.
+**Method:** 49 skills × 565 task instances benchmark.
+**Site slot:** [skills.md](skills.md) (essential honesty counterweight to AWM/EvoSkill/HASP hype); benchmarks.md cross-ref.
+
+### Layer 9 — Verification & Observability
+
+#### Trace-Based Assurance Framework for Agentic AI Orchestration
+**URL:** `https://arxiv.org/abs/2603.18096` · **Date:** 2026-03-18 · **Authors:** Paduraru, Bouruc, Stefanescu
+**Gist:** Message-Action Traces with step/trace contracts enable deterministic replay, fault injection, and per-agent capability limits.
+**Key claims:** Trace-based metrics (task success, termination reliability, compliance, containment); counterexample-search stress testing; boundary-level fault injection.
+**Method:** Contract-annotated traces + governance/mediation layer.
+**Site slot:** observability.md (trace-contracts named approach); safety.md cross-ref.
+
+### Layer 10 — Evaluation & Reliability
+
+#### τ-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains
+**URL:** `https://arxiv.org/abs/2406.12045` · **Date:** 2024-06-17 · **Authors:** Yao, Shinn, Razavi, Narasimhan
+**Gist:** Conversation-with-simulated-user benchmark with domain APIs and policies — exposes reliability gaps via Pass^k.
+**Key claims:** GPT-4o succeeds on <50% of tasks; **Pass^8 < 25% in retail** (consistency collapse — even when single-run succeeds, consistency across runs fails).
+**Method:** Simulated user dialogues against agent + domain tools/policies.
+**Site slot:** [benchmarks.md](benchmarks.md) (canonical consistency-collapse number).
+
+#### ToolSandbox: A Stateful, Conversational, Interactive Evaluation Benchmark
+**URL:** `https://arxiv.org/abs/2408.04682` · **Date:** 2024-08-08 (rev 2025-04-16) · **Authors:** Lu et al. (Apple)
+**Gist:** First benchmark with stateful tool execution, implicit tool-tool state deps, and multi-turn conversation.
+**Key claims:** Wide open-vs-closed gaps; hard areas: state mgmt, format conversion, incomplete-info handling.
+**Method:** Stateful multi-turn evaluation harness.
+**Site slot:** benchmarks.md (state-aware eval angle, complement to τ-bench).
+
+#### SWE-bench+: Enhanced Coding Benchmark for LLMs
+**URL:** `https://arxiv.org/abs/2410.06992` · **Date:** 2024-10-09 (rev 2024-10-10) · **Authors:** Aleithan, Xue, Mohajer, Nnorom, Uddin, Wang
+**Gist:** Audits SWE-bench: significant solution leakage and weak-test contamination; cleaned set drops resolution sharply.
+**Key claims:** ~33% solution leakage in issue comments; ~31% suspicious patches due to weak tests; 94%+ of issues predate model cutoffs; **12.47% → 3.97%** post-filter resolution drop on SWE-Agent + GPT-4.
+**Method:** Manual quality audit of SWE-Agent + GPT-4 successes.
+**Site slot:** benchmarks.md (canonical "watch out for SWE-bench contamination" citation); evals.md cross-ref.
+
+### Layer 11 — Adversarial Surface & Red-Teaming
+
+#### Security Challenges in AI Agent Deployment (ART benchmark)
+**URL:** `https://arxiv.org/abs/2507.20526` · **Date:** 2025-07-28 · **Authors:** Zou, Lin, Jones, Nowak, Dziemian, Winter, Grattan, Nathanael, Croft, Davies, Patel, Kirk, Burnikell, Gal, Hendrycks, Kolter, Fredrikson
+**Gist:** Public red-team competition: 22 agents × 44 scenarios → **1.8M attacks, 60K+ policy violations**; releases the ART benchmark.
+**Key claims:** Most agents violate policy within 10–100 queries; high attack transferability across models; **robustness uncorrelated with scale/capability/compute**.
+**Method:** Crowdsourced red-team competition → distilled benchmark.
+**Site slot:** [safety.md](safety.md) (headline citation); benchmarks.md cross-ref.
+
+#### Red-Teaming LLM Multi-Agent Systems via Communication Attacks (AiTM)
+**URL:** `https://arxiv.org/abs/2502.14847` · **Date:** 2025-02-20 (rev 2025-06-02) · **Authors:** He, Lin, Dong, Xu, Xing, Liu
+**Gist:** Agent-in-the-Middle: intercept and rewrite inter-agent messages with a reflective adversary.
+**Key claims:** Compromises whole multi-agent systems via the comms channel, not individual agents; effective across multiple frameworks.
+**Method:** Adversarial intermediary agent with reflection on comms.
+**Site slot:** safety.md (multi-agent threat model).
+
+#### Trojan Hippo: Weaponizing Agent Memory for Data Exfiltration
+**URL:** `https://arxiv.org/abs/2605.01970` · **Date:** 2026-05-03 (rev 2026-05-15) · **Authors:** Das, Piet, Kaviani, Beurer-Kellner, Tramèr, Wagner
+**Gist:** A single untrusted tool call plants a dormant memory payload that activates on sensitive topics (finance/health) to exfiltrate data.
+**Key claims:** **85–100% attack success across four memory architectures** on frontier models; four defenses tested at 0–5% ASR each, but with utility cost.
+**Method:** Dormant payload injection into long-term memory.
+**Site slot:** safety.md (concrete memory-attack threat); memory.md cross-ref.
+
+#### MemoryGraft: Persistent Compromise of LLM Agents via Poisoned Experience Retrieval
+**URL:** `https://arxiv.org/abs/2512.16962` · **Date:** 2025-12-18 · **Authors:** Srivastava, He
+**Gist:** Poison the RAG'd experience store so agents replicate attacker-chosen patterns; persists across sessions.
+**Key claims:** Validated on MetaGPT DataInterpreter + GPT-4o; small number of poisoned records yields durable cross-session compromise.
+**Method:** Indirect prompt injection through experience retrieval.
+**Site slot:** safety.md (experience-replay threat); memory.md cross-ref.
+
+#### WildClawBench
+**URL:** `https://arxiv.org/abs/2605.10912` · **Date:** 2026-05-11 · **Authors:** Ding et al. (Shanghai AI Lab, 17 authors)
+**Gist:** 60 human-crafted multilingual/multimodal tasks executed in Docker against real tools; best frontier model only 62.2%.
+**Key claims:** ~8 min avg task; >20 tool calls; hybrid grading (rule + env audit + AI semantic).
+**Method:** CLI-in-Docker, real tools, hybrid grader.
+**Site slot:** benchmarks.md (long-horizon real-tool angle). *Flag: IC catalogues this under Layer 11 but the abstract is long-horizon reliability, not red-team — taxonomy ambiguity.*
+
+### Layer 12 — Runtime Defense & Pre-Action Authorization
+
+#### Before the Tool Call: Deterministic Pre-Action Authorization (OAP)
+**URL:** `https://arxiv.org/abs/2603.20953` · **Date:** 2026-03-21 · **Author:** Uchibeke
+**Gist:** Open Agent Passport — policy-gated, signed authorization of tool calls before execution.
+**Key claims:** Median 53 ms overhead; permissive policy 74.6% social-engineering success → **restrictive OAP 0%** across 879 attempts; Apache 2.0 spec.
+**Method:** Interception layer with cryptographically signed audit records.
+**Site slot:** [safety.md](safety.md), [patterns.md § 8](patterns.md#8-runtime-defense--pre-action-authorization-layer-12).
+
+#### Faramesh: A Protocol-Agnostic Execution Control Plane for Autonomous Agent Systems
+**URL:** `https://arxiv.org/abs/2601.17744` · **Date:** 2026-01-25 · **Author:** Fatmi
+**Gist:** Non-bypassable "Action Authorization Boundary" emitting PERMIT/DEFER/DENY decisions in a canonical intent format.
+**Key claims:** Append-only decision-centric provenance log; multi-tenant, multi-protocol.
+**Method:** Control-plane checkpoint with deterministic policy evaluation.
+**Site slot:** safety.md (alternative to OAP; pair in a pre-action-gating comparison).
+
+#### MELON: Provable Defense Against Indirect Prompt Injection Attacks
+**URL:** `https://arxiv.org/abs/2502.05174` · **Date:** 2025-02-07 (rev 2025-06-10) · **Authors:** Zhu, Yang, Wang, Guo, Wang
+**Gist:** Detect prompt injection by re-running the trajectory with masked user prompt — if actions match, the *env* (not the user) is driving.
+**Key claims:** Outperforms prior defenses on AgentDojo with preserved utility; compatible with prompt-augmentation defenses for compounding gains.
+**Method:** Counterfactual mask-and-replay detection.
+**Site slot:** safety.md (named defense; cite alongside ART/Trojan Hippo).
+
+#### Defense Effectiveness Across Architectural Layers (Memory Sandbox study)
+**URL:** `https://arxiv.org/abs/2605.08442` · **Date:** 2026-05-08 · **Author:** Leong
+**Gist:** Six defenses vs persistent memory attacks across 9 models; tool-gating ("Memory Sandbox") removes the capability the attack requires.
+**Key claims:** Input/retrieval filters: **88–89% ASR (vs 88.6% baseline — no help)**; Prompt Hardening: 77.8% ASR; **Memory Sandbox tool-gating: 0% ASR on 8/9 models**; one reasoning model *inverts* under Memory Sandbox: 0% → 100% ASR via alternate pathway; 5,700 runs, pre-registered.
+**Method:** Mechanistic comparative evaluation across architectural layers.
+**Site slot:** [safety.md](safety.md) (rare honest "which defenses actually work" data point); memory.md cross-ref.
 
 ---
 

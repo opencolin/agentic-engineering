@@ -44,6 +44,7 @@ If you only follow one of these, follow Simon Willison.
 
 Required reading if you're serious about the field:
 
+- **[Immersive Commons — The Twelve-Layer Agentic Stack](https://www.immersivecommons.com/news/agentic-stack-12-layers)** (June 2026, updated monthly) — research-commons synthesis of ~1,800 recent agentic papers into a 12-layer "builder's map" of where the engineering of an autonomous agent actually lives. Names the canonical layers (Action Substrate → Pre-Action Authz), which are solved vs consolidating vs emerging, and the "Four Hard Truths." [patterns.md § Twelve-Layer Agentic Stack](patterns.md#the-twelve-layer-agentic-stack) maps each layer to the chapter that covers it on this site.
 - **[Anthropic Engineering](https://anthropic.com/engineering)** — the most consistently high-signal lab blog. Start with [Building Effective Agents](https://anthropic.com/research/building-effective-agents) (Dec 2024) → [Effective Context Engineering](https://anthropic.com/engineering/effective-context-engineering-for-ai-agents) (Sept 2025) → [Multi-Agent Research System](https://anthropic.com/engineering/multi-agent-research-system) (June 2025) → [Managed Agents](https://anthropic.com/engineering/managed-agents) (Apr 2026)
 - **[LangChain Blog](https://www.langchain.com/blog)** — practitioner perspective on agent harnesses, evals, deep agents. Don't miss [The Anatomy of an Agent Harness](https://www.langchain.com/blog/the-anatomy-of-an-agent-harness) and [Open Models Have Crossed a Threshold](https://www.langchain.com/blog/open-models-have-crossed-a-threshold)
 - **[OpenAI Cookbook](https://cookbook.openai.com)** — first-party patterns; the cross-vendor counterpart to Anthropic Cookbook
@@ -122,6 +123,25 @@ The YouTube talk archive is the deliverable — even if you never attend, watch 
 | [affaan-m/ECC](https://github.com/affaan-m/ECC) | 60 subagents + 232 skills, cross-harness (191K stars, hackathon winner) |
 | [sierra-research/tau2-bench](https://github.com/sierra-research/tau2-bench) | Standard customer-service agent benchmark |
 | [EthicalML/awesome-agentic-engineering-resources](https://github.com/EthicalML/awesome-agentic-engineering-resources) | Curated index of 21 topics — courses, papers, benchmarks, implementations |
+
+---
+
+## Agent security & authorization
+
+The under-covered "what can go wrong" side of agent design. Required if you're shipping anything that touches private data or external tools. See [patterns.md § Adversarial Surface](patterns.md#7-adversarial-surface) and [§ Pre-Action Authorization](patterns.md#8-pre-action-authorization) for the architectural callouts that draw on these.
+
+| Source | What you get |
+|---|---|
+| [The Lethal Trifecta](https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/) — Simon Willison | The canonical short framing: private data + untrusted content + external comms = exfiltration risk. Read this first. |
+| [Agents Rule of Two](https://ai.meta.com/blog/practical-ai-agent-security/) — Meta AI | The design-time mitigation: never let one agent session have all three trifecta properties |
+| [OWASP Top 10 for Agentic Applications (2026)](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) | Industry-standard agent-specific risk taxonomy (Dec 2025); the canonical names to map controls against |
+| [MITRE ATLAS](https://atlas.mitre.org) | Living TTP knowledge base for AI/ML adversaries, modeled on ATT&CK; pairs with OWASP as risks-vs-tactics |
+| [Defense in Depth for Autonomous AI Agents](https://www.microsoft.com/en-us/security/blog/2026/05/14/defense-in-depth-autonomous-ai-agents/) — Microsoft Security | Layered-defense reference + four application-layer design patterns (agents-as-microservices, least permissions, deterministic HITL, agent identity) |
+| [Google's Approach to AI Agent Security](https://simonwillison.net/2025/Jun/15/ai-agent-security/) — via Willison | Three core principles: well-defined human controllers, limited powers, observable actions |
+| [Before the Tool Call: Deterministic Pre-Action Authorization](https://arxiv.org/abs/2603.20953) — Uchibeke (arXiv 2603.20953) | Concrete pre-action gating with measured numbers: 53ms median latency, 74.6%→0% attack success delta |
+| [Layered Attack Surface Framework](https://arxiv.org/abs/2604.23338) — Chu (arXiv 2604.23338) | Academic survey of 116 papers; 7-layer taxonomy plus temporality dimension for mapping attacks/defenses |
+
+For Claude Code's specific take on classifier-mediated autonomy, see [Anthropic's Auto Mode post](https://anthropic.com/engineering/claude-code-auto-mode) and [Sandboxing Claude Code](https://anthropic.com/engineering/claude-code-sandboxing) (both already digested in [Research Notes § 1](research-notes.md#section-1-anthropic-engineering-19-urls)).
 
 ---
 
