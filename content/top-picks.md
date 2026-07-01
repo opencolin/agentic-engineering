@@ -236,7 +236,7 @@ For agents that need user-scoped auth to services (Google, Slack, Salesforce) an
 - **Composio** — *Why:* 1,000+ app integrations under managed auth + sandboxed remote execution. Broad tool catalog. *Caveat:* Less explicitly per-user-auth framed than Arcade.
 - **MCP servers ecosystem (Anthropic standard)** — *Why:* Open protocol; thousands of servers since Nov 2024 launch; de facto industry standard. The right *protocol* layer underneath auth-management products. Strongest Adoption + Maturity. *Caveat:* Auth and per-user scoping cross-server are still immature — adding a third-party MCP tool can silently flip an agent into the lethal trifecta.
 
-**Watch:** Cloudflare AI Gateway (proxy-layer tool routing), OpenAI function-calling marketplace.
+**Watch:** AIsa.one ("one key, one wallet" — 9-provider gateway + ~650 data/action endpoints + x402 machine payments in private beta; real depth, broken front door — [AIsa Review](aisa.md)), Cloudflare AI Gateway (proxy-layer tool routing), OpenAI function-calling marketplace.
 
 ---
 
