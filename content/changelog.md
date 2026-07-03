@@ -124,6 +124,11 @@ Publication dates of the primary sources that informed the polished pages. Compi
 
 ## Site additions
 
+## 2026-07-03
+
+### Events calendar re-scraped and re-verified
+Refreshed the [Events](events.md) list against the source calendars (lu.ma/tech-europe, lu.ma/nebius, ai.engineer) as of 2026-07-03. **Two corrections:** the fall AI Engineer lineup was wrong — Sep 23–24 is **AIEi Paris** (by Koyeb/Mistral), not London, and there is no Tokyo edition; the verified lineup is Paris (Sep 23–24), **Code Summit NYC** (Oct 12–14), Shanghai (Nov 5–6), Sydney (Dec 3–4). **Six unverifiable future entries removed** (dead domain, parked domain, or placeholder URLs): Agent Builder Day Berlin, ClawCamp Oakland, Code Agent Hackathon Singapore, Open Source Agents Day Austin, MCP Summit, Anthropic Builders Summit. **Seven new events added** from the tech-europe calendar (Cursor Meetup + Hackathon Stuttgart, Camp AI London, Alan × Lovable Paris, Sentry + Copilot online session, appliedAI Munich, Decagon fireside Amsterdam). Nebius calendar confirmed empty of upcoming events — its May–June 2026 run is retained as history. 16 upcoming events now listed.
+
 ## 2026-06-20
 
 ### New "Tenki Review" vendor deep-dive page
