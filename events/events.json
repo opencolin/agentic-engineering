@@ -192,6 +192,74 @@
       "description": "Hackathon with Alan and Lovable — shipping AI-built products in a day."
     },
     {
+      "slug": "computer-use-agents-hackathon-2026",
+      "title": "The Computer Use Agents Hackathon (H Company)",
+      "city": "San Francisco",
+      "location": "San Francisco, CA",
+      "date": "2026-07-11",
+      "url": "https://cerebralvalley.ai/events",
+      "description": "48-hour hackathon — 120 Bay Area builders pushing computer-use agent development.",
+      "lat": 37.7749,
+      "lng": -122.4194
+    },
+    {
+      "slug": "enterprise-agents-hackathon-nyc-2026",
+      "title": "Enterprise Agents Hackathon (Emergence × Nebius)",
+      "city": "New York",
+      "location": "New York City, NY",
+      "date": "2026-07-11",
+      "url": "https://cerebralvalley.ai/events",
+      "description": "Day-long build of enterprise-grade AI agents with Emergence and Nebius engineers.",
+      "lat": 40.7128,
+      "lng": -74.006,
+      "sponsor": "nebius"
+    },
+    {
+      "slug": "hermes-buildathon-sf-2026",
+      "title": "World's Largest Hermes Buildathon",
+      "city": "San Francisco",
+      "location": "San Francisco, CA",
+      "date": "2026-07-11",
+      "url": "https://cerebralvalley.ai/events",
+      "description": "Build, launch, and monetize AI agents in 8 hours, powered by Hermes.",
+      "lat": 37.7749,
+      "lng": -122.4194
+    },
+    {
+      "slug": "fermi-qualifier-sf-2026",
+      "title": "The Fermi Qualifier — 24hr Agent-Reliability Hack",
+      "city": "San Francisco",
+      "location": "San Francisco, CA",
+      "date": "2026-07-11",
+      "url": "https://cerebralvalley.ai/events",
+      "description": "24-hour qualifier focused on long-horizon agent reliability and judgment. $25K cash + an Nvidia supercomputer.",
+      "lat": 37.7749,
+      "lng": -122.4194
+    },
+    {
+      "slug": "applied-frontier-loop-engineering-2026",
+      "title": "Applied Frontier #1: Loop Engineering (Frontier Labs)",
+      "city": "San Francisco",
+      "location": "Homebrew Club, San Francisco",
+      "date": "2026-07-14",
+      "url": "https://cerebralvalley.ai/events",
+      "description": "Engineers and researchers on the technical architecture behind agent loops — adjacent to this site's harness-engineering thread.",
+      "lat": 37.7749,
+      "lng": -122.4194
+    },
+    {
+      "slug": "vb-transform-2026",
+      "title": "VB Transform 2026: Orchestrating AI Autonomy",
+      "city": "Menlo Park",
+      "location": "Hotel Nia, Menlo Park, CA",
+      "date": "2026-07-14",
+      "url": "https://venturebeat.com/transform/",
+      "description": "VentureBeat's enterprise AI event — deployment stories from Walmart, Visa, Waymo; agent-autonomy orchestration track.",
+      "lat": 37.453,
+      "lng": -122.1817,
+      "endDate": "2026-07-15"
+    },
+    {
       "slug": "sentry-copilot-agents-2026",
       "title": "Sentry + GitHub Copilot: Let Agents Find and Fix Your Errors",
       "city": "Online",
@@ -199,6 +267,40 @@
       "date": "2026-07-15",
       "url": "https://lu.ma/getsentry-9uxf",
       "description": "Session on wiring agents into the find-and-fix error loop with Sentry and Copilot."
+    },
+    {
+      "slug": "senior-swe-bench-reading-2026",
+      "title": "Reading Group: Senior SWE-Bench (Snorkel AI)",
+      "city": "San Francisco",
+      "location": "101 Second Street, San Francisco",
+      "date": "2026-07-15",
+      "url": "https://cerebralvalley.ai/events",
+      "description": "Snorkel AI reading group on Senior SWE-Bench — open-source benchmark for senior-engineer-level tasks. Pairs with the Benchmarks page.",
+      "lat": 37.7749,
+      "lng": -122.4194
+    },
+    {
+      "slug": "loop-engineering-hackathon-2026",
+      "title": "Loop Engineering Hackathon",
+      "city": "San Francisco",
+      "location": "San Francisco, CA",
+      "date": "2026-07-17",
+      "url": "https://cerebralvalley.ai/events",
+      "description": "One-day engineering hackathon backed by AWS, Zero.xyz, Nexla, and Pomerium.",
+      "lat": 37.7749,
+      "lng": -122.4194
+    },
+    {
+      "slug": "agi-summit-sf-2026",
+      "title": "AGI Summit 2026 + Hackathon",
+      "city": "San Francisco",
+      "location": "Palace of Fine Arts, San Francisco",
+      "date": "2026-07-18",
+      "url": "https://cerebralvalley.ai/events",
+      "description": "Researchers from OpenAI, Anthropic, and Google DeepMind; co-located 2-day hackathon shipping agents and multi-agent systems.",
+      "lat": 37.7749,
+      "lng": -122.4194,
+      "endDate": "2026-07-19"
     },
     {
       "slug": "icml-2026",
@@ -249,6 +351,39 @@
       "description": "Developer meetup on applied AI engineering."
     },
     {
+      "slug": "agent-swarms-hackathon-2026",
+      "title": "Agent Swarms Hackathon",
+      "city": "San Francisco",
+      "location": "San Francisco, CA",
+      "date": "2026-07-24",
+      "url": "https://cerebralvalley.ai/events",
+      "description": "A day building next-generation agentic systems with mentorship from top teams.",
+      "lat": 37.7749,
+      "lng": -122.4194
+    },
+    {
+      "slug": "youcom-agentic-hackathon-2026",
+      "title": "You.com Agentic Hackathon",
+      "city": "San Francisco",
+      "location": "AWS Builder Loft, San Francisco",
+      "date": "2026-07-24",
+      "url": "https://cerebralvalley.ai/events",
+      "description": "Build agentic systems on live web data in a day, You.com engineers hands-on.",
+      "lat": 37.7749,
+      "lng": -122.4194
+    },
+    {
+      "slug": "daytona-hacksprint-braintrust-2026",
+      "title": "Daytona HackSprint with Braintrust",
+      "city": "San Francisco",
+      "location": "San Francisco, CA",
+      "date": "2026-07-24",
+      "url": "https://cerebralvalley.ai/events",
+      "description": "One-day agent-project sprint from two vendors covered on this site — Daytona (sandboxes) and Braintrust (evals).",
+      "lat": 37.7749,
+      "lng": -122.4194
+    },
+    {
       "slug": "cursor-hackathon-stuttgart-2026-07",
       "title": "Cursor Hackathon Stuttgart — Social Media Hack",
       "city": "Stuttgart",
@@ -260,6 +395,30 @@
       "description": "One-day Cursor hackathon."
     },
     {
+      "slug": "agent-code-production-hack-night-2026",
+      "title": "Hack Night: Can Your Agent-Written Code Survive Production?",
+      "city": "San Francisco",
+      "location": "Bright Data, San Francisco",
+      "date": "2026-07-30",
+      "url": "https://cerebralvalley.ai/events",
+      "description": "Stress-testing code from Claude Code and Cursor against production conditions.",
+      "lat": 37.7749,
+      "lng": -122.4194
+    },
+    {
+      "slug": "agentic-ai-summit-berkeley-2026",
+      "title": "Agentic AI Summit 2026 (UC Berkeley)",
+      "city": "Berkeley",
+      "location": "UC Berkeley Campus",
+      "date": "2026-08-01",
+      "url": "https://rdi.berkeley.edu/events/agentic-ai-summit",
+      "description": "5,000+ attendees; two-day academic + industry deep dive into agentic AI at Berkeley RDI.",
+      "lat": 37.8715,
+      "lng": -122.273,
+      "endDate": "2026-08-02",
+      "flagship": true
+    },
+    {
       "slug": "ai4-2026",
       "title": "AI4 2026",
       "city": "Las Vegas",
@@ -269,6 +428,17 @@
       "date": "2026-08-04",
       "url": "https://ai4.io/",
       "description": "One of the largest industry AI conferences — applied AI across enterprise, with growing agent tracks."
+    },
+    {
+      "slug": "modcon-2026",
+      "title": "ModCon 2026: Compute Unlocked (Modular)",
+      "city": "San Francisco",
+      "location": "Grand Hyatt, San Francisco",
+      "date": "2026-08-18",
+      "url": "https://www.modular.com/modcon",
+      "description": "Modular's AI-compute conference — keynotes, demos, and workshops on the inference stack.",
+      "lat": 37.7749,
+      "lng": -122.4194
     },
     {
       "slug": "ai-infra-summit-2026",
@@ -296,6 +466,17 @@
       "description": "European accelerated-compute and AI-infrastructure show."
     },
     {
+      "slug": "humanx-amsterdam-2026",
+      "title": "HumanX 2026 Amsterdam",
+      "city": "Amsterdam",
+      "location": "RAI Amsterdam",
+      "date": "2026-09-22",
+      "url": "https://www.humanx.co/",
+      "description": "9,500+ enterprise AI leaders; the big European enterprise-AI convening.",
+      "lat": 52.3676,
+      "lng": 4.9041
+    },
+    {
       "slug": "aie-paris-2026",
       "title": "AI Engineer Paris (AIEi, by Koyeb/Mistral)",
       "city": "Paris",
@@ -320,6 +501,17 @@
       "description": "Fireside with Decagon's co-founder — production customer-support agents at scale."
     },
     {
+      "slug": "wearedevelopers-na-2026",
+      "title": "WeAreDevelopers World Congress North America",
+      "city": "San Jose",
+      "location": "San Jose McEnery Convention Center",
+      "date": "2026-09-23",
+      "url": "https://www.wearedevelopers.com/world-congress",
+      "description": "10,000+ developers; AI-engineering and dev-tooling tracks with GitHub and major-lab speakers.",
+      "lat": 37.3382,
+      "lng": -121.8863
+    },
+    {
       "slug": "fully-connected-26-coreweave",
       "title": "Fully Connected 26 (CoreWeave)",
       "city": "San Francisco",
@@ -329,6 +521,39 @@
       "date": "2026-09-29",
       "url": "https://fullyconnected.com/",
       "description": "CoreWeave's AI-builder conference (the former Weights & Biases event) — training, inference, and evals on AI cloud infrastructure."
+    },
+    {
+      "slug": "openai-devday-2026",
+      "title": "OpenAI DevDay 2026",
+      "city": "San Francisco",
+      "location": "San Francisco, CA",
+      "lat": 37.7749,
+      "lng": -122.4194,
+      "date": "2026-09-29",
+      "url": "https://openai.com/devday/",
+      "description": "OpenAI's annual developer conference. Agents SDK, Responses API, evals."
+    },
+    {
+      "slug": "the-ai-conference-2026",
+      "title": "The AI Conference 2026",
+      "city": "San Francisco",
+      "location": "Pier 48, San Francisco",
+      "date": "2026-09-29",
+      "url": "https://aiconference.com/",
+      "description": "Multi-day conference spanning agentic AI, frontier models, infrastructure, security, and governance.",
+      "lat": 37.7749,
+      "lng": -122.4194
+    },
+    {
+      "slug": "ai-native-summit-2026",
+      "title": "AI Native Summit (TechWeek)",
+      "city": "San Francisco",
+      "location": "847 Howard St, San Francisco",
+      "date": "2026-10-09",
+      "url": "https://www.ainativesummit.com/",
+      "description": "Two days of deep technical sessions for AI engineers, founders, and infrastructure builders.",
+      "lat": 37.7749,
+      "lng": -122.4194
     },
     {
       "slug": "aie-code-summit-nyc-2026",
@@ -355,15 +580,16 @@
       "description": "Open Compute Project's annual summit — open datacenter hardware, increasingly dominated by AI-cluster design."
     },
     {
-      "slug": "openai-devday-2026",
-      "title": "OpenAI DevDay 2026",
-      "city": "San Francisco",
-      "location": "San Francisco, CA",
-      "lat": 37.7749,
-      "lng": -122.4194,
-      "date": "2026-11-04",
-      "url": "https://openai.com/devday/",
-      "description": "OpenAI's annual developer conference. Agents SDK, Responses API, evals."
+      "slug": "agntcon-mcpcon-2026",
+      "title": "AGNTCon + MCPCon",
+      "city": "San Jose",
+      "location": "San Jose, CA",
+      "date": "2026-10-22",
+      "url": "https://agntcon.com/",
+      "description": "Agentic-AI + Model Context Protocol conference — researchers, OSS developers, enterprise builders. The verifiable successor to the previously removed 'MCP Summit' entry.",
+      "lat": 37.3382,
+      "lng": -121.8863,
+      "flagship": true
     },
     {
       "slug": "aie-shanghai-2026",
@@ -391,6 +617,29 @@
       "flagship": true
     },
     {
+      "slug": "qcon-sf-2026",
+      "title": "QCon San Francisco 2026",
+      "city": "San Francisco",
+      "location": "Hyatt Regency, San Francisco",
+      "date": "2026-11-16",
+      "url": "https://qconsf.com/",
+      "description": "Senior-engineering conference; strong AI-in-production track.",
+      "lat": 37.7749,
+      "lng": -122.4194,
+      "endDate": "2026-11-20"
+    },
+    {
+      "slug": "agentic-ai-summit-toronto-2026",
+      "title": "Agentic AI Summit Toronto",
+      "city": "Toronto",
+      "location": "Toronto, Canada",
+      "date": "2026-11-18",
+      "url": "https://cerebralvalley.ai/events",
+      "description": "Three stages on real-world challenges of deploying agents.",
+      "lat": 43.6532,
+      "lng": -79.3832
+    },
+    {
       "slug": "aie-sydney-2026",
       "title": "AI Engineer Sydney (AIEi)",
       "city": "Sydney",
@@ -414,6 +663,18 @@
       "url": "https://neurips.cc/",
       "description": "Premier ML research conference. SWE-bench, Terminal-Bench, agent benchmark papers land here.",
       "flagship": true
+    },
+    {
+      "slug": "ai-summit-ny-2026",
+      "title": "The AI Summit New York 2026",
+      "city": "New York",
+      "location": "Javits Center, New York, NY",
+      "date": "2026-12-09",
+      "url": "https://cerebralvalley.ai/events",
+      "description": "Enterprise AI summit at the Javits Center.",
+      "lat": 40.7128,
+      "lng": -74.006,
+      "endDate": "2026-12-10"
     },
     {
       "slug": "swe-bench-workshop-2026",
