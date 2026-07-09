@@ -72,33 +72,50 @@ Ordered by GitHub stars (descending).
 ## Stripe Minions
 
 - **Type:** Enterprise / Internal
-- **Scale:** 1,300+ PRs merged per week
-- **Based on:** Goose fork
-- **Blog:** https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents
+- **Scale:** 1,300+ PRs merged per week (~185/day) — human-reviewed, zero human-written code
+- **Based on:** Goose fork ([Block's goose](https://github.com/block/goose), forked early)
+- **Team:** Stripe's Leverage team ("surprisingly delightful internal products"); Part 1 authored by Alistair Gray (Feb 2026)
+- **Sources:** [Part 1 — one-shot, end-to-end coding agents](https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents) · [Part 2 — implementation](https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2) · [MindStudio's blueprint-architecture analysis](https://www.mindstudio.ai/blog/stripe-minions-blueprint-architecture-deterministic-agentic-nodes) · [How I AI interview (video)](https://www.youtube.com/watch?v=o5Mi5SYSDnY)
 
 Stripe's homegrown coding agents are the industry benchmark for unattended, one-shot agentic coding at enterprise scale. Engineers invoke minions from Slack, internal tools, or CLI, and receive a complete pull request with no human-written code. This is the canonical example of the [Stripe School](schools.md#the-stripe-school) — see also [Benchmarks](benchmarks.md) for how its 1,300+ PRs/week metric compares to leaderboard scores.
 
+### Why Stripe built it in-house
+
+The blog's own justification is a checklist for when *you* should build rather than buy: hundreds of millions of lines of code across a few large repos; a Ruby-without-Rails + Sorbet stack that's rare in training data; a vast layer of homegrown libraries LLMs have never seen; code moving **$1T+/year of payment volume** under regulatory and compliance constraints; and years of prior investment in developer-productivity tooling (source control, environments, codegen, CI) the harness could integrate with. The guiding principle: *minions use the same developer tooling as Stripe's human engineers — if it's good for humans, it's good for LLMs.*
+
 ### Architecture
 
-- **Blueprints** — Hybrid state machines interleaving deterministic nodes (git, linting, push) with agentic subtasks (implementation, CI fixes)
-- **Devboxes** — Isolated EC2 environments pre-warmed in ~10 seconds, identical to human dev machines
-- **Toolshed MCP** — Centralized MCP server with ~500 tools for internal systems and SaaS platforms
-- **Conditional rules** — Cursor-format rule files applied by subdirectory to avoid context bloat
-- **Pre-hydration** — Deterministic MCP tool runs on linked URLs before agent loop starts
+- **Blueprints** — Hybrid state machines interleaving deterministic nodes (git operations, linting, testing, push) with agentic subtasks (implementation, CI fixes). MindStudio's analysis frames the taxonomy cleanly: *deterministic nodes gather information and verify outputs; agentic nodes reason and generate.* Deterministic nodes don't hallucinate — sandwiching generation between fixed validation steps turns the run into a series of checkpoints with bounded retry loops, where deterministic nodes define success criteria and agentic nodes do the work of meeting them.
+- **Devboxes** — Isolated environments pre-warmed in ~10 seconds, the same machine type human engineers code on, with Stripe code and services pre-loaded. Cut off from production *and* the internet — which is what lets minions run without human permission checks. Also the parallelization substrate: independent devboxes instead of git worktrees, which "wouldn't scale at Stripe."
+- **Toolshed MCP** — Central internal MCP server hosting **400+ tools** spanning internal systems and SaaS platforms. Minions (and every other agent at Stripe) get connectivity to configurable but *curated subsets*, not the full breadth — a governance pattern worth copying.
+- **Conditional rules** — Minions read the same agent rule files as Cursor and Claude Code (multiple formats). Nearly all rules are conditionally applied by subdirectory; unconditional rules don't survive at Stripe's scale.
+- **Pre-hydration** — Deterministic MCP tool runs over likely-looking links (tickets, docs, threads) before the agent loop starts, so context arrives hydrated rather than discovered mid-loop.
+
+### The feedback ladder ("shift feedback left")
+
+1. **Local, <5 seconds** — a heuristic executable selects and runs relevant lints on every git push. Anything that would fail in CI should fail here first.
+2. **Selective CI** — CI picks from Stripe's **3M+ tests** on push. Many failures have **autofixes that are applied automatically** without consuming agent attention.
+3. **Max 2 CI rounds** — failures without autofixes go back to the minion; after a second push, the run is done. The stated rationale: CI runs cost tokens, compute, and time, and there are diminishing marginal returns to an LLM iterating full CI loops. *"Often one, at most two, CI runs — and only after we've fixed everything we can locally."*
+
+### Product surface
+
+Entry points are wherever engineers already are: tagging the Slack app in a thread (the minion reads the whole thread plus linked context), CLI, web UI, and embedded buttons in internal apps — the docs platform, the feature-flag platform, and the ticketing system. When CI detects a flaky test, the automated ticket ships with a **"fix it with a minion" button**. A web UI shows every decision and action a run took; engineers can send follow-up instructions to a completed run, and a not-quite-right run is still treated as a valuable starting point ("our North Star is a PR without any human code" — but partial credit counts).
 
 ### Key Properties
 
 - One-shot design — Task in, PR out, no interaction in between
 - Max 2 CI rounds — Local lint first, then at most two CI iterations
 - Production isolation — Devboxes cut off from production and internet
-- Parallel execution — Engineers routinely spin up multiple minions simultaneously
+- Parallel execution — Engineers routinely spin up multiple minions simultaneously (the blog calls out on-call rotations — many small issues resolved in parallel); MindStudio notes stateless agentic nodes + per-instance validation is what makes N-way parallel blueprint runs safe, and is likely a significant driver of the 1,300/week figure
 - Same tools as humans — If it's good for humans, it's good for LLMs
 - Auto-fixes — Many test failures have autofixes that are applied automatically
+- Task selection — The sweet spot is repetitive, well-defined, pattern-following work: dependency updates, consistent cross-repo refactors, API-version migrations, coding-standard enforcement, boilerplate
 
 ### Flow
 
 ```
-Slack / CLI → Devbox → Pre-hydrate Context → Blueprint Loop → Local Lint → CI (x2 max) → PR
+Slack / CLI / internal-app button → Devbox (pre-warmed ~10s) → Pre-hydrate Context (MCP over links)
+  → Blueprint Loop (deterministic ⇄ agentic nodes) → Local Lint (<5s) → CI (selective, autofix, x2 max) → PR
 ```
 
 ---
@@ -1673,7 +1690,7 @@ For agentic engineering teams, these matter as **tools an agent calls** — for 
 | Project | Stars | Unattended PR | Orchestration | Sandbox | MCP | CI Feedback | Multi-Agent | License |
 |---------|-------|--------------|---------------|---------|-----|-------------|-------------|---------|
 | **Claude Managed Agents** | N/A | Yes | Built-in harness | Managed container | Yes (MCP) | Yes | Research preview | Commercial |
-| **Stripe Minions** | N/A | Yes | Blueprints | EC2 Devboxes | Yes (~500 tools) | Yes (2 rounds) | Parallel runs | Proprietary |
+| **Stripe Minions** | N/A | Yes | Blueprints | EC2 Devboxes | Yes (400+ tools) | Yes (2 rounds) | Parallel runs | Proprietary |
 | **AgentField** | 1.4K | Yes | SWE-AF levels | Git Worktrees | Agent mesh | Yes (gated) | Yes (orchestrated) | Apache 2.0 |
 | **OpenHands** | 71K | Yes | Planning Mode | Docker | No | Yes | No | MIT |
 | **Open SWE** | 9.5K | Yes | LangGraph | Cloud sandbox | No | Yes | Yes (4 agents) | Open Source |
@@ -1714,7 +1731,7 @@ For agentic engineering teams, these matter as **tools an agent calls** — for 
 3. **OhMyOpenAgent** — Named specialist team with model routing
 
 ### Best for Context Management
-1. **Stripe Minions** — Toolshed MCP (~500 tools), conditional rules, pre-hydration
+1. **Stripe Minions** — Toolshed MCP (400+ tools), conditional rules, pre-hydration
 2. **OhMyOpenAgent** — Hierarchical AGENTS.md, built-in MCPs, multi-model routing
 3. **Goose** — MCP-native with 70+ extensions
 

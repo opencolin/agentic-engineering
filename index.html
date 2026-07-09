@@ -963,6 +963,9 @@ Publication dates of the primary sources that informed the polished pages. Compi
 
 ## 2026-07-09
 
+### Stripe Minions section enriched from three sources
+[Approaches § Stripe Minions](approaches.md#stripe-minions) rebuilt from the primary sources: Stripe's [Part 1 blog post](https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents) (Alistair Gray, Leverage team, Feb 2026), the [Part 2 implementation post](https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2), [MindStudio's blueprint-architecture analysis](https://www.mindstudio.ai/blog/stripe-minions-blueprint-architecture-deterministic-agentic-nodes), and the [How I AI interview](https://www.youtube.com/watch?v=o5Mi5SYSDnY). New: the why-in-house rationale ($1T+/yr payment volume, Ruby-sans-Rails + Sorbet, homegrown libraries), the three-rung feedback ladder (sub-5-second local lint → selective CI from 3M+ tests with auto-applied autofixes → max-2-rounds rationale), the product surface (Slack threads, flaky-test tickets with a fix-with-a-minion button, follow-up instructions on completed runs), and MindStudio's deterministic-vs-agentic node taxonomy with bounded retry loops. **Correction:** Toolshed hosts 400+ MCP tools per the primary source, not ~500 as previously stated (fixed in four places). Who's Who updated — the Minions post is credited to Alistair Gray, not anonymous.
+
 ### Cerebral Valley sweep: 23 events added, OpenAI DevDay date corrected
 Second events pass of the day, sourced from the [Cerebral Valley events list](https://cerebralvalley.ai/events). **Correction: OpenAI DevDay 2026 is Sep 29 (SF), not Nov 4** as previously listed. Added 13 July agent hackathons and meetups (Computer Use Agents Hackathon by H Company, Enterprise Agents Hackathon by Emergence × Nebius, Hermes Buildathon, the Fermi long-horizon-reliability qualifier, Loop Engineering Hackathon, Agent Swarms, You.com Agentic Hackathon, Daytona × Braintrust HackSprint, Senior SWE-Bench reading group, and more) plus 10 fall conferences: **Agentic AI Summit at UC Berkeley** (Aug 1–2, flagship), ModCon, HumanX Amsterdam, WeAreDevelopers NA, The AI Conference SF, AI Native Summit, **AGNTCon + MCPCon** (Oct 22 — the verifiable successor to the removed MCP Summit entry), QCon SF, Agentic AI Summit Toronto, and The AI Summit New York. Off-topic listings (networking mixers, dinners, non-AI verticals) skipped. 43 upcoming events now listed.
 
@@ -1233,33 +1236,50 @@ Ordered by GitHub stars (descending).
 ## Stripe Minions
 
 - **Type:** Enterprise / Internal
-- **Scale:** 1,300+ PRs merged per week
-- **Based on:** Goose fork
-- **Blog:** https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents
+- **Scale:** 1,300+ PRs merged per week (~185/day) — human-reviewed, zero human-written code
+- **Based on:** Goose fork ([Block's goose](https://github.com/block/goose), forked early)
+- **Team:** Stripe's Leverage team ("surprisingly delightful internal products"); Part 1 authored by Alistair Gray (Feb 2026)
+- **Sources:** [Part 1 — one-shot, end-to-end coding agents](https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents) · [Part 2 — implementation](https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2) · [MindStudio's blueprint-architecture analysis](https://www.mindstudio.ai/blog/stripe-minions-blueprint-architecture-deterministic-agentic-nodes) · [How I AI interview (video)](https://www.youtube.com/watch?v=o5Mi5SYSDnY)
 
 Stripe's homegrown coding agents are the industry benchmark for unattended, one-shot agentic coding at enterprise scale. Engineers invoke minions from Slack, internal tools, or CLI, and receive a complete pull request with no human-written code. This is the canonical example of the [Stripe School](schools.md#the-stripe-school) — see also [Benchmarks](benchmarks.md) for how its 1,300+ PRs/week metric compares to leaderboard scores.
 
+### Why Stripe built it in-house
+
+The blog's own justification is a checklist for when *you* should build rather than buy: hundreds of millions of lines of code across a few large repos; a Ruby-without-Rails + Sorbet stack that's rare in training data; a vast layer of homegrown libraries LLMs have never seen; code moving **$1T+/year of payment volume** under regulatory and compliance constraints; and years of prior investment in developer-productivity tooling (source control, environments, codegen, CI) the harness could integrate with. The guiding principle: *minions use the same developer tooling as Stripe's human engineers — if it's good for humans, it's good for LLMs.*
+
 ### Architecture
 
-- **Blueprints** — Hybrid state machines interleaving deterministic nodes (git, linting, push) with agentic subtasks (implementation, CI fixes)
-- **Devboxes** — Isolated EC2 environments pre-warmed in ~10 seconds, identical to human dev machines
-- **Toolshed MCP** — Centralized MCP server with ~500 tools for internal systems and SaaS platforms
-- **Conditional rules** — Cursor-format rule files applied by subdirectory to avoid context bloat
-- **Pre-hydration** — Deterministic MCP tool runs on linked URLs before agent loop starts
+- **Blueprints** — Hybrid state machines interleaving deterministic nodes (git operations, linting, testing, push) with agentic subtasks (implementation, CI fixes). MindStudio's analysis frames the taxonomy cleanly: *deterministic nodes gather information and verify outputs; agentic nodes reason and generate.* Deterministic nodes don't hallucinate — sandwiching generation between fixed validation steps turns the run into a series of checkpoints with bounded retry loops, where deterministic nodes define success criteria and agentic nodes do the work of meeting them.
+- **Devboxes** — Isolated environments pre-warmed in ~10 seconds, the same machine type human engineers code on, with Stripe code and services pre-loaded. Cut off from production *and* the internet — which is what lets minions run without human permission checks. Also the parallelization substrate: independent devboxes instead of git worktrees, which "wouldn't scale at Stripe."
+- **Toolshed MCP** — Central internal MCP server hosting **400+ tools** spanning internal systems and SaaS platforms. Minions (and every other agent at Stripe) get connectivity to configurable but *curated subsets*, not the full breadth — a governance pattern worth copying.
+- **Conditional rules** — Minions read the same agent rule files as Cursor and Claude Code (multiple formats). Nearly all rules are conditionally applied by subdirectory; unconditional rules don't survive at Stripe's scale.
+- **Pre-hydration** — Deterministic MCP tool runs over likely-looking links (tickets, docs, threads) before the agent loop starts, so context arrives hydrated rather than discovered mid-loop.
+
+### The feedback ladder ("shift feedback left")
+
+1. **Local, <5 seconds** — a heuristic executable selects and runs relevant lints on every git push. Anything that would fail in CI should fail here first.
+2. **Selective CI** — CI picks from Stripe's **3M+ tests** on push. Many failures have **autofixes that are applied automatically** without consuming agent attention.
+3. **Max 2 CI rounds** — failures without autofixes go back to the minion; after a second push, the run is done. The stated rationale: CI runs cost tokens, compute, and time, and there are diminishing marginal returns to an LLM iterating full CI loops. *"Often one, at most two, CI runs — and only after we've fixed everything we can locally."*
+
+### Product surface
+
+Entry points are wherever engineers already are: tagging the Slack app in a thread (the minion reads the whole thread plus linked context), CLI, web UI, and embedded buttons in internal apps — the docs platform, the feature-flag platform, and the ticketing system. When CI detects a flaky test, the automated ticket ships with a **"fix it with a minion" button**. A web UI shows every decision and action a run took; engineers can send follow-up instructions to a completed run, and a not-quite-right run is still treated as a valuable starting point ("our North Star is a PR without any human code" — but partial credit counts).
 
 ### Key Properties
 
 - One-shot design — Task in, PR out, no interaction in between
 - Max 2 CI rounds — Local lint first, then at most two CI iterations
 - Production isolation — Devboxes cut off from production and internet
-- Parallel execution — Engineers routinely spin up multiple minions simultaneously
+- Parallel execution — Engineers routinely spin up multiple minions simultaneously (the blog calls out on-call rotations — many small issues resolved in parallel); MindStudio notes stateless agentic nodes + per-instance validation is what makes N-way parallel blueprint runs safe, and is likely a significant driver of the 1,300/week figure
 - Same tools as humans — If it's good for humans, it's good for LLMs
 - Auto-fixes — Many test failures have autofixes that are applied automatically
+- Task selection — The sweet spot is repetitive, well-defined, pattern-following work: dependency updates, consistent cross-repo refactors, API-version migrations, coding-standard enforcement, boilerplate
 
 ### Flow
 
 ```
-Slack / CLI → Devbox → Pre-hydrate Context → Blueprint Loop → Local Lint → CI (x2 max) → PR
+Slack / CLI / internal-app button → Devbox (pre-warmed ~10s) → Pre-hydrate Context (MCP over links)
+  → Blueprint Loop (deterministic ⇄ agentic nodes) → Local Lint (<5s) → CI (selective, autofix, x2 max) → PR
 ```
 
 ---
@@ -2834,7 +2854,7 @@ For agentic engineering teams, these matter as **tools an agent calls** — for 
 | Project | Stars | Unattended PR | Orchestration | Sandbox | MCP | CI Feedback | Multi-Agent | License |
 |---------|-------|--------------|---------------|---------|-----|-------------|-------------|---------|
 | **Claude Managed Agents** | N/A | Yes | Built-in harness | Managed container | Yes (MCP) | Yes | Research preview | Commercial |
-| **Stripe Minions** | N/A | Yes | Blueprints | EC2 Devboxes | Yes (~500 tools) | Yes (2 rounds) | Parallel runs | Proprietary |
+| **Stripe Minions** | N/A | Yes | Blueprints | EC2 Devboxes | Yes (400+ tools) | Yes (2 rounds) | Parallel runs | Proprietary |
 | **AgentField** | 1.4K | Yes | SWE-AF levels | Git Worktrees | Agent mesh | Yes (gated) | Yes (orchestrated) | Apache 2.0 |
 | **OpenHands** | 71K | Yes | Planning Mode | Docker | No | Yes | No | MIT |
 | **Open SWE** | 9.5K | Yes | LangGraph | Cloud sandbox | No | Yes | Yes (4 agents) | Open Source |
@@ -2875,7 +2895,7 @@ For agentic engineering teams, these matter as **tools an agent calls** — for 
 3. **OhMyOpenAgent** — Named specialist team with model routing
 
 ### Best for Context Management
-1. **Stripe Minions** — Toolshed MCP (~500 tools), conditional rules, pre-hydration
+1. **Stripe Minions** — Toolshed MCP (400+ tools), conditional rules, pre-hydration
 2. **OhMyOpenAgent** — Hierarchical AGENTS.md, built-in MCPs, multi-model routing
 3. **Goose** — MCP-native with 70+ extensions
 
@@ -3090,9 +3110,9 @@ How agents acquire the knowledge they need to work on a codebase.
 
 ### MCP (Model Context Protocol)
 
-Standardized protocol for providing LLMs with tools and context. Used by Stripe (Toolshed, ~500 tools), Goose (70+ extensions), and increasingly the whole ecosystem.
+Standardized protocol for providing LLMs with tools and context. Used by Stripe (Toolshed, 400+ tools), Goose (70+ extensions), and increasingly the whole ecosystem.
 
-**Key pattern: Curated subsets** — Stripe doesn't give minions all 500 tools. Each run gets a curated subset to prevent tool explosion in the context window.
+**Key pattern: Curated subsets** — Stripe doesn’t give minions all 400+ tools. Each run gets a curated subset to prevent tool explosion in the context window.
 
 ### Rule Files
 
@@ -5623,7 +5643,7 @@ This page caps at 12 to stay useful. Strong candidates we deliberately didn't wr
 - **Barry Zhang** (Anthropic) — co-author of [*Building Effective Agents*](https://www.anthropic.com/research/building-effective-agents) with [Erik Schluntz](#erik-schluntz); presents the same five-pattern material at AI Engineer Summit talks. Often referenced as a pair with Schluntz.
 - **Dwarkesh Patel** ([Dwarkesh Podcast](https://dwarkeshpatel.com)) — long-form interviews with researchers and lab leads (Sutton, Sutskever, Amodei, Suleyman). Less of a "build agents" voice than an "understand the strategic ground" voice. Closest thing to the canonical AI-strategy podcast as of 2026.
 - **OpenAI harness engineering authors** — the team behind [*Harness Engineering: Leveraging Codex in an Agent-First World*](https://openai.com/index/harness-engineering/) and the million-LOC Codex experiment. Also collective.
-- **Stripe Minions team** — kept anonymous in [the Stripe blog post](https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents), but the patterns are now the [Stripe School](approaches.md#stripe-minions).
+- **Stripe Leverage team** (Alistair Gray et al.) — builders of [Minions](approaches.md#stripe-minions); the [Part 1 blog post](https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents) is credited to Gray, a software engineer on Leverage ("surprisingly delightful internal products that Stripes can leverage"). The patterns are now the [Stripe School](approaches.md#stripe-minions).
 - **Stanshy** (AgentHub + Claude Code Mastery course) — intentionally pseudonymous. The [course material](https://github.com/Stanshy/Claude-code-mastery) is excellent.
 - **The Walking Labs team** (Learn Harness Engineering course) — anonymous OSS account; the [12-lecture course](https://walkinglabs.github.io/learn-harness-engineering/en/) is the most thorough public synthesis of the discipline.
 - **Sigrid Jin** ([Claw Code](https://claw-code.codes/)) — the clean-room Rust + Python rewrite of Claude Code after the March 2026 source leak; fastest repo to 100K stars.
