@@ -226,6 +226,18 @@
       "flagship": true
     },
     {
+      "slug": "amd-advancing-ai-2026",
+      "title": "AMD Advancing AI 2026",
+      "city": "San Francisco",
+      "location": "San Francisco, CA",
+      "lat": 37.7749,
+      "lng": -122.4194,
+      "date": "2026-07-22",
+      "endDate": "2026-07-23",
+      "url": "https://www.amd.com/en/corporate/events/advancing-ai.html",
+      "description": "AMD's AI hardware + software event — Instinct roadmap, ROCm, open-ecosystem inference. Relevant to the AMD-sovereignty thread in Inference."
+    },
+    {
       "slug": "appliedai-meetup-munich-2026-07",
       "title": "appliedAI Developers Meetup Munich",
       "city": "Munich",
@@ -246,6 +258,42 @@
       "date": "2026-07-25",
       "url": "https://lu.ma/cursor-ho2x",
       "description": "One-day Cursor hackathon."
+    },
+    {
+      "slug": "ai4-2026",
+      "title": "AI4 2026",
+      "city": "Las Vegas",
+      "location": "Las Vegas, NV",
+      "lat": 36.1699,
+      "lng": -115.1398,
+      "date": "2026-08-04",
+      "url": "https://ai4.io/",
+      "description": "One of the largest industry AI conferences — applied AI across enterprise, with growing agent tracks."
+    },
+    {
+      "slug": "ai-infra-summit-2026",
+      "title": "AI Infra Summit",
+      "city": "Santa Clara",
+      "location": "Santa Clara Convention Center, CA",
+      "lat": 37.3541,
+      "lng": -121.9552,
+      "date": "2026-09-15",
+      "endDate": "2026-09-17",
+      "url": "https://www.aiinfrasummit.com/",
+      "description": "AI infrastructure conference (formerly AI Hardware Summit) — training/inference silicon, systems, and the AI-infra buildout.",
+      "flagship": true
+    },
+    {
+      "slug": "xcelerated-compute-show-2026",
+      "title": "The Xcelerated Compute Show",
+      "city": "London",
+      "location": "London, UK",
+      "lat": 51.5074,
+      "lng": -0.1278,
+      "date": "2026-09-16",
+      "endDate": "2026-09-17",
+      "url": "https://xceleratedcompute.com/",
+      "description": "European accelerated-compute and AI-infrastructure show."
     },
     {
       "slug": "aie-paris-2026",
@@ -272,6 +320,17 @@
       "description": "Fireside with Decagon's co-founder — production customer-support agents at scale."
     },
     {
+      "slug": "fully-connected-26-coreweave",
+      "title": "Fully Connected 26 (CoreWeave)",
+      "city": "San Francisco",
+      "location": "San Francisco, CA",
+      "lat": 37.7749,
+      "lng": -122.4194,
+      "date": "2026-09-29",
+      "url": "https://fullyconnected.com/",
+      "description": "CoreWeave's AI-builder conference (the former Weights & Biases event) — training, inference, and evals on AI cloud infrastructure."
+    },
+    {
       "slug": "aie-code-summit-nyc-2026",
       "title": "AI Engineer Code Summit NYC",
       "city": "New York",
@@ -283,6 +342,17 @@
       "url": "https://www.ai.engineer/nyc/2026",
       "description": "AI Engineer's third New York conference — the coding-agent-focused Code Summit.",
       "flagship": true
+    },
+    {
+      "slug": "ocp-global-summit-2026",
+      "title": "OCP Global Summit 2026",
+      "city": "San Jose",
+      "location": "San Jose, CA",
+      "lat": 37.3382,
+      "lng": -121.8863,
+      "date": "2026-10-15",
+      "url": "https://www.opencompute.org/summit/global-summit",
+      "description": "Open Compute Project's annual summit — open datacenter hardware, increasingly dominated by AI-cluster design."
     },
     {
       "slug": "openai-devday-2026",
@@ -306,6 +376,19 @@
       "endDate": "2026-11-06",
       "url": "https://www.ai.engineer/shanghai/2026",
       "description": "AI Engineer international edition, organized by Standup Partners."
+    },
+    {
+      "slug": "sc26-chicago",
+      "title": "SC26 (SuperComputing 2026)",
+      "city": "Chicago",
+      "location": "McCormick Place, Chicago, IL",
+      "lat": 41.8781,
+      "lng": -87.6298,
+      "date": "2026-11-15",
+      "endDate": "2026-11-20",
+      "url": "https://sc26.supercomputing.org/",
+      "description": "The international conference for HPC, networking, storage, and analysis — where the AI-supercomputing systems papers land.",
+      "flagship": true
     },
     {
       "slug": "aie-sydney-2026",
