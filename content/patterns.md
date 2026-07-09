@@ -188,9 +188,9 @@ How agents acquire the knowledge they need to work on a codebase.
 
 ### MCP (Model Context Protocol)
 
-Standardized protocol for providing LLMs with tools and context. Used by Stripe (Toolshed, ~500 tools), Goose (70+ extensions), and increasingly the whole ecosystem.
+Standardized protocol for providing LLMs with tools and context. Used by Stripe (Toolshed, 400+ tools), Goose (70+ extensions), and increasingly the whole ecosystem.
 
-**Key pattern: Curated subsets** — Stripe doesn't give minions all 500 tools. Each run gets a curated subset to prevent tool explosion in the context window.
+**Key pattern: Curated subsets** — Stripe doesn’t give minions all 400+ tools. Each run gets a curated subset to prevent tool explosion in the context window.
 
 ### Rule Files
 
