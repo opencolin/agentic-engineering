@@ -40,7 +40,7 @@ This page focuses on code-execution sandboxes, but they're one of four environme
 |---|---|---|
 | **Code sandboxes** | Filesystem, processes, networking, language runtimes | E2B, Modal — the rest of this page |
 | **Browser sandboxes** | A browser the agent doesn't share with you: own profile, cookie jar, storage | Browserbase (+ Stagehand automation) |
-| **Virtual desktops** | Screenshot in, mouse/keyboard out — any application, no API required | Anthropic Computer Use, OpenAI Operator |
+| **Virtual desktops** | Screenshot in, mouse/keyboard out — any application, no API required | Anthropic Computer Use, OpenAI Operator — vendor landscape on the [Agent Desktops](agent-desktops.md) page |
 | **Simulation environments** | Deterministic replicas of sites/apps for measurement and replay | HUD, Inspect AI Sandboxing Toolkit (UK AISI) |
 
 Two of these deserve calling out:

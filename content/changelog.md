@@ -124,6 +124,11 @@ Publication dates of the primary sources that informed the polished pages. Compi
 
 ## Site additions
 
+## 2026-07-15
+
+### New "Agent Desktops" page
+New page at [agent-desktops.md](agent-desktops.md), wired into the Infrastructure sidebar group after Sandboxes. Covers the market selling cloud desktops to computer-use agents — the environment class introduced in [Sandboxes § Environment Classes](sandboxes.md#environment-classes--beyond-code-sandboxes), now with the vendor landscape: agent-native startups (**Scrapybara** — managed Ubuntu/Windows/macOS fleets; **Bytebot** — self-hosted OSS agent+desktop bundle; **Orgo** — forkable workspaces; **Cua** — OSS sandboxes+SDKs+benchmarks; **Kasm** — the budget container-streaming substrate; **E2B Desktop**) versus the enterprise DaaS incumbents, headlined by **AWS WorkSpaces agent desktops** (preview May 5 → GA July 1, 2026; IAM auth, MCP support, CloudTrail audit). Includes the economics section (The Register's ~500K-tokens-per-click-cycle analysis; screenshots don't prefix-cache; hybrid API-first routing), the OSWorld/Cua/HUD eval landscape with the UI-drift problem, the visual-prompt-injection security posture, and a ten-row decision framework ending with the rule that matters: *an API exists → don't use computer use.*
+
 ## 2026-07-09
 
 ### Environment classes added to Sandboxes (TokenJam taxonomy)
