@@ -8,7 +8,7 @@ Everything else — inference, orchestration, memory, observability — depends 
 
 ## Index
 
-- **Foundations** — [Why Sandboxes Matter](#why-sandboxes-matter-for-agents) · [Market Structure](#the-sandbox-market-structure) · [Core Use Cases](#core-use-cases) · [Isolation Tiers](#isolation-tiers-the-security-ladder)
+- **Foundations** — [Why Sandboxes Matter](#why-sandboxes-matter-for-agents) · [Environment Classes](#environment-classes--beyond-code-sandboxes) · [Market Structure](#the-sandbox-market-structure) · [Core Use Cases](#core-use-cases) · [Isolation Tiers](#isolation-tiers-the-security-ladder)
 - **Vendors** — [Purpose-Built Agent Sandboxes](#purpose-built-agent-sandboxes) · [Contree deep dive](#contree-the-git-native-sandbox) · [Cloud Development Environments](#cloud-development-environments-cdes) · [Open-Source Primitives](#open-source-isolation-primitives)
 - **Patterns** — [Agent Patterns Enabled by Modern Sandboxes](#agent-patterns-enabled-by-modern-sandboxes) · [Decision Framework](#decision-framework) · [Integration Examples](#integration-examples)
 - **Reading** — [Further Reading](#further-reading)
@@ -19,6 +19,8 @@ Everything else — inference, orchestration, memory, observability — depends 
 
 An autonomous agent that writes code will, at some point, produce code that is wrong, malicious (via prompt injection), or dangerous (infinite loops, resource exhaustion, file system damage). Without a sandbox, these failures corrupt the host environment and, at worst, leak credentials or attack other systems.
 
+TokenJam's [environments explainer](https://tokenjam.dev/blog/2026-05-18-what-are-agent-environments-and-sandboxes) names the underlying cause well: these are *failures of grounding, not intent*. Agents operate over text, patterns, and learned associations without a human's common-sense check — they hallucinate paths (`rm -rf /tmp/important_backup` instead of `/tmp/build_cache`), misread context, and pursue goals in unanticipated ways. Isolation is what makes those failures recoverable instead of permanent. The same logic applies even to read-only agents: a sandbox with no outbound network (except approved sources) can't exfiltrate data, and capped CPU/request budgets stop expensive loops — *cheap insurance against failure modes you haven't thought of yet*.
+
 A well-designed sandbox gives agents four critical affordances:
 
 1. **Safe execution** — Run unreviewed code without affecting production, the host, or other tenants
@@ -27,6 +29,27 @@ A well-designed sandbox gives agents four critical affordances:
 4. **Observability** — Capture logs, metrics, and I/O for post-hoc analysis
 
 The quality of these affordances — especially state management and isolation — is what separates toy sandboxes from production agent infrastructure.
+
+---
+
+## Environment Classes — Beyond Code Sandboxes
+
+This page focuses on code-execution sandboxes, but they're one of four environment classes an agent might act inside ([taxonomy via TokenJam](https://tokenjam.dev/blog/2026-05-18-what-are-agent-environments-and-sandboxes)):
+
+| Class | What the agent gets | Representative infra |
+|---|---|---|
+| **Code sandboxes** | Filesystem, processes, networking, language runtimes | E2B, Modal — the rest of this page |
+| **Browser sandboxes** | A browser the agent doesn't share with you: own profile, cookie jar, storage | Browserbase (+ Stagehand automation) |
+| **Virtual desktops** | Screenshot in, mouse/keyboard out — any application, no API required | Anthropic Computer Use, OpenAI Operator |
+| **Simulation environments** | Deterministic replicas of sites/apps for measurement and replay | HUD, Inspect AI Sandboxing Toolkit (UK AISI) |
+
+Two of these deserve calling out:
+
+**Virtual desktops generalize, at a cost.** The appeal is that any UI becomes accessible without a custom integration — spreadsheets, CRMs, design tools. The trade-offs are real: screenshot reasoning is slower than API calls, visual reasoning hallucinates more than text reasoning, and UI drift between runs breaks deterministic evaluation. The rule of thumb: *Computer Use is the right tool when no API exists, and the wrong tool when one does.*
+
+**Environments and evaluation share infrastructure.** The sandbox that runs your agent in production is the same environment you evaluate it in — the only differences are deterministic data (fixed test cases, site snapshots, controlled time) and instrumentation that captures every action. Simulation platforms like HUD and the [Inspect AI](evals.md) toolkit are built around this pattern; E2B and Browserbase just expose infrastructure that makes evaluation natural to layer on. If you're choosing a sandbox vendor, "can I replay a production run as an eval" is a selection criterion, not an afterthought. See [Evals](evals.md).
+
+**Why per-step isolation became practical:** Firecracker boots a real Linux microVM in ~125ms at 3–10MB of memory ([Isolation Tiers](#isolation-tiers--the-security-ladder)). That kills the temptation to reuse environments across agents or requests — fresh VM per run, no shared state, no cross-contamination. It's AWS Lambda's security model applied to agents: isolation as the default, not the exception. One honest caveat from the same source: isolation is a spectrum, not a binary — kernel exploits exist, side channels are possible, network boundaries get misconfigured. Current sandboxes stop accidental harm and raise the bar for intentional attacks; for regulated workloads, layer on strict network filtering and signed code.
 
 ---
 
@@ -542,3 +565,4 @@ This pattern is impractical without fast branching (Contree) or snapshots (Modal
 - [Inference](inference.md) — LLM providers that produce the code your sandbox runs
 - [Patterns](patterns.md) — Broader agentic engineering patterns including failure recovery and multi-agent coordination
 - [Approaches](approaches.md) — Systems like Stripe Minions and OpenAI Symphony that depend on sandbox infrastructure
+- [What are agent environments and sandboxes?](https://tokenjam.dev/blog/2026-05-18-what-are-agent-environments-and-sandboxes) (TokenJam, Anil Murty, May 2026) — the four-class environment taxonomy and the environments-share-eval-infrastructure thesis integrated above
