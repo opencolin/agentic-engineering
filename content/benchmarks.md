@@ -123,7 +123,7 @@ An Inspect eval is a Python file with three slots: a **dataset** (samples to gra
 - **Lingua franca for government evals** — UK AISI, US AISI, and Anthropic / OpenAI / Google DeepMind pre-deployment testing all run on Inspect. If your agent is going to be evaluated by a regulator post-EU-AI-Act, it'll likely be inside an Inspect task.
 - **Reproducible and shareable** — every run produces a structured log reviewable in the [Inspect View](https://inspect.aisi.org.uk/view) UI; researchers can publish the full trajectory, not just the score.
 
-For teams building production agents, Inspect is the right place to run your internal regression suite — a strict superset of what `pytest`-style eval libraries ([DeepEval](infrastructure.md#evaluation--testing), [Ragas](infrastructure.md#evaluation--testing)) offer, with a UI built for human review.
+For teams building production agents, Inspect is the right place to run your internal regression suite — a strict superset of what `pytest`-style eval libraries ([DeepEval](infrastructure.md#evaluation-testing), [Ragas](infrastructure.md#evaluation-testing)) offer, with a UI built for human review.
 
 ---
 

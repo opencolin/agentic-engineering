@@ -32,7 +32,7 @@ What this means practically:
 }
 ```
 
-The `description` field is where most of the win is — this is what the model reads to decide whether to invoke. [Tool Use Examples](#tool-use-examples--the-input_examples-pattern) (Anthropic's `input_examples` extension) bolts onto this same schema and adds another ~18 percentage points of accuracy on complex parameters.
+The `description` field is where most of the win is — this is what the model reads to decide whether to invoke. [Tool Use Examples](#tool-use-examples-the-input_examples-pattern) (Anthropic's `input_examples` extension) bolts onto this same schema and adds another ~18 percentage points of accuracy on complex parameters.
 
 **The governance layer.** Real production agents need per-user OAuth, audit trails, sandboxing, and rate-limiting around MCP tool execution. Two runtimes sit between the agent and your raw MCP tools to provide this:
 
@@ -165,7 +165,7 @@ The tool-per-call baseline this whole pattern argues against is best represented
 
 ### When tool-per-call is still right
 
-- **The action is a side-effect, not a query.** "Open this PR," "send this email," "create this ticket" — these are operations, not data access. A typed tool with a `description` and `input_examples` (see [Tool Use Examples](#tool-use-examples--the-input_examples-pattern)) is the right shape.
+- **The action is a side-effect, not a query.** "Open this PR," "send this email," "create this ticket" — these are operations, not data access. A typed tool with a `description` and `input_examples` (see [Tool Use Examples](#tool-use-examples-the-input_examples-pattern)) is the right shape.
 - **The data source has only one or two tables anyway.** Coral's overhead doesn't pay off when there's no JOIN to do.
 - **No-code reach matters more than per-token cost.** Zapier MCP's 9K-app breadth genuinely beats Coral's ~10-source list for business-user workflows.
 
@@ -180,7 +180,7 @@ The tool-per-call baseline this whole pattern argues against is best represented
 
 - [Code Execution with MCP](https://anthropic.com/engineering/code-execution-with-mcp) (Anthropic, Nov 2025) — the canonical "code-as-tool" paper this pattern extends
 - [MCP servers, registries & gateways](infrastructure.md#mcp-servers-registries-gateways) — where the tool-per-call landscape lives
-- [Memory § Context Hub](memory.md#context-hub--andrew-ngs-curated-knowledge-layer) — Andrew Ng's adjacent pattern (curated knowledge instead of live query)
+- [Memory § Context Hub](memory.md#context-hub-andrew-ngs-curated-knowledge-layer) — Andrew Ng's adjacent pattern (curated knowledge instead of live query)
 
 ---
 

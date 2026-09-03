@@ -56,7 +56,7 @@ Curated model reference for agentic engineering as of May 2026.
 - [Decision rule before you read the tables](models.md#decision-rule-before-you-read-the-tables) — the 5-rule cost-discipline pattern
 - [Closed-source frontier](models.md#closed-source-frontier) — Anthropic (Opus / Sonnet / Haiku 4.x), Google (Gemini 3.x Pro / Flash / Flash-Lite), OpenAI (GPT-5.5 / 5.2 / mini), xAI (Grok 4)
 - [Open-weights frontier](models.md#open-weights-frontier) — DeepSeek V3.2 / R2, Qwen3 Max / Coder, Llama 4 Maverick / Scout, Kimi K2, GLM-5, MiniMax M2.7, Mistral Large 3
-- [Agent / coding specialists](models.md#agent--coding-specialists) — GPT-5.2-codex, Devstral, Codestral 3, Qwen3-Coder, OpenCoder
+- [Agent / coding specialists](models.md#agent-coding-specialists) — GPT-5.2-codex, Devstral, Codestral 3, Qwen3-Coder, OpenCoder
 - [Decision shortcuts](models.md#decision-shortcuts) — 10-row routing table
 
 ---
@@ -107,15 +107,15 @@ The named discipline of curating what's in the LLM context window.
 
 How to write tools agents use well — starting with MCP as the assumed wire format.
 
-- [MCP — the wire format you're writing tools in](tool-design.md#mcp--the-wire-format-youre-writing-tools-in) — the protocol that won, runtimes (Arcade, Composio), reading list
+- [MCP — the wire format you're writing tools in](tool-design.md#mcp-the-wire-format-youre-writing-tools-in) — the protocol that won, runtimes (Arcade, Composio), reading list
 - [What "good tool design" actually means](tool-design.md#what-good-tool-design-actually-means)
 - [Consolidate, don't expose your API surface](tool-design.md#1-consolidate-dont-expose-your-api-surface)
 - [Compress every response](tool-design.md#2-compress-every-response) — ResponseFormat enums (206 → 72 tokens)
-- [Lazy load — the "too many tools" problem](tool-design.md#3-lazy-load--the-too-many-tools-problem) — Tool Search Tool, -85% tokens
-- [Code-as-tool — give the agent a Python sandbox](tool-design.md#4-code-as-tool--give-the-agent-a-python-sandbox) — 150K → 2K tokens
-- [SQL-over-APIs — when the right tool is a query language](tool-design.md#when-the-right-tool-is-a-query-language--the-sql-over-apis-pattern) — Coral case study (+31% accuracy, 3.4× cost-efficient) and the cluster: Steampipe, MindsDB, CData Connect AI, PromptQL, Trino/Starburst, Cube
-- [Programmatic Tool Calling](tool-design.md#programmatic-tool-calling--the-third-optimization)
-- [Tool Use Examples](tool-design.md#tool-use-examples--the-input_examples-pattern) — 72% → 90%
+- [Lazy load — the "too many tools" problem](tool-design.md#3-lazy-load-the-too-many-tools-problem) — Tool Search Tool, -85% tokens
+- [Code-as-tool — give the agent a Python sandbox](tool-design.md#4-code-as-tool-give-the-agent-a-python-sandbox) — 150K → 2K tokens
+- [SQL-over-APIs — when the right tool is a query language](tool-design.md#when-the-right-tool-is-a-query-language-the-sql-over-apis-pattern) — Coral case study (+31% accuracy, 3.4× cost-efficient) and the cluster: Steampipe, MindsDB, CData Connect AI, PromptQL, Trino/Starburst, Cube
+- [Programmatic Tool Calling](tool-design.md#programmatic-tool-calling-the-third-optimization)
+- [Tool Use Examples](tool-design.md#tool-use-examples-the-input_examples-pattern) — 72% → 90%
 - [What to measure when iterating on tools](tool-design.md#what-to-measure-when-iterating-on-tools)
 - [Anti-patterns](tool-design.md#anti-patterns)
 
@@ -126,7 +126,7 @@ How to write tools agents use well — starting with MCP as the assumed wire for
 The cross-vendor primitive for capability packaging (Anthropic open standard, Dec 2025).
 
 - [The SKILL.md format](skills.md#the-skillmd-format)
-- [Progressive disclosure — the key idea](skills.md#progressive-disclosure--the-key-idea)
+- [Progressive disclosure — the key idea](skills.md#progressive-disclosure-the-key-idea)
 - [Empirical bounds](skills.md#empirical-bounds-from-production-data) — 82% vs 9% lift · ~12-skill ceiling · 70% invocation reliability
 - [Designing a skill that gets invoked](skills.md#designing-a-skill-that-gets-invoked)
 - [What you can ship as a skill](skills.md#what-you-can-ship-as-a-skill)
@@ -154,9 +154,9 @@ How to measure agent quality — distinct from public benchmarks.
 
 - [The mental model](evals.md#the-mental-model) — three test layers: code-based / model-based / human
 - [How to start an eval program](evals.md#how-to-start-an-eval-program-without-an-eval-team)
-- [pass@k vs pass^k — the reliability gap](evals.md#passk-vs-passk--the-reliability-gap)
+- [pass@k vs pass^k — the reliability gap](evals.md#passk-vs-passk-the-reliability-gap)
 - [Three things that silently invalidate your numbers](evals.md#three-things-that-will-silently-invalidate-your-numbers) — grading bugs · infra noise · eval awareness
-- [Benchmarks ≠ trustworthy by default](evals.md#benchmarks--trustworthy-by-default) — the ABC paper
+- [Benchmarks ≠ trustworthy by default](evals.md#benchmarks-trustworthy-by-default) — the ABC paper
 - [Categories to test](evals.md#categories-to-test-deep-agents-taxonomy)
 - [Multi-turn eval design](evals.md#multi-turn-eval-design)
 - [Tooling landscape](evals.md#tooling-landscape) — Inspect AI · LangSmith · Braintrust · Langfuse · Phoenix · Harbor
@@ -170,7 +170,7 @@ How agentic coding is publicly evaluated.
 - [SWE-bench](benchmarks.md#swe-bench) and [variants](benchmarks.md#variants) — Verified, Lite, Multimodal, Multilingual, Pro
 - [Terminal Bench](benchmarks.md#terminal-bench)
 - [Inspect AI](benchmarks.md#inspect-ai)
-- [τ-Bench (Sierra)](benchmarks.md#-bench-sierra)
+- [τ-Bench (Sierra)](benchmarks.md#bench-sierra)
 - [Other benchmarks worth knowing](benchmarks.md#other-benchmarks-worth-knowing) — 9-row roundup: BFCL, GAIA, BrowseComp, CORE, MLE-bench, ScienceAgentBench, OSWorld, Sweep
 - [Choosing a benchmark](benchmarks.md#choosing-a-benchmark)
 - [Benchmark-adjacent reading](benchmarks.md#benchmark-adjacent-reading)
@@ -230,7 +230,7 @@ LLM inference solutions.
 - [Nebius AI Cloud](inference.md#nebius-ai-cloud-standout-platform) — deep dive
 - [Routing & Gateway Solutions](inference.md#routing-gateway-solutions)
 - [Self-Hosted Inference](inference.md#self-hosted-inference)
-- [tinygrad / the tiny corp](inference.md#tinygrad--the-tiny-corp-standout-local-ai-stack) — deep dive
+- [tinygrad / the tiny corp](inference.md#tinygrad-the-tiny-corp-standout-local-ai-stack) — deep dive
 - [Inference Strategy for Agents](inference.md#inference-strategy-for-agents)
 - [Decision Framework](inference.md#decision-framework)
 
@@ -311,9 +311,9 @@ Source-of-truth bibliography behind every page above. 100+ primary sources inges
 
 - [Anthropic Engineering (19 URLs)](research-notes.md#section-1-anthropic-engineering-19-urls)
 - [LangChain Blog (20 URLs)](research-notes.md#section-2-langchain-blog-20-urls)
-- [Individual articles + arxiv + courses (10 URLs)](research-notes.md#section-3-individual-articles--arxiv--courses-10-urls-1-fetch-fail)
-- [GitHub repos + framework docs (21 URLs)](research-notes.md#section-4-github-repos--framework-docs-21-urls)
-- [People's blogs + newsletters + podcasts (14 URLs)](research-notes.md#section-5-peoples-blogs--newsletters--podcasts-14-urls-1-fetch-fail)
+- [Individual articles + arxiv + courses (10 URLs)](research-notes.md#section-3-individual-articles-arxiv-courses-10-urls-1-fetch-fail)
+- [GitHub repos + framework docs (21 URLs)](research-notes.md#section-4-github-repos-framework-docs-21-urls)
+- [People's blogs + newsletters + podcasts (14 URLs)](research-notes.md#section-5-peoples-blogs-newsletters-podcasts-14-urls-1-fetch-fail)
 - [Tools, platforms, courses, communities (24 URLs)](research-notes.md#section-6-tools-platforms-courses-communities-24-urls-7-fetch-fails)
 - [Cross-cutting findings](research-notes.md#cross-cutting-findings) — 7 patterns that repeated across enough sources to pin
 

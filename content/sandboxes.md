@@ -8,7 +8,7 @@ Everything else — inference, orchestration, memory, observability — depends 
 
 ## Index
 
-- **Foundations** — [Why Sandboxes Matter](#why-sandboxes-matter-for-agents) · [Environment Classes](#environment-classes--beyond-code-sandboxes) · [Market Structure](#the-sandbox-market-structure) · [Core Use Cases](#core-use-cases) · [Isolation Tiers](#isolation-tiers-the-security-ladder)
+- **Foundations** — [Why Sandboxes Matter](#why-sandboxes-matter-for-agents) · [Environment Classes](#environment-classes-beyond-code-sandboxes) · [Market Structure](#the-sandbox-market-structure) · [Core Use Cases](#core-use-cases) · [Isolation Tiers](#isolation-tiers-the-security-ladder)
 - **Vendors** — [Purpose-Built Agent Sandboxes](#purpose-built-agent-sandboxes) · [Contree deep dive](#contree-the-git-native-sandbox) · [Cloud Development Environments](#cloud-development-environments-cdes) · [Open-Source Primitives](#open-source-isolation-primitives)
 - **Patterns** — [Agent Patterns Enabled by Modern Sandboxes](#agent-patterns-enabled-by-modern-sandboxes) · [Decision Framework](#decision-framework) · [Integration Examples](#integration-examples)
 - **Reading** — [Further Reading](#further-reading)
@@ -49,7 +49,7 @@ Two of these deserve calling out:
 
 **Environments and evaluation share infrastructure.** The sandbox that runs your agent in production is the same environment you evaluate it in — the only differences are deterministic data (fixed test cases, site snapshots, controlled time) and instrumentation that captures every action. Simulation platforms like HUD and the [Inspect AI](evals.md) toolkit are built around this pattern; E2B and Browserbase just expose infrastructure that makes evaluation natural to layer on. If you're choosing a sandbox vendor, "can I replay a production run as an eval" is a selection criterion, not an afterthought. See [Evals](evals.md).
 
-**Why per-step isolation became practical:** Firecracker boots a real Linux microVM in ~125ms at 3–10MB of memory ([Isolation Tiers](#isolation-tiers--the-security-ladder)). That kills the temptation to reuse environments across agents or requests — fresh VM per run, no shared state, no cross-contamination. It's AWS Lambda's security model applied to agents: isolation as the default, not the exception. One honest caveat from the same source: isolation is a spectrum, not a binary — kernel exploits exist, side channels are possible, network boundaries get misconfigured. Current sandboxes stop accidental harm and raise the bar for intentional attacks; for regulated workloads, layer on strict network filtering and signed code.
+**Why per-step isolation became practical:** Firecracker boots a real Linux microVM in ~125ms at 3–10MB of memory ([Isolation Tiers](#isolation-tiers-the-security-ladder)). That kills the temptation to reuse environments across agents or requests — fresh VM per run, no shared state, no cross-contamination. It's AWS Lambda's security model applied to agents: isolation as the default, not the exception. One honest caveat from the same source: isolation is a spectrum, not a binary — kernel exploits exist, side channels are possible, network boundaries get misconfigured. Current sandboxes stop accidental harm and raise the bar for intentional attacks; for regulated workloads, layer on strict network filtering and signed code.
 
 ---
 

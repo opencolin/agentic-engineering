@@ -1415,7 +1415,7 @@ Frameworks that try to name and organize the layers of an autonomous-agent stack
 
 **Quotable:** "An agent is a loop, not a model with a clever prompt. Almost all of its real-world capability comes from the engineering around that loop, not from the weights."
 **Frameworks named (full list from the linked papers):** CodeAct (arXiv 2402.01030), Agent Q (2408.07199), AI Harness Engineering (2605.13357), Graph-of-Thoughts (2308.09687), AnyTool (2402.04253), ToolFuzz (2503.04479), MemGPT (2310.08560), ACON (2510.00615), MemAct (2510.12635), AgentFold (2510.24699), MetaGPT (2308.00352), SagaLLM (2503.11951), S-Bus (2605.17076), Don't Break the Cache (2601.06007), AgentRM (2603.13110), Agent Workflow Memory (2409.07429), EvoSkill (2603.02766), HASP (2605.17734), AlphaEvolve (2506.13131), Trace-Based Assurance (2603.18096), τ-bench (2406.12045), ToolSandbox (2408.04682), SWE-bench+ (2410.06992), ART (2507.20526), AiTM (2502.14847), OAP (2603.20953), Faramesh (2601.17744), MELON (2502.05174), Memory Sandbox (2605.08442), Trojan Hippo (2605.01970), MemoryGraft (2512.16962), SWE-Skills-Bench (2603.15401), WildClawBench (2605.10912).
-**Why it matters:** Meta-organizing map for the whole site. Anchor reference for [patterns.md § Twelve-Layer Agentic Stack](patterns.md#the-twelve-layer-agentic-stack), and the framing for Layers 11/12 in [patterns.md §§ 7–8](patterns.md#7-adversarial-surface--red-teaming-layer-11). The page is positioned as the first public output of the Immersive Commons research cluster and is refreshed monthly — re-verify the framework version and per-layer claims before citing in production work.
+**Why it matters:** Meta-organizing map for the whole site. Anchor reference for [patterns.md § Twelve-Layer Agentic Stack](patterns.md#the-twelve-layer-agentic-stack), and the framing for Layers 11/12 in [patterns.md §§ 7–8](patterns.md#7-adversarial-surface-red-teaming-layer-11). The page is positioned as the first public output of the Immersive Commons research cluster and is refreshed monthly — re-verify the framework version and per-layer claims before citing in production work.
 
 ---
 
@@ -1653,7 +1653,7 @@ The 33 arXiv papers cited by [Immersive Commons](https://www.immersivecommons.co
 **Gist:** Open Agent Passport — policy-gated, signed authorization of tool calls before execution.
 **Key claims:** Median 53 ms overhead; permissive policy 74.6% social-engineering success → **restrictive OAP 0%** across 879 attempts; Apache 2.0 spec.
 **Method:** Interception layer with cryptographically signed audit records.
-**Site slot:** [safety.md](safety.md), [patterns.md § 8](patterns.md#8-runtime-defense--pre-action-authorization-layer-12).
+**Site slot:** [safety.md](safety.md), [patterns.md § 8](patterns.md#8-runtime-defense-pre-action-authorization-layer-12).
 
 #### Faramesh: A Protocol-Agnostic Execution Control Plane for Autonomous Agent Systems
 **URL:** `https://arxiv.org/abs/2601.17744` · **Date:** 2026-01-25 · **Author:** Fatmi

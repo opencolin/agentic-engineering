@@ -217,7 +217,7 @@ Deep dives into each major system and framework:
 - [Claude Managed Agents](approaches.md#claude-managed-agents) — Anthropic's vertically integrated harness + sandbox + tools, $0.08/agent-hour, Notion/Rakuten/Asana as early adopters
 - [Vercel Open Agents](approaches.md#vercel-open-agents) — 5.5K stars, MIT-licensed reference template, "agent outside the sandbox" architecture, durable workflows + Vercel Sandbox + GitHub App
 - [OpenAI Symphony](approaches.md#openai-symphony) — 25K stars, 6-layer orchestration, work management over agent supervision
-- [DSPy + GEPA](approaches.md#dspy--gepa) — 34.6K stars, Stanford NLP's programmatic LLM framework + Pareto-genetic prompt/topology optimizer (ICLR 2026 oral)
+- [DSPy + GEPA](approaches.md#dspy-gepa) — 34.6K stars, Stanford NLP's programmatic LLM framework + Pareto-genetic prompt/topology optimizer (ICLR 2026 oral)
 - [Smolagents](approaches.md#smolagents) — 27.5K stars, HuggingFace's ~1K-LOC hackable code-agent reference (the harness floor in Anthropic's 42% Opus 4.5 study)
 - [OpenAI Agents SDK](approaches.md#openai-agents-sdk) — 27K stars, first-party OpenAI framework; production successor to Swarm
 - [Mastra](approaches.md#mastra) — 24K stars, TypeScript framework for building custom agent systems
@@ -369,7 +369,7 @@ Curated model reference for agentic engineering as of May 2026.
 - [Decision rule before you read the tables](models.md#decision-rule-before-you-read-the-tables) — the 5-rule cost-discipline pattern
 - [Closed-source frontier](models.md#closed-source-frontier) — Anthropic (Opus / Sonnet / Haiku 4.x), Google (Gemini 3.x Pro / Flash / Flash-Lite), OpenAI (GPT-5.5 / 5.2 / mini), xAI (Grok 4)
 - [Open-weights frontier](models.md#open-weights-frontier) — DeepSeek V3.2 / R2, Qwen3 Max / Coder, Llama 4 Maverick / Scout, Kimi K2, GLM-5, MiniMax M2.7, Mistral Large 3
-- [Agent / coding specialists](models.md#agent--coding-specialists) — GPT-5.2-codex, Devstral, Codestral 3, Qwen3-Coder, OpenCoder
+- [Agent / coding specialists](models.md#agent-coding-specialists) — GPT-5.2-codex, Devstral, Codestral 3, Qwen3-Coder, OpenCoder
 - [Decision shortcuts](models.md#decision-shortcuts) — 10-row routing table
 
 ---
@@ -420,15 +420,15 @@ The named discipline of curating what's in the LLM context window.
 
 How to write tools agents use well — starting with MCP as the assumed wire format.
 
-- [MCP — the wire format you're writing tools in](tool-design.md#mcp--the-wire-format-youre-writing-tools-in) — the protocol that won, runtimes (Arcade, Composio), reading list
+- [MCP — the wire format you're writing tools in](tool-design.md#mcp-the-wire-format-youre-writing-tools-in) — the protocol that won, runtimes (Arcade, Composio), reading list
 - [What "good tool design" actually means](tool-design.md#what-good-tool-design-actually-means)
 - [Consolidate, don't expose your API surface](tool-design.md#1-consolidate-dont-expose-your-api-surface)
 - [Compress every response](tool-design.md#2-compress-every-response) — ResponseFormat enums (206 → 72 tokens)
-- [Lazy load — the "too many tools" problem](tool-design.md#3-lazy-load--the-too-many-tools-problem) — Tool Search Tool, -85% tokens
-- [Code-as-tool — give the agent a Python sandbox](tool-design.md#4-code-as-tool--give-the-agent-a-python-sandbox) — 150K → 2K tokens
-- [SQL-over-APIs — when the right tool is a query language](tool-design.md#when-the-right-tool-is-a-query-language--the-sql-over-apis-pattern) — Coral case study (+31% accuracy, 3.4× cost-efficient) and the cluster: Steampipe, MindsDB, CData Connect AI, PromptQL, Trino/Starburst, Cube
-- [Programmatic Tool Calling](tool-design.md#programmatic-tool-calling--the-third-optimization)
-- [Tool Use Examples](tool-design.md#tool-use-examples--the-input_examples-pattern) — 72% → 90%
+- [Lazy load — the "too many tools" problem](tool-design.md#3-lazy-load-the-too-many-tools-problem) — Tool Search Tool, -85% tokens
+- [Code-as-tool — give the agent a Python sandbox](tool-design.md#4-code-as-tool-give-the-agent-a-python-sandbox) — 150K → 2K tokens
+- [SQL-over-APIs — when the right tool is a query language](tool-design.md#when-the-right-tool-is-a-query-language-the-sql-over-apis-pattern) — Coral case study (+31% accuracy, 3.4× cost-efficient) and the cluster: Steampipe, MindsDB, CData Connect AI, PromptQL, Trino/Starburst, Cube
+- [Programmatic Tool Calling](tool-design.md#programmatic-tool-calling-the-third-optimization)
+- [Tool Use Examples](tool-design.md#tool-use-examples-the-input_examples-pattern) — 72% → 90%
 - [What to measure when iterating on tools](tool-design.md#what-to-measure-when-iterating-on-tools)
 - [Anti-patterns](tool-design.md#anti-patterns)
 
@@ -439,7 +439,7 @@ How to write tools agents use well — starting with MCP as the assumed wire for
 The cross-vendor primitive for capability packaging (Anthropic open standard, Dec 2025).
 
 - [The SKILL.md format](skills.md#the-skillmd-format)
-- [Progressive disclosure — the key idea](skills.md#progressive-disclosure--the-key-idea)
+- [Progressive disclosure — the key idea](skills.md#progressive-disclosure-the-key-idea)
 - [Empirical bounds](skills.md#empirical-bounds-from-production-data) — 82% vs 9% lift · ~12-skill ceiling · 70% invocation reliability
 - [Designing a skill that gets invoked](skills.md#designing-a-skill-that-gets-invoked)
 - [What you can ship as a skill](skills.md#what-you-can-ship-as-a-skill)
@@ -467,9 +467,9 @@ How to measure agent quality — distinct from public benchmarks.
 
 - [The mental model](evals.md#the-mental-model) — three test layers: code-based / model-based / human
 - [How to start an eval program](evals.md#how-to-start-an-eval-program-without-an-eval-team)
-- [pass@k vs pass^k — the reliability gap](evals.md#passk-vs-passk--the-reliability-gap)
+- [pass@k vs pass^k — the reliability gap](evals.md#passk-vs-passk-the-reliability-gap)
 - [Three things that silently invalidate your numbers](evals.md#three-things-that-will-silently-invalidate-your-numbers) — grading bugs · infra noise · eval awareness
-- [Benchmarks ≠ trustworthy by default](evals.md#benchmarks--trustworthy-by-default) — the ABC paper
+- [Benchmarks ≠ trustworthy by default](evals.md#benchmarks-trustworthy-by-default) — the ABC paper
 - [Categories to test](evals.md#categories-to-test-deep-agents-taxonomy)
 - [Multi-turn eval design](evals.md#multi-turn-eval-design)
 - [Tooling landscape](evals.md#tooling-landscape) — Inspect AI · LangSmith · Braintrust · Langfuse · Phoenix · Harbor
@@ -483,7 +483,7 @@ How agentic coding is publicly evaluated.
 - [SWE-bench](benchmarks.md#swe-bench) and [variants](benchmarks.md#variants) — Verified, Lite, Multimodal, Multilingual, Pro
 - [Terminal Bench](benchmarks.md#terminal-bench)
 - [Inspect AI](benchmarks.md#inspect-ai)
-- [τ-Bench (Sierra)](benchmarks.md#-bench-sierra)
+- [τ-Bench (Sierra)](benchmarks.md#bench-sierra)
 - [Other benchmarks worth knowing](benchmarks.md#other-benchmarks-worth-knowing) — 9-row roundup: BFCL, GAIA, BrowseComp, CORE, MLE-bench, ScienceAgentBench, OSWorld, Sweep
 - [Choosing a benchmark](benchmarks.md#choosing-a-benchmark)
 - [Benchmark-adjacent reading](benchmarks.md#benchmark-adjacent-reading)
@@ -543,7 +543,7 @@ LLM inference solutions.
 - [Nebius AI Cloud](inference.md#nebius-ai-cloud-standout-platform) — deep dive
 - [Routing & Gateway Solutions](inference.md#routing-gateway-solutions)
 - [Self-Hosted Inference](inference.md#self-hosted-inference)
-- [tinygrad / the tiny corp](inference.md#tinygrad--the-tiny-corp-standout-local-ai-stack) — deep dive
+- [tinygrad / the tiny corp](inference.md#tinygrad-the-tiny-corp-standout-local-ai-stack) — deep dive
 - [Inference Strategy for Agents](inference.md#inference-strategy-for-agents)
 - [Decision Framework](inference.md#decision-framework)
 
@@ -624,9 +624,9 @@ Source-of-truth bibliography behind every page above. 100+ primary sources inges
 
 - [Anthropic Engineering (19 URLs)](research-notes.md#section-1-anthropic-engineering-19-urls)
 - [LangChain Blog (20 URLs)](research-notes.md#section-2-langchain-blog-20-urls)
-- [Individual articles + arxiv + courses (10 URLs)](research-notes.md#section-3-individual-articles--arxiv--courses-10-urls-1-fetch-fail)
-- [GitHub repos + framework docs (21 URLs)](research-notes.md#section-4-github-repos--framework-docs-21-urls)
-- [People's blogs + newsletters + podcasts (14 URLs)](research-notes.md#section-5-peoples-blogs--newsletters--podcasts-14-urls-1-fetch-fail)
+- [Individual articles + arxiv + courses (10 URLs)](research-notes.md#section-3-individual-articles-arxiv-courses-10-urls-1-fetch-fail)
+- [GitHub repos + framework docs (21 URLs)](research-notes.md#section-4-github-repos-framework-docs-21-urls)
+- [People's blogs + newsletters + podcasts (14 URLs)](research-notes.md#section-5-peoples-blogs-newsletters-podcasts-14-urls-1-fetch-fail)
 - [Tools, platforms, courses, communities (24 URLs)](research-notes.md#section-6-tools-platforms-courses-communities-24-urls-7-fetch-fails)
 - [Cross-cutting findings](research-notes.md#cross-cutting-findings) — 7 patterns that repeated across enough sources to pin
 
@@ -780,7 +780,7 @@ The YouTube talk archive is the deliverable — even if you never attend, watch 
 
 ## Agent security & authorization
 
-The under-covered "what can go wrong" side of agent design. Required if you're shipping anything that touches private data or external tools. See [patterns.md § Adversarial Surface](patterns.md#7-adversarial-surface) and [§ Pre-Action Authorization](patterns.md#8-pre-action-authorization) for the architectural callouts that draw on these.
+The under-covered "what can go wrong" side of agent design. Required if you're shipping anything that touches private data or external tools. See [patterns.md § Adversarial Surface](patterns.md#7-adversarial-surface-red-teaming-layer-11) and [§ Pre-Action Authorization](patterns.md#8-runtime-defense-pre-action-authorization-layer-12) for the architectural callouts that draw on these.
 
 | Source | What you get |
 |---|---|
@@ -965,12 +965,12 @@ Publication dates of the primary sources that informed the polished pages. Compi
 ## 2026-07-15
 
 ### New "Agent Desktops" page
-New page at [agent-desktops.md](agent-desktops.md), wired into the Infrastructure sidebar group after Sandboxes. Covers the market selling cloud desktops to computer-use agents — the environment class introduced in [Sandboxes § Environment Classes](sandboxes.md#environment-classes--beyond-code-sandboxes), now with the vendor landscape: agent-native startups (**Scrapybara** — managed Ubuntu/Windows/macOS fleets; **Bytebot** — self-hosted OSS agent+desktop bundle; **Orgo** — forkable workspaces; **Cua** — OSS sandboxes+SDKs+benchmarks; **Kasm** — the budget container-streaming substrate; **E2B Desktop**) versus the enterprise DaaS incumbents, headlined by **AWS WorkSpaces agent desktops** (preview May 5 → GA July 1, 2026; IAM auth, MCP support, CloudTrail audit). Includes the economics section (The Register's ~500K-tokens-per-click-cycle analysis; screenshots don't prefix-cache; hybrid API-first routing), the OSWorld/Cua/HUD eval landscape with the UI-drift problem, the visual-prompt-injection security posture, and a ten-row decision framework ending with the rule that matters: *an API exists → don't use computer use.*
+New page at [agent-desktops.md](agent-desktops.md), wired into the Infrastructure sidebar group after Sandboxes. Covers the market selling cloud desktops to computer-use agents — the environment class introduced in [Sandboxes § Environment Classes](sandboxes.md#environment-classes-beyond-code-sandboxes), now with the vendor landscape: agent-native startups (**Scrapybara** — managed Ubuntu/Windows/macOS fleets; **Bytebot** — self-hosted OSS agent+desktop bundle; **Orgo** — forkable workspaces; **Cua** — OSS sandboxes+SDKs+benchmarks; **Kasm** — the budget container-streaming substrate; **E2B Desktop**) versus the enterprise DaaS incumbents, headlined by **AWS WorkSpaces agent desktops** (preview May 5 → GA July 1, 2026; IAM auth, MCP support, CloudTrail audit). Includes the economics section (The Register's ~500K-tokens-per-click-cycle analysis; screenshots don't prefix-cache; hybrid API-first routing), the OSWorld/Cua/HUD eval landscape with the UI-drift problem, the visual-prompt-injection security posture, and a ten-row decision framework ending with the rule that matters: *an API exists → don't use computer use.*
 
 ## 2026-07-09
 
 ### Environment classes added to Sandboxes (TokenJam taxonomy)
-New [Sandboxes § Environment Classes](sandboxes.md#environment-classes--beyond-code-sandboxes) section from [TokenJam's environments explainer](https://tokenjam.dev/blog/2026-05-18-what-are-agent-environments-and-sandboxes) (Anil Murty, May 2026). The page previously covered only the code-sandbox class; the new section adds the other three: **browser sandboxes** (Browserbase + Stagehand), **virtual desktops** (Computer Use / Operator, with the "right tool when no API exists, wrong tool when one does" rule), and **simulation environments** (HUD, Inspect AI Sandboxing Toolkit). Two load-bearing ideas integrated: *environments and evaluation share infrastructure* — same sandbox, deterministic data, full instrumentation, so "can I replay a production run as an eval" becomes a vendor-selection criterion — and the *failures of grounding, not intent* framing for why isolation matters, now in the Why Sandboxes Matter opening. Firecracker per-step-isolation numbers (~125ms boot, 3–10MB) and the "AWS Lambda's security model applied to agents" line added with the isolation-is-a-spectrum caveat.
+New [Sandboxes § Environment Classes](sandboxes.md#environment-classes-beyond-code-sandboxes) section from [TokenJam's environments explainer](https://tokenjam.dev/blog/2026-05-18-what-are-agent-environments-and-sandboxes) (Anil Murty, May 2026). The page previously covered only the code-sandbox class; the new section adds the other three: **browser sandboxes** (Browserbase + Stagehand), **virtual desktops** (Computer Use / Operator, with the "right tool when no API exists, wrong tool when one does" rule), and **simulation environments** (HUD, Inspect AI Sandboxing Toolkit). Two load-bearing ideas integrated: *environments and evaluation share infrastructure* — same sandbox, deterministic data, full instrumentation, so "can I replay a production run as an eval" becomes a vendor-selection criterion — and the *failures of grounding, not intent* framing for why isolation matters, now in the Why Sandboxes Matter opening. Firecracker per-step-isolation numbers (~125ms boot, 3–10MB) and the "AWS Lambda's security model applied to agents" line added with the isolation-is-a-spectrum caveat.
 
 ### Stripe Minions section enriched from three sources
 [Approaches § Stripe Minions](approaches.md#stripe-minions) rebuilt from the primary sources: Stripe's [Part 1 blog post](https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents) (Alistair Gray, Leverage team, Feb 2026), the [Part 2 implementation post](https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2), [MindStudio's blueprint-architecture analysis](https://www.mindstudio.ai/blog/stripe-minions-blueprint-architecture-deterministic-agentic-nodes), and the [How I AI interview](https://www.youtube.com/watch?v=o5Mi5SYSDnY). New: the why-in-house rationale ($1T+/yr payment volume, Ruby-sans-Rails + Sorbet, homegrown libraries), the three-rung feedback ladder (sub-5-second local lint → selective CI from 3M+ tests with auto-applied autofixes → max-2-rounds rationale), the product surface (Slack threads, flaky-test tickets with a fix-with-a-minion button, follow-up instructions on completed runs), and MindStudio's deterministic-vs-agentic node taxonomy with bounded retry loops. **Correction:** Toolshed hosts 400+ MCP tools per the primary source, not ~500 as previously stated (fixed in four places). Who's Who updated — the Minions post is credited to Alistair Gray, not anonymous.
@@ -997,18 +997,18 @@ New page at [tenki.md](tenki.md), wired into the Infrastructure sidebar group as
 New top-level section in [Infrastructure § CI Runners for Agent Iteration](infrastructure.md#ci-runners-for-agent-iteration) placed between Cloud Mac Hosting and Self-Hosted Infrastructure. Opens with the framing that **CI is the agent's feedback loop** — when an agent fleet opens 30 PRs an hour and each waits 8 minutes on a GitHub-hosted runner, the harness is throttled by the runner queue, not the model. Covers seven drop-in `runs-on:` replacements: **Blacksmith** (YC W24, $10M Series A Sep 2025 GV-led, "Unblock AI Development with Fast CI" — used by Vercel / Supabase / Clerk / Mercury / Ashby), **Tenki Runners** (Luxor / Seattle, single-tenant ephemeral VMs, same operator as the Tenki Sandbox for agent code execution), **Depot** (Docker / Bazel cache-first), **Namespace** (runners + remote dev envs), **BuildJet** (the mature conservative pick), **RunsOn** (self-hosted on your AWS), and **Ubicloud** (OSS, "open AWS"). Includes a choosing rubric and cross-references to [Mac CI Runners](infrastructure.md#mac-ci-runners) and the [Sandboxes branching-as-replay-buffer pattern](sandboxes.md#the-sandbox-market-structure). Fills a previously missing leg of the agent-iteration stack — the site already covered sandboxes, dev environments, and orchestration but not CI itself as an agent infrastructure category.
 
 ### tinygrad / the tiny corp added to Inference
-New row in [Inference § Self-Hosted Inference](inference.md#self-hosted-inference) for **tinygrad** alongside a dedicated [§ tinygrad / the tiny corp — Standout Local-AI Stack](inference.md#tinygrad--the-tiny-corp-standout-local-ai-stack) callout (mirroring the existing Nebius pattern). Covers the ~20K-LOC framework with its unified `UOp` IR and pattern-rewrite kernel fusion, the full backend matrix (CUDA / AMD / NV / Metal / WebGPU / Qualcomm DSP / Clang / LLVM, plus the NVK / Mesa NIR path from v0.12), the **tinybox** hardware line (red v2, green v2, pro, exabox), the **AMD-sovereignty** angle (the public 7900 XTX firmware fight, Lisa Su's intervention, the "completely sovereign compute stack" Phoronix reported on), production usage at comma.ai openpilot (Snapdragon 845 on-device + tinybox-trained world model), and status (~33K stars, v0.13.0 May 2026, still pre-1.0, $5.1M raised, San Diego, run by George Hotz). The site previously had no entry for the framework + hardware + sovereignty axis — this fills it without sprawling into a new chapter.
+New row in [Inference § Self-Hosted Inference](inference.md#self-hosted-inference) for **tinygrad** alongside a dedicated [§ tinygrad / the tiny corp — Standout Local-AI Stack](inference.md#tinygrad-the-tiny-corp-standout-local-ai-stack) callout (mirroring the existing Nebius pattern). Covers the ~20K-LOC framework with its unified `UOp` IR and pattern-rewrite kernel fusion, the full backend matrix (CUDA / AMD / NV / Metal / WebGPU / Qualcomm DSP / Clang / LLVM, plus the NVK / Mesa NIR path from v0.12), the **tinybox** hardware line (red v2, green v2, pro, exabox), the **AMD-sovereignty** angle (the public 7900 XTX firmware fight, Lisa Su's intervention, the "completely sovereign compute stack" Phoronix reported on), production usage at comma.ai openpilot (Snapdragon 845 on-device + tinybox-trained world model), and status (~33K stars, v0.13.0 May 2026, still pre-1.0, $5.1M raised, San Diego, run by George Hotz). The site previously had no entry for the framework + hardware + sovereignty axis — this fills it without sprawling into a new chapter.
 
 ## 2026-05-26
 
 ### Merge.dev + enterprise SaaS-integration platforms added to Infrastructure / Inference
-New "Enterprise SaaS-integration platforms (now agent-capable)" subsection in [Infrastructure § MCP](infrastructure.md#mcp-servers-registries-gateways) covering Merge, Nango, Paragon, Apideck, and Scalekit — companies that started in unified-API / embedded-iPaaS and pivoted into agent tool-calling once MCP won. Closing paragraph names the strategic convergence (all racing toward "integration + tool-calling layer for enterprise agents" from different starting points) and the architectural critique competitors make of Merge specifically (auth model built for developer-initiated API calls; agents need per-user delegation + sub-second scoped execution). Merge's LLM Gateway product also added as a new row in [Inference § Routing & Gateway Solutions](inference.md#routing--gateway-solutions). Coverage gap surfaced via a Merge-DevRel competitive-analysis dump the user shared — picked the 5 named not-covered competitors; intentionally skipped Toolhouse / Finch / Kombo / StackOne / Workato (long tail) and the Unified API category itself (borderline for the site's scope).
+New "Enterprise SaaS-integration platforms (now agent-capable)" subsection in [Infrastructure § MCP](infrastructure.md#mcp-servers-registries-gateways) covering Merge, Nango, Paragon, Apideck, and Scalekit — companies that started in unified-API / embedded-iPaaS and pivoted into agent tool-calling once MCP won. Closing paragraph names the strategic convergence (all racing toward "integration + tool-calling layer for enterprise agents" from different starting points) and the architectural critique competitors make of Merge specifically (auth model built for developer-initiated API calls; agents need per-user delegation + sub-second scoped execution). Merge's LLM Gateway product also added as a new row in [Inference § Routing & Gateway Solutions](inference.md#routing-gateway-solutions). Coverage gap surfaced via a Merge-DevRel competitive-analysis dump the user shared — picked the 5 named not-covered competitors; intentionally skipped Toolhouse / Finch / Kombo / StackOne / Workato (long tail) and the Unified API category itself (borderline for the site's scope).
 
 ### Coral: Infrastructure entry + Tool Design "Risks to watch" callout
 Follow-up to the SQL-over-APIs section from PR #29. Added Coral as a named product row in [Infrastructure § MCP Servers, Registries & Gateways](infrastructure.md#mcp-servers-registries-gateways) (where MCP-native data products belong); the row notes the architectural difference from the rest of the table (SQL query vs tool-per-action) and flags integration breadth as the load-bearing risk. Also added a "Risks to watch if you're betting on this pattern" callout to the existing Tool Design SQL-over-APIs section, distilling four load-bearing concerns from the broader SWOT material: integration deficit, token-efficiency time-window, MCP single-vendor protocol risk, and local-first vs centralized-governance trade-off. Intentionally NOT added: SPAs, Magic Quadrant positioning, pairwise SWOTs, or 90/180/365-day strategic recommendations — those don't fit the site's pattern-first reference character.
 
 ### Tool Design: new "SQL-over-APIs" section comparing Coral and the cluster
-Added a new H2 section in [Tool Design](tool-design.md#when-the-right-tool-is-a-query-language--the-sql-over-apis-pattern) for the architectural pattern that extends code-as-tool: expose a single SQL endpoint instead of N micro-tools per data source. **Coral** ([withcoral.com](https://withcoral.com)) is the case study — Apache 2.0, Rust, local-first, MCP-native, with a published benchmark (+31% accuracy, 3.4× more cost-efficient, −42% latency vs direct provider MCPs across 82 real Claude Code tasks). Comparison table covers the cluster: Steampipe (AGPL, 150+ plugins), MindsDB (Python, ML-baked), CData Connect AI (proprietary, 300+ drivers), PromptQL (Hasura, agent-outcome layer), Trino / Starburst (lakehouse federation), Cube (semantic layer). Includes "when SQL-over-APIs is right" and "when tool-per-call is still right" decision rules. Cross-links to Memory § Context Hub (the adjacent curated-knowledge pattern) and the existing Infrastructure MCP section.
+Added a new H2 section in [Tool Design](tool-design.md#when-the-right-tool-is-a-query-language-the-sql-over-apis-pattern) for the architectural pattern that extends code-as-tool: expose a single SQL endpoint instead of N micro-tools per data source. **Coral** ([withcoral.com](https://withcoral.com)) is the case study — Apache 2.0, Rust, local-first, MCP-native, with a published benchmark (+31% accuracy, 3.4× more cost-efficient, −42% latency vs direct provider MCPs across 82 real Claude Code tasks). Comparison table covers the cluster: Steampipe (AGPL, 150+ plugins), MindsDB (Python, ML-baked), CData Connect AI (proprietary, 300+ drivers), PromptQL (Hasura, agent-outcome layer), Trino / Starburst (lakehouse federation), Cube (semantic layer). Includes "when SQL-over-APIs is right" and "when tool-per-call is still right" decision rules. Cross-links to Memory § Context Hub (the adjacent curated-knowledge pattern) and the existing Infrastructure MCP section.
 
 ### `docs/` directory removed
 The parallel Starlight setup at `docs/` (which was never deployed — Vercel serves the root) is gone. 34 tracked files removed. All unique content was preserved into `content/` first via PR #26: the 3 comparison tables that commit `1bb1bcb` had accidentally deleted from `approaches.md` were restored, and the 24 SEO descriptions from `.mdx` frontmatter were ported as HTML comments at the top of each `content/*.md`. Build pipeline (`build.sh` + `index.html`) is unchanged and unaffected.
@@ -1016,7 +1016,7 @@ The parallel Starlight setup at `docs/` (which was never deployed — Vercel ser
 ### Context Hub + Moltbook added across Memory / Context Engineering / Infrastructure / Research Notes
 Two additions surfaced via The Batch newsletter:
 
-- **[Context Hub](https://github.com/andrewyng/context-hub)** (Andrew Ng, 13.4K stars, MIT) — agent-readable curated API docs with a `chub` CLI for search / fetch / annotate / upvote. Added to [Memory § Vendors](memory.md#the-vendors-and-what-they-actually-do) as a knowledge-layer entry and [Context Engineering § Write](context-engineering.md#1-write--externalize-state-so-the-window-doesnt-have-to-hold-it) as the "externalized knowledge registries" pattern.
+- **[Context Hub](https://github.com/andrewyng/context-hub)** (Andrew Ng, 13.4K stars, MIT) — agent-readable curated API docs with a `chub` CLI for search / fetch / annotate / upvote. Added to [Memory § Vendors](memory.md#the-vendors-and-what-they-actually-do) as a knowledge-layer entry and [Context Engineering § Write](context-engineering.md#1-write-externalize-state-so-the-window-doesnt-have-to-hold-it) as the "externalized knowledge registries" pattern.
 - **[Moltbook](https://www.moltbook.com)** — "the front page of the agent internet": agent social network + identity provider. Added to [Infrastructure § Identity/Auth](infrastructure.md#agent-identity-auth-secrets) as a speculative consumer-shaped agent-identity entry.
 
 Both added to [Research Notes](research-notes.md) under a new Section 7 (post-ingestion additions).
@@ -1210,7 +1210,7 @@ Ordered by GitHub stars (descending).
 
 ### Frameworks & SDKs
 
-- [DSPy + GEPA](#dspy--gepa) — 34.6K stars, Stanford NLP's programmatic LLM framework + Pareto-genetic prompt/topology optimizer
+- [DSPy + GEPA](#dspy-gepa) — 34.6K stars, Stanford NLP's programmatic LLM framework + Pareto-genetic prompt/topology optimizer
 - [Smolagents](#smolagents) — 27.5K stars, HuggingFace's ~1K-LOC hackable code-agent reference
 - [OpenAI Agents SDK](#openai-agents-sdk) — 27K stars, first-party OpenAI framework; production successor to Swarm
 - [Mastra](#mastra) — 24K stars, TypeScript framework for building custom agent systems
@@ -1672,7 +1672,7 @@ AWS's answer to [OpenAI Agents SDK](#openai-agents-sdk) and [Google ADK](#google
 - **GitHub:** [anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) [![stars](https://img.shields.io/github/stars/anthropics/claude-agent-sdk-python?style=social)](https://github.com/anthropics/claude-agent-sdk-python) · [anthropics/claude-agent-sdk-typescript](https://github.com/anthropics/claude-agent-sdk-typescript) [![stars](https://img.shields.io/github/stars/anthropics/claude-agent-sdk-typescript?style=social)](https://github.com/anthropics/claude-agent-sdk-typescript)
 - **Origin:** Anthropic, 2025 (formerly Claude Code SDK); renamed Sep 2025 once it was clear teams wanted the same harness without the coding-product framing
 
-Anthropic's first-party agent SDK — **the exact same harness that ships inside [Claude Code](#terminal-coding-clis)**, exposed as a library you can import into your own apps. Where [OpenAI Agents SDK](#openai-agents-sdk), [Google ADK](#google-adk-agent-development-kit), and [Strands Agents](#strands-agents) converge on the *handoff* primitive, Claude Agent SDK converges on the *Claude Code primitives*: a `CLAUDE.md` system-prompt loader, [Skills](#skills-plugins--marketplaces) (SKILL.md progressive disclosure), PreToolUse / PostToolUse / Stop / SessionStart hooks, the Task tool for sub-agent spawning, and built-in permission prompts for irreversible actions. The framing Anthropic uses internally: model = CPU, context = RAM, harness = OS, your app = the userspace program. Same model in two harnesses produces wildly different scores — Opus 4.5 hit 78% on CORE inside Claude Code and 42% inside Smolagents.
+Anthropic's first-party agent SDK — **the exact same harness that ships inside [Claude Code](#terminal-coding-clis)**, exposed as a library you can import into your own apps. Where [OpenAI Agents SDK](#openai-agents-sdk), [Google ADK](#google-adk-agent-development-kit), and [Strands Agents](#strands-agents) converge on the *handoff* primitive, Claude Agent SDK converges on the *Claude Code primitives*: a `CLAUDE.md` system-prompt loader, [Skills](#skills-plugins-marketplaces) (SKILL.md progressive disclosure), PreToolUse / PostToolUse / Stop / SessionStart hooks, the Task tool for sub-agent spawning, and built-in permission prompts for irreversible actions. The framing Anthropic uses internally: model = CPU, context = RAM, harness = OS, your app = the userspace program. Same model in two harnesses produces wildly different scores — Opus 4.5 hit 78% on CORE inside Claude Code and 42% inside Smolagents.
 
 ### Architecture
 
@@ -1712,7 +1712,7 @@ The closest open-source analog to [Claude Code's](#terminal-coding-clis) harness
 ### Key Properties
 
 - Pair with `create_agent` (LangChain 1.0 default factory, Oct 2025; supersedes the deprecated `create_react_agent`) to compose agent + middleware in idiomatic LangGraph
-- The right pick if you want Claude-Code-shaped ergonomics but need model neutrality, durable checkpointing, time-travel debugging, or first-class observability via [LangSmith](infrastructure.md#agent-observability--evaluation)
+- The right pick if you want Claude-Code-shaped ergonomics but need model neutrality, durable checkpointing, time-travel debugging, or first-class observability via [LangSmith](infrastructure.md#agent-observability-evaluation)
 - The reference work for harness engineering as a discipline — read alongside [The Anatomy of an Agent Harness](https://www.langchain.com/blog/the-anatomy-of-an-agent-harness) (LangChain) and Trivedy's [Better Harness](https://www.langchain.com/blog/better-harness-a-recipe-for-harness-hill-climbing-with-evals) hill-climbing recipe
 - **Gap:** LangGraph weight. You get durability, time-travel, and middleware for free, but the conceptual surface area is larger than [Claude Agent SDK](#claude-agent-sdk) or [Smolagents](#smolagents). Teams that just want "claude.messages.create with hooks" should start lighter
 
@@ -3852,7 +3852,7 @@ What this means practically:
 }
 ```
 
-The `description` field is where most of the win is — this is what the model reads to decide whether to invoke. [Tool Use Examples](#tool-use-examples--the-input_examples-pattern) (Anthropic's `input_examples` extension) bolts onto this same schema and adds another ~18 percentage points of accuracy on complex parameters.
+The `description` field is where most of the win is — this is what the model reads to decide whether to invoke. [Tool Use Examples](#tool-use-examples-the-input_examples-pattern) (Anthropic's `input_examples` extension) bolts onto this same schema and adds another ~18 percentage points of accuracy on complex parameters.
 
 **The governance layer.** Real production agents need per-user OAuth, audit trails, sandboxing, and rate-limiting around MCP tool execution. Two runtimes sit between the agent and your raw MCP tools to provide this:
 
@@ -3985,7 +3985,7 @@ The tool-per-call baseline this whole pattern argues against is best represented
 
 ### When tool-per-call is still right
 
-- **The action is a side-effect, not a query.** "Open this PR," "send this email," "create this ticket" — these are operations, not data access. A typed tool with a `description` and `input_examples` (see [Tool Use Examples](#tool-use-examples--the-input_examples-pattern)) is the right shape.
+- **The action is a side-effect, not a query.** "Open this PR," "send this email," "create this ticket" — these are operations, not data access. A typed tool with a `description` and `input_examples` (see [Tool Use Examples](#tool-use-examples-the-input_examples-pattern)) is the right shape.
 - **The data source has only one or two tables anyway.** Coral's overhead doesn't pay off when there's no JOIN to do.
 - **No-code reach matters more than per-token cost.** Zapier MCP's 9K-app breadth genuinely beats Coral's ~10-source list for business-user workflows.
 
@@ -4000,7 +4000,7 @@ The tool-per-call baseline this whole pattern argues against is best represented
 
 - [Code Execution with MCP](https://anthropic.com/engineering/code-execution-with-mcp) (Anthropic, Nov 2025) — the canonical "code-as-tool" paper this pattern extends
 - [MCP servers, registries & gateways](infrastructure.md#mcp-servers-registries-gateways) — where the tool-per-call landscape lives
-- [Memory § Context Hub](memory.md#context-hub--andrew-ngs-curated-knowledge-layer) — Andrew Ng's adjacent pattern (curated knowledge instead of live query)
+- [Memory § Context Hub](memory.md#context-hub-andrew-ngs-curated-knowledge-layer) — Andrew Ng's adjacent pattern (curated knowledge instead of live query)
 
 ---
 
@@ -4184,7 +4184,7 @@ From [Anthropic's skills post](https://anthropic.com/engineering/equipping-agent
 
 The model autonomously executes bundled scripts when the skill is invoked. A malicious skill in your repo can call out to the internet, read other files, push to the wrong remote. Treat third-party skills the way you'd treat any third-party dependency: read the bundled scripts before installing.
 
-[Anthropic's Auto Mode](https://anthropic.com/engineering/claude-code-auto-mode) layers a transcript classifier on top to catch overeager skill invocations — see [Harness Engineering](harness-engineering.md#sandboxing--permissions) for the broader security model.
+[Anthropic's Auto Mode](https://anthropic.com/engineering/claude-code-auto-mode) layers a transcript classifier on top to catch overeager skill invocations — see [Harness Engineering](harness-engineering.md) for the broader security model.
 
 ---
 
@@ -4622,7 +4622,7 @@ An Inspect eval is a Python file with three slots: a **dataset** (samples to gra
 - **Lingua franca for government evals** — UK AISI, US AISI, and Anthropic / OpenAI / Google DeepMind pre-deployment testing all run on Inspect. If your agent is going to be evaluated by a regulator post-EU-AI-Act, it'll likely be inside an Inspect task.
 - **Reproducible and shareable** — every run produces a structured log reviewable in the [Inspect View](https://inspect.aisi.org.uk/view) UI; researchers can publish the full trajectory, not just the score.
 
-For teams building production agents, Inspect is the right place to run your internal regression suite — a strict superset of what `pytest`-style eval libraries ([DeepEval](infrastructure.md#evaluation--testing), [Ragas](infrastructure.md#evaluation--testing)) offer, with a UI built for human review.
+For teams building production agents, Inspect is the right place to run your internal regression suite — a strict superset of what `pytest`-style eval libraries ([DeepEval](infrastructure.md#evaluation-testing), [Ragas](infrastructure.md#evaluation-testing)) offer, with a UI built for human review.
 
 ---
 
@@ -4833,7 +4833,7 @@ Models tuned specifically for code, tool use, or agent loops — distinct from "
 ## What this page doesn't cover
 
 - **Fine-tunes, distillations, regional models.** The long tail (Phi-4, Aya, Sea-LION, Yi, Falcon, …) lives on the [LM Arena leaderboard](https://lmarena.ai) and [Artificial Analysis](https://artificialanalysis.ai/models). If you need one of these, those leaderboards beat any curated table.
-- **Hosted-only "Operator-class" agents.** [Claude Cowork](approaches.md#browser-use--computer-use-frameworks), [OpenAI Operator](approaches.md#browser-use--computer-use-frameworks), [Anthropic Computer Use](approaches.md#browser-use--computer-use-frameworks) — these are *products*, not exposed as raw model APIs; covered in [Approaches](approaches.md#browser-use--computer-use-frameworks).
+- **Hosted-only "Operator-class" agents.** [Claude Cowork](approaches.md#browser-use-computer-use-frameworks), [OpenAI Operator](approaches.md#browser-use-computer-use-frameworks), [Anthropic Computer Use](approaches.md#browser-use-computer-use-frameworks) — these are *products*, not exposed as raw model APIs; covered in [Approaches](approaches.md#browser-use-computer-use-frameworks).
 - **Embedding models.** Out of scope for agentic-engineering routing; the embedding-model choice mostly affects RAG, not agent loops. See [LangChain Embeddings docs](https://python.langchain.com/docs/integrations/text_embedding/) for current rankings.
 - **Image / video / voice generation models.** Separate category; not what this page is for.
 - **Sub-7B-class models.** The minimum viable agent loop is roughly Llama 3.1 8B / Qwen 7B-class; anything smaller doesn't reliably call tools or follow structured-output specs.
@@ -5978,7 +5978,7 @@ Everything else — inference, orchestration, memory, observability — depends 
 
 ## Index
 
-- **Foundations** — [Why Sandboxes Matter](#why-sandboxes-matter-for-agents) · [Environment Classes](#environment-classes--beyond-code-sandboxes) · [Market Structure](#the-sandbox-market-structure) · [Core Use Cases](#core-use-cases) · [Isolation Tiers](#isolation-tiers-the-security-ladder)
+- **Foundations** — [Why Sandboxes Matter](#why-sandboxes-matter-for-agents) · [Environment Classes](#environment-classes-beyond-code-sandboxes) · [Market Structure](#the-sandbox-market-structure) · [Core Use Cases](#core-use-cases) · [Isolation Tiers](#isolation-tiers-the-security-ladder)
 - **Vendors** — [Purpose-Built Agent Sandboxes](#purpose-built-agent-sandboxes) · [Contree deep dive](#contree-the-git-native-sandbox) · [Cloud Development Environments](#cloud-development-environments-cdes) · [Open-Source Primitives](#open-source-isolation-primitives)
 - **Patterns** — [Agent Patterns Enabled by Modern Sandboxes](#agent-patterns-enabled-by-modern-sandboxes) · [Decision Framework](#decision-framework) · [Integration Examples](#integration-examples)
 - **Reading** — [Further Reading](#further-reading)
@@ -6019,7 +6019,7 @@ Two of these deserve calling out:
 
 **Environments and evaluation share infrastructure.** The sandbox that runs your agent in production is the same environment you evaluate it in — the only differences are deterministic data (fixed test cases, site snapshots, controlled time) and instrumentation that captures every action. Simulation platforms like HUD and the [Inspect AI](evals.md) toolkit are built around this pattern; E2B and Browserbase just expose infrastructure that makes evaluation natural to layer on. If you're choosing a sandbox vendor, "can I replay a production run as an eval" is a selection criterion, not an afterthought. See [Evals](evals.md).
 
-**Why per-step isolation became practical:** Firecracker boots a real Linux microVM in ~125ms at 3–10MB of memory ([Isolation Tiers](#isolation-tiers--the-security-ladder)). That kills the temptation to reuse environments across agents or requests — fresh VM per run, no shared state, no cross-contamination. It's AWS Lambda's security model applied to agents: isolation as the default, not the exception. One honest caveat from the same source: isolation is a spectrum, not a binary — kernel exploits exist, side channels are possible, network boundaries get misconfigured. Current sandboxes stop accidental harm and raise the bar for intentional attacks; for regulated workloads, layer on strict network filtering and signed code.
+**Why per-step isolation became practical:** Firecracker boots a real Linux microVM in ~125ms at 3–10MB of memory ([Isolation Tiers](#isolation-tiers-the-security-ladder)). That kills the temptation to reuse environments across agents or requests — fresh VM per run, no shared state, no cross-contamination. It's AWS Lambda's security model applied to agents: isolation as the default, not the exception. One honest caveat from the same source: isolation is a spectrum, not a binary — kernel exploits exist, side channels are possible, network boundaries get misconfigured. Current sandboxes stop accidental harm and raise the bar for intentional attacks; for regulated workloads, layer on strict network filtering and signed code.
 
 ---
 
@@ -6546,7 +6546,7 @@ This pattern is impractical without fast branching (Contree) or snapshots (Modal
 
 The virtual desktop is the environment class for agents that must drive software with **no API**: legacy Windows apps, third-party SaaS dashboards, anything where the only interface is pixels. The agent sees a screenshot, decides where to click or what to type, and the action executes on a remote screen. This page covers who sells those desktops — the market that formed around [Anthropic Computer Use](https://docs.claude.com/en/docs/agents-and-tools/computer-use) and OpenAI Operator the way the [sandbox market](sandboxes.md) formed around code execution.
 
-The operating rule from the [environment-classes taxonomy](sandboxes.md#environment-classes--beyond-code-sandboxes) carries over: **a virtual desktop is the right tool when no API exists, and the wrong tool when one does.** Screenshot reasoning is slower than API calls, visual reasoning hallucinates more than text reasoning, and UI drift between runs breaks deterministic evaluation. Everything on this page is downstream of accepting those trade-offs because the workflow demands it.
+The operating rule from the [environment-classes taxonomy](sandboxes.md#environment-classes-beyond-code-sandboxes) carries over: **a virtual desktop is the right tool when no API exists, and the wrong tool when one does.** Screenshot reasoning is slower than API calls, visual reasoning hallucinates more than text reasoning, and UI drift between runs breaks deterministic evaluation. Everything on this page is downstream of accepting those trade-offs because the workflow demands it.
 
 ---
 
@@ -6595,7 +6595,7 @@ The dynamic to watch: incumbents win where the desktop *already exists* (the age
 | **[Kasm Workspaces](https://kasm.com/)** | Self-hosted + cloud | Containerized Linux, browsers | Pre-agent-wave container streaming (zero-trust browser isolation); free Community Edition, ~$5–10/user/mo — the budget substrate | Not agent-native; you build the agent wiring |
 | **E2B Desktop** | Managed cloud | Linux | Desktop variant of E2B's Firecracker sandboxes — one vendor for code + desktop environments | Younger than E2B's code product |
 
-**Adjacent, not the same thing:** [Browserbase](sandboxes.md#environment-classes--beyond-code-sandboxes) sells browser-only sandboxes — if the agent's world is entirely web, a managed browser is cheaper and faster than a full desktop. Reach for a desktop only when the workflow leaves the browser.
+**Adjacent, not the same thing:** [Browserbase](sandboxes.md#environment-classes-beyond-code-sandboxes) sells browser-only sandboxes — if the agent's world is entirely web, a managed browser is cheaper and faster than a full desktop. Reach for a desktop only when the workflow leaves the browser.
 
 ---
 
@@ -6619,7 +6619,7 @@ Screenshot-driven operation is **token-expensive**. [The Register's analysis](ht
 
 ## Evaluation
 
-Computer-use evaluation inherits the [environments-share-infrastructure thesis](sandboxes.md#environment-classes--beyond-code-sandboxes): the eval is the same desktop with deterministic data and instrumentation.
+Computer-use evaluation inherits the [environments-share-infrastructure thesis](sandboxes.md#environment-classes-beyond-code-sandboxes): the eval is the same desktop with deterministic data and instrumentation.
 
 - **OSWorld** — the standard academic benchmark for open-ended computer-use tasks across real applications; the number most model cards cite.
 - **[Cua](https://github.com/trycua/cua)** — ships benchmarks alongside its sandboxes; the OSS pick for building your own eval loop.
@@ -6632,7 +6632,7 @@ See [Evals](evals.md) and [Benchmarks](benchmarks.md) for the general framework.
 
 ## Security posture
 
-A computer-use agent is a [lethal-trifecta](patterns.md#8-runtime-defense--pre-action-authorization-layer-12) machine: it reads untrusted content (whatever renders on screen — including a web page an attacker crafted), accesses private data (whatever the desktop session can reach), and communicates externally (it *is* a browser). Treat every screen pixel as untrusted input — a rendered webpage saying "ignore your instructions" is the same attack as a poisoned tool response, and visual prompt injection is harder to filter than text.
+A computer-use agent is a [lethal-trifecta](patterns.md#8-runtime-defense-pre-action-authorization-layer-12) machine: it reads untrusted content (whatever renders on screen — including a web page an attacker crafted), accesses private data (whatever the desktop session can reach), and communicates externally (it *is* a browser). Treat every screen pixel as untrusted input — a rendered webpage saying "ignore your instructions" is the same attack as a poisoned tool response, and visual prompt injection is harder to filter than text.
 
 Mitigations that match the site's [gate-capability-not-content](safety.md) position: scope the desktop session's credentials to the task (IAM-per-agent is the WorkSpaces model), no-egress or allowlist networking where the workflow permits, session recording for post-hoc review, and pre-action authorization for irreversible operations (sends, payments, deletes). The desktop's advantage: unlike a human session, you can replay every frame.
 
@@ -6650,14 +6650,14 @@ Mitigations that match the site's [gate-capability-not-content](safety.md) posit
 | Already on E2B for code sandboxes | **E2B Desktop** |
 | Agent must join the *existing employee desktop fleet* (legacy Windows apps, IAM, audit) | **AWS WorkSpaces agent desktops** |
 | Regulated industry already on Citrix/Omnissa | Wait for first-party agent support, or drive via harness with heavy session recording |
-| The workflow never leaves the browser | Don't buy a desktop — **Browserbase** ([Sandboxes](sandboxes.md#environment-classes--beyond-code-sandboxes)) |
+| The workflow never leaves the browser | Don't buy a desktop — **Browserbase** ([Sandboxes](sandboxes.md#environment-classes-beyond-code-sandboxes)) |
 | An API exists for the target app | **Don't use computer use.** Use the API. |
 
 ---
 
 ## See also
 
-- [Sandboxes § Environment Classes](sandboxes.md#environment-classes--beyond-code-sandboxes) — where agent desktops sit in the four-class environment taxonomy
+- [Sandboxes § Environment Classes](sandboxes.md#environment-classes-beyond-code-sandboxes) — where agent desktops sit in the four-class environment taxonomy
 - [Sandboxes § Market Structure](sandboxes.md#the-sandbox-market-structure) — the Layer B / Layer D dynamic this market is replaying
 - [Cost & Economics](cost-economics.md) — the token math that makes or breaks computer-use deployments
 - [Safety](safety.md) — visual prompt injection and pre-action authorization
@@ -7255,7 +7255,7 @@ Run MCP servers without managing the process yourself.
 | Vendor | License | Runtime model | Notes |
 |--------|---------|--------------|-------|
 | **Composio MCP** ([composio.dev](https://composio.dev/)) | Hosted | Aggregator — single endpoint to a managed library of pre-built integrations | Strongest pre-built tool catalog (Slack, Gmail, Linear, GitHub, etc.); pairs with their agent-orchestrator OSS |
-| **Coral** ([withcoral.com](https://withcoral.com)) | OSS (Apache 2.0), Rust, local-first | SQL-over-APIs runtime exposing GitHub / Sentry / Datadog / Slack / Linear / Stripe / OTel as queryable tables | Different shape from the rest of this table: instead of one MCP call per action, the agent writes a SQL query that JOINs across sources. Published +31% accuracy / 3.4× cost-efficient vs direct provider MCPs inside Claude Code (Opus 4.6, n=82). See [Tool Design § SQL-over-APIs](tool-design.md#when-the-right-tool-is-a-query-language--the-sql-over-apis-pattern) for the architectural argument. ~10 bundled sources at launch — integration breadth is the load-bearing risk |
+| **Coral** ([withcoral.com](https://withcoral.com)) | OSS (Apache 2.0), Rust, local-first | SQL-over-APIs runtime exposing GitHub / Sentry / Datadog / Slack / Linear / Stripe / OTel as queryable tables | Different shape from the rest of this table: instead of one MCP call per action, the agent writes a SQL query that JOINs across sources. Published +31% accuracy / 3.4× cost-efficient vs direct provider MCPs inside Claude Code (Opus 4.6, n=82). See [Tool Design § SQL-over-APIs](tool-design.md#when-the-right-tool-is-a-query-language-the-sql-over-apis-pattern) for the architectural argument. ~10 bundled sources at launch — integration breadth is the load-bearing risk |
 | **Smithery** | Hosted runtime | Auto-managed remote MCP servers + OAuth | Same project as the registry — install + run in one click |
 | **MCP Host** ([mcp.host](https://mcp.host/)) | Hosted | Managed hosting platform for MCP servers | Build-and-deploy without operating infra |
 | **Heroku AI Apps** | Hosted | Heroku dynos for MCP servers | Enterprise-tier managed hosting for production MCP deployments |
@@ -7739,7 +7739,7 @@ AIsa.one pitches itself as the **transaction network for the AI agent economy**:
 ## Index
 
 - [Company](#company)
-- [The substrate — what one key buys](#the-substrate--what-one-key-buys)
+- [The substrate — what one key buys](#the-substrate-what-one-key-buys)
 - [Competitors](#competitors)
 - [Where AIsa wins](#where-aisa-wins)
 - [Where AIsa has to improve](#where-aisa-has-to-improve)
@@ -7828,7 +7828,7 @@ AIsa's direct comparison set is the model-gateway layer, where two incumbents ha
 
 **The wedge, examined.** Cheap model routing is a commodity race OpenRouter and Vercel already won — AIsa should not (and mostly doesn't) run it. The defensible ground is everything past the token: capabilities + settlement behind one credential. The switching-cost argument is real: swapping a `base_url` is trivial; rewriting an agent's entire capability graph is not. The moment an agent's loop depends on model + Apollo + DataForSEO in one session, AIsa stops being fungible.
 
-**The threat window.** If OpenRouter or Vercel bolts on a credible data/action layer — or federates MCP servers with billing — the wedge narrows fast. MCP is the structural risk here: an open protocol with thousands of servers pointing at the same "one integration surface" outcome without the single-vendor catalog. AIsa's counter is settlement (MCP has no payments story) and curation (a governed catalog vs. an open bazaar with prompt-injection risk — see [the lethal trifecta](patterns.md#8-runtime-defense--pre-action-authorization-layer-12)).
+**The threat window.** If OpenRouter or Vercel bolts on a credible data/action layer — or federates MCP servers with billing — the wedge narrows fast. MCP is the structural risk here: an open protocol with thousands of servers pointing at the same "one integration surface" outcome without the single-vendor catalog. AIsa's counter is settlement (MCP has no payments story) and curation (a governed catalog vs. an open bazaar with prompt-injection risk — see [the lethal trifecta](patterns.md#8-runtime-defense-pre-action-authorization-layer-12)).
 
 **The sequencing bet.** The company's own best move — visible in how the roadmap is sequenced — is to fix the funnel before flooding it: unbreak `/models`, replace vanity claims with honest counts, prove time-to-first-call under 5 minutes, then run the payments GTM only once x402 is near-GA. Whether the org executes that sequence is the thing to watch over the next two quarters.
 
@@ -8964,9 +8964,9 @@ One striking caveat: a reasoning model in the study *inverts* under Memory Sandb
 
 ### Pre-action authorization as the structural answer
 
-For the runtime-gating story — *don't filter the model's intent, gate every action against a deterministic policy* — see [Patterns § 8: Runtime Defense & Pre-Action Authorization](patterns.md#8-runtime-defense--pre-action-authorization-layer-12), which covers the [Open Agent Passport](https://arxiv.org/abs/2603.20953) (**74.6% → 0% social-engineering ASR at 53 ms median overhead**), Meta's *Agents Rule of Two*, Google's SAIF principles, and Anthropic's Auto Mode classifier. These are the *structural* answer to the empirical finding above — content filters are bypassable; deterministic gates aren't.
+For the runtime-gating story — *don't filter the model's intent, gate every action against a deterministic policy* — see [Patterns § 8: Runtime Defense & Pre-Action Authorization](patterns.md#8-runtime-defense-pre-action-authorization-layer-12), which covers the [Open Agent Passport](https://arxiv.org/abs/2603.20953) (**74.6% → 0% social-engineering ASR at 53 ms median overhead**), Meta's *Agents Rule of Two*, Google's SAIF principles, and Anthropic's Auto Mode classifier. These are the *structural* answer to the empirical finding above — content filters are bypassable; deterministic gates aren't.
 
-For full source notes on the 8 agent-security primary sources and the 33 papers cited in the Immersive Commons 12-layer stack, see [Research Notes §§ 8–10](research-notes.md#section-8-agent-security--authorization-post-ingestion-thematic-add).
+For full source notes on the 8 agent-security primary sources and the 33 papers cited in the Immersive Commons 12-layer stack, see [Research Notes §§ 8–10](research-notes.md#section-8-agent-security-authorization-post-ingestion-thematic-add).
 
 ---
 
@@ -10639,7 +10639,7 @@ Frameworks that try to name and organize the layers of an autonomous-agent stack
 
 **Quotable:** "An agent is a loop, not a model with a clever prompt. Almost all of its real-world capability comes from the engineering around that loop, not from the weights."
 **Frameworks named (full list from the linked papers):** CodeAct (arXiv 2402.01030), Agent Q (2408.07199), AI Harness Engineering (2605.13357), Graph-of-Thoughts (2308.09687), AnyTool (2402.04253), ToolFuzz (2503.04479), MemGPT (2310.08560), ACON (2510.00615), MemAct (2510.12635), AgentFold (2510.24699), MetaGPT (2308.00352), SagaLLM (2503.11951), S-Bus (2605.17076), Don't Break the Cache (2601.06007), AgentRM (2603.13110), Agent Workflow Memory (2409.07429), EvoSkill (2603.02766), HASP (2605.17734), AlphaEvolve (2506.13131), Trace-Based Assurance (2603.18096), τ-bench (2406.12045), ToolSandbox (2408.04682), SWE-bench+ (2410.06992), ART (2507.20526), AiTM (2502.14847), OAP (2603.20953), Faramesh (2601.17744), MELON (2502.05174), Memory Sandbox (2605.08442), Trojan Hippo (2605.01970), MemoryGraft (2512.16962), SWE-Skills-Bench (2603.15401), WildClawBench (2605.10912).
-**Why it matters:** Meta-organizing map for the whole site. Anchor reference for [patterns.md § Twelve-Layer Agentic Stack](patterns.md#the-twelve-layer-agentic-stack), and the framing for Layers 11/12 in [patterns.md §§ 7–8](patterns.md#7-adversarial-surface--red-teaming-layer-11). The page is positioned as the first public output of the Immersive Commons research cluster and is refreshed monthly — re-verify the framework version and per-layer claims before citing in production work.
+**Why it matters:** Meta-organizing map for the whole site. Anchor reference for [patterns.md § Twelve-Layer Agentic Stack](patterns.md#the-twelve-layer-agentic-stack), and the framing for Layers 11/12 in [patterns.md §§ 7–8](patterns.md#7-adversarial-surface-red-teaming-layer-11). The page is positioned as the first public output of the Immersive Commons research cluster and is refreshed monthly — re-verify the framework version and per-layer claims before citing in production work.
 
 ---
 
@@ -10877,7 +10877,7 @@ The 33 arXiv papers cited by [Immersive Commons](https://www.immersivecommons.co
 **Gist:** Open Agent Passport — policy-gated, signed authorization of tool calls before execution.
 **Key claims:** Median 53 ms overhead; permissive policy 74.6% social-engineering success → **restrictive OAP 0%** across 879 attempts; Apache 2.0 spec.
 **Method:** Interception layer with cryptographically signed audit records.
-**Site slot:** [safety.md](safety.md), [patterns.md § 8](patterns.md#8-runtime-defense--pre-action-authorization-layer-12).
+**Site slot:** [safety.md](safety.md), [patterns.md § 8](patterns.md#8-runtime-defense-pre-action-authorization-layer-12).
 
 #### Faramesh: A Protocol-Agnostic Execution Control Plane for Autonomous Agent Systems
 **URL:** `https://arxiv.org/abs/2601.17744` · **Date:** 2026-01-25 · **Author:** Fatmi
@@ -11171,7 +11171,7 @@ Defense at the input / output / capability layer. See [Safety](safety.md).
 
 **Watch:** Prompt Armor, WhyLabs Safeguard, OpenAI Moderations API (free, narrow).
 
-**Structural caveat:** content filters are bypassable; deterministic gates aren't. The headline empirical study ([Memory Sandbox](research-notes.md#defense-effectiveness-across-architectural-layers-memory-sandbox-study)): input filters 88% ASR, retrieval filters 89% ASR, Prompt Hardening 77.8% ASR, **Memory Sandbox tool-gating: 0% on 8/9 models.** Gate capability, don't filter content. See [Patterns § 8 Pre-Action Authorization](patterns.md#8-runtime-defense--pre-action-authorization-layer-12).
+**Structural caveat:** content filters are bypassable; deterministic gates aren't. The headline empirical study ([Memory Sandbox](research-notes.md#defense-effectiveness-across-architectural-layers-memory-sandbox-study)): input filters 88% ASR, retrieval filters 89% ASR, Prompt Hardening 77.8% ASR, **Memory Sandbox tool-gating: 0% on 8/9 models.** Gate capability, don't filter content. See [Patterns § 8 Pre-Action Authorization](patterns.md#8-runtime-defense-pre-action-authorization-layer-12).
 
 ---
 

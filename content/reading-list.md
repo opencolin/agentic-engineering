@@ -128,7 +128,7 @@ The YouTube talk archive is the deliverable — even if you never attend, watch 
 
 ## Agent security & authorization
 
-The under-covered "what can go wrong" side of agent design. Required if you're shipping anything that touches private data or external tools. See [patterns.md § Adversarial Surface](patterns.md#7-adversarial-surface) and [§ Pre-Action Authorization](patterns.md#8-pre-action-authorization) for the architectural callouts that draw on these.
+The under-covered "what can go wrong" side of agent design. Required if you're shipping anything that touches private data or external tools. See [patterns.md § Adversarial Surface](patterns.md#7-adversarial-surface-red-teaming-layer-11) and [§ Pre-Action Authorization](patterns.md#8-runtime-defense-pre-action-authorization-layer-12) for the architectural callouts that draw on these.
 
 | Source | What you get |
 |---|---|

@@ -37,7 +37,7 @@ Ordered by GitHub stars (descending).
 
 ### Frameworks & SDKs
 
-- [DSPy + GEPA](#dspy--gepa) — 34.6K stars, Stanford NLP's programmatic LLM framework + Pareto-genetic prompt/topology optimizer
+- [DSPy + GEPA](#dspy-gepa) — 34.6K stars, Stanford NLP's programmatic LLM framework + Pareto-genetic prompt/topology optimizer
 - [Smolagents](#smolagents) — 27.5K stars, HuggingFace's ~1K-LOC hackable code-agent reference
 - [OpenAI Agents SDK](#openai-agents-sdk) — 27K stars, first-party OpenAI framework; production successor to Swarm
 - [Mastra](#mastra) — 24K stars, TypeScript framework for building custom agent systems
@@ -499,7 +499,7 @@ AWS's answer to [OpenAI Agents SDK](#openai-agents-sdk) and [Google ADK](#google
 - **GitHub:** [anthropics/claude-agent-sdk-python](https://github.com/anthropics/claude-agent-sdk-python) [![stars](https://img.shields.io/github/stars/anthropics/claude-agent-sdk-python?style=social)](https://github.com/anthropics/claude-agent-sdk-python) · [anthropics/claude-agent-sdk-typescript](https://github.com/anthropics/claude-agent-sdk-typescript) [![stars](https://img.shields.io/github/stars/anthropics/claude-agent-sdk-typescript?style=social)](https://github.com/anthropics/claude-agent-sdk-typescript)
 - **Origin:** Anthropic, 2025 (formerly Claude Code SDK); renamed Sep 2025 once it was clear teams wanted the same harness without the coding-product framing
 
-Anthropic's first-party agent SDK — **the exact same harness that ships inside [Claude Code](#terminal-coding-clis)**, exposed as a library you can import into your own apps. Where [OpenAI Agents SDK](#openai-agents-sdk), [Google ADK](#google-adk-agent-development-kit), and [Strands Agents](#strands-agents) converge on the *handoff* primitive, Claude Agent SDK converges on the *Claude Code primitives*: a `CLAUDE.md` system-prompt loader, [Skills](#skills-plugins--marketplaces) (SKILL.md progressive disclosure), PreToolUse / PostToolUse / Stop / SessionStart hooks, the Task tool for sub-agent spawning, and built-in permission prompts for irreversible actions. The framing Anthropic uses internally: model = CPU, context = RAM, harness = OS, your app = the userspace program. Same model in two harnesses produces wildly different scores — Opus 4.5 hit 78% on CORE inside Claude Code and 42% inside Smolagents.
+Anthropic's first-party agent SDK — **the exact same harness that ships inside [Claude Code](#terminal-coding-clis)**, exposed as a library you can import into your own apps. Where [OpenAI Agents SDK](#openai-agents-sdk), [Google ADK](#google-adk-agent-development-kit), and [Strands Agents](#strands-agents) converge on the *handoff* primitive, Claude Agent SDK converges on the *Claude Code primitives*: a `CLAUDE.md` system-prompt loader, [Skills](#skills-plugins-marketplaces) (SKILL.md progressive disclosure), PreToolUse / PostToolUse / Stop / SessionStart hooks, the Task tool for sub-agent spawning, and built-in permission prompts for irreversible actions. The framing Anthropic uses internally: model = CPU, context = RAM, harness = OS, your app = the userspace program. Same model in two harnesses produces wildly different scores — Opus 4.5 hit 78% on CORE inside Claude Code and 42% inside Smolagents.
 
 ### Architecture
 
@@ -539,7 +539,7 @@ The closest open-source analog to [Claude Code's](#terminal-coding-clis) harness
 ### Key Properties
 
 - Pair with `create_agent` (LangChain 1.0 default factory, Oct 2025; supersedes the deprecated `create_react_agent`) to compose agent + middleware in idiomatic LangGraph
-- The right pick if you want Claude-Code-shaped ergonomics but need model neutrality, durable checkpointing, time-travel debugging, or first-class observability via [LangSmith](infrastructure.md#agent-observability--evaluation)
+- The right pick if you want Claude-Code-shaped ergonomics but need model neutrality, durable checkpointing, time-travel debugging, or first-class observability via [LangSmith](infrastructure.md#agent-observability-evaluation)
 - The reference work for harness engineering as a discipline — read alongside [The Anatomy of an Agent Harness](https://www.langchain.com/blog/the-anatomy-of-an-agent-harness) (LangChain) and Trivedy's [Better Harness](https://www.langchain.com/blog/better-harness-a-recipe-for-harness-hill-climbing-with-evals) hill-climbing recipe
 - **Gap:** LangGraph weight. You get durability, time-travel, and middleware for free, but the conceptual surface area is larger than [Claude Agent SDK](#claude-agent-sdk) or [Smolagents](#smolagents). Teams that just want "claude.messages.create with hooks" should start lighter
 

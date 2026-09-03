@@ -6,7 +6,7 @@
 
 The virtual desktop is the environment class for agents that must drive software with **no API**: legacy Windows apps, third-party SaaS dashboards, anything where the only interface is pixels. The agent sees a screenshot, decides where to click or what to type, and the action executes on a remote screen. This page covers who sells those desktops — the market that formed around [Anthropic Computer Use](https://docs.claude.com/en/docs/agents-and-tools/computer-use) and OpenAI Operator the way the [sandbox market](sandboxes.md) formed around code execution.
 
-The operating rule from the [environment-classes taxonomy](sandboxes.md#environment-classes--beyond-code-sandboxes) carries over: **a virtual desktop is the right tool when no API exists, and the wrong tool when one does.** Screenshot reasoning is slower than API calls, visual reasoning hallucinates more than text reasoning, and UI drift between runs breaks deterministic evaluation. Everything on this page is downstream of accepting those trade-offs because the workflow demands it.
+The operating rule from the [environment-classes taxonomy](sandboxes.md#environment-classes-beyond-code-sandboxes) carries over: **a virtual desktop is the right tool when no API exists, and the wrong tool when one does.** Screenshot reasoning is slower than API calls, visual reasoning hallucinates more than text reasoning, and UI drift between runs breaks deterministic evaluation. Everything on this page is downstream of accepting those trade-offs because the workflow demands it.
 
 ---
 
@@ -55,7 +55,7 @@ The dynamic to watch: incumbents win where the desktop *already exists* (the age
 | **[Kasm Workspaces](https://kasm.com/)** | Self-hosted + cloud | Containerized Linux, browsers | Pre-agent-wave container streaming (zero-trust browser isolation); free Community Edition, ~$5–10/user/mo — the budget substrate | Not agent-native; you build the agent wiring |
 | **E2B Desktop** | Managed cloud | Linux | Desktop variant of E2B's Firecracker sandboxes — one vendor for code + desktop environments | Younger than E2B's code product |
 
-**Adjacent, not the same thing:** [Browserbase](sandboxes.md#environment-classes--beyond-code-sandboxes) sells browser-only sandboxes — if the agent's world is entirely web, a managed browser is cheaper and faster than a full desktop. Reach for a desktop only when the workflow leaves the browser.
+**Adjacent, not the same thing:** [Browserbase](sandboxes.md#environment-classes-beyond-code-sandboxes) sells browser-only sandboxes — if the agent's world is entirely web, a managed browser is cheaper and faster than a full desktop. Reach for a desktop only when the workflow leaves the browser.
 
 ---
 
@@ -79,7 +79,7 @@ Screenshot-driven operation is **token-expensive**. [The Register's analysis](ht
 
 ## Evaluation
 
-Computer-use evaluation inherits the [environments-share-infrastructure thesis](sandboxes.md#environment-classes--beyond-code-sandboxes): the eval is the same desktop with deterministic data and instrumentation.
+Computer-use evaluation inherits the [environments-share-infrastructure thesis](sandboxes.md#environment-classes-beyond-code-sandboxes): the eval is the same desktop with deterministic data and instrumentation.
 
 - **OSWorld** — the standard academic benchmark for open-ended computer-use tasks across real applications; the number most model cards cite.
 - **[Cua](https://github.com/trycua/cua)** — ships benchmarks alongside its sandboxes; the OSS pick for building your own eval loop.
@@ -92,7 +92,7 @@ See [Evals](evals.md) and [Benchmarks](benchmarks.md) for the general framework.
 
 ## Security posture
 
-A computer-use agent is a [lethal-trifecta](patterns.md#8-runtime-defense--pre-action-authorization-layer-12) machine: it reads untrusted content (whatever renders on screen — including a web page an attacker crafted), accesses private data (whatever the desktop session can reach), and communicates externally (it *is* a browser). Treat every screen pixel as untrusted input — a rendered webpage saying "ignore your instructions" is the same attack as a poisoned tool response, and visual prompt injection is harder to filter than text.
+A computer-use agent is a [lethal-trifecta](patterns.md#8-runtime-defense-pre-action-authorization-layer-12) machine: it reads untrusted content (whatever renders on screen — including a web page an attacker crafted), accesses private data (whatever the desktop session can reach), and communicates externally (it *is* a browser). Treat every screen pixel as untrusted input — a rendered webpage saying "ignore your instructions" is the same attack as a poisoned tool response, and visual prompt injection is harder to filter than text.
 
 Mitigations that match the site's [gate-capability-not-content](safety.md) position: scope the desktop session's credentials to the task (IAM-per-agent is the WorkSpaces model), no-egress or allowlist networking where the workflow permits, session recording for post-hoc review, and pre-action authorization for irreversible operations (sends, payments, deletes). The desktop's advantage: unlike a human session, you can replay every frame.
 
@@ -110,14 +110,14 @@ Mitigations that match the site's [gate-capability-not-content](safety.md) posit
 | Already on E2B for code sandboxes | **E2B Desktop** |
 | Agent must join the *existing employee desktop fleet* (legacy Windows apps, IAM, audit) | **AWS WorkSpaces agent desktops** |
 | Regulated industry already on Citrix/Omnissa | Wait for first-party agent support, or drive via harness with heavy session recording |
-| The workflow never leaves the browser | Don't buy a desktop — **Browserbase** ([Sandboxes](sandboxes.md#environment-classes--beyond-code-sandboxes)) |
+| The workflow never leaves the browser | Don't buy a desktop — **Browserbase** ([Sandboxes](sandboxes.md#environment-classes-beyond-code-sandboxes)) |
 | An API exists for the target app | **Don't use computer use.** Use the API. |
 
 ---
 
 ## See also
 
-- [Sandboxes § Environment Classes](sandboxes.md#environment-classes--beyond-code-sandboxes) — where agent desktops sit in the four-class environment taxonomy
+- [Sandboxes § Environment Classes](sandboxes.md#environment-classes-beyond-code-sandboxes) — where agent desktops sit in the four-class environment taxonomy
 - [Sandboxes § Market Structure](sandboxes.md#the-sandbox-market-structure) — the Layer B / Layer D dynamic this market is replaying
 - [Cost & Economics](cost-economics.md) — the token math that makes or breaks computer-use deployments
 - [Safety](safety.md) — visual prompt injection and pre-action authorization

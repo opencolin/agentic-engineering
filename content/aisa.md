@@ -11,7 +11,7 @@ AIsa.one pitches itself as the **transaction network for the AI agent economy**:
 ## Index
 
 - [Company](#company)
-- [The substrate — what one key buys](#the-substrate--what-one-key-buys)
+- [The substrate — what one key buys](#the-substrate-what-one-key-buys)
 - [Competitors](#competitors)
 - [Where AIsa wins](#where-aisa-wins)
 - [Where AIsa has to improve](#where-aisa-has-to-improve)
@@ -100,7 +100,7 @@ AIsa's direct comparison set is the model-gateway layer, where two incumbents ha
 
 **The wedge, examined.** Cheap model routing is a commodity race OpenRouter and Vercel already won — AIsa should not (and mostly doesn't) run it. The defensible ground is everything past the token: capabilities + settlement behind one credential. The switching-cost argument is real: swapping a `base_url` is trivial; rewriting an agent's entire capability graph is not. The moment an agent's loop depends on model + Apollo + DataForSEO in one session, AIsa stops being fungible.
 
-**The threat window.** If OpenRouter or Vercel bolts on a credible data/action layer — or federates MCP servers with billing — the wedge narrows fast. MCP is the structural risk here: an open protocol with thousands of servers pointing at the same "one integration surface" outcome without the single-vendor catalog. AIsa's counter is settlement (MCP has no payments story) and curation (a governed catalog vs. an open bazaar with prompt-injection risk — see [the lethal trifecta](patterns.md#8-runtime-defense--pre-action-authorization-layer-12)).
+**The threat window.** If OpenRouter or Vercel bolts on a credible data/action layer — or federates MCP servers with billing — the wedge narrows fast. MCP is the structural risk here: an open protocol with thousands of servers pointing at the same "one integration surface" outcome without the single-vendor catalog. AIsa's counter is settlement (MCP has no payments story) and curation (a governed catalog vs. an open bazaar with prompt-injection risk — see [the lethal trifecta](patterns.md#8-runtime-defense-pre-action-authorization-layer-12)).
 
 **The sequencing bet.** The company's own best move — visible in how the roadmap is sequenced — is to fix the funnel before flooding it: unbreak `/models`, replace vanity claims with honest counts, prove time-to-first-call under 5 minutes, then run the payments GTM only once x402 is near-GA. Whether the org executes that sequence is the thing to watch over the next two quarters.
 

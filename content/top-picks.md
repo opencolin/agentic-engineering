@@ -257,7 +257,7 @@ Defense at the input / output / capability layer. See [Safety](safety.md).
 
 **Watch:** Prompt Armor, WhyLabs Safeguard, OpenAI Moderations API (free, narrow).
 
-**Structural caveat:** content filters are bypassable; deterministic gates aren't. The headline empirical study ([Memory Sandbox](research-notes.md#defense-effectiveness-across-architectural-layers-memory-sandbox-study)): input filters 88% ASR, retrieval filters 89% ASR, Prompt Hardening 77.8% ASR, **Memory Sandbox tool-gating: 0% on 8/9 models.** Gate capability, don't filter content. See [Patterns § 8 Pre-Action Authorization](patterns.md#8-runtime-defense--pre-action-authorization-layer-12).
+**Structural caveat:** content filters are bypassable; deterministic gates aren't. The headline empirical study ([Memory Sandbox](research-notes.md#defense-effectiveness-across-architectural-layers-memory-sandbox-study)): input filters 88% ASR, retrieval filters 89% ASR, Prompt Hardening 77.8% ASR, **Memory Sandbox tool-gating: 0% on 8/9 models.** Gate capability, don't filter content. See [Patterns § 8 Pre-Action Authorization](patterns.md#8-runtime-defense-pre-action-authorization-layer-12).
 
 ---
 

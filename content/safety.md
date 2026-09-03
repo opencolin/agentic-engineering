@@ -255,9 +255,9 @@ One striking caveat: a reasoning model in the study *inverts* under Memory Sandb
 
 ### Pre-action authorization as the structural answer
 
-For the runtime-gating story — *don't filter the model's intent, gate every action against a deterministic policy* — see [Patterns § 8: Runtime Defense & Pre-Action Authorization](patterns.md#8-runtime-defense--pre-action-authorization-layer-12), which covers the [Open Agent Passport](https://arxiv.org/abs/2603.20953) (**74.6% → 0% social-engineering ASR at 53 ms median overhead**), Meta's *Agents Rule of Two*, Google's SAIF principles, and Anthropic's Auto Mode classifier. These are the *structural* answer to the empirical finding above — content filters are bypassable; deterministic gates aren't.
+For the runtime-gating story — *don't filter the model's intent, gate every action against a deterministic policy* — see [Patterns § 8: Runtime Defense & Pre-Action Authorization](patterns.md#8-runtime-defense-pre-action-authorization-layer-12), which covers the [Open Agent Passport](https://arxiv.org/abs/2603.20953) (**74.6% → 0% social-engineering ASR at 53 ms median overhead**), Meta's *Agents Rule of Two*, Google's SAIF principles, and Anthropic's Auto Mode classifier. These are the *structural* answer to the empirical finding above — content filters are bypassable; deterministic gates aren't.
 
-For full source notes on the 8 agent-security primary sources and the 33 papers cited in the Immersive Commons 12-layer stack, see [Research Notes §§ 8–10](research-notes.md#section-8-agent-security--authorization-post-ingestion-thematic-add).
+For full source notes on the 8 agent-security primary sources and the 33 papers cited in the Immersive Commons 12-layer stack, see [Research Notes §§ 8–10](research-notes.md#section-8-agent-security-authorization-post-ingestion-thematic-add).
 
 ---
 

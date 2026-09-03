@@ -91,7 +91,7 @@ Models tuned specifically for code, tool use, or agent loops — distinct from "
 ## What this page doesn't cover
 
 - **Fine-tunes, distillations, regional models.** The long tail (Phi-4, Aya, Sea-LION, Yi, Falcon, …) lives on the [LM Arena leaderboard](https://lmarena.ai) and [Artificial Analysis](https://artificialanalysis.ai/models). If you need one of these, those leaderboards beat any curated table.
-- **Hosted-only "Operator-class" agents.** [Claude Cowork](approaches.md#browser-use--computer-use-frameworks), [OpenAI Operator](approaches.md#browser-use--computer-use-frameworks), [Anthropic Computer Use](approaches.md#browser-use--computer-use-frameworks) — these are *products*, not exposed as raw model APIs; covered in [Approaches](approaches.md#browser-use--computer-use-frameworks).
+- **Hosted-only "Operator-class" agents.** [Claude Cowork](approaches.md#browser-use-computer-use-frameworks), [OpenAI Operator](approaches.md#browser-use-computer-use-frameworks), [Anthropic Computer Use](approaches.md#browser-use-computer-use-frameworks) — these are *products*, not exposed as raw model APIs; covered in [Approaches](approaches.md#browser-use-computer-use-frameworks).
 - **Embedding models.** Out of scope for agentic-engineering routing; the embedding-model choice mostly affects RAG, not agent loops. See [LangChain Embeddings docs](https://python.langchain.com/docs/integrations/text_embedding/) for current rankings.
 - **Image / video / voice generation models.** Separate category; not what this page is for.
 - **Sub-7B-class models.** The minimum viable agent loop is roughly Llama 3.1 8B / Qwen 7B-class; anything smaller doesn't reliably call tools or follow structured-output specs.

@@ -124,7 +124,7 @@ From [Anthropic's skills post](https://anthropic.com/engineering/equipping-agent
 
 The model autonomously executes bundled scripts when the skill is invoked. A malicious skill in your repo can call out to the internet, read other files, push to the wrong remote. Treat third-party skills the way you'd treat any third-party dependency: read the bundled scripts before installing.
 
-[Anthropic's Auto Mode](https://anthropic.com/engineering/claude-code-auto-mode) layers a transcript classifier on top to catch overeager skill invocations — see [Harness Engineering](harness-engineering.md#sandboxing--permissions) for the broader security model.
+[Anthropic's Auto Mode](https://anthropic.com/engineering/claude-code-auto-mode) layers a transcript classifier on top to catch overeager skill invocations — see [Harness Engineering](harness-engineering.md) for the broader security model.
 
 ---
 
