@@ -12,9 +12,9 @@ This page treats that as a case study in end-to-end agent-iteration tooling: wha
 
 - [Company](#company) — Luxor origin, team, funding, customers, security
 - [The agent-iteration loop](#the-agent-iteration-loop) — the bundle thesis
-- [Product 1 — Sandbox](#product-1--sandbox) vs E2B, Daytona, Modal, Blaxel
-- [Product 2 — Runners](#product-2--runners) vs Blacksmith, Depot, Namespace, BuildJet
-- [Product 3 — Code Reviewer](#product-3--code-reviewer) vs CodeRabbit, Greptile, Qodo, Copilot review
+- [Product 1 — Sandbox](#product-1-sandbox) vs E2B, Daytona, Modal, Blaxel
+- [Product 2 — Runners](#product-2-runners) vs Blacksmith, Depot, Namespace, BuildJet
+- [Product 3 — Code Reviewer](#product-3-code-reviewer) vs CodeRabbit, Greptile, Qodo, Copilot review
 - [Strategic position](#strategic-position) — the bundle thesis, examined honestly
 - [Where DevRel adds the most leverage](#where-devrel-adds-the-most-leverage)
 - [Verdict](#verdict)
@@ -23,7 +23,7 @@ This page treats that as a case study in end-to-end agent-iteration tooling: wha
 
 ## Company
 
-**Tenki** is the AI-infrastructure product line of **Luxor Technology**, a Seattle-based bare-metal-infrastructure operator founded in 2017 by Nick Hansen (CEO), Eddie Wang (CTO), Ethan Vera (COO), and Guzman Pintos (CPO). Luxor's first business was Bitcoin-mining infrastructure — the same hardware-buying, bare-metal-orchestration, and low-margin-economies-of-scale discipline that works for running SHA-256 ASIC farms turns out to map cleanly to running cheap, fast Firecracker microVMs for AI agents. Tenki launched in 2024 as the brand for the AI side of that operation; "tenki" is Japanese for "weather."
+**Tenki** is the AI-infrastructure product line of **Luxor Technology**, a Seattle-based bare-metal-infrastructure operator founded in 2017 by Nick Hansen (CEO), Eddie Wang (CTO), Ethan Vera (COO), and Guzman Pintos (CPO). Luxor's first business was Bitcoin-mining infrastructure — the same hardware-buying, bare-metal-orchestration, and low-margin-economies-of-scale discipline that works for running SHA-256 ASIC farms turns out to map cleanly to running cheap, fast single-tenant VMs for AI agents. Tenki launched in 2024 as the brand for the AI side of that operation; "tenki" is Japanese for "weather."
 
 **Team.** 11–50 across the US, Canada, Argentina, China, and the Philippines. Visible Tenki leads (per the company About page and LinkedIn): Eddie Wang (engineering), Hayssem Elsayed (product), Marina Rivosecchi (growth), Eddy Peng (design). The wider Luxor parent has separately raised institutional capital.
 
@@ -31,9 +31,9 @@ This page treats that as a case study in end-to-end agent-iteration tooling: wha
 
 **Customers.** No marquee public logos on a corporate landing page. Code Reviewer ships a benchmark report citing real customer projects — Siyavula, Blockware, Sia, Upsell, Citrea, Omnilens, Layers, Orynth, Luxor (the parent), Netmaker — mostly small-to-mid teams, several from the Bitcoin/crypto-infra adjacency the parent already lives in.
 
-**Security.** SOC 2 Type II claimed across the product line; the [Security page](https://tenki.cloud/company/security) advertises the program. SOC 2 Type II vs Type I status by product line is worth verifying before quoting publicly.
+**Security.** SOC 2 Type II under parent Luxor Technology's program (audited by an independent CPA firm, refreshed annually), all compute in ISO 27001-certified data-center facilities, and a 99% uptime SLA backed by credits — per the [Security page](https://tenki.cloud/company/security). That page details Runners specifically; per-product scope for Sandbox and Code Reviewer is worth confirming before quoting publicly.
 
-**Pricing posture across products.** Starter free credits on every product; Team plan around $200/mo on each; Enterprise custom. Per-unit pricing is sub-cent on Sandbox (per-second) and sub-cent on Runners (per-core-minute); $1 per AI code review. The pricing story is consistently *"order-of-magnitude cheaper than the category default."*
+**Pricing posture across products.** Starter free credits on every product; one workspace-wide Team plan at $200/mo billed yearly ($250 month-to-month); Enterprise custom. Per-unit pricing is sub-cent on Sandbox (per-second) and sub-cent on Runners (per-core-minute); $1 per AI code review. The pricing story is consistently *"order-of-magnitude cheaper than the category default."*
 
 ---
 
@@ -54,16 +54,16 @@ This is the **bundle thesis**: when a buyer's bottleneck is not one of the four 
 
 ## Product 1 — Sandbox
 
-**What it is.** Disposable Linux microVMs for executing AI-generated code. SDKs in TypeScript, Python, and Go; a "Sandbox ADE" desktop app for macOS and Linux for local iteration; per-second billing with $5 GiB free storage. Sub-2-second provisioning is the headline performance number. Idle/paused sandboxes are not billed for compute — Tenki's positioning is *"pay only for running time."*
+**What it is.** Disposable full Linux VMs for executing AI-generated code. SDKs in TypeScript, Python, and Go; a "Sandbox ADE" desktop app for macOS and Linux for local iteration; per-second billing with 5 GiB free disk. Sub-2-second provisioning is the headline performance number. Idle/paused sandboxes are not billed for compute — Tenki's positioning is *"pay only for running time."*
 
 | Spec | Tenki Sandbox |
 |------|--------------|
-| Isolation | Firecracker microVM (separate kernel per session, wiped on termination) |
+| Isolation | Single-tenant full Linux VM (separate kernel per session, wiped on termination; hypervisor not publicly named) |
 | Cold start | < 2 seconds (claimed) |
 | Persistence | Stateful while running; paused state preserved without compute cost |
-| GPU | Not advertised for the Sandbox tier [unverified] |
-| Pricing | $0.000014/vCPU·s, $0.0000045/GiB·s memory, $0.00000003/GiB·s storage; tiered Nano $0.08/hr → XLarge $1.32/hr; 5 GiB free storage |
-| Security | SOC 2 Type II claimed |
+| GPU | Not advertised |
+| Pricing | $0.000014/vCPU·s, $0.0000045/GiB·s memory, $0.00000003/GiB·s disk, $0.000000076/GiB·s persistent storage; tiered Nano $0.08/hr → XLarge $1.32/hr; 5 GiB free disk |
+| Security | SOC 2 Type II (parent Luxor's program); ISO 27001 facilities |
 | SDKs | TypeScript, Go, Python + macOS/Linux desktop "Sandbox ADE" |
 
 ### Direct competitors
@@ -83,7 +83,7 @@ See the full landscape in [Sandboxes § Purpose-Built Agent Sandboxes](sandboxes
 
 - **Microeconomics.** Per-second billing with explicit *zero idle compute cost* is operator-friendly; the Nano tier at $0.08/hr undercuts most managed alternatives, especially for short-lived bursty agent workloads.
 - **Bundle.** If you're already running Tenki Runners or Tenki Code Reviewer, adding Sandbox is one more checkbox on the same MSA — not a new vendor evaluation.
-- **microVM by default.** Hardware-level isolation as the default tier puts Tenki above gVisor (Modal) and Docker (Daytona) for untrusted-code postures.
+- **Full VM by default.** Hardware-level isolation as the default tier puts Tenki above gVisor (Modal) and Docker (Daytona) for untrusted-code postures — though unlike E2B or Blaxel, Tenki doesn't publicly name its hypervisor.
 
 ### Where Tenki Sandbox has to improve
 
@@ -96,14 +96,14 @@ See the full landscape in [Sandboxes § Purpose-Built Agent Sandboxes](sandboxes
 
 ## Product 2 — Runners
 
-**What it is.** Drop-in replacement for GitHub-hosted Actions runners. Same `runs-on:` swap, same workflows, claimed 30% faster and 60–90% cheaper. Each job runs in an ephemeral **Firecracker microVM** that is destroyed after the run — stronger isolation than the bare-metal-pooled approach competitors take. x64 Linux and Apple Silicon M4 Pro on macOS. No GitLab or Jenkins support as of mid-2026.
+**What it is.** Drop-in replacement for GitHub-hosted Actions runners. Same `runs-on:` swap, same workflows, claimed ~30% faster and up to 60% cheaper. Each job runs in a **single-tenant ephemeral VM** — fresh kernel, fresh disk, isolated network namespace — destroyed after the run: stronger isolation than the bare-metal-pooled approach competitors take. x64 Linux and Apple Silicon M4 Pro on macOS. No GitLab or Jenkins support as of mid-2026.
 
 | Spec | Tenki Runners |
 |------|---------------|
-| Isolation | Firecracker microVM per job, destroyed after run |
+| Isolation | Single-tenant ephemeral VM per job (fresh kernel, disk, and network namespace), destroyed after run |
 | Hardware | x64 Linux + Apple Silicon M4 Pro (macOS) |
-| Speed claim | "30% faster, up to 60–90% cheaper" than GitHub-hosted |
-| Pricing | $0.002/core-min x64; $0.080/core-min macOS; Starter $10/mo credits; Team $200/mo |
+| Speed claim | "~30% faster, up to 60% cheaper" than GitHub-hosted |
+| Pricing | $0.002/core-min x64; $0.020/core-min macOS; cache $0.20/GB·mo; Starter $10/mo credits; Team $200/mo billed yearly |
 | VCS support | GitHub Actions only (no GitLab / Bitbucket / Azure DevOps) |
 | Migration | Single `runs-on:` line change |
 
@@ -120,8 +120,8 @@ See the full landscape in [Sandboxes § Purpose-Built Agent Sandboxes](sandboxes
 
 ### Where Tenki Runners wins
 
-- **Strongest isolation in the category.** Firecracker microVM per job + destroyed after run is the most hostile-environment-safe posture among the faster-runner cohort. Blacksmith's bare-metal pool is faster on raw single-core but weaker on isolation. If a buyer's threat model includes "the agent's PR contains adversarial code that tries to escape the runner," Tenki has the right answer.
-- **Cheapest mainstream paid plan.** $0.002/core-min x64 is half of Blacksmith and a quarter of GitHub-hosted at the unit level.
+- **Strongest isolation in the category.** A single-tenant ephemeral VM per job — fresh kernel, destroyed after the run — is the most hostile-environment-safe posture among the faster-runner cohort. Blacksmith's bare-metal pool is faster on raw single-core but weaker on isolation. If a buyer's threat model includes "the agent's PR contains adversarial code that tries to escape the runner," Tenki has the right answer.
+- **Cheap, at parity with the leader.** $0.002/core-min x64 matches Blacksmith's rate at the unit level (both bill a 2-vCPU job at ~$0.004/min) and is half of GitHub-hosted.
 - **Bundle.** Same operator as the Sandbox the agent already ran the code in. One billing relationship, one trust boundary.
 
 ### Where Tenki Runners has to improve
@@ -130,9 +130,9 @@ See the full landscape in [Sandboxes § Purpose-Built Agent Sandboxes](sandboxes
 - **No GPU SKU advertised.** GitHub now ships GPU runners; Blacksmith has discussed it; Tenki doesn't.
 - **No Windows.** Blacksmith and Depot both have Windows in some state. Tenki is Linux + macOS only.
 - **No GitLab / Bitbucket / Azure DevOps.** Constrains TAM in regulated and large-enterprise segments.
-- **No public benchmark.** "30% faster, 60-90% cheaper" is a claim, not a published benchmark. Blacksmith has a head-to-head Node.js test on its homepage. Tenki should ship the equivalent for at least three popular OSS repos.
+- **No public benchmark.** "~30% faster, up to 60% cheaper" is a claim, not a published benchmark. Blacksmith has a head-to-head Node.js test on its homepage. Tenki should ship the equivalent for at least three popular OSS repos.
 
-For the broader competitive context, see [Infrastructure § CI Runners for Agent Iteration](infrastructure.md).
+For the broader competitive context, see [Infrastructure § CI Runners for Agent Iteration](infrastructure.md#ci-runners-for-agent-iteration).
 
 ---
 
@@ -144,7 +144,7 @@ For the broader competitive context, see [Infrastructure § CI Runners for Agent
 |------|---------------------|
 | Integration | GitHub App only (no GitLab / Bitbucket / Azure DevOps) |
 | Setup | Claimed sub-2-minute install |
-| Pricing | **$1.00 per review**, $10/mo free credits on Starter, $100/mo on Team ($200/mo) — and a $20/seat/mo unlimited annual plan also appears in competitive marketing copy [unverified — confirm with sales which is the canonical public price] |
+| Pricing | **$1.00 per review**, $10/mo free credits on Starter, $100/mo on Team ($200/mo billed yearly) — and a $20/seat/mo unlimited annual plan also appears in competitive marketing copy [unverified — confirm with sales which is the canonical public price] |
 | Models | Not disclosed publicly [unverified] |
 | Configuration | Files committed to the repo (no UI-only state) |
 | Self-published benchmark | 68.9% bug-detection recall on 122 production bugs from 50 PRs across Cal.com / Sentry / Grafana / Keycloak / Discourse; claimed 1.9× the next-best tool |
@@ -199,7 +199,7 @@ The AI-PR-review category has consolidated into four clusters.
 
 ### The bundle thesis, examined
 
-The Tenki pitch — explicit or not — is: *most agent teams will eventually want one vendor across the agent runtime (Sandbox), the CI verification (Runners), and the PR review (Code Reviewer), and we are the only vendor offering all three.* That is true today. **No one else has the full stack.** CodeRabbit reviews only. Greptile reviews only. Blacksmith runs CI only. E2B sandboxes only. Daytona sandboxes only (post-pivot). GitHub has CI and review but no agent-grade microVM sandbox.
+The Tenki pitch — explicit or not — is: *most agent teams will eventually want one vendor across the agent runtime (Sandbox), the CI verification (Runners), and the PR review (Code Reviewer), and we are the only vendor offering all three.* That is true today. **No one else has the full stack.** CodeRabbit reviews only. Greptile reviews only. Blacksmith runs CI only. E2B sandboxes only. Daytona sandboxes only (post-pivot). GitHub has CI and review but no agent-grade disposable-VM sandbox.
 
 The thesis wins when a buyer's pain is *vendor stitching*: separate MSAs, separate SOC 2 reports, separate billing, separate observability dashboards, separate trust boundaries. For a mid-market shop spinning up agent fleets, that vendor count is a real cost.
 
@@ -211,18 +211,18 @@ The strategic question is whether **the bundle's compound advantage outpaces the
 
 | Comparison | What Tenki has that they don't |
 |------------|-------------------------------|
-| **vs. CodeRabbit** | The Sandbox and the Runners; per-review pricing; microVM-grade isolation across the stack |
+| **vs. CodeRabbit** | The Sandbox and the Runners; per-review pricing; VM-grade isolation across the stack |
 | **vs. Greptile** | The Sandbox and the Runners; $1/review undercuts $30 + overage |
-| **vs. Blacksmith** | The Sandbox and the Reviewer; Firecracker-per-job isolation (vs Blacksmith's bare-metal pool) |
+| **vs. Blacksmith** | The Sandbox and the Reviewer; ephemeral-VM-per-job isolation (vs Blacksmith's bare-metal pool) |
 | **vs. E2B** | The Runners and the Reviewer; per-second sandbox idle-cost pricing |
-| **vs. Daytona** | The Runners and the Reviewer; microVM-per-job (vs Daytona's containers) |
-| **vs. GitHub** | The Sandbox (GitHub has no agent-grade microVM sandbox); microVM-per-CI-job runner isolation; aggressive per-review pricing on the reviewer |
+| **vs. Daytona** | The Runners and the Reviewer; VM-per-job isolation (vs Daytona's containers) |
+| **vs. GitHub** | The Sandbox (GitHub has no agent-grade disposable-VM sandbox); VM-per-CI-job runner isolation; aggressive per-review pricing on the reviewer |
 | **vs. all of them** | One operator, one billing relationship, one trust boundary across the full agent CI loop |
 
 ### Where Tenki has work to do
 
 - **GPU on Sandbox.** Disqualifying gap for vision / local-model / RL workloads.
-- **Public benchmark on Runners.** "30% faster, 60-90% cheaper" needs a head-to-head.
+- **Public benchmark on Runners.** "~30% faster, up to 60% cheaper" needs a head-to-head.
 - **Model disclosure on Code Reviewer.** Required for any technical buyer evaluation.
 - **Multi-VCS support across the line.** Material TAM gap.
 - **A marquee enterprise reference.** The current logo list is small and crypto-adjacent.
@@ -253,7 +253,7 @@ The Code Reviewer benchmark is already the strongest marketing asset Tenki has. 
 
 Tenki's existing customer logos skew crypto-infra (Citrea, Blockware, Luxor, Netmaker). That's the parent company's network at work, not a strategy. The natural community for Tenki is **AI agent builders**: people running Claude Code / OpenHands / Codex / Cursor power-user setups where agents author PRs at machine cadence. They need:
 
-- A microVM sandbox the agent can iterate inside.
+- An isolated, disposable VM the agent can iterate inside.
 - A fast CI runner so the agent's PR turns green in 90 seconds, not 8 minutes.
 - A per-PR reviewer instead of a per-seat one, because the "seat" writing the PRs is an agent.
 
@@ -263,7 +263,7 @@ That's Tenki's three products in order. The natural channels are: the agent-CLI 
 
 The parent-company context is unusual and will come up in any due-diligence conversation. The narrative DevRel should pre-load:
 
-> *Tenki is the AI side of a nine-year-old infrastructure operator that runs $hundreds-of-millions of bare-metal hardware at low cost. The same buying-power and orchestration discipline that makes mining profitable is what lets us undercut the venture-funded competition on per-second sandbox cost and per-core-minute runner cost. We are not a software startup chasing margin; we are an infrastructure operator with software on top.*
+> *Tenki is the AI side of a nine-year-old infrastructure operator that runs hundreds of millions of dollars of bare-metal hardware at low cost. The same buying-power and orchestration discipline that makes mining profitable is what lets us undercut the venture-funded competition on per-second sandbox cost and per-core-minute runner cost. We are not a software startup chasing margin; we are an infrastructure operator with software on top.*
 
 Owned narrative beats "wait, you're a mining company?"
 
@@ -273,7 +273,7 @@ Before the candidate puts these in a deck or a talk:
 
 - **The 68.9% recall benchmark.** Defensible methodology; rivals will push back. Know the exact corpus, the exact configs each competitor ran, and the cutoff date.
 - **Which model powers Code Reviewer.** Public silence on this is a credibility cost; if it's switchable, say so; if it's a specific model, say so; if there's a reason it has to stay private, have that reason ready.
-- **SOC 2 status by product.** Type I vs Type II vs in-progress by product line.
+- **SOC 2 scope by product.** The program is parent Luxor's Type II; confirm each product line is in scope.
 - **$1/review vs $20/seat unlimited.** Confirm which is the canonical public price and which is a sales-team option.
 
 ### 6. The DevRel-leverage ranking
@@ -297,8 +297,8 @@ The Code Reviewer benchmark is the strongest single marketing asset the company 
 
 ## See also
 
-- [Infrastructure § CI Runners for Agent Iteration](infrastructure.md) — full landscape of fast GitHub Actions runners
+- [Infrastructure § CI Runners for Agent Iteration](infrastructure.md#ci-runners-for-agent-iteration) — full landscape of fast GitHub Actions runners
 - [Sandboxes § Purpose-Built Agent Sandboxes](sandboxes.md#purpose-built-agent-sandboxes) — the broader sandbox category
-- [Sandboxes § Isolation Tiers](sandboxes.md#isolation-tiers-the-security-ladder) — why Firecracker microVM is the recommended default
+- [Sandboxes § Isolation Tiers](sandboxes.md#isolation-tiers-the-security-ladder) — the security ladder for running untrusted agent code
 - [Sandboxes § Contree](sandboxes.md#contree-the-git-native-sandbox) — the comparable vendor deep-dive on a different agent-sandbox player
 - [Inference § Nebius AI Cloud](inference.md#nebius-ai-cloud-standout-platform) — the comparable standout-vendor pattern on the inference side
